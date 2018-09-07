@@ -1,10 +1,11 @@
 # components
-Shared component library
 
+Shared component library
 
 ## DEV TODO
 
 ### For 9/20
+
 - [x] Add Storybook
 - [x] File structure decisions
 - [x] Add Drawer component
@@ -14,9 +15,11 @@ Shared component library
 - [ ] Lerna for publishing to npm
 
 ### For the future
+
 - [ ] Add [a11y addon](https://github.com/storybooks/storybook/tree/master/addons/a11y)
 - [ ] Configure Jest
-- [ ] Linting/Prettier
+- [ ] Linting
+- [x] Prettier (oops, couldn't resist)
 
 ---
 
@@ -24,12 +27,12 @@ Shared component library
 
 ### Fonts
 
-*In progress...not available yet*
+_In progress...not available yet_
 
 To enable our fonts in your project, just include the sass file either in your JS or in the `<head>` of your index file:
 
-  `import '@the-wing/components/fonts.css'`
+`import '@the-wing/components/fonts.css'`
 
-  or
+or
 
-  `<link rel="stylesheet" type="text/css" href="node_modules/@the-wing/components/fonts.css">`
+`<link rel="stylesheet" type="text/css" href="node_modules/@the-wing/components/fonts.css">`
