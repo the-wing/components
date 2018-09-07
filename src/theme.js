@@ -24,15 +24,15 @@ const theme = {
     tussock: { main: '#c59040', contrast: '#fff' },
     vermilion: { main: '#ff4b00', contrast: '#fff' },
     white: { main: '#fff', contrast: '#000' },
-    woodsmoke: { main: '#020303', contrast: '#fff' }
+    woodsmoke: { main: '#020303', contrast: '#fff' },
   },
   text: {
     primary: 'Bianco Serif New',
     secondary: 'Bianco Sans New',
-    title: 'Bureau Grotesque'
+    title: 'Bureau Grotesque',
   },
   breakpoints: [374, 768, 992, 1200],
-  defaultAvatar: 'https://the-wing.imgix.net/app/wing-default-photo-4ba-8920b5666487.png'
+  defaultAvatar: 'https://the-wing.imgix.net/app/wing-default-photo-4ba-8920b5666487.png',
 };
 
 export default theme;

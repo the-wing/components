@@ -7,23 +7,21 @@ import theme from 'theme';
 
 const Button = styled.button`
   background-color: ${props =>
-    (props.outlined || !theme.colors[props.color]
-      ? 'transparent'
-      : theme.colors[props.color].main)};
+    props.outlined || !theme.colors[props.color] ? 'transparent' : theme.colors[props.color].main};
   border: ${props =>
-    (props.bordered || props.outlined
+    props.bordered || props.outlined
       ? `1px solid ${theme.colors[props.outlined ? props.color : 'black'].main}`
-      : 'none')};
+      : 'none'};
   color: ${props =>
-    (theme.colors[props.color]
+    theme.colors[props.color]
       ? theme.colors[props.color][props.outlined ? 'main' : 'contrast']
-      : 'inherit')};
+      : 'inherit'};
   cursor: pointer;
   font-family: ${props => theme.text.secondary};
   ${props =>
-    (props.size
+    props.size
       ? responsive('font-size', 'size', value => `${value}px`)
-      : 'font-size: calc(13 / 16 * 1rem)')};
+      : 'font-size: calc(13 / 16 * 1rem)'};
   font-weight: 800;
   letter-spacing: 2px;
   line-height: ${props => (props.lineHeight ? props.lineHeight : 'calc(17 / 16 * 1rem)')};
@@ -53,7 +51,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   children: PropTypes.node.isRequired,
   uppercase: PropTypes.bool,
-  size: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)])
+  size: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]),
 };
 
 Button.defaultProps = {
@@ -61,7 +59,7 @@ Button.defaultProps = {
   height: '47px',
   width: '100%',
   uppercase: true,
-  size: null
+  size: null,
 };
 
 export default Button;
