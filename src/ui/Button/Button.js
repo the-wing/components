@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { responsive } from 'utils';
 import theme from 'theme';
 
-const Button = styled('button')`
+const Button = styled.button`
   background-color: ${props =>
     (props.outlined || !theme.colors[props.color]
       ? 'transparent'
