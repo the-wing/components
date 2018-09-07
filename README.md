@@ -7,7 +7,8 @@ Shared component library
 ### For 9/20
 - [x] Add Storybook
 - [x] File structure decisions
-- [ ] Add Sliding/Sidebar (name?) component
+- [x] Add Drawer component
+- [ ] Add components/profile + components/profileSidebar (?) (add transition around drawer)
 - [ ] Container (?) component for Profile sidebar
 - [ ] Export fonts.scss to public/fonts.css for use in all apps (update directions below)
 - [ ] Lerna for publishing to npm
