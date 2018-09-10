@@ -19,8 +19,26 @@ const userWithSocial = {
   },
 };
 
+const userWithAllInfo = {
+  ...userWithSocial,
+  bio:
+    'Jean shorts affogato pickled pork belly hexagon unicorn ramps roof party pug. Godard squid mumblecore letterpress brunch twee photo booth.',
+  occupation: {
+    position: 'Software Engineer',
+    company: 'The Wing',
+  },
+  industry: {
+    _id: '123',
+    name: 'Computers/IT',
+  },
+  offers: ['Code review', 'Javascript lessons', 'Networking'],
+  asks: ['Help me', 'I need', 'More cookies'],
+  interests: ['Gender politics', 'Feminism', 'Vinyl'],
+};
+
 storiesOf('Profile', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => <Profile onClose={action('onClose')} />)
-  .add('with name, headline', () => <Profile onClose={action('onClose')} user={defaultUser} />)
-  .add('with social', () => <Profile onClose={action('onClose')} user={userWithSocial} />);
+  .add('with name, headline', () => <Profile onClose={action('onClose')} {...defaultUser} />)
+  .add('with social', () => <Profile onClose={action('onClose')} {...userWithSocial} />)
+  .add('with all info', () => <Profile onClose={action('onClose')} {...userWithAllInfo} />);

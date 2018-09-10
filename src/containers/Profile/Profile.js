@@ -2,12 +2,16 @@ import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import styled from 'styled-components';
+import { Transition } from 'react-spring';
 import theme from 'theme';
 
 import Box from 'ui/Box/Box';
+import Chip from 'ui/Chip/Chip';
 import Image from 'ui/Image/Image';
-import Text from 'ui/Text/Text';
+import Section from 'ui/Section/Section';
 import SocialIcon from 'ui/SocialIcon/SocialIcon';
+import Text from 'ui/Text/Text';
+
 import ProfileContainer from './ProfileContainer';
 
 const SocialLink = styled.a`
@@ -40,7 +44,18 @@ const getSocialLink = (type, value) => {
   return null;
 };
 
-const Profile = ({ user: { avatarUrl, headline, name, social } }) => (
+const Profile = ({
+  asks,
+  avatarUrl,
+  bio,
+  headline,
+  industry,
+  interests,
+  name,
+  occupation: { company, position },
+  offers,
+  social,
+}) => (
   <ProfileContainer>
     {({ isEditing }) => (
       <Fragment>
@@ -82,36 +97,145 @@ const Profile = ({ user: { avatarUrl, headline, name, social } }) => (
             })}
           </Box>
         </Box>
+
+        {/* Main Info */}
+        <Box column grow padding={{ horizontal: 2, bottom: 2 }} color="white">
+          <Section title="Bio">
+            {bio && (
+              <Box width={296}>
+                <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+                  {bio}
+                </Text>
+              </Box>
+            )}
+          </Section>
+          <Section title="Current Occupation">
+            {(company || position) && (
+              <Box width={296}>
+                <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+                  {company ? `${position} at ${company}` : `${position}`}
+                </Text>
+              </Box>
+            )}
+          </Section>
+          <Section title="Industry">
+            {industry &&
+              industry._id &&
+              industry.name && (
+                <Box width={296}>
+                  <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+                    {industry.name}
+                  </Text>
+                </Box>
+              )}
+          </Section>
+          <Section title="Offers">
+            {offers &&
+              offers.length > 0 && (
+                <Box wrap>
+                  <Transition
+                    keys={offers.map(offer => offer)}
+                    from={{ opacity: 0, transform: 'scale(0)' }}
+                    enter={{ opacity: 1, transform: 'scale(1)' }}
+                    leave={{ opacity: 0, transform: 'scale(0)' }}
+                  >
+                    {styles => {
+                      return offers.map(offer => <Chip text={offer} styles={styles} readonly />);
+                    }}
+                  </Transition>
+                </Box>
+              )}
+          </Section>
+          <Section title="Asks">
+            {asks &&
+              asks.length > 0 && (
+                <Box wrap>
+                  <Transition
+                    keys={asks.map(ask => ask)}
+                    from={{ opacity: 0, transform: 'scale(0)' }}
+                    enter={{ opacity: 1, transform: 'scale(1)' }}
+                    leave={{ opacity: 0, transform: 'scale(0)' }}
+                  >
+                    {styles => {
+                      return asks.map(ask => (
+                        <Chip text={ask} color="panache" styles={styles} readonly />
+                      ));
+                    }}
+                  </Transition>
+                </Box>
+              )}
+          </Section>
+
+          <Section title="Interested In">
+            {interests &&
+              interests.length > 0 && (
+                <Box wrap>
+                  <Transition
+                    keys={interests.map(interest => interest)}
+                    from={{ opacity: 0, transform: 'scale(0)' }}
+                    enter={{ opacity: 1, transform: 'scale(1)' }}
+                    leave={{ opacity: 0, transform: 'scale(0)' }}
+                  >
+                    {styles => {
+                      return interests.map(interest => (
+                        <Chip text={interest} color="concrete" styles={styles} readonly />
+                      ));
+                    }}
+                  </Transition>
+                </Box>
+              )}
+          </Section>
+        </Box>
+
+        {/* Additional Info */}
       </Fragment>
     )}
   </ProfileContainer>
 );
 
 Profile.propTypes = {
-  user: PropTypes.shape({
-    avatarUrl: PropTypes.string,
-    headline: PropTypes.string,
+  asks: PropTypes.arrayOf(PropTypes.string),
+  avatarUrl: PropTypes.string,
+  headline: PropTypes.string,
+  industry: PropTypes.shape({
+    _id: PropTypes.string,
     name: PropTypes.string,
-    social: {
-      facebook: PropTypes.string,
-      instagram: PropTypes.string,
-      twitter: PropTypes.string,
-      web: PropTypes.string,
-    },
   }),
+  interests: PropTypes.arrayOf(PropTypes.string),
+  name: PropTypes.string,
+  occupation: PropTypes.shape({
+    company: PropTypes.string,
+    position: PropTypes.string,
+  }),
+  offers: PropTypes.arrayOf(PropTypes.string),
+  social: {
+    facebook: PropTypes.string,
+    instagram: PropTypes.string,
+    twitter: PropTypes.string,
+    web: PropTypes.string,
+  },
 };
 
 Profile.defaultProps = {
-  user: {
-    avatarUrl: null,
-    headline: null,
+  asks: [],
+  avatarUrl: null,
+  headline: null,
+  industry: {
+    _id: null,
     name: null,
-    social: {
-      facebook: null,
-      instagram: null,
-      twitter: null,
-      web: null,
-    },
+  },
+  interests: [],
+  name: null,
+  occupation: {
+    company: null,
+    position: null,
+  },
+  offers: [],
+  social: {
+    facebook: null,
+    instagram: null,
+    twitter: null,
+    web: null,
   },
 };
 
