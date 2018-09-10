@@ -1,5 +1,4 @@
 import { css } from 'styled-components';
-import theme from 'theme';
 
 export const responsive = (cssProp, prop, transform = null) => props => {
   const values = Array.isArray(props[prop]) ? props[prop] : [props[prop]];
@@ -9,7 +8,7 @@ export const responsive = (cssProp, prop, transform = null) => props => {
 
     ${values.map((value, i) => (value !== null ? value : values[i - 1])).map(
       (value, i) => `
-    @media (min-width: ${theme.breakpoints[i]}px) {
+    @media (min-width: ${props.theme.breakpoints[i]}px) {
         ${cssProp}: ${transform ? transform(value) : value};
       }
     `

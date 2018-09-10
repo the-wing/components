@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import theme from 'theme';
 
 import Box from 'ui/Box/Box';
 import Image from 'ui/Image/Image';
 import Text from 'ui/Text/Text';
+import theme from 'theme';
 
 const Profile = ({ avatarUrl, headline, name, onClose }) => (
   <Box grow column color="linen">

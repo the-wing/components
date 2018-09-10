@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import theme from 'theme';
 import { responsive } from 'utils';
+import theme from 'theme';
 
 const Text = styled.span`
-  color: ${props => (theme.colors[props.color] ? theme.colors[props.color].main : 'inherit')};
-  font-family: ${props => theme.text[props.variant || 'primary']};
+  color: ${props =>
+    props.theme.colors[props.color] ? props.theme.colors[props.color].main : 'inherit'};
+  font-family: ${props => props.theme.text[props.variant || 'primary']};
   font-weight: ${props => props.weight};
   ${props => (props.margin ? responsive('margin', 'margin', value => `${value}rem`) : '')};
   ${props => props.align && responsive('text-align', 'align')};
