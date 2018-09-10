@@ -25,6 +25,19 @@ Shared component library
 
 ## Usage
 
+### Theme
+
+To use our theme, just import it and use it in a `ThemeProvider`:
+
+```
+import { ThemeProvider } from 'styled-components';
+import '@the-wing/components/theme';
+
+  <ThemeProvider theme={theme}>
+    [...]
+  </ThemeProvider>
+```
+
 ### Fonts
 
 _In progress...not available yet_

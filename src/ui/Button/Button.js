@@ -6,7 +6,7 @@ import { responsive } from 'utils';
 
 const Button = styled.button`
   background-color: ${props =>
-    props.outlined || !props.theme.colors[props.color]
+    props.outlined || !props.theme.colors[props.color] || props.transparent
       ? 'transparent'
       : props.theme.colors[props.color].main};
   border: ${props =>
@@ -15,7 +15,7 @@ const Button = styled.button`
       : 'none'};
   color: ${props =>
     props.theme.colors[props.color]
-      ? props.theme.colors[props.color][props.outlined ? 'main' : 'contrast']
+      ? props.theme.colors[props.color][props.outlined || props.transparent ? 'main' : 'contrast']
       : 'inherit'};
   cursor: pointer;
   font-family: ${props => props.theme.text.secondary};
@@ -51,16 +51,20 @@ Button.propTypes = {
   outlined: PropTypes.bool,
   disabled: PropTypes.bool,
   children: PropTypes.node.isRequired,
+  lineHeight: PropTypes.string,
   uppercase: PropTypes.bool,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]),
+  transparent: PropTypes.bool,
 };
 
 Button.defaultProps = {
   color: 'grannyApple',
   height: '47px',
   width: '100%',
+  lineHeight: null,
   uppercase: true,
   size: null,
+  transparent: false,
 };
 
 export default Button;

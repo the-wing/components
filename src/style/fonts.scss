@@ -1,4 +1,5 @@
 @import './mixins';
+@import './vendor/fontello';
 
 @include font-face(
   'Bianco Serif New',
@@ -132,4 +133,5 @@
 html,
 body {
   font-family: 'Bianco Serif New', serif;
+  -webkit-font-smoothing: antialiased;
 }
