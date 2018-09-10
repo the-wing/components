@@ -9,11 +9,11 @@ Shared component library
 - [x] Add Storybook
 - [x] File structure decisions
 - [x] Add Drawer component
-- [ ] Add !isEditing version of profile
+- [x] Add !isEditing version of profile
 - [ ] Add isEditing version of profile
+- [ ] Add Collapsible component
 - [ ] Add form handling
 - [ ] Add transition around profile drawer
-- [ ] Container (?) component for Profile sidebar
 - [ ] Export fonts.scss to public/fonts.css for use in all apps (update directions below)
 - [ ] Lerna for publishing to npm
 
