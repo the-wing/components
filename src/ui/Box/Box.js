@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import FlexView from 'react-flexview';
 
-import theme from 'theme';
 import { responsive } from 'utils';
+import theme from 'theme';
 
 const getMeasure = (cssProp, direction, props) => {
   const measure =
@@ -24,7 +24,7 @@ const getSpacing = cssProp => props => css`
 
 const Box = styled(FlexView)`
   background-color: ${props =>
-    theme.colors[props.color] ? theme.colors[props.color].main : 'transparent'};
+    props.theme.colors[props.color] ? props.theme.colors[props.color].main : 'transparent'};
   ${props => props.margin && getSpacing('margin')};
   ${props => props.padding && getSpacing('padding')};
   ${props => (props.display ? responsive('display', 'display') : '')};

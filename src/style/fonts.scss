@@ -1,22 +1,137 @@
 @import './mixins';
+@import './vendor/fontello';
 
-@include font-face("Bianco Serif New", "../assets/fonts/BiancoSerifNew/regular", 400, normal, woff woff2);
-@include font-face("Bianco Serif New", "../assets/fonts/BiancoSerifNew/italic", 400, italic, woff woff2);
-@include font-face("Bianco Serif New", "../assets/fonts/BiancoSerifNew/bold", 700, normal, woff woff2);
-@include font-face("Bianco Serif New", "../assets/fonts/BiancoSerifNew/boldItalic", 700, italic, woff woff2);
-@include font-face("Bianco Serif New", "../assets/fonts/BiancoSerifNew/extraBold", 800, normal, woff woff2);
-@include font-face("Bianco Serif New", "../assets/fonts/BiancoSerifNew/extraBoldItalic", 800, italic, woff woff2);
-@include font-face("Bianco Serif New", "../assets/fonts/BiancoSerifNew/heavy", 900, normal, woff woff2);
-@include font-face("Bianco Serif New", "../assets/fonts/BiancoSerifNew/heavyItalic", 900, italic, woff woff2);
+@include font-face(
+  'Bianco Serif New',
+  '../assets/fonts/BiancoSerifNew/regular',
+  400,
+  normal,
+  woff woff2
+);
+@include font-face(
+  'Bianco Serif New',
+  '../assets/fonts/BiancoSerifNew/italic',
+  400,
+  italic,
+  woff woff2
+);
+@include font-face(
+  'Bianco Serif New',
+  '../assets/fonts/BiancoSerifNew/bold',
+  700,
+  normal,
+  woff woff2
+);
+@include font-face(
+  'Bianco Serif New',
+  '../assets/fonts/BiancoSerifNew/boldItalic',
+  700,
+  italic,
+  woff woff2
+);
+@include font-face(
+  'Bianco Serif New',
+  '../assets/fonts/BiancoSerifNew/extraBold',
+  800,
+  normal,
+  woff woff2
+);
+@include font-face(
+  'Bianco Serif New',
+  '../assets/fonts/BiancoSerifNew/extraBoldItalic',
+  800,
+  italic,
+  woff woff2
+);
+@include font-face(
+  'Bianco Serif New',
+  '../assets/fonts/BiancoSerifNew/heavy',
+  900,
+  normal,
+  woff woff2
+);
+@include font-face(
+  'Bianco Serif New',
+  '../assets/fonts/BiancoSerifNew/heavyItalic',
+  900,
+  italic,
+  woff woff2
+);
 
-@include font-face("Bianco Sans New", "../assets/fonts/BiancoSansNew/regular", 400, normal, woff woff2);
-@include font-face("Bianco Sans New", "../assets/fonts/BiancoSansNew/italic", 400, italic, woff woff2);
-@include font-face("Bianco Sans New", "../assets/fonts/BiancoSansNew/bold", 700, normal, woff woff2);
-@include font-face("Bianco Sans New", "../assets/fonts/BiancoSansNew/boldItalic", 700, italic, woff woff2);
-@include font-face("Bianco Sans New", "../assets/fonts/BiancoSansNew/extraBold", 800, normal, woff woff2);
-@include font-face("Bianco Sans New", "../assets/fonts/BiancoSansNew/extraBoldItalic", 800, italic, woff woff2);
-@include font-face("Bianco Sans New", "../assets/fonts/BiancoSansNew/heavy", 900, normal, woff woff2);
-@include font-face("Bianco Sans New", "../assets/fonts/BiancoSansNew/heavyItalic", 900, italic, woff woff2);
+@include font-face(
+  'Bianco Sans New',
+  '../assets/fonts/BiancoSansNew/regular',
+  400,
+  normal,
+  woff woff2
+);
+@include font-face(
+  'Bianco Sans New',
+  '../assets/fonts/BiancoSansNew/italic',
+  400,
+  italic,
+  woff woff2
+);
+@include font-face(
+  'Bianco Sans New',
+  '../assets/fonts/BiancoSansNew/bold',
+  700,
+  normal,
+  woff woff2
+);
+@include font-face(
+  'Bianco Sans New',
+  '../assets/fonts/BiancoSansNew/boldItalic',
+  700,
+  italic,
+  woff woff2
+);
+@include font-face(
+  'Bianco Sans New',
+  '../assets/fonts/BiancoSansNew/extraBold',
+  800,
+  normal,
+  woff woff2
+);
+@include font-face(
+  'Bianco Sans New',
+  '../assets/fonts/BiancoSansNew/extraBoldItalic',
+  800,
+  italic,
+  woff woff2
+);
+@include font-face(
+  'Bianco Sans New',
+  '../assets/fonts/BiancoSansNew/heavy',
+  900,
+  normal,
+  woff woff2
+);
+@include font-face(
+  'Bianco Sans New',
+  '../assets/fonts/BiancoSansNew/heavyItalic',
+  900,
+  italic,
+  woff woff2
+);
 
-@include font-face("Bureau Grotesque", "../assets/fonts/BureauGrotesque/light", 200, normal, woff woff2);
-@include font-face("Bureau Grotesque", "../assets/fonts/BureauGrotesque/regular", 400, normal, woff woff2);
+@include font-face(
+  'Bureau Grotesque',
+  '../assets/fonts/BureauGrotesque/light',
+  200,
+  normal,
+  woff woff2
+);
+@include font-face(
+  'Bureau Grotesque',
+  '../assets/fonts/BureauGrotesque/regular',
+  400,
+  normal,
+  woff woff2
+);
+
+html,
+body {
+  font-family: 'Bianco Serif New', serif;
+  -webkit-font-smoothing: antialiased;
+}

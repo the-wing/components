@@ -3,21 +3,22 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { responsive } from 'utils';
-import theme from 'theme';
 
 const Button = styled.button`
   background-color: ${props =>
-    props.outlined || !theme.colors[props.color] ? 'transparent' : theme.colors[props.color].main};
+    props.outlined || !props.theme.colors[props.color] || props.transparent
+      ? 'transparent'
+      : props.theme.colors[props.color].main};
   border: ${props =>
     props.bordered || props.outlined
-      ? `1px solid ${theme.colors[props.outlined ? props.color : 'black'].main}`
+      ? `1px solid ${props.theme.colors[props.outlined ? props.color : 'black'].main}`
       : 'none'};
   color: ${props =>
-    theme.colors[props.color]
-      ? theme.colors[props.color][props.outlined ? 'main' : 'contrast']
+    props.theme.colors[props.color]
+      ? props.theme.colors[props.color][props.outlined || props.transparent ? 'main' : 'contrast']
       : 'inherit'};
   cursor: pointer;
-  font-family: ${props => theme.text.secondary};
+  font-family: ${props => props.theme.text.secondary};
   ${props =>
     props.size
       ? responsive('font-size', 'size', value => `${value}px`)
@@ -50,16 +51,20 @@ Button.propTypes = {
   outlined: PropTypes.bool,
   disabled: PropTypes.bool,
   children: PropTypes.node.isRequired,
+  lineHeight: PropTypes.string,
   uppercase: PropTypes.bool,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]),
+  transparent: PropTypes.bool,
 };
 
 Button.defaultProps = {
   color: 'grannyApple',
   height: '47px',
   width: '100%',
+  lineHeight: null,
   uppercase: true,
   size: null,
+  transparent: false,
 };
 
 export default Button;
