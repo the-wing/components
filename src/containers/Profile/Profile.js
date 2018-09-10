@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import moment from 'moment';
 import styled from 'styled-components';
 import { Transition } from 'react-spring';
 import theme from 'theme';
@@ -8,6 +9,8 @@ import theme from 'theme';
 import Box from 'ui/Box/Box';
 import Chip from 'ui/Chip/Chip';
 import Image from 'ui/Image/Image';
+import List from 'ui/List/List';
+import ListItem from 'ui/ListItem/ListItem';
 import Section from 'ui/Section/Section';
 import SocialIcon from 'ui/SocialIcon/SocialIcon';
 import Text from 'ui/Text/Text';
@@ -48,13 +51,18 @@ const Profile = ({
   asks,
   avatarUrl,
   bio,
+  birthday,
   headline,
   industry,
   interests,
+  location,
   name,
+  neighborhood,
   occupation: { company, position },
   offers,
   social,
+  starSign,
+  startDate,
 }) => (
   <ProfileContainer>
     {({ isEditing }) => (
@@ -88,7 +96,7 @@ const Profile = ({
               }
 
               return (
-                <Box padding={{ horizontal: 9.6 / 16 }}>
+                <Box key={type} padding={{ horizontal: 9.6 / 16 }}>
                   <SocialLink href={getSocialLink(type, socialLink)} target="_blank">
                     <SocialIcon name={type} />
                   </SocialLink>
@@ -140,7 +148,9 @@ const Profile = ({
                     leave={{ opacity: 0, transform: 'scale(0)' }}
                   >
                     {styles => {
-                      return offers.map(offer => <Chip text={offer} styles={styles} readonly />);
+                      return offers.map(offer => (
+                        <Chip key={offer} text={offer} styles={styles} readonly />
+                      ));
                     }}
                   </Transition>
                 </Box>
@@ -158,7 +168,7 @@ const Profile = ({
                   >
                     {styles => {
                       return asks.map(ask => (
-                        <Chip text={ask} color="panache" styles={styles} readonly />
+                        <Chip key={ask} text={ask} color="panache" styles={styles} readonly />
                       ));
                     }}
                   </Transition>
@@ -178,7 +188,13 @@ const Profile = ({
                   >
                     {styles => {
                       return interests.map(interest => (
-                        <Chip text={interest} color="concrete" styles={styles} readonly />
+                        <Chip
+                          key={interest}
+                          text={interest}
+                          color="concrete"
+                          styles={styles}
+                          readonly
+                        />
                       ));
                     }}
                   </Transition>
@@ -188,6 +204,29 @@ const Profile = ({
         </Box>
 
         {/* Additional Info */}
+        <Box column padding={{ horizontal: 2, top: 2, bottom: 58 / 16 }}>
+          <List>
+            <ListItem icon="location" underline>
+              {neighborhood ? neighborhood : 'Button here'}
+            </ListItem>
+            <ListItem icon="homebase" underline>
+              {location && location._id && location.name ? location.name : 'Button here'}
+            </ListItem>
+            {startDate && (
+              <ListItem icon="anniversary" underline>
+                Joined: {moment(startDate).format('MMMM YYYY')}
+              </ListItem>
+            )}
+            <ListItem icon="birthday" underline>
+              {birthday && _.get(birthday, 'day._id', null) && parseInt(birthday.day._id, 10) < 32
+                ? `${_.get(birthday, 'month.name', '')} ${_.get(birthday, 'day.name', '')}`
+                : 'Button here'}
+            </ListItem>
+            <ListItem icon="starsign" underline>
+              {starSign && starSign !== '1' ? starSign : 'Button here'}
+            </ListItem>
+          </List>
+        </Box>
       </Fragment>
     )}
   </ProfileContainer>
@@ -196,36 +235,62 @@ const Profile = ({
 Profile.propTypes = {
   asks: PropTypes.arrayOf(PropTypes.string),
   avatarUrl: PropTypes.string,
+  birthday: PropTypes.shape({
+    month: PropTypes.shape({
+      _id: PropTypes.string,
+      name: PropTypes.string,
+    }),
+    day: PropTypes.shape({
+      _id: PropTypes.string,
+      name: PropTypes.string,
+    }),
+  }),
   headline: PropTypes.string,
   industry: PropTypes.shape({
     _id: PropTypes.string,
     name: PropTypes.string,
   }),
   interests: PropTypes.arrayOf(PropTypes.string),
+  location: PropTypes.shape({
+    _id: PropTypes.string,
+    name: PropTypes.string,
+  }),
   name: PropTypes.string,
+  neighborhood: PropTypes.string,
   occupation: PropTypes.shape({
     company: PropTypes.string,
     position: PropTypes.string,
   }),
   offers: PropTypes.arrayOf(PropTypes.string),
-  social: {
+  social: PropTypes.shape({
     facebook: PropTypes.string,
     instagram: PropTypes.string,
     twitter: PropTypes.string,
     web: PropTypes.string,
-  },
+  }),
+  starSign: PropTypes.string,
+  startDate: PropTypes.string,
 };
 
 Profile.defaultProps = {
   asks: [],
   avatarUrl: null,
+  birthday: {
+    month: null,
+    day: null,
+  },
   headline: null,
   industry: {
     _id: null,
     name: null,
   },
   interests: [],
+  location: {
+    _id: null,
+    name: null,
+  },
   name: null,
+  neighborhood: null,
   occupation: {
     company: null,
     position: null,
@@ -237,6 +302,8 @@ Profile.defaultProps = {
     twitter: null,
     web: null,
   },
+  starSign: null,
+  startDate: null,
 };
 
 export default Profile;

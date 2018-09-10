@@ -22,7 +22,7 @@ storiesOf('Chip', module)
         leave={{ opacity: 0, transform: 'scale(0)' }}
       >
         {styles => {
-          return listOfChips.map(chip => <Chip text={chip} styles={styles} readonly />);
+          return listOfChips.map(chip => <Chip key={chip} text={chip} styles={styles} readonly />);
         }}
       </Transition>
     </Box>
