@@ -60,7 +60,7 @@ class ProfileContainer extends PureComponent {
           </Box>
         </Box>
 
-        {children({ isEditing: this.state.isEditing })}
+        {children({ isEditing: this.state.isEditing, onEdit: this.onEdit })}
       </Box>
     );
   }

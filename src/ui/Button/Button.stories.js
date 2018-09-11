@@ -2,8 +2,10 @@ import React from 'react';
 import { addDecorator, storiesOf } from '@storybook/react';
 import { withConsole } from '@storybook/addon-console';
 import { action } from '@storybook/addon-actions';
+import Box from 'ui/Box/Box';
 import Button from 'ui/Button/Button';
 import Icon from 'ui/Icon/Icon';
+import Text from 'ui/Text/Text';
 
 storiesOf('Button', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
@@ -33,8 +35,24 @@ storiesOf('Button', module)
       Transparent Button
     </Button>
   ))
-  .add('with Icon', () => (
+  .add('with icon', () => (
     <Button onClick={action('clicked')} transparent>
       <Icon name="close" size={19} color="terracota" />
+    </Button>
+  ))
+  .add('with icon and text', () => (
+    <Button
+      color="terracota"
+      onClick={action('clicked')}
+      height="auto"
+      lineHeight="22px"
+      transparent
+    >
+      <Box display="flex">
+        <Icon name="add" size={10} color="terracota" />
+        <Text color="terracota" size={13 / 16} style={{ marginLeft: '0.625rem' }}>
+          Add occupation
+        </Text>
+      </Box>
     </Button>
   ));
