@@ -7,7 +7,9 @@ import { Transition } from 'react-spring';
 import theme from 'theme';
 
 import Box from 'ui/Box/Box';
+import Button from 'ui/Button/Button';
 import Chip from 'ui/Chip/Chip';
+import Icon from 'ui/Icon/Icon';
 import Image from 'ui/Image/Image';
 import List from 'ui/List/List';
 import ListItem from 'ui/ListItem/ListItem';
@@ -16,6 +18,7 @@ import SocialIcon from 'ui/SocialIcon/SocialIcon';
 import Text from 'ui/Text/Text';
 
 import ProfileContainer from './ProfileContainer';
+import EmptyStateButton from './components/EmptyStateButton';
 
 const SocialLink = styled.a`
   :hover {
@@ -65,7 +68,7 @@ const Profile = ({
   startDate,
 }) => (
   <ProfileContainer>
-    {({ isEditing }) => (
+    {({ isEditing, onEdit }) => (
       <Fragment>
         {/* Header */}
         <Box column padding={{ bottom: 29 / 16 }}>
@@ -108,38 +111,63 @@ const Profile = ({
 
         {/* Main Info */}
         <Box column grow padding={{ horizontal: 2, bottom: 2 }} color="white">
-          <Section title="Bio">
-            {bio && (
-              <Box width={296}>
-                <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
-                  {bio}
-                </Text>
-              </Box>
-            )}
-          </Section>
-          <Section title="Current Occupation">
-            {(company || position) && (
-              <Box width={296}>
-                <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
-                  {company ? `${position} at ${company}` : `${position}`}
-                </Text>
-              </Box>
-            )}
-          </Section>
-          <Section title="Industry">
-            {industry &&
-              industry._id &&
-              industry.name && (
+          {/* BIO */}
+          {!isEditing && (
+            <Section title="Bio">
+              {bio ? (
+                <Box width={296}>
+                  <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+                    {bio}
+                  </Text>
+                </Box>
+              ) : (
+                <EmptyStateButton
+                  onClick={onEdit}
+                  text="What makes you uniquely you? Or just tell us a fun fact or two."
+                />
+              )}
+            </Section>
+          )}
+
+          {isEditing && <div>oh wow i am editing a bio</div>}
+
+          {/* OCCUPATION */}
+          {!isEditing && (
+            <Section title="Current Occupation">
+              {company || position ? (
+                <Box width={296}>
+                  <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+                    {company ? `${position} at ${company}` : `${position}`}
+                  </Text>
+                </Box>
+              ) : (
+                <EmptyStateButton onClick={onEdit} text="Add Occupation" />
+              )}
+            </Section>
+          )}
+
+          {isEditing && <div>oh wow i am editing an occupation</div>}
+
+          {/* INDUSTRY */}
+          {!isEditing && (
+            <Section title="Industry">
+              {industry && industry._id && industry.name ? (
                 <Box width={296}>
                   <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
                     {industry.name}
                   </Text>
                 </Box>
+              ) : (
+                <EmptyStateButton onClick={onEdit} text="What industry do you work in?" />
               )}
-          </Section>
-          <Section title="Offers">
-            {offers &&
-              offers.length > 0 && (
+            </Section>
+          )}
+
+          {isEditing && <div>oh wow i am editing an industry</div>}
+
+          {!isEditing && (
+            <Section title="Offers">
+              {offers && offers.length > 0 ? (
                 <Box wrap>
                   <Transition
                     keys={offers.map(offer => offer)}
@@ -154,11 +182,17 @@ const Profile = ({
                     }}
                   </Transition>
                 </Box>
+              ) : (
+                <EmptyStateButton onClick={onEdit} text="I could teach a master class on..." />
               )}
-          </Section>
-          <Section title="Asks">
-            {asks &&
-              asks.length > 0 && (
+            </Section>
+          )}
+
+          {isEditing && <div>oh wow i am editing offers</div>}
+
+          {!isEditing && (
+            <Section title="Asks">
+              {asks && asks.length > 0 ? (
                 <Box wrap>
                   <Transition
                     keys={asks.map(ask => ask)}
@@ -173,12 +207,17 @@ const Profile = ({
                     }}
                   </Transition>
                 </Box>
+              ) : (
+                <EmptyStateButton onClick={onEdit} text="I could use a hand with..." />
               )}
-          </Section>
+            </Section>
+          )}
 
-          <Section title="Interested In">
-            {interests &&
-              interests.length > 0 && (
+          {isEditing && <div>oh wow i am editing Asks</div>}
+
+          {!isEditing && (
+            <Section title="Interested In">
+              {interests && interests.length > 0 ? (
                 <Box wrap>
                   <Transition
                     keys={interests.map(interest => interest)}
@@ -199,34 +238,55 @@ const Profile = ({
                     }}
                   </Transition>
                 </Box>
+              ) : (
+                <EmptyStateButton onClick={onEdit} text="I&apos;m currently obsessed with..." />
               )}
-          </Section>
+            </Section>
+          )}
         </Box>
 
         {/* Additional Info */}
-        <Box column padding={{ horizontal: 2, top: 2, bottom: 58 / 16 }}>
-          <List>
-            <ListItem icon="location" underline>
-              {neighborhood ? neighborhood : 'Button here'}
-            </ListItem>
-            <ListItem icon="homebase" underline>
-              {location && location._id && location.name ? location.name : 'Button here'}
-            </ListItem>
-            {startDate && (
-              <ListItem icon="anniversary" underline>
-                Joined: {moment(startDate).format('MMMM YYYY')}
+        {!isEditing && (
+          <Box column padding={{ horizontal: 2, top: 2, bottom: 58 / 16 }}>
+            <List>
+              <ListItem icon="location" underline>
+                {neighborhood ? (
+                  neighborhood
+                ) : (
+                  <EmptyStateButton onClick={onEdit} text="Add your neighborhood" />
+                )}
               </ListItem>
-            )}
-            <ListItem icon="birthday" underline>
-              {birthday && _.get(birthday, 'day._id', null) && parseInt(birthday.day._id, 10) < 32
-                ? `${_.get(birthday, 'month.name', '')} ${_.get(birthday, 'day.name', '')}`
-                : 'Button here'}
-            </ListItem>
-            <ListItem icon="starsign" underline>
-              {starSign && starSign !== '1' ? starSign : 'Button here'}
-            </ListItem>
-          </List>
-        </Box>
+              <ListItem icon="homebase" underline>
+                {location && location._id && location.name ? (
+                  location.name
+                ) : (
+                  <EmptyStateButton onClick={onEdit} text="Add your location" />
+                )}
+              </ListItem>
+              {startDate && (
+                <ListItem icon="anniversary" underline>
+                  Joined: {moment(startDate).format('MMMM YYYY')}
+                </ListItem>
+              )}
+              <ListItem icon="birthday" underline>
+                {birthday &&
+                _.get(birthday, 'day._id', null) &&
+                parseInt(birthday.day._id, 10) < 32 ? (
+                  `${_.get(birthday, 'month.name', '')} ${_.get(birthday, 'day.name', '')}`
+                ) : (
+                  <EmptyStateButton onClick={onEdit} text="Add your birthday" />
+                )}
+              </ListItem>
+              <ListItem icon="starsign" underline>
+                {starSign && starSign !== '1' ? (
+                  starSign
+                ) : (
+                  <EmptyStateButton onClick={onEdit} text="Add your star sign" />
+                )}
+              </ListItem>
+            </List>
+          </Box>
+        )}
       </Fragment>
     )}
   </ProfileContainer>

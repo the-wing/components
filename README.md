@@ -11,8 +11,10 @@ Shared component library
 - [x] Add Drawer component
 - [x] Add !isEditing version of profile
 - [ ] Add isEditing version of profile
-- [ ] Add Collapsible component
+- [x] Add Collapsible component
 - [ ] Add form handling
+- [ ] Split form sections into seperate components in container
+- [ ] Add dropdown component
 - [ ] Add transition around profile drawer
 - [ ] Export fonts.scss to public/fonts.css for use in all apps (update directions below)
 - [ ] Lerna for publishing to npm
