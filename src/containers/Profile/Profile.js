@@ -190,6 +190,7 @@ const Profile = ({
 
           {isEditing && <div>oh wow i am editing offers</div>}
 
+          {/* ASKS */}
           {!isEditing && (
             <Section title="Asks">
               {asks && asks.length > 0 ? (
@@ -215,6 +216,7 @@ const Profile = ({
 
           {isEditing && <div>oh wow i am editing Asks</div>}
 
+          {/* INTERESTS */}
           {!isEditing && (
             <Section title="Interested In">
               {interests && interests.length > 0 ? (
