@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 
-import { FormField, Input, Label, TextArea } from 'ui/Forms';
+import { FormField, Input, Label, TextArea, TypeAhead } from 'ui/Forms';
 import Box from 'ui/Box/Box';
+
+const positions = [
+  'Front End Developer',
+  'Back End Developer',
+  'Designer',
+  'Photographer',
+  'Musician',
+  'DeeJay',
+  'Producer',
+  'Uber Driver',
+];
+
+const companies = [
+  'The Hangar Interactive',
+  'Prolific Interactive',
+  'The Wing',
+  'Facebook Inc.',
+  'Amazon',
+  'Uber',
+];
 
 const EditForm = () => (
   <Box column padding={{ horizontal: 2, top: 2, bottom: 290 / 16 }} color="white">
@@ -50,6 +70,32 @@ const EditForm = () => (
         </FormField>
       )}
     />
+    <FieldArray name="occupations">
+      {({ fields }) =>
+        fields.map((name, index) => (
+          <Fragment key={name}>
+            <Field
+              name={`${name}.position`}
+              placeholder="Position (required)"
+              render={({ input, meta }) => (
+                <FormField>
+                  <TypeAhead options={positions} {...input} />
+                </FormField>
+              )}
+            />
+            <Field
+              name={`${name}.company`}
+              placeholder="Company"
+              render={({ input, meta }) => (
+                <FormField>
+                  <TypeAhead options={companies} {...input} />
+                </FormField>
+              )}
+            />
+          </Fragment>
+        ))
+      }
+    </FieldArray>
   </Box>
 );
 

@@ -24,10 +24,16 @@ const userWithAllInfo = {
   ...userWithSocial,
   bio:
     'Jean shorts affogato pickled pork belly hexagon unicorn ramps roof party pug. Godard squid mumblecore letterpress brunch twee photo booth.',
-  occupation: {
-    position: 'Software Engineer',
-    company: 'The Wing',
-  },
+  occupations: [
+    {
+      position: 'Software Engineer',
+      company: 'The Wing',
+    },
+    {
+      position: 'Contractor',
+      company: 'Self Employed',
+    },
+  ],
   industry: {
     _id: '123',
     name: 'Computers/IT',

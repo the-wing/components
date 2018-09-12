@@ -1,6 +1,7 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
+import arrayMutators from 'final-form-arrays';
 
 import Box from 'ui/Box/Box';
 import Button from 'ui/Button/Button';
@@ -58,8 +59,14 @@ class Profile extends PureComponent {
     const { initialValues, loading, onClose } = this.props;
 
     return (
-      <Form onSubmit={this.onSubmit} initialValues={initialValues}>
-        {({ form, handleSubmit, invalid, pristine }) => {
+      <Form
+        mutators={{
+          ...arrayMutators,
+        }}
+        onSubmit={this.onSubmit}
+        initialValues={initialValues}
+      >
+        {({ form, handleSubmit, invalid, mutators: { push, pop }, pristine }) => {
           const values = form.getState().values;
 
           return (
@@ -108,7 +115,7 @@ class Profile extends PureComponent {
                   </Box>
                 </Box>
 
-                {this.state.isEditing && <EditForm />}
+                {this.state.isEditing && <EditForm push={push} pop={pop} />}
 
                 {!this.state.isEditing && (
                   <Fragment>
@@ -124,7 +131,7 @@ class Profile extends PureComponent {
                       bio={values.bio}
                       industry={values.industry}
                       interests={values.interests}
-                      occupation={values.occupation}
+                      occupations={values.occupations}
                       offers={values.offers}
                       onEdit={this.onEdit}
                       position={values.position}
@@ -175,10 +182,12 @@ Profile.propTypes = {
     }),
     name: PropTypes.string,
     neighborhood: PropTypes.string,
-    occupation: PropTypes.shape({
-      company: PropTypes.string,
-      position: PropTypes.string,
-    }),
+    occupations: PropTypes.arrayOf(
+      PropTypes.shape({
+        company: PropTypes.string,
+        position: PropTypes.string,
+      })
+    ),
     offers: PropTypes.arrayOf(PropTypes.string),
     social: PropTypes.shape({
       facebook: PropTypes.string,
@@ -216,10 +225,12 @@ Profile.defaultProps = {
     },
     name: null,
     neighborhood: null,
-    occupation: {
-      company: null,
-      position: null,
-    },
+    occupations: [
+      {
+        company: null,
+        position: null,
+      },
+    ],
     offers: [],
     social: {
       facebook: null,

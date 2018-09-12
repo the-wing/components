@@ -39,10 +39,10 @@ const MenuItem = styled.li`
 
 class Menu extends PureComponent {
   render() {
-    const { currentLength, error, maxLength, options } = this.props;
+    const { className, currentLength, error, maxLength, options } = this.props;
 
     return (
-      <Container>
+      <Container className={className}>
         {_.map(options, (option, i) => (
           <MenuItem selected={option.selected} key={option.name} onClick={option.onClick}>
             <Text color="solitude" letterSpacing={0.3} fontSize={15 / 16}>

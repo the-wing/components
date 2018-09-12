@@ -3,6 +3,13 @@ import styled from 'styled-components';
 
 import Menu from 'ui/Menu/Menu';
 
+const StyledMenu = styled(Menu)`
+  position: absolute;
+  top: 34px;
+  left: 0;
+  right: 0;
+`;
+
 // Unfortunately, since ReactTypeahead uses refs for this,
 // this can't be a functional component
 class TypeAheadMenu extends PureComponent {
@@ -23,7 +30,7 @@ class TypeAheadMenu extends PureComponent {
       onClick: this.onSelect,
     }));
 
-    return <Menu options={formattedOptions} />;
+    return <StyledMenu options={formattedOptions} />;
   }
 }
 

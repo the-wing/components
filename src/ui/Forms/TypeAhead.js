@@ -32,7 +32,8 @@ const StyledReactTypeAhead = styled(ReactTypeAhead)`
 
 const TypeAhead = ({ options, placeholder, ...inputProps }) => (
   <StyledReactTypeAhead
-    inputProps={inputProps}
+    initialValue={inputProps.value}
+    onChange={inputProps.onChange}
     options={options}
     placeholder={placeholder}
     customListComponent={TypeAheadMenu}

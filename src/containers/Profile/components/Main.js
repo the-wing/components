@@ -9,7 +9,7 @@ import Text from 'ui/Text/Text';
 
 import EmptyStateButton from './EmptyStateButton';
 
-const Main = ({ asks, bio, industry, interests, occupation, offers, onEdit }) => (
+const Main = ({ asks, bio, industry, interests, occupations, offers, onEdit }) => (
   <Box column grow padding={{ horizontal: 2, bottom: 2 }} color="white">
     {/* BIO */}
     <Section title="Bio">
@@ -29,12 +29,12 @@ const Main = ({ asks, bio, industry, interests, occupation, offers, onEdit }) =>
 
     {/* OCCUPATION */}
     <Section title="Current Occupation">
-      {occupation.company || occupation.position ? (
+      {occupations.length > 0 && (occupations[0].company || occupations[0].position) ? (
         <Box width={296}>
           <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
-            {occupation.company
-              ? `${occupation.position} at ${occupation.company}`
-              : `${occupation.position}`}
+            {occupations[0].company
+              ? `${occupations[0].position} at ${occupations[0].company}`
+              : `${occupations[0].position}`}
           </Text>
         </Box>
       ) : (
