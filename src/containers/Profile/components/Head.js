@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { Field } from 'react-final-form';
 import styled from 'styled-components';
 import theme from 'theme';
 
@@ -38,9 +39,14 @@ const getSocialLink = (type, value) => {
 
   return null;
 };
+
 const Head = ({ avatarUrl, headline, isEditing, name, social }) => {
   if (isEditing) {
-    return <div>i am editing</div>;
+    return (
+      <Box column padding={{ horizontal: 2, top: 2, bottom: 290 / 16 }} color="white">
+        hiiii
+      </Box>
+    );
   }
 
   return (

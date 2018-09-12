@@ -13,7 +13,8 @@ Shared component library
 - [ ] Add isEditing version of profile
 - [x] Add Collapsible component
 - [ ] Add form handling
-- [ ] Split form sections into seperate components in container
+- [ ] Add loading (react-placeholder) state for profile
+- [x] Split form sections into seperate components in container
 - [ ] Add dropdown component
 - [ ] Add transition around profile drawer
 - [ ] Export fonts.scss to public/fonts.css for use in all apps (update directions below)

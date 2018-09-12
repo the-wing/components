@@ -1,55 +1,132 @@
-import React from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
 
-import ProfileContainer from './ProfileContainer';
+import Box from 'ui/Box/Box';
+import Button from 'ui/Button/Button';
+import Icon from 'ui/Icon/Icon';
+
 import AdditionalInfo from './components/AdditionalInfo';
 import Head from './components/Head';
 import Main from './components/Main';
 
-const Profile = ({ customOnCancel, customOnEdit, initialValues, onSubmit }) => (
-  <ProfileContainer onEdit={customOnEdit} onCancel={customOnCancel}>
-    {({ isEditing, onEdit }) => (
+class Profile extends PureComponent {
+  state = {
+    isEditing: false,
+  };
+
+  toggleEditing = () => {
+    this.setState(prevProps => ({ isEditing: !prevProps.isEditing }));
+  };
+
+  onCancel = () => {
+    const { onCancel } = this.props;
+
+    if (onCancel) {
+      onCancel();
+    }
+
+    this.toggleEditing();
+  };
+
+  onEdit = () => {
+    const { onEdit } = this.props;
+
+    if (onEdit) {
+      onEdit();
+    }
+
+    this.toggleEditing();
+  };
+
+  render() {
+    const { initialValues, loading, onClose, onSubmit } = this.props;
+
+    return (
       <Form onSubmit={onSubmit} initialValues={initialValues}>
-        {({ form, handleSubmit }) => {
+        {({ form, handleSubmit, invalid, pristine }) => {
           const values = form.getState().values;
 
           return (
             <form onSubmit={handleSubmit}>
-              <Head
-                avatarUrl={values.avatarUrl}
-                headline={values.headline}
-                isEditing={isEditing}
-                name={values.name}
-                social={values.social}
-              />
-              <Main
-                asks={values.asks}
-                bio={values.bio}
-                industry={values.industry}
-                interests={values.interests}
-                isEditing={isEditing}
-                occupation={values.occupation}
-                offers={values.offers}
-                onEdit={onEdit}
-                position={values.position}
-              />
-              <AdditionalInfo
-                birthday={values.birthday}
-                isEditing={isEditing}
-                location={values.location}
-                neighborhood={values.neighborhood}
-                onEdit={onEdit}
-                starSign={values.starSign}
-                startDate={values.startDate}
-              />
+              <Box grow column color={this.state.isEditing ? 'white' : 'linen'}>
+                <Box column padding={{ horizontal: 2, top: 2 }}>
+                  <Box grow margin={{ bottom: 22 / 16 }}>
+                    {this.state.isEditing ? (
+                      <Fragment>
+                        <Box>
+                          <Button
+                            height="auto"
+                            onClick={this.onCancel}
+                            color="terracota"
+                            transparent
+                          >
+                            Cancel
+                          </Button>
+                        </Box>
+                        <Box marginLeft="auto">
+                          <Button
+                            disabled={pristine || invalid || loading}
+                            height="auto"
+                            color="terracota"
+                            transparent
+                            type="submit"
+                          >
+                            Save
+                          </Button>
+                        </Box>
+                      </Fragment>
+                    ) : (
+                      <Fragment>
+                        <Box>
+                          <Button onClick={onClose} lineHeight="22px" height="auto" transparent>
+                            <Icon name="close" size={19} color="terracota" />
+                          </Button>
+                        </Box>
+                        <Box marginLeft="auto">
+                          <Button height="auto" onClick={this.onEdit} color="terracota" transparent>
+                            Edit
+                          </Button>
+                        </Box>
+                      </Fragment>
+                    )}
+                  </Box>
+                </Box>
+                <Head
+                  avatarUrl={values.avatarUrl}
+                  headline={values.headline}
+                  isEditing={this.state.isEditing}
+                  name={values.name}
+                  social={values.social}
+                />
+                <Main
+                  asks={values.asks}
+                  bio={values.bio}
+                  industry={values.industry}
+                  interests={values.interests}
+                  isEditing={this.state.isEditing}
+                  occupation={values.occupation}
+                  offers={values.offers}
+                  onEdit={this.onEdit}
+                  position={values.position}
+                />
+                <AdditionalInfo
+                  birthday={values.birthday}
+                  isEditing={this.state.isEditing}
+                  location={values.location}
+                  neighborhood={values.neighborhood}
+                  onEdit={this.onEdit}
+                  starSign={values.starSign}
+                  startDate={values.startDate}
+                />
+              </Box>
             </form>
           );
         }}
       </Form>
-    )}
-  </ProfileContainer>
-);
+    );
+  }
+}
 
 Profile.propTypes = {
   initialValues: PropTypes.shape({
@@ -92,6 +169,9 @@ Profile.propTypes = {
     starSign: PropTypes.string,
     startDate: PropTypes.string,
   }),
+  onCancel: PropTypes.func,
+  onClose: PropTypes.func,
+  onEdit: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
 };
 
@@ -130,6 +210,9 @@ Profile.defaultProps = {
     starSign: null,
     startDate: null,
   },
+  onCancel: null,
+  onClose: null,
+  onEdit: null,
 };
 
 export default Profile;
