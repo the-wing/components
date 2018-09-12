@@ -49,7 +49,25 @@ const userWithAllInfo = {
 
 storiesOf('Profile', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
-  .add('default', () => <Profile onClose={action('onClose')} />)
-  .add('with name, headline', () => <Profile onClose={action('onClose')} {...defaultUser} />)
-  .add('with social', () => <Profile onClose={action('onClose')} {...userWithSocial} />)
-  .add('with all info', () => <Profile onClose={action('onClose')} {...userWithAllInfo} />);
+  .add('default', () => <Profile onSubmit={action('onSubmit')} onClose={action('onClose')} />)
+  .add('with name, headline', () => (
+    <Profile
+      onClose={action('onClose')}
+      onSubmit={action('onSubmit')}
+      initialValues={defaultUser}
+    />
+  ))
+  .add('with social', () => (
+    <Profile
+      onClose={action('onClose')}
+      onSubmit={action('onSubmit')}
+      initialValues={userWithSocial}
+    />
+  ))
+  .add('with all info', () => (
+    <Profile
+      onClose={action('onClose')}
+      onSubmit={action('onSubmit')}
+      initialValues={userWithAllInfo}
+    />
+  ));
