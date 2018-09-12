@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
+import { FieldArray } from 'react-final-form-arrays';
 
 import { FormField, Input, Label, TextArea } from 'ui/Forms';
 import Box from 'ui/Box/Box';

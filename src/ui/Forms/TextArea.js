@@ -3,23 +3,17 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Box from 'ui/Box/Box';
+import Counter from 'ui/Counter/Counter';
 import { StyledInput } from './Input';
-import { StyledLabel } from './Label';
 
 const StyledTextArea = StyledInput.withComponent('textarea');
-const Counter = StyledLabel.withComponent('span');
-const StyledCounter = styled(Counter)`
-  text-align: right;
-`;
 
-const TextArea = ({ currentLength, maxLength, ...textAreaProps }) => (
+const TextArea = ({ currentLength, error, maxLength, ...textAreaProps }) => (
   <Fragment>
     <StyledTextArea maxLength={maxLength} rows="5" {...textAreaProps} />
     {maxLength && (
       <Box margin={{ vertical: 6.5 / 16 }}>
-        <StyledCounter>
-          {currentLength || 0} / {maxLength}
-        </StyledCounter>
+        <Counter currentLength={currentLength} error={error} maxLength={maxLength} />
       </Box>
     )}
   </Fragment>
@@ -27,11 +21,13 @@ const TextArea = ({ currentLength, maxLength, ...textAreaProps }) => (
 
 TextArea.propTypes = {
   currentLength: PropTypes.number,
+  error: PropTypes.bool,
   maxLength: PropTypes.number,
 };
 
 TextArea.defaultProps = {
   currentLength: null,
+  error: false,
   maxLength: null,
 };
 
