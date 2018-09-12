@@ -9,59 +9,45 @@ import ListItem from 'ui/ListItem/ListItem';
 
 import EmptyStateButton from './EmptyStateButton';
 
-const AdditionalInfo = ({
-  birthday,
-  isEditing,
-  location,
-  neighborhood,
-  onEdit,
-  starSign,
-  startDate,
-}) => {
-  if (isEditing) {
-    return <div>i am editing</div>;
-  }
-
-  return (
-    <Box column padding={{ horizontal: 2, top: 2, bottom: 58 / 16 }}>
-      <List>
-        <ListItem icon="location" underline>
-          {neighborhood ? (
-            neighborhood
-          ) : (
-            <EmptyStateButton onClick={onEdit} text="Add your neighborhood" />
-          )}
-        </ListItem>
-        <ListItem icon="homebase" underline>
-          {location && location._id && location.name ? (
-            location.name
-          ) : (
-            <EmptyStateButton onClick={onEdit} text="Add your location" />
-          )}
-        </ListItem>
-        {startDate && (
-          <ListItem icon="anniversary" underline>
-            Joined: {moment(startDate).format('MMMM YYYY')}
-          </ListItem>
+const AdditionalInfo = ({ birthday, location, neighborhood, onEdit, starSign, startDate }) => (
+  <Box column padding={{ horizontal: 2, top: 2, bottom: 58 / 16 }}>
+    <List>
+      <ListItem icon="location" underline>
+        {neighborhood ? (
+          neighborhood
+        ) : (
+          <EmptyStateButton onClick={onEdit} text="Add your neighborhood" />
         )}
-        <ListItem icon="birthday" underline>
-          {birthday && _.get(birthday, 'day._id', null) && parseInt(birthday.day._id, 10) < 32 ? (
-            `${_.get(birthday, 'month.name', '')} ${_.get(birthday, 'day.name', '')}`
-          ) : (
-            <EmptyStateButton onClick={onEdit} text="Add your birthday" />
-          )}
+      </ListItem>
+      <ListItem icon="homebase" underline>
+        {location && location._id && location.name ? (
+          location.name
+        ) : (
+          <EmptyStateButton onClick={onEdit} text="Add your location" />
+        )}
+      </ListItem>
+      {startDate && (
+        <ListItem icon="anniversary" underline>
+          Joined: {moment(startDate).format('MMMM YYYY')}
         </ListItem>
-        <ListItem icon="starsign" underline>
-          {starSign && starSign !== '1' ? (
-            starSign
-          ) : (
-            <EmptyStateButton onClick={onEdit} text="Add your star sign" />
-          )}
-        </ListItem>
-      </List>
-    </Box>
-  );
-};
+      )}
+      <ListItem icon="birthday" underline>
+        {birthday && _.get(birthday, 'day._id', null) && parseInt(birthday.day._id, 10) < 32 ? (
+          `${_.get(birthday, 'month.name', '')} ${_.get(birthday, 'day.name', '')}`
+        ) : (
+          <EmptyStateButton onClick={onEdit} text="Add your birthday" />
+        )}
+      </ListItem>
+      <ListItem icon="starsign" underline>
+        {starSign && starSign !== '1' ? (
+          starSign
+        ) : (
+          <EmptyStateButton onClick={onEdit} text="Add your star sign" />
+        )}
+      </ListItem>
+    </List>
+  </Box>
+);
 
 AdditionalInfo.propTypes = {
   birthday: PropTypes.shape({
@@ -74,7 +60,6 @@ AdditionalInfo.propTypes = {
       name: PropTypes.string,
     }),
   }),
-  isEditing: PropTypes.bool,
   location: PropTypes.shape({
     _id: PropTypes.string,
     name: PropTypes.string,
@@ -90,7 +75,6 @@ AdditionalInfo.defaultProps = {
     month: null,
     day: null,
   },
-  isEditing: false,
   location: {
     _id: null,
     name: null,

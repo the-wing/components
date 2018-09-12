@@ -5,8 +5,9 @@ import { action } from '@storybook/addon-actions';
 import Profile from 'containers/Profile/Profile';
 
 const defaultUser = {
-  name: 'Rae Farine',
+  firstName: 'Rae',
   headline: 'Software Engineer',
+  lastName: 'Farine',
 };
 
 const userWithSocial = {

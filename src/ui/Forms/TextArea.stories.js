@@ -23,9 +23,9 @@ storiesOf('TextArea', module)
       <TextArea id="id1" maxLength={300} />
     </FormField>
   ))
-  .add('with value', () => (
+  .add('with currentLength', () => (
     <FormField>
       <Label for="id1" text="Label 1" />
-      <TextArea id="id1" maxLength={300} value="Hello there" />
+      <TextArea id="id1" currentLength={11} maxLength={300} value="Hello there" />
     </FormField>
   ));

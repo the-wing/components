@@ -12,13 +12,13 @@ const StyledCounter = styled(Counter)`
   text-align: right;
 `;
 
-const TextArea = ({ maxLength, value, ...textAreaProps }) => (
+const TextArea = ({ currentLength, maxLength, ...textAreaProps }) => (
   <Fragment>
-    <StyledTextArea maxLength={maxLength} rows="5" defaultValue={value} {...textAreaProps} />
+    <StyledTextArea maxLength={maxLength} rows="5" {...textAreaProps} />
     {maxLength && (
       <Box margin={{ vertical: 6.5 / 16 }}>
         <StyledCounter>
-          {(value && value.length) || 0} / {maxLength}
+          {currentLength || 0} / {maxLength}
         </StyledCounter>
       </Box>
     )}

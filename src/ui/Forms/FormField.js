@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const StyledFormField = styled.div`
   display: flex;
   flex-flow: column;
+  margin-bottom: 20px;
 `;
 
 const FormField = ({ children }) => <StyledFormField>{children}</StyledFormField>;

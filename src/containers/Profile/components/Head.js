@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { Field } from 'react-final-form';
 import styled from 'styled-components';
 import theme from 'theme';
 
@@ -40,61 +39,51 @@ const getSocialLink = (type, value) => {
   return null;
 };
 
-const Head = ({ avatarUrl, headline, isEditing, name, social }) => {
-  if (isEditing) {
-    return (
-      <Box column padding={{ horizontal: 2, top: 2, bottom: 290 / 16 }} color="white">
-        hiiii
-      </Box>
-    );
-  }
-
-  return (
-    <Box column padding={{ bottom: 29 / 16 }}>
-      {/* Avatar */}
-      <Box hAlignContent="center">
-        <Image width={125} height={125} url={avatarUrl || theme.defaultAvatar} circle />
-      </Box>
-
-      {/* Name */}
-      <Box hAlignContent="center" margin={{ top: 13 / 16 }}>
-        <Text align="center" size={26 / 16} weight={800} letterSpacing={-0.54} lineHeight={30}>
-          {name}
-        </Text>
-      </Box>
-
-      {/* Headline */}
-      <Box hAlignContent="center" margin={{ top: 13 / 16 }}>
-        <Text color="solitude" align="center" lineHeight={22}>
-          {headline}
-        </Text>
-      </Box>
-
-      {/* Social */}
-      <Box hAlignContent="center" margin={{ top: 45 / 16 }}>
-        {_.map(social, (socialLink, type) => {
-          if (!socialLink) {
-            return false;
-          }
-
-          return (
-            <Box key={type} padding={{ horizontal: 9.6 / 16 }}>
-              <SocialLink href={getSocialLink(type, socialLink)} target="_blank">
-                <SocialIcon name={type} />
-              </SocialLink>
-            </Box>
-          );
-        })}
-      </Box>
+const Head = ({ avatarUrl, firstName, headline, lastName, social }) => (
+  <Box column padding={{ bottom: 29 / 16 }}>
+    {/* Avatar */}
+    <Box hAlignContent="center">
+      <Image width={125} height={125} url={avatarUrl || theme.defaultAvatar} circle />
     </Box>
-  );
-};
+
+    {/* Name */}
+    <Box hAlignContent="center" margin={{ top: 13 / 16 }}>
+      <Text align="center" size={26 / 16} weight={800} letterSpacing={-0.54} lineHeight={30}>
+        {firstName} {lastName}
+      </Text>
+    </Box>
+
+    {/* Headline */}
+    <Box hAlignContent="center" margin={{ top: 13 / 16 }}>
+      <Text color="solitude" align="center" lineHeight={22}>
+        {headline}
+      </Text>
+    </Box>
+
+    {/* Social */}
+    <Box hAlignContent="center" margin={{ top: 45 / 16 }}>
+      {_.map(social, (socialLink, type) => {
+        if (!socialLink) {
+          return false;
+        }
+
+        return (
+          <Box key={type} padding={{ horizontal: 9.6 / 16 }}>
+            <SocialLink href={getSocialLink(type, socialLink)} target="_blank">
+              <SocialIcon name={type} />
+            </SocialLink>
+          </Box>
+        );
+      })}
+    </Box>
+  </Box>
+);
 
 Head.propTypes = {
   avatarUrl: PropTypes.string,
+  firstName: PropTypes.string,
   headline: PropTypes.string,
-  isEditing: PropTypes.bool,
-  name: PropTypes.string,
+  lastName: PropTypes.string,
   social: PropTypes.shape({
     facebook: PropTypes.string,
     instagram: PropTypes.string,
@@ -105,9 +94,9 @@ Head.propTypes = {
 
 Head.defaultProps = {
   avatarUrl: null,
+  firstName: null,
   headline: null,
-  isEditing: false,
-  name: null,
+  lastName: null,
   social: {
     facebook: null,
     instagram: null,

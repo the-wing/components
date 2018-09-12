@@ -7,6 +7,7 @@ import Button from 'ui/Button/Button';
 import Icon from 'ui/Icon/Icon';
 
 import AdditionalInfo from './components/AdditionalInfo';
+import EditForm from './components/EditForm';
 import Head from './components/Head';
 import Main from './components/Main';
 
@@ -19,8 +20,10 @@ class Profile extends PureComponent {
     this.setState(prevProps => ({ isEditing: !prevProps.isEditing }));
   };
 
-  onCancel = () => {
+  onCancel = event => {
     const { onCancel } = this.props;
+
+    event.preventDefault();
 
     if (onCancel) {
       onCancel();
@@ -29,8 +32,10 @@ class Profile extends PureComponent {
     this.toggleEditing();
   };
 
-  onEdit = () => {
+  onEdit = event => {
     const { onEdit } = this.props;
+
+    event.preventDefault();
 
     if (onEdit) {
       onEdit();
@@ -39,11 +44,21 @@ class Profile extends PureComponent {
     this.toggleEditing();
   };
 
+  onSubmit = values => {
+    const { onSubmit } = this.props;
+
+    if (onSubmit) {
+      onSubmit(values);
+    }
+
+    this.toggleEditing();
+  };
+
   render() {
-    const { initialValues, loading, onClose, onSubmit } = this.props;
+    const { initialValues, loading, onClose } = this.props;
 
     return (
-      <Form onSubmit={onSubmit} initialValues={initialValues}>
+      <Form onSubmit={this.onSubmit} initialValues={initialValues}>
         {({ form, handleSubmit, invalid, pristine }) => {
           const values = form.getState().values;
 
@@ -92,33 +107,38 @@ class Profile extends PureComponent {
                     )}
                   </Box>
                 </Box>
-                <Head
-                  avatarUrl={values.avatarUrl}
-                  headline={values.headline}
-                  isEditing={this.state.isEditing}
-                  name={values.name}
-                  social={values.social}
-                />
-                <Main
-                  asks={values.asks}
-                  bio={values.bio}
-                  industry={values.industry}
-                  interests={values.interests}
-                  isEditing={this.state.isEditing}
-                  occupation={values.occupation}
-                  offers={values.offers}
-                  onEdit={this.onEdit}
-                  position={values.position}
-                />
-                <AdditionalInfo
-                  birthday={values.birthday}
-                  isEditing={this.state.isEditing}
-                  location={values.location}
-                  neighborhood={values.neighborhood}
-                  onEdit={this.onEdit}
-                  starSign={values.starSign}
-                  startDate={values.startDate}
-                />
+
+                {this.state.isEditing && <EditForm />}
+
+                {!this.state.isEditing && (
+                  <Fragment>
+                    <Head
+                      avatarUrl={values.avatarUrl}
+                      headline={values.headline}
+                      firstName={values.firstName}
+                      lastName={values.lastName}
+                      social={values.social}
+                    />
+                    <Main
+                      asks={values.asks}
+                      bio={values.bio}
+                      industry={values.industry}
+                      interests={values.interests}
+                      occupation={values.occupation}
+                      offers={values.offers}
+                      onEdit={this.onEdit}
+                      position={values.position}
+                    />
+                    <AdditionalInfo
+                      birthday={values.birthday}
+                      location={values.location}
+                      neighborhood={values.neighborhood}
+                      onEdit={this.onEdit}
+                      starSign={values.starSign}
+                      startDate={values.startDate}
+                    />
+                  </Fragment>
+                )}
               </Box>
             </form>
           );
