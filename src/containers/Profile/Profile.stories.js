@@ -4,6 +4,13 @@ import { withConsole } from '@storybook/addon-console';
 import { action } from '@storybook/addon-actions';
 import Profile from 'containers/Profile/Profile';
 
+const industryList = [
+  { value: 'art', label: 'Art' },
+  { value: 'design', label: 'Design' },
+  { value: 'education', label: 'Education' },
+  { value: '123', label: 'Computers/IT' },
+];
+
 const defaultUser = {
   firstName: 'Rae',
   headline: 'Software Engineer',
@@ -35,8 +42,8 @@ const userWithAllInfo = {
     },
   ],
   industry: {
-    _id: '123',
-    name: 'Computers/IT',
+    value: '123',
+    label: 'Computers/IT',
   },
   offers: ['Code review', 'Javascript lessons', 'Networking'],
   asks: ['Help me', 'I need', 'More cookies'],
@@ -56,9 +63,16 @@ const userWithAllInfo = {
 
 storiesOf('Profile', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
-  .add('default', () => <Profile onSubmit={action('onSubmit')} onClose={action('onClose')} />)
+  .add('default', () => (
+    <Profile
+      industryList={industryList}
+      onSubmit={action('onSubmit')}
+      onClose={action('onClose')}
+    />
+  ))
   .add('with name, headline', () => (
     <Profile
+      industryList={industryList}
       onClose={action('onClose')}
       onSubmit={action('onSubmit')}
       initialValues={defaultUser}
@@ -66,6 +80,7 @@ storiesOf('Profile', module)
   ))
   .add('with social', () => (
     <Profile
+      industryList={industryList}
       onClose={action('onClose')}
       onSubmit={action('onSubmit')}
       initialValues={userWithSocial}
@@ -73,6 +88,7 @@ storiesOf('Profile', module)
   ))
   .add('with all info', () => (
     <Profile
+      industryList={industryList}
       onClose={action('onClose')}
       onSubmit={action('onSubmit')}
       initialValues={userWithAllInfo}

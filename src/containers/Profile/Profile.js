@@ -56,7 +56,7 @@ class Profile extends PureComponent {
   };
 
   render() {
-    const { initialValues, loading, onClose } = this.props;
+    const { industryList, initialValues, loading, onClose } = this.props;
 
     return (
       <Form
@@ -116,7 +116,9 @@ class Profile extends PureComponent {
                   </Box>
                 </Box>
 
-                {this.state.isEditing && <EditForm push={push} pop={pop} />}
+                {this.state.isEditing && (
+                  <EditForm industryList={industryList} push={push} pop={pop} />
+                )}
 
                 {!this.state.isEditing && (
                   <Fragment>
@@ -157,6 +159,12 @@ class Profile extends PureComponent {
 }
 
 Profile.propTypes = {
+  industryList: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string,
+    })
+  ),
   initialValues: PropTypes.shape({
     asks: PropTypes.arrayOf(PropTypes.string),
     avatarUrl: PropTypes.string,
@@ -173,8 +181,8 @@ Profile.propTypes = {
     }),
     headline: PropTypes.string,
     industry: PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
+      value: PropTypes.string,
+      label: PropTypes.string,
     }),
     interests: PropTypes.arrayOf(PropTypes.string),
     location: PropTypes.shape({

@@ -44,10 +44,10 @@ const Main = ({ asks, bio, industry, interests, occupations, offers, onEdit }) =
 
     {/* INDUSTRY */}
     <Section title="Industry">
-      {industry && industry._id && industry.name ? (
+      {industry && industry.value && industry.label ? (
         <Box width={296}>
           <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
-            {industry.name}
+            {industry.label}
           </Text>
         </Box>
       ) : (

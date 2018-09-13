@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 
-import { FormField, Input, Label, TextArea, TypeAhead } from 'ui/Forms';
+import { FormField, Input, Label, Select, TextArea, TypeAhead } from 'ui/Forms';
 import Box from 'ui/Box/Box';
 import EmptyStateButton from './EmptyStateButton';
 
@@ -27,7 +28,7 @@ const companies = [
   'Uber',
 ];
 
-const EditForm = ({ push, pop }) => (
+const EditForm = ({ industryList, push, pop }) => (
   <Box column padding={{ horizontal: 2, top: 2, bottom: 290 / 16 }} color="white">
     <Field
       name="firstName"
@@ -93,13 +94,27 @@ const EditForm = ({ push, pop }) => (
             />
             {fields.length > 1 &&
               index !== 0 && (
-                <EmptyStateButton onClick={() => fields.remove(index)} text="Remove Occupation" />
+                <FormField>
+                  <EmptyStateButton onClick={() => fields.remove(index)} text="Remove Occupation" />
+                </FormField>
               )}
           </Fragment>
         ))
       }
     </FieldArray>
-    <EmptyStateButton onClick={() => push('occupations', undefined)} text="Add Occupation" />
+    <FormField>
+      <EmptyStateButton onClick={() => push('occupations', undefined)} text="Add Occupation" />
+    </FormField>
+
+    <Field
+      name="industry"
+      render={({ input, meta }) => (
+        <FormField>
+          <Label htmlFor={input.name} text="Industry (required)" />
+          <Select options={industryList} {...input} />
+        </FormField>
+      )}
+    />
   </Box>
 );
 
