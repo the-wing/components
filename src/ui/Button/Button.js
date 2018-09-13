@@ -55,6 +55,7 @@ Button.propTypes = {
   uppercase: PropTypes.bool,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]),
   transparent: PropTypes.bool,
+  type: PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -65,6 +66,7 @@ Button.defaultProps = {
   uppercase: true,
   size: null,
   transparent: false,
+  type: 'button',
 };
 
 export default Button;

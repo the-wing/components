@@ -10,10 +10,15 @@ Shared component library
 - [x] File structure decisions
 - [x] Add Drawer component
 - [x] Add !isEditing version of profile
-- [ ] Add isEditing version of profile
+- [x] Add isEditing version of profile
 - [x] Add Collapsible component
-- [ ] Add form handling
-- [ ] Split form sections into seperate components in container
+- [x] Add form handling
+- [ ] On submit form, make sure that all label/value attrs are changed back to `_id` and `name`?
+- [ ] Fix occupations adding and removing
+- [ ] Add addons for icons on social inputs
+- [ ] Add form validation
+- [ ] Add loading (react-placeholder) state for profile
+- [x] Split form sections into seperate components in container
 - [ ] Add dropdown component
 - [ ] Add transition around profile drawer
 - [ ] Export fonts.scss to public/fonts.css for use in all apps (update directions below)

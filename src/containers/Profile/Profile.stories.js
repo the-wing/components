@@ -4,9 +4,17 @@ import { withConsole } from '@storybook/addon-console';
 import { action } from '@storybook/addon-actions';
 import Profile from 'containers/Profile/Profile';
 
+const industryList = [
+  { value: 'art', label: 'Art' },
+  { value: 'design', label: 'Design' },
+  { value: 'education', label: 'Education' },
+  { value: '123', label: 'Computers/IT' },
+];
+
 const defaultUser = {
-  name: 'Rae Farine',
+  firstName: 'Rae',
   headline: 'Software Engineer',
+  lastName: 'Farine',
 };
 
 const userWithSocial = {
@@ -23,13 +31,19 @@ const userWithAllInfo = {
   ...userWithSocial,
   bio:
     'Jean shorts affogato pickled pork belly hexagon unicorn ramps roof party pug. Godard squid mumblecore letterpress brunch twee photo booth.',
-  occupation: {
-    position: 'Software Engineer',
-    company: 'The Wing',
-  },
+  occupations: [
+    {
+      position: 'Software Engineer',
+      company: 'The Wing',
+    },
+    {
+      position: 'Contractor',
+      company: 'Self Employed',
+    },
+  ],
   industry: {
-    _id: '123',
-    name: 'Computers/IT',
+    value: '123',
+    label: 'Computers/IT',
   },
   offers: ['Code review', 'Javascript lessons', 'Networking'],
   asks: ['Help me', 'I need', 'More cookies'],
@@ -41,15 +55,42 @@ const userWithAllInfo = {
   },
   startDate: '2018-09-04T22:44:30.652Z',
   birthday: {
-    month: { _id: '09', name: 'September' },
-    day: { _id: '22', name: '22' },
+    month: { value: '09', label: 'September' },
+    day: { value: '22', label: '22' },
   },
   starSign: 'Libra',
 };
 
 storiesOf('Profile', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
-  .add('default', () => <Profile onClose={action('onClose')} />)
-  .add('with name, headline', () => <Profile onClose={action('onClose')} {...defaultUser} />)
-  .add('with social', () => <Profile onClose={action('onClose')} {...userWithSocial} />)
-  .add('with all info', () => <Profile onClose={action('onClose')} {...userWithAllInfo} />);
+  .add('default', () => (
+    <Profile
+      industryList={industryList}
+      onSubmit={action('onSubmit')}
+      onClose={action('onClose')}
+    />
+  ))
+  .add('with name, headline', () => (
+    <Profile
+      industryList={industryList}
+      onClose={action('onClose')}
+      onSubmit={action('onSubmit')}
+      initialValues={defaultUser}
+    />
+  ))
+  .add('with social', () => (
+    <Profile
+      industryList={industryList}
+      onClose={action('onClose')}
+      onSubmit={action('onSubmit')}
+      initialValues={userWithSocial}
+    />
+  ))
+  .add('with all info', () => (
+    <Profile
+      industryList={industryList}
+      onClose={action('onClose')}
+      onSubmit={action('onSubmit')}
+      initialValues={userWithAllInfo}
+    />
+  ));

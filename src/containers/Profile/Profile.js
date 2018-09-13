@@ -1,371 +1,274 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import moment from 'moment';
-import styled from 'styled-components';
-import { Transition } from 'react-spring';
-import theme from 'theme';
+import { Form } from 'react-final-form';
+import arrayMutators from 'final-form-arrays';
+import createDecorator from 'final-form-calculate';
+import { getSign } from 'horoscope';
 
 import Box from 'ui/Box/Box';
 import Button from 'ui/Button/Button';
-import Chip from 'ui/Chip/Chip';
 import Icon from 'ui/Icon/Icon';
-import Image from 'ui/Image/Image';
-import List from 'ui/List/List';
-import ListItem from 'ui/ListItem/ListItem';
-import Section from 'ui/Section/Section';
-import SocialIcon from 'ui/SocialIcon/SocialIcon';
-import Text from 'ui/Text/Text';
 
-import ProfileContainer from './ProfileContainer';
-import EmptyStateButton from './components/EmptyStateButton';
+import AdditionalInfo from './components/AdditionalInfo';
+import EditForm from './components/EditForm';
+import Head from './components/Head';
+import Main from './components/Main';
 
-const SocialLink = styled.a`
-  :hover {
-    transform: scale(1.1);
-  }
-`;
+const calculator = createDecorator({
+  field: /birthday\.(day|month)/,
+  updates: {
+    starSign: (ignoredValue, allValues) => {
+      const month = _.get(allValues.birthday, 'month.value', 1);
+      const day = _.get(allValues.birthday, 'day.value', 1);
 
-const getSocialLink = (type, value) => {
-  if (type === 'facebook') {
-    return `https://www.facebook.com/${value}`;
-  }
+      getSign({ month: parseInt(month, 10), day: parseInt(day, 10) });
+    },
+  },
+});
 
-  if (type === 'instagram') {
-    return `https://www.instagram.com/${value}`;
-  }
+class Profile extends PureComponent {
+  state = {
+    isEditing: false,
+  };
 
-  if (type === 'twitter') {
-    return `https://www.twitter.com/${value}`;
-  }
+  toggleEditing = () => {
+    this.setState(prevProps => ({ isEditing: !prevProps.isEditing }));
+  };
 
-  if (type === 'web' && value.indexOf('http') === -1) {
-    return `http://${value}`;
-  }
+  onCancel = event => {
+    const { onCancel } = this.props;
 
-  if (type === 'web') {
-    return value;
-  }
+    event.preventDefault();
 
-  return null;
-};
+    if (onCancel) {
+      onCancel();
+    }
 
-const Profile = ({
-  asks,
-  avatarUrl,
-  bio,
-  birthday,
-  headline,
-  industry,
-  interests,
-  location,
-  name,
-  neighborhood,
-  occupation: { company, position },
-  offers,
-  social,
-  starSign,
-  startDate,
-}) => (
-  <ProfileContainer>
-    {({ isEditing, onEdit }) => (
-      <Fragment>
-        {/* Header */}
-        <Box column padding={{ bottom: 29 / 16 }}>
-          {/* Avatar */}
-          <Box hAlignContent="center">
-            <Image width={125} height={125} url={avatarUrl || theme.defaultAvatar} circle />
-          </Box>
+    this.toggleEditing();
+  };
 
-          {/* Name */}
-          <Box hAlignContent="center" margin={{ top: 13 / 16 }}>
-            <Text align="center" size={26 / 16} weight={800} letterSpacing={-0.54} lineHeight={30}>
-              {name}
-            </Text>
-          </Box>
+  onEdit = event => {
+    const { onEdit } = this.props;
 
-          {/* Headline */}
-          <Box hAlignContent="center" margin={{ top: 13 / 16 }}>
-            <Text color="solitude" align="center" lineHeight={22}>
-              {headline}
-            </Text>
-          </Box>
+    event.preventDefault();
 
-          {/* Social */}
-          <Box hAlignContent="center" margin={{ top: 45 / 16 }}>
-            {_.map(social, (socialLink, type) => {
-              if (!socialLink) {
-                return false;
-              }
+    if (onEdit) {
+      onEdit();
+    }
 
-              return (
-                <Box key={type} padding={{ horizontal: 9.6 / 16 }}>
-                  <SocialLink href={getSocialLink(type, socialLink)} target="_blank">
-                    <SocialIcon name={type} />
-                  </SocialLink>
+    this.toggleEditing();
+  };
+
+  onSubmit = values => {
+    const { onSubmit } = this.props;
+
+    if (onSubmit) {
+      onSubmit(values);
+    }
+
+    this.toggleEditing();
+  };
+
+  render() {
+    const { industryList, initialValues, loading, onClose } = this.props;
+
+    return (
+      <Form
+        mutators={{
+          ...arrayMutators,
+        }}
+        decorators={[calculator]}
+        onSubmit={this.onSubmit}
+        initialValues={initialValues}
+      >
+        {({ form, handleSubmit, invalid, pristine }) => {
+          const values = form.getState().values;
+          const { pop, push } = form.mutators;
+
+          return (
+            <form onSubmit={handleSubmit}>
+              <Box grow column color={this.state.isEditing ? 'white' : 'linen'}>
+                <Box column padding={{ horizontal: 2, top: 2 }}>
+                  <Box grow margin={{ bottom: 22 / 16 }}>
+                    {this.state.isEditing ? (
+                      <Fragment>
+                        <Box>
+                          <Button
+                            height="auto"
+                            onClick={this.onCancel}
+                            color="terracota"
+                            transparent
+                          >
+                            Cancel
+                          </Button>
+                        </Box>
+                        <Box marginLeft="auto">
+                          <Button
+                            disabled={pristine || invalid || loading}
+                            height="auto"
+                            color="terracota"
+                            transparent
+                            type="submit"
+                          >
+                            Save
+                          </Button>
+                        </Box>
+                      </Fragment>
+                    ) : (
+                      <Fragment>
+                        <Box>
+                          <Button onClick={onClose} lineHeight="22px" height="auto" transparent>
+                            <Icon name="close" size={19} color="terracota" />
+                          </Button>
+                        </Box>
+                        <Box marginLeft="auto">
+                          <Button height="auto" onClick={this.onEdit} color="terracota" transparent>
+                            Edit
+                          </Button>
+                        </Box>
+                      </Fragment>
+                    )}
+                  </Box>
                 </Box>
-              );
-            })}
-          </Box>
-        </Box>
 
-        {/* Main Info */}
-        <Box column grow padding={{ horizontal: 2, bottom: 2 }} color="white">
-          {/* BIO */}
-          {!isEditing && (
-            <Section title="Bio">
-              {bio ? (
-                <Box width={296}>
-                  <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
-                    {bio}
-                  </Text>
-                </Box>
-              ) : (
-                <EmptyStateButton
-                  onClick={onEdit}
-                  text="What makes you uniquely you? Or just tell us a fun fact or two."
-                />
-              )}
-            </Section>
-          )}
-
-          {isEditing && <div>oh wow i am editing a bio</div>}
-
-          {/* OCCUPATION */}
-          {!isEditing && (
-            <Section title="Current Occupation">
-              {company || position ? (
-                <Box width={296}>
-                  <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
-                    {company ? `${position} at ${company}` : `${position}`}
-                  </Text>
-                </Box>
-              ) : (
-                <EmptyStateButton onClick={onEdit} text="Add Occupation" />
-              )}
-            </Section>
-          )}
-
-          {isEditing && <div>oh wow i am editing an occupation</div>}
-
-          {/* INDUSTRY */}
-          {!isEditing && (
-            <Section title="Industry">
-              {industry && industry._id && industry.name ? (
-                <Box width={296}>
-                  <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
-                    {industry.name}
-                  </Text>
-                </Box>
-              ) : (
-                <EmptyStateButton onClick={onEdit} text="What industry do you work in?" />
-              )}
-            </Section>
-          )}
-
-          {isEditing && <div>oh wow i am editing an industry</div>}
-
-          {!isEditing && (
-            <Section title="Offers">
-              {offers && offers.length > 0 ? (
-                <Box wrap>
-                  <Transition
-                    keys={offers.map(offer => offer)}
-                    from={{ opacity: 0, transform: 'scale(0)' }}
-                    enter={{ opacity: 1, transform: 'scale(1)' }}
-                    leave={{ opacity: 0, transform: 'scale(0)' }}
-                  >
-                    {styles => {
-                      return offers.map(offer => (
-                        <Chip key={offer} text={offer} styles={styles} readonly />
-                      ));
-                    }}
-                  </Transition>
-                </Box>
-              ) : (
-                <EmptyStateButton onClick={onEdit} text="I could teach a master class on..." />
-              )}
-            </Section>
-          )}
-
-          {isEditing && <div>oh wow i am editing offers</div>}
-
-          {/* ASKS */}
-          {!isEditing && (
-            <Section title="Asks">
-              {asks && asks.length > 0 ? (
-                <Box wrap>
-                  <Transition
-                    keys={asks.map(ask => ask)}
-                    from={{ opacity: 0, transform: 'scale(0)' }}
-                    enter={{ opacity: 1, transform: 'scale(1)' }}
-                    leave={{ opacity: 0, transform: 'scale(0)' }}
-                  >
-                    {styles => {
-                      return asks.map(ask => (
-                        <Chip key={ask} text={ask} color="panache" styles={styles} readonly />
-                      ));
-                    }}
-                  </Transition>
-                </Box>
-              ) : (
-                <EmptyStateButton onClick={onEdit} text="I could use a hand with..." />
-              )}
-            </Section>
-          )}
-
-          {isEditing && <div>oh wow i am editing Asks</div>}
-
-          {/* INTERESTS */}
-          {!isEditing && (
-            <Section title="Interested In">
-              {interests && interests.length > 0 ? (
-                <Box wrap>
-                  <Transition
-                    keys={interests.map(interest => interest)}
-                    from={{ opacity: 0, transform: 'scale(0)' }}
-                    enter={{ opacity: 1, transform: 'scale(1)' }}
-                    leave={{ opacity: 0, transform: 'scale(0)' }}
-                  >
-                    {styles => {
-                      return interests.map(interest => (
-                        <Chip
-                          key={interest}
-                          text={interest}
-                          color="concrete"
-                          styles={styles}
-                          readonly
-                        />
-                      ));
-                    }}
-                  </Transition>
-                </Box>
-              ) : (
-                <EmptyStateButton onClick={onEdit} text="I&apos;m currently obsessed with..." />
-              )}
-            </Section>
-          )}
-        </Box>
-
-        {/* Additional Info */}
-        {!isEditing && (
-          <Box column padding={{ horizontal: 2, top: 2, bottom: 58 / 16 }}>
-            <List>
-              <ListItem icon="location" underline>
-                {neighborhood ? (
-                  neighborhood
-                ) : (
-                  <EmptyStateButton onClick={onEdit} text="Add your neighborhood" />
+                {this.state.isEditing && (
+                  <EditForm industryList={industryList} push={push} pop={pop} />
                 )}
-              </ListItem>
-              <ListItem icon="homebase" underline>
-                {location && location._id && location.name ? (
-                  location.name
-                ) : (
-                  <EmptyStateButton onClick={onEdit} text="Add your location" />
+
+                {!this.state.isEditing && (
+                  <Fragment>
+                    <Head
+                      avatarUrl={values.avatarUrl}
+                      headline={values.headline}
+                      firstName={values.firstName}
+                      lastName={values.lastName}
+                      social={values.social}
+                    />
+                    <Main
+                      asks={values.asks}
+                      bio={values.bio}
+                      industry={values.industry}
+                      interests={values.interests}
+                      occupations={values.occupations}
+                      offers={values.offers}
+                      onEdit={this.onEdit}
+                      position={values.position}
+                    />
+                    <AdditionalInfo
+                      birthday={values.birthday}
+                      location={values.location}
+                      neighborhood={values.neighborhood}
+                      onEdit={this.onEdit}
+                      starSign={values.starSign}
+                      startDate={values.startDate}
+                    />
+                  </Fragment>
                 )}
-              </ListItem>
-              {startDate && (
-                <ListItem icon="anniversary" underline>
-                  Joined: {moment(startDate).format('MMMM YYYY')}
-                </ListItem>
-              )}
-              <ListItem icon="birthday" underline>
-                {birthday &&
-                _.get(birthday, 'day._id', null) &&
-                parseInt(birthday.day._id, 10) < 32 ? (
-                  `${_.get(birthday, 'month.name', '')} ${_.get(birthday, 'day.name', '')}`
-                ) : (
-                  <EmptyStateButton onClick={onEdit} text="Add your birthday" />
-                )}
-              </ListItem>
-              <ListItem icon="starsign" underline>
-                {starSign && starSign !== '1' ? (
-                  starSign
-                ) : (
-                  <EmptyStateButton onClick={onEdit} text="Add your star sign" />
-                )}
-              </ListItem>
-            </List>
-          </Box>
-        )}
-      </Fragment>
-    )}
-  </ProfileContainer>
-);
+              </Box>
+            </form>
+          );
+        }}
+      </Form>
+    );
+  }
+}
 
 Profile.propTypes = {
-  asks: PropTypes.arrayOf(PropTypes.string),
-  avatarUrl: PropTypes.string,
-  birthday: PropTypes.shape({
-    month: PropTypes.shape({
+  industryList: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string,
+    })
+  ),
+  initialValues: PropTypes.shape({
+    asks: PropTypes.arrayOf(PropTypes.string),
+    avatarUrl: PropTypes.string,
+    bio: PropTypes.string,
+    birthday: PropTypes.shape({
+      month: PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      }),
+      day: PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      }),
+    }),
+    headline: PropTypes.string,
+    industry: PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string,
+    }),
+    interests: PropTypes.arrayOf(PropTypes.string),
+    location: PropTypes.shape({
       _id: PropTypes.string,
       name: PropTypes.string,
     }),
-    day: PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
+    name: PropTypes.string,
+    neighborhood: PropTypes.string,
+    occupations: PropTypes.arrayOf(
+      PropTypes.shape({
+        company: PropTypes.string,
+        position: PropTypes.string,
+      })
+    ),
+    offers: PropTypes.arrayOf(PropTypes.string),
+    social: PropTypes.shape({
+      facebook: PropTypes.string,
+      instagram: PropTypes.string,
+      twitter: PropTypes.string,
+      web: PropTypes.string,
     }),
+    starSign: PropTypes.string,
+    startDate: PropTypes.string,
   }),
-  headline: PropTypes.string,
-  industry: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-  }),
-  interests: PropTypes.arrayOf(PropTypes.string),
-  location: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-  }),
-  name: PropTypes.string,
-  neighborhood: PropTypes.string,
-  occupation: PropTypes.shape({
-    company: PropTypes.string,
-    position: PropTypes.string,
-  }),
-  offers: PropTypes.arrayOf(PropTypes.string),
-  social: PropTypes.shape({
-    facebook: PropTypes.string,
-    instagram: PropTypes.string,
-    twitter: PropTypes.string,
-    web: PropTypes.string,
-  }),
-  starSign: PropTypes.string,
-  startDate: PropTypes.string,
+  onCancel: PropTypes.func,
+  onClose: PropTypes.func,
+  onEdit: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 Profile.defaultProps = {
-  asks: [],
-  avatarUrl: null,
-  birthday: {
-    month: null,
-    day: null,
-  },
-  headline: null,
-  industry: {
-    _id: null,
+  initialValues: {
+    asks: [],
+    bio: null,
+    avatarUrl: null,
+    birthday: {
+      month: null,
+      day: null,
+    },
+    headline: null,
+    industry: {
+      _id: null,
+      name: null,
+    },
+    interests: [],
+    location: {
+      _id: null,
+      name: null,
+    },
     name: null,
+    neighborhood: null,
+    occupations: [
+      {
+        company: null,
+        position: null,
+      },
+    ],
+    offers: [],
+    social: {
+      facebook: null,
+      instagram: null,
+      twitter: null,
+      web: null,
+    },
+    starSign: null,
+    startDate: null,
   },
-  interests: [],
-  location: {
-    _id: null,
-    name: null,
-  },
-  name: null,
-  neighborhood: null,
-  occupation: {
-    company: null,
-    position: null,
-  },
-  offers: [],
-  social: {
-    facebook: null,
-    instagram: null,
-    twitter: null,
-    web: null,
-  },
-  starSign: null,
-  startDate: null,
+  onCancel: null,
+  onClose: null,
+  onEdit: null,
 };
 
 export default Profile;

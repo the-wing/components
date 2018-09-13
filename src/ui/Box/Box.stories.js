@@ -26,4 +26,14 @@ storiesOf('Box', module)
     <Box color="vermilion" padding={{ top: 2, left: 5, bottom: 7, right: 10 }}>
       Box with different padding values
     </Box>
+  ))
+  .add('with vertical padding values', () => (
+    <Box color="vermilion" padding={{ vertical: 2 }}>
+      Box with different padding values
+    </Box>
+  ))
+  .add('with horizontal padding values', () => (
+    <Box color="vermilion" padding={{ horizontal: 2 }}>
+      Box with different padding values
+    </Box>
   ));
