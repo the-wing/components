@@ -5,6 +5,7 @@ import { FieldArray } from 'react-final-form-arrays';
 
 import { FormField, Input, Label, TextArea, TypeAhead } from 'ui/Forms';
 import Box from 'ui/Box/Box';
+import EmptyStateButton from './EmptyStateButton';
 
 const positions = [
   'Front End Developer',
@@ -26,7 +27,7 @@ const companies = [
   'Uber',
 ];
 
-const EditForm = () => (
+const EditForm = ({ push, pop }) => (
   <Box column padding={{ horizontal: 2, top: 2, bottom: 290 / 16 }} color="white">
     <Field
       name="firstName"
@@ -76,26 +77,29 @@ const EditForm = () => (
           <Fragment key={name}>
             <Field
               name={`${name}.position`}
-              placeholder="Position (required)"
               render={({ input, meta }) => (
                 <FormField>
-                  <TypeAhead options={positions} {...input} />
+                  <TypeAhead options={positions} placeholder="Position (required)" {...input} />
                 </FormField>
               )}
             />
             <Field
               name={`${name}.company`}
-              placeholder="Company"
               render={({ input, meta }) => (
                 <FormField>
-                  <TypeAhead options={companies} {...input} />
+                  <TypeAhead options={companies} placeholder="Company" {...input} />
                 </FormField>
               )}
             />
+            {fields.length > 1 &&
+              index !== 0 && (
+                <EmptyStateButton onClick={() => fields.remove(index)} text="Remove Occupation" />
+              )}
           </Fragment>
         ))
       }
     </FieldArray>
+    <EmptyStateButton onClick={() => push('occupations', undefined)} text="Add Occupation" />
   </Box>
 );
 

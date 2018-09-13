@@ -10,9 +10,10 @@ Shared component library
 - [x] File structure decisions
 - [x] Add Drawer component
 - [x] Add !isEditing version of profile
-- [ ] Add isEditing version of profile
+- [x] Add isEditing version of profile
 - [x] Add Collapsible component
-- [ ] Add form handling
+- [x] Add form handling
+- [ ] Fix occupations adding and removing
 - [ ] Add form validation
 - [ ] Add loading (react-placeholder) state for profile
 - [x] Split form sections into seperate components in container

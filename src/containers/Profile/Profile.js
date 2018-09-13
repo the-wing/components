@@ -66,8 +66,9 @@ class Profile extends PureComponent {
         onSubmit={this.onSubmit}
         initialValues={initialValues}
       >
-        {({ form, handleSubmit, invalid, mutators: { push, pop }, pristine }) => {
+        {({ form, handleSubmit, invalid, pristine }) => {
           const values = form.getState().values;
+          const { pop, push } = form.mutators;
 
           return (
             <form onSubmit={handleSubmit}>
