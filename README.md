@@ -13,6 +13,7 @@ Shared component library
 - [x] Add isEditing version of profile
 - [x] Add Collapsible component
 - [x] Add form handling
+- [ ] On submit form, make sure that all label/value attrs are changed back to `_id` and `name`?
 - [ ] Fix occupations adding and removing
 - [ ] Add addons for icons on social inputs
 - [ ] Add form validation
