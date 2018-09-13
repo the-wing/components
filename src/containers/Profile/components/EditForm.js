@@ -6,6 +6,7 @@ import { FieldArray } from 'react-final-form-arrays';
 
 import { FormField, Input, Label, Select, TextArea, TypeAhead } from 'ui/Forms';
 import Box from 'ui/Box/Box';
+import SocialIcon from 'ui/SocialIcon/SocialIcon';
 import EmptyStateButton from './EmptyStateButton';
 
 const positions = [
@@ -105,13 +106,59 @@ const EditForm = ({ industryList, push, pop }) => (
     <FormField>
       <EmptyStateButton onClick={() => push('occupations', undefined)} text="Add Occupation" />
     </FormField>
-
     <Field
       name="industry"
       render={({ input, meta }) => (
         <FormField>
           <Label htmlFor={input.name} text="Industry (required)" />
           <Select options={industryList} {...input} />
+        </FormField>
+      )}
+    />
+    <Field
+      name="social.web"
+      render={({ input, meta }) => (
+        <FormField>
+          <Label htmlFor={input.name} text="Website" />
+          <Input
+            id={input.name}
+            {...input}
+            placeholder="http://your-website.com"
+            error={meta.error}
+          />
+        </FormField>
+      )}
+    />
+    <Field
+      name="social.instagram"
+      render={({ input, meta }) => (
+        <FormField>
+          <Label htmlFor={input.name} text="Instagram" />
+          <Input id={input.name} {...input} placeholder="@username" error={meta.error} />
+        </FormField>
+      )}
+    />
+    <Field
+      name="social.facebook"
+      render={({ input, meta }) => (
+        <FormField>
+          <Label htmlFor={input.name} text="Facebook" />
+          <Input
+            icon={<SocialIcon name="facebook" />}
+            id={input.name}
+            {...input}
+            placeholder="https://facebook.com/you"
+            error={meta.error}
+          />
+        </FormField>
+      )}
+    />
+    <Field
+      name="social.twitter"
+      render={({ input, meta }) => (
+        <FormField>
+          <Label htmlFor={input.name} text="Twitter" />
+          <Input id={input.name} {...input} placeholder="@username" error={meta.error} />
         </FormField>
       )}
     />

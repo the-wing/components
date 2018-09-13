@@ -17,9 +17,15 @@ storiesOf('Input', module)
       <Input id="id2" placeholder="Gender is an illusion, don't you agree?" />
     </FormField>
   ))
+  .add('with no border', () => (
+    <FormField>
+      <Label htmlFor="id2" text="Label 2" />
+      <Input id="id2" placeholder="Gender is an illusion, don't you agree?" noBorder />
+    </FormField>
+  ))
   .add('error', () => (
     <FormField>
-      <Label htmlFor="id2" text="Label 3" />
-      <Input error />
+      <Label htmlFor="id3" text="Label 3" />
+      <Input id="id3" error />
     </FormField>
   ));

@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledFormField = styled.div`
+export const StyledFormField = styled.div`
   display: flex;
   flex-flow: column;
   margin-bottom: 20px;
   position: relative;
+  flex: 1;
 `;
 
 const FormField = ({ children }) => <StyledFormField>{children}</StyledFormField>;
