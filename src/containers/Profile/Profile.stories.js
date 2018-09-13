@@ -55,8 +55,8 @@ const userWithAllInfo = {
   },
   startDate: '2018-09-04T22:44:30.652Z',
   birthday: {
-    month: { _id: '09', name: 'September' },
-    day: { _id: '22', name: '22' },
+    month: { value: '09', label: 'September' },
+    day: { value: '22', label: '22' },
   },
   starSign: 'Libra',
 };

@@ -1,7 +1,10 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
+import createDecorator from 'final-form-calculate';
+import { getSign } from 'horoscope';
 
 import Box from 'ui/Box/Box';
 import Button from 'ui/Button/Button';
@@ -11,6 +14,18 @@ import AdditionalInfo from './components/AdditionalInfo';
 import EditForm from './components/EditForm';
 import Head from './components/Head';
 import Main from './components/Main';
+
+const calculator = createDecorator({
+  field: /birthday\.(day|month)/,
+  updates: {
+    starSign: (ignoredValue, allValues) => {
+      const month = _.get(allValues.birthday, 'month.value', 1);
+      const day = _.get(allValues.birthday, 'day.value', 1);
+
+      getSign({ month: parseInt(month, 10), day: parseInt(day, 10) });
+    },
+  },
+});
 
 class Profile extends PureComponent {
   state = {
@@ -63,6 +78,7 @@ class Profile extends PureComponent {
         mutators={{
           ...arrayMutators,
         }}
+        decorators={[calculator]}
         onSubmit={this.onSubmit}
         initialValues={initialValues}
       >
@@ -171,12 +187,12 @@ Profile.propTypes = {
     bio: PropTypes.string,
     birthday: PropTypes.shape({
       month: PropTypes.shape({
-        _id: PropTypes.string,
-        name: PropTypes.string,
+        value: PropTypes.string,
+        label: PropTypes.string,
       }),
       day: PropTypes.shape({
-        _id: PropTypes.string,
-        name: PropTypes.string,
+        value: PropTypes.string,
+        label: PropTypes.string,
       }),
     }),
     headline: PropTypes.string,

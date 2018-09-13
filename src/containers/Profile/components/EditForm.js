@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import _ from 'lodash';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 
-import { FormField, Input, Label, Select, TextArea, TypeAhead } from 'ui/Forms';
+import { FormField, Input, InputGroup, Label, Select, TextArea, TypeAhead } from 'ui/Forms';
 import Box from 'ui/Box/Box';
 import SocialIcon from 'ui/SocialIcon/SocialIcon';
 import EmptyStateButton from './EmptyStateButton';
@@ -28,6 +29,47 @@ const companies = [
   'Amazon',
   'Uber',
 ];
+
+const neighborhoods = [
+  'Williamsburg',
+  'Park Slope',
+  'DUMBO',
+  'Cobble Hill',
+  'Flatbush',
+  'Crown Heights',
+  'Bay Ridge',
+  'Downtown Brooklyn',
+];
+
+const birthdayMonths = [
+  {
+    _id: '13',
+    name: '—',
+    value: '13',
+    label: '—',
+    noMonth: true,
+  },
+].concat(
+  Array.apply(0, Array(12)).map((_, i) => ({
+    value: i + 1 < 10 ? `0${i + 1}` : `${i + 1}`,
+    label: moment()
+      .month(i)
+      .format('MMMM'),
+  }))
+);
+
+const birthdayDays = [
+  {
+    value: '32',
+    label: '-',
+    noDay: true,
+  },
+].concat(
+  Array.apply(0, Array(31)).map((_, i) => ({
+    value: i + 1 < 10 ? `0${i + 1}` : `${i + 1}`,
+    label: `${i + 1}`,
+  }))
+);
 
 const EditForm = ({ industryList, push, pop }) => (
   <Box column padding={{ horizontal: 2, top: 2, bottom: 290 / 16 }} color="white">
@@ -153,15 +195,45 @@ const EditForm = ({ industryList, push, pop }) => (
         </FormField>
       )}
     />
+
+    {/* TODO: OFFERS, ASKS, INTERESTED IN */}
+
     <Field
-      name="social.twitter"
+      name="neighborhood"
       render={({ input, meta }) => (
         <FormField>
-          <Label htmlFor={input.name} text="Twitter" />
-          <Input id={input.name} {...input} placeholder="@username" error={meta.error} />
+          <FormField>
+            <Label htmlFor={input.name} text="Neighborhood" />
+            <TypeAhead options={neighborhoods} placeholder="Neighborhood" {...input} />
+          </FormField>
         </FormField>
       )}
     />
+
+    <InputGroup>
+      <Field
+        name="birthday.month"
+        render={({ input, meta }) => (
+          <FormField>
+            <FormField>
+              <Label htmlFor={input.name} text="Birthday (month)" />
+              <Select options={birthdayMonths} {...input} />
+            </FormField>
+          </FormField>
+        )}
+      />
+      <Field
+        name="birthday.day"
+        render={({ input, meta }) => (
+          <FormField>
+            <FormField>
+              <Label htmlFor={input.name} text="Birthday (day)" />
+              <Select options={birthdayDays} {...input} />
+            </FormField>
+          </FormField>
+        )}
+      />
+    </InputGroup>
   </Box>
 );
 

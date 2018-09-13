@@ -32,8 +32,8 @@ const AdditionalInfo = ({ birthday, location, neighborhood, onEdit, starSign, st
         </ListItem>
       )}
       <ListItem icon="birthday" underline>
-        {birthday && _.get(birthday, 'day._id', null) && parseInt(birthday.day._id, 10) < 32 ? (
-          `${_.get(birthday, 'month.name', '')} ${_.get(birthday, 'day.name', '')}`
+        {birthday && _.get(birthday, 'day.value', null) && parseInt(birthday.day.value, 10) < 32 ? (
+          `${_.get(birthday, 'month.label', '')} ${_.get(birthday, 'day.label', '')}`
         ) : (
           <EmptyStateButton onClick={onEdit} text="Add your birthday" />
         )}
