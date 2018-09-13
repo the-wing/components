@@ -7,7 +7,6 @@ import { FieldArray } from 'react-final-form-arrays';
 
 import { FormField, Input, InputGroup, Label, Select, TextArea, TypeAhead } from 'ui/Forms';
 import Box from 'ui/Box/Box';
-import SocialIcon from 'ui/SocialIcon/SocialIcon';
 import EmptyStateButton from './EmptyStateButton';
 
 const positions = [
@@ -70,6 +69,22 @@ const birthdayDays = [
     label: `${i + 1}`,
   }))
 );
+
+const starSigns = [
+  0,
+  'Aquarius',
+  'Pisces',
+  'Aries',
+  'Taurus',
+  'Gemini',
+  'Cancer',
+  'Leo',
+  'Virgo',
+  'Libra',
+  'Scorpio',
+  'Sagittarius',
+  'Capricorn',
+].map(i => (i === 0 ? { value: '1', label: '—' } : { value: i, label: i }));
 
 const EditForm = ({ industryList, push, pop }) => (
   <Box column padding={{ horizontal: 2, top: 2, bottom: 290 / 16 }} color="white">
@@ -186,7 +201,6 @@ const EditForm = ({ industryList, push, pop }) => (
         <FormField>
           <Label htmlFor={input.name} text="Facebook" />
           <Input
-            icon={<SocialIcon name="facebook" />}
             id={input.name}
             {...input}
             placeholder="https://facebook.com/you"
@@ -234,6 +248,18 @@ const EditForm = ({ industryList, push, pop }) => (
         )}
       />
     </InputGroup>
+
+    <Field
+      name="starSign"
+      render={({ input, meta }) => (
+        <FormField>
+          <FormField>
+            <Label htmlFor={input.name} text="Star Sign" />
+            <Select options={starSigns} placeholder="Star Sign" {...input} />
+          </FormField>
+        </FormField>
+      )}
+    />
   </Box>
 );
 

@@ -220,7 +220,10 @@ Profile.propTypes = {
       twitter: PropTypes.string,
       web: PropTypes.string,
     }),
-    starSign: PropTypes.string,
+    starSign: PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string,
+    }),
     startDate: PropTypes.string,
   }),
   onCancel: PropTypes.func,

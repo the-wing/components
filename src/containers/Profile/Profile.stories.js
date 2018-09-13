@@ -58,7 +58,10 @@ const userWithAllInfo = {
     month: { value: '09', label: 'September' },
     day: { value: '22', label: '22' },
   },
-  starSign: 'Libra',
+  starSign: {
+    value: '9',
+    label: 'Libra',
+  },
 };
 
 storiesOf('Profile', module)

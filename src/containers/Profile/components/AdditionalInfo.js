@@ -39,8 +39,8 @@ const AdditionalInfo = ({ birthday, location, neighborhood, onEdit, starSign, st
         )}
       </ListItem>
       <ListItem icon="starsign" underline>
-        {starSign && starSign !== '1' ? (
-          starSign
+        {starSign && starSign.value !== '1' ? (
+          starSign.label
         ) : (
           <EmptyStateButton onClick={onEdit} text="Add your star sign" />
         )}
@@ -66,7 +66,10 @@ AdditionalInfo.propTypes = {
   }),
   neighborhood: PropTypes.string,
   onEdit: PropTypes.func,
-  starSign: PropTypes.string,
+  starSign: PropTypes.shape({
+    value: PropTypes.string,
+    label: PropTypes.string,
+  }),
   startDate: PropTypes.string,
 };
 
