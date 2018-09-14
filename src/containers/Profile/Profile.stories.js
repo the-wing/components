@@ -33,12 +33,8 @@ const userWithAllInfo = {
     'Jean shorts affogato pickled pork belly hexagon unicorn ramps roof party pug. Godard squid mumblecore letterpress brunch twee photo booth.',
   occupations: [
     {
-      position: 'Software Engineer',
-      company: 'The Wing',
-    },
-    {
-      position: 'Contractor',
-      company: 'Self Employed',
+      position: { label: 'Software Engineer', value: 'software-engineer' },
+      company: { label: 'The Wing', value: 'the-wing' },
     },
   ],
   industry: {
@@ -48,7 +44,7 @@ const userWithAllInfo = {
   offers: ['Code review', 'Javascript lessons', 'Networking'],
   asks: ['Help me', 'I need', 'More cookies'],
   interests: ['Gender politics', 'Feminism', 'Vinyl'],
-  neighborhood: 'Greenpoint',
+  neighborhood: { label: 'Greenpoint', value: 'greenpoint' },
   location: {
     _id: '123',
     name: 'All Access',

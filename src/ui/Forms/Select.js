@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { default as ReactSelect, components } from 'react-select';
+import CreatableSelect from 'react-select/lib/Creatable';
 import theme from 'theme';
 
 import Box from 'ui/Box/Box';
@@ -10,8 +11,8 @@ const DropdownIndicator = props => {
   return (
     components.DropdownIndicator && (
       <components.DropdownIndicator {...props}>
-        <Box>
-          <Text color="terracota" size="1.5">
+        <Box padding={0}>
+          <Text color={props.selectProps.hiddenIndicator ? 'white' : 'terracota'} size="1.5">
             &#9662;
           </Text>
         </Box>
@@ -20,7 +21,7 @@ const DropdownIndicator = props => {
   );
 };
 
-const customStyles = {
+const customStyles = isSearchable => ({
   control: (base, state) => ({
     ...base,
     fontSize: 'calc((14 / 16) * 1rem)',
@@ -29,8 +30,9 @@ const customStyles = {
     borderColor: 'transparent',
     borderBottom: `0.5px solid ${theme.colors.grayChateau.main}`,
     borderColor: 'transparent',
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     boxShadow: 'none',
+    minHeight: '34px',
     '&:hover': {
       borderColor: 'transparent',
       borderBottom: `0.5px solid ${theme.colors.grayChateau.main}`,
@@ -46,7 +48,7 @@ const customStyles = {
     borderRadius: 0,
     boxShadow: '0 0 20px -1px rgba(164, 166, 168, 0.3)',
     cursor: 'pointer',
-    top: '-5px',
+    top: isSearchable ? '85%' : '0',
   }),
   menuList: (base, state) => ({
     ...base,
@@ -54,29 +56,68 @@ const customStyles = {
   }),
   option: (base, state) => ({
     ...base,
+    padding: '10px 16px',
     color: theme.colors.solitude.main,
     backgroundColor: state.isFocused ? '#faf3f1' : null,
     '&:active': {
       backgroundColor: '#eef7f1',
     },
   }),
+  valueContainer: (base, state) => ({
+    ...base,
+    padding: 0,
+  }),
+});
+
+const Select = ({
+  canCreateOptions,
+  defaultValue,
+  hiddenIndicator,
+  id,
+  isSearchable,
+  options,
+  placeholder,
+  ...inputProps
+}) => {
+  if (canCreateOptions) {
+    return (
+      <CreatableSelect
+        id={id}
+        components={{
+          DropdownIndicator,
+        }}
+        isSearchable={isSearchable}
+        value={inputProps.value}
+        onChange={inputProps.onChange}
+        options={options}
+        placeholder={placeholder}
+        styles={customStyles(isSearchable)}
+        hiddenIndicator={hiddenIndicator}
+        onChange={inputProps.onChange}
+        options={options}
+      />
+    );
+  }
+
+  return (
+    <ReactSelect
+      id={id}
+      components={{
+        DropdownIndicator,
+      }}
+      isSearchable={isSearchable}
+      value={inputProps.value}
+      onChange={inputProps.onChange}
+      options={options}
+      placeholder={placeholder}
+      styles={customStyles(isSearchable)}
+      hiddenIndicator={hiddenIndicator}
+    />
+  );
 };
 
-const Select = ({ defaultValue, options, placeholder, ...inputProps }) => (
-  <ReactSelect
-    components={{
-      DropdownIndicator,
-    }}
-    isSearchable={false}
-    value={inputProps.value}
-    onChange={inputProps.onChange}
-    options={options}
-    placeholder={placeholder}
-    styles={customStyles}
-  />
-);
-
 Select.propTypes = {
+  isSearchable: false,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
@@ -88,6 +129,7 @@ Select.propTypes = {
 
 Select.defaultProps = {
   placeholder: '',
+  hiddenIndicator: false,
 };
 
 export default Select;

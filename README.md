@@ -13,7 +13,6 @@ Shared component library
 - [x] Add isEditing version of profile
 - [x] Add Collapsible component
 - [x] Add form handling
-- [ ] On submit form, make sure that all label/value attrs are changed back to `_id` and `name`?
 - [ ] Fix occupations adding and removing
 - [ ] Add addons for icons on social inputs
 - [ ] Add form validation
@@ -21,7 +20,11 @@ Shared component library
 - [x] Split form sections into seperate components in container
 - [ ] Add dropdown component
 - [ ] Add transition around profile drawer
-- [ ] Export fonts.scss to public/fonts.css for use in all apps (update directions below)
+
+### To be able to launch:
+
+- [ ] On Meteor and React sides, normalize data
+- [ ] Export `fonts.scss` to public/fonts.css and `theme.js` to `public/theme.js` for use in all apps (update directions below)
 - [ ] Lerna for publishing to npm
 
 ### For the future

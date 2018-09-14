@@ -13,8 +13,8 @@ const AdditionalInfo = ({ birthday, location, neighborhood, onEdit, starSign, st
   <Box column padding={{ horizontal: 2, top: 2, bottom: 58 / 16 }}>
     <List>
       <ListItem icon="location" underline>
-        {neighborhood ? (
-          neighborhood
+        {neighborhood.label ? (
+          neighborhood.label
         ) : (
           <EmptyStateButton onClick={onEdit} text="Add your neighborhood" />
         )}
@@ -64,7 +64,10 @@ AdditionalInfo.propTypes = {
     _id: PropTypes.string,
     name: PropTypes.string,
   }),
-  neighborhood: PropTypes.string,
+  neighborhood: PropTypes.shape({
+    value: PropTypes.string,
+    label: PropTypes.string,
+  }),
   onEdit: PropTypes.func,
   starSign: PropTypes.shape({
     value: PropTypes.string,
@@ -82,7 +85,10 @@ AdditionalInfo.defaultProps = {
     _id: null,
     name: null,
   },
-  neighborhood: null,
+  neighborhood: {
+    value: null,
+    label: null,
+  },
   onEdit: null,
   starSign: null,
   startDate: null,

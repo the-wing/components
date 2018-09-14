@@ -19,10 +19,18 @@ const calculator = createDecorator({
   field: /birthday\.(day|month)/,
   updates: {
     starSign: (ignoredValue, allValues) => {
-      const month = _.get(allValues.birthday, 'month.value', 1);
-      const day = _.get(allValues.birthday, 'day.value', 1);
+      const month = _.get(allValues.birthday, 'month.value', '13');
+      const day = _.get(allValues.birthday, 'day.value', '32');
 
-      getSign({ month: parseInt(month, 10), day: parseInt(day, 10) });
+      const sign =
+        month === '13' || day === '32'
+          ? '—'
+          : getSign({
+              month: parseInt(month, 10),
+              day: parseInt(day, 10),
+            });
+
+      return { value: sign === '—' ? 1 : sign, label: sign };
     },
   },
 });
@@ -206,11 +214,20 @@ Profile.propTypes = {
       name: PropTypes.string,
     }),
     name: PropTypes.string,
-    neighborhood: PropTypes.string,
+    neighborhood: PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string,
+    }),
     occupations: PropTypes.arrayOf(
       PropTypes.shape({
-        company: PropTypes.string,
-        position: PropTypes.string,
+        company: PropTypes.shape({
+          value: PropTypes.string,
+          label: PropTypes.string,
+        }),
+        position: PropTypes.shape({
+          value: PropTypes.string,
+          label: PropTypes.string,
+        }),
       })
     ),
     offers: PropTypes.arrayOf(PropTypes.string),

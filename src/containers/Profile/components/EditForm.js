@@ -5,39 +5,39 @@ import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 
-import { FormField, Input, InputGroup, Label, Select, TextArea, TypeAhead } from 'ui/Forms';
+import { FormField, Input, InputGroup, Label, Select, TextArea } from 'ui/Forms';
 import Box from 'ui/Box/Box';
 import EmptyStateButton from './EmptyStateButton';
 
 const positions = [
-  'Front End Developer',
-  'Back End Developer',
-  'Designer',
-  'Photographer',
-  'Musician',
-  'DeeJay',
-  'Producer',
-  'Uber Driver',
+  { value: 'front-end-developer', label: 'Front End Developer' },
+  { value: 'back-end-developer', label: 'Back End Developer' },
+  { value: 'designer', label: 'Designer' },
+  { value: 'photographer', label: 'Photographer' },
+  { value: 'musician', label: 'Musician' },
+  { value: 'deejay', label: 'DeeJay' },
+  { value: 'producer', label: 'Producer' },
+  { value: 'uber-driver', label: 'Uber Driver' },
 ];
 
 const companies = [
-  'The Hangar Interactive',
-  'Prolific Interactive',
-  'The Wing',
-  'Facebook Inc.',
-  'Amazon',
-  'Uber',
+  { value: 'the-hangar-interactive', label: 'The Hangar Interactive' },
+  { value: 'prolific-interactive', label: 'Prolific Interactive' },
+  { value: 'the-wing', label: 'The Wing' },
+  { value: 'facebook', label: 'Facebook Inc.' },
+  { value: 'amazon', label: 'Amazon' },
+  { value: 'uber', label: 'Uber' },
 ];
 
 const neighborhoods = [
-  'Williamsburg',
-  'Park Slope',
-  'DUMBO',
-  'Cobble Hill',
-  'Flatbush',
-  'Crown Heights',
-  'Bay Ridge',
-  'Downtown Brooklyn',
+  { value: 'williamsburg', label: 'Williamsburg' },
+  { value: 'park-slope', label: 'Park Slope' },
+  { value: 'dumbo', label: 'DUMBO' },
+  { value: 'cobble-hill', label: 'Cobble Hill' },
+  { value: 'flatbush', label: 'Flatbush' },
+  { value: 'crown-heights', label: 'Crown Heights' },
+  { value: 'bay-ridge', label: 'Bay Ridge' },
+  { value: 'downtown-brooklyn', label: 'Downtown Brooklyn' },
 ];
 
 const birthdayMonths = [
@@ -84,7 +84,7 @@ const starSigns = [
   'Scorpio',
   'Sagittarius',
   'Capricorn',
-].map(i => (i === 0 ? { value: '1', label: '—' } : { value: i, label: i }));
+].map(sign => (sign === 0 ? { value: '1', label: '—' } : { value: sign, label: sign }));
 
 const EditForm = ({ industryList, push, pop }) => (
   <Box column padding={{ horizontal: 2, top: 2, bottom: 290 / 16 }} color="white">
@@ -138,7 +138,14 @@ const EditForm = ({ industryList, push, pop }) => (
               name={`${name}.position`}
               render={({ input, meta }) => (
                 <FormField>
-                  <TypeAhead options={positions} placeholder="Position (required)" {...input} />
+                  <Select
+                    options={positions}
+                    placeholder="Position (required)"
+                    {...input}
+                    hiddenIndicator
+                    isSearchable
+                    canCreateOptions
+                  />
                 </FormField>
               )}
             />
@@ -146,7 +153,15 @@ const EditForm = ({ industryList, push, pop }) => (
               name={`${name}.company`}
               render={({ input, meta }) => (
                 <FormField>
-                  <TypeAhead options={companies} placeholder="Company" {...input} />
+                  <Select
+                    options={companies}
+                    placeholder="Company"
+                    {...input}
+                    hiddenIndicator
+                    hiddenIndicator
+                    isSearchable
+                    canCreateOptions
+                  />
                 </FormField>
               )}
             />
@@ -168,7 +183,7 @@ const EditForm = ({ industryList, push, pop }) => (
       render={({ input, meta }) => (
         <FormField>
           <Label htmlFor={input.name} text="Industry (required)" />
-          <Select options={industryList} {...input} />
+          <Select id={input.name} options={industryList} {...input} />
         </FormField>
       )}
     />
@@ -216,10 +231,14 @@ const EditForm = ({ industryList, push, pop }) => (
       name="neighborhood"
       render={({ input, meta }) => (
         <FormField>
-          <FormField>
-            <Label htmlFor={input.name} text="Neighborhood" />
-            <TypeAhead options={neighborhoods} placeholder="Neighborhood" {...input} />
-          </FormField>
+          <Label htmlFor={input.name} text="Neighborhood" />
+          <Select
+            id={input.name}
+            options={neighborhoods}
+            placeholder="Neighborhood"
+            {...input}
+            hiddenIndicator
+          />
         </FormField>
       )}
     />
@@ -229,10 +248,8 @@ const EditForm = ({ industryList, push, pop }) => (
         name="birthday.month"
         render={({ input, meta }) => (
           <FormField>
-            <FormField>
-              <Label htmlFor={input.name} text="Birthday (month)" />
-              <Select options={birthdayMonths} {...input} />
-            </FormField>
+            <Label htmlFor={input.name} text="Birthday (month)" />
+            <Select id={input.name} options={birthdayMonths} {...input} />
           </FormField>
         )}
       />
@@ -240,10 +257,8 @@ const EditForm = ({ industryList, push, pop }) => (
         name="birthday.day"
         render={({ input, meta }) => (
           <FormField>
-            <FormField>
-              <Label htmlFor={input.name} text="Birthday (day)" />
-              <Select options={birthdayDays} {...input} />
-            </FormField>
+            <Label htmlFor={input.name} text="Birthday (day)" />
+            <Select id={input.name} options={birthdayDays} {...input} />
           </FormField>
         )}
       />
@@ -253,10 +268,8 @@ const EditForm = ({ industryList, push, pop }) => (
       name="starSign"
       render={({ input, meta }) => (
         <FormField>
-          <FormField>
-            <Label htmlFor={input.name} text="Star Sign" />
-            <Select options={starSigns} placeholder="Star Sign" {...input} />
-          </FormField>
+          <Label htmlFor={input.name} text="Star Sign" />
+          <Select id={input.name} options={starSigns} placeholder="Star Sign" {...input} />
         </FormField>
       )}
     />
