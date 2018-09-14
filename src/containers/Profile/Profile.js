@@ -272,8 +272,14 @@ Profile.defaultProps = {
     neighborhood: null,
     occupations: [
       {
-        company: null,
-        position: null,
+        company: {
+          value: null,
+          label: null,
+        },
+        position: {
+          value: null,
+          label: null,
+        },
       },
     ],
     offers: [],

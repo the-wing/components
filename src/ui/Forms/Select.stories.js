@@ -52,6 +52,7 @@ storiesOf('Select', module)
     <FormField>
       <Label htmlFor="select9" text="Can Create Options" />
       <Select
+        maxLength={30}
         id="select9"
         options={options}
         defaultValue="Chocolate"

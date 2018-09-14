@@ -13,7 +13,7 @@ const AdditionalInfo = ({ birthday, location, neighborhood, onEdit, starSign, st
   <Box column padding={{ horizontal: 2, top: 2, bottom: 58 / 16 }}>
     <List>
       <ListItem icon="location" underline>
-        {neighborhood.label ? (
+        {neighborhood && neighborhood.label ? (
           neighborhood.label
         ) : (
           <EmptyStateButton onClick={onEdit} text="Add your neighborhood" />
@@ -39,7 +39,7 @@ const AdditionalInfo = ({ birthday, location, neighborhood, onEdit, starSign, st
         )}
       </ListItem>
       <ListItem icon="starsign" underline>
-        {starSign && starSign.value !== '1' ? (
+        {starSign && starSign.label && starSign.value !== '1' ? (
           starSign.label
         ) : (
           <EmptyStateButton onClick={onEdit} text="Add your star sign" />
@@ -90,7 +90,10 @@ AdditionalInfo.defaultProps = {
     label: null,
   },
   onEdit: null,
-  starSign: null,
+  starSign: {
+    value: null,
+    label: null,
+  },
   startDate: null,
 };
 

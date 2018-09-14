@@ -10,7 +10,7 @@ import Text from 'ui/Text/Text';
 import EmptyStateButton from './EmptyStateButton';
 
 const Main = ({ asks, bio, industry, interests, occupations, offers, onEdit }) => {
-  const currentOccupation = occupations.length > 0 && occupations[0];
+  const currentOccupation = occupations && occupations.length > 0 && occupations[0];
   const company = _.get(currentOccupation, 'company.label', null);
   const position = _.get(currentOccupation, 'position.label', null);
 
@@ -137,8 +137,14 @@ Main.propTypes = {
   }),
   interests: PropTypes.arrayOf(PropTypes.string),
   occupation: PropTypes.shape({
-    company: PropTypes.string,
-    position: PropTypes.string,
+    company: PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string,
+    }),
+    position: PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string,
+    }),
   }),
   offers: PropTypes.arrayOf(PropTypes.string),
   onEdit: PropTypes.func,
@@ -153,8 +159,14 @@ Main.defaultProps = {
   },
   interests: [],
   occupation: {
-    company: null,
-    position: null,
+    company: {
+      label: null,
+      value: null,
+    },
+    position: {
+      label: null,
+      value: null,
+    },
   },
   offers: [],
   onEdit: null,

@@ -2,10 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { default as ReactSelect, components } from 'react-select';
 import CreatableSelect from 'react-select/lib/Creatable';
+import styled from 'styled-components';
 import theme from 'theme';
 
 import Box from 'ui/Box/Box';
+import Counter from 'ui/Counter/Counter';
+import Icon from 'ui/Icon/Icon';
 import Text from 'ui/Text/Text';
+
+const StyledAddLabel = styled(Box)`
+  justify-content: space-between;
+`;
 
 const DropdownIndicator = props => {
   return (
@@ -20,6 +27,20 @@ const DropdownIndicator = props => {
     )
   );
 };
+
+const AddLabel = ({ currentLength, inputValue, maxLength }) => (
+  <StyledAddLabel display="flex">
+    <Box>
+      <Icon name="add" size={10} color="terracota" />
+      <Text color="terracota" size={13 / 16} style={{ marginLeft: '0.625rem' }}>
+        Add {inputValue}
+      </Text>
+    </Box>
+    <Box>
+      <Counter currentLength={currentLength} maxLength={maxLength} />
+    </Box>
+  </StyledAddLabel>
+);
 
 const customStyles = isSearchable => ({
   control: (base, state) => ({
@@ -81,26 +102,35 @@ const Select = ({
   hiddenIndicator,
   id,
   isSearchable,
+  maxLength,
   options,
   placeholder,
   ...inputProps
 }) => {
   if (canCreateOptions) {
+    // implied that this is 'isSearchable' and has a 'hiddenIndicator'
     return (
       <CreatableSelect
         id={id}
         components={{
           DropdownIndicator,
         }}
-        isSearchable={isSearchable}
+        formatCreateLabel={inputValue => (
+          <AddLabel
+            inputValue={inputValue}
+            currentLength={inputValue.length || 0}
+            maxLength={maxLength}
+          />
+        )}
         value={inputProps.value}
         onChange={inputProps.onChange}
         options={options}
         placeholder={placeholder}
-        styles={customStyles(isSearchable)}
-        hiddenIndicator={hiddenIndicator}
+        styles={customStyles(true)}
         onChange={inputProps.onChange}
         options={options}
+        maxLength={maxLength}
+        hiddenIndicator
       />
     );
   }
@@ -124,6 +154,7 @@ const Select = ({
 
 Select.propTypes = {
   isSearchable: false,
+  maxLength: PropTypes.number,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
@@ -134,8 +165,9 @@ Select.propTypes = {
 };
 
 Select.defaultProps = {
-  placeholder: '',
   hiddenIndicator: false,
+  maxLength: null,
+  placeholder: '',
 };
 
 export default Select;
