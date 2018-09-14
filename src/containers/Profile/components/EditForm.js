@@ -87,7 +87,7 @@ const starSigns = [
 ].map(sign => (sign === 0 ? { value: '1', label: '—' } : { value: sign, label: sign }));
 
 const EditForm = ({ industryList, push, pop }) => (
-  <Box column padding={{ horizontal: 2, top: 2, bottom: 290 / 16 }} color="white">
+  <Box column padding={{ horizontal: 2, vertical: 2 }} color="white">
     <Field
       name="firstName"
       render={({ input, meta }) => (
