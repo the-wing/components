@@ -33,6 +33,7 @@ const customStyles = isSearchable => ({
     backgroundColor: 'white',
     boxShadow: 'none',
     minHeight: '34px',
+    color: theme.colors.solitude.main,
     '&:hover': {
       borderColor: 'transparent',
       borderBottom: `0.5px solid ${theme.colors.grayChateau.main}`,
@@ -66,6 +67,11 @@ const customStyles = isSearchable => ({
   valueContainer: (base, state) => ({
     ...base,
     padding: 0,
+    color: theme.colors.solitude.main,
+  }),
+  singleValue: (base, state) => ({
+    ...base,
+    color: theme.colors.solitude.main,
   }),
 });
 
