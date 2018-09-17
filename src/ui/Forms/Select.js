@@ -26,11 +26,15 @@ const SearchIcon = styled.div`
   margin-left: 16px;
 `;
 
+const StyledCreatableSingleValue = styled.div`
+  margin-left: ${props => (props.menuIsOpen ? '46px' : 'inherit')};
+`;
+
 const DropdownIndicator = props => {
   return (
     components.DropdownIndicator && (
       <components.DropdownIndicator {...props}>
-        <Box padding={0}>
+        <Box padding={0} margin={0}>
           <Text color={props.selectProps.hiddenIndicator ? 'white' : 'terracota'} size="1.5">
             &#9662;
           </Text>
@@ -44,9 +48,21 @@ const CreatableValueContainer = ({ children, ...props }) => {
   return (
     components.ValueContainer && (
       <components.ValueContainer {...props}>
-        <SearchIcon />
+        {props.selectProps.menuIsOpen && <SearchIcon />}
         {children}
       </components.ValueContainer>
+    )
+  );
+};
+
+const CreatableSingleValue = ({ children, ...props }) => {
+  return (
+    components.SingleValue && (
+      <components.SingleValue {...props}>
+        <StyledCreatableSingleValue menuIsOpen={props.selectProps.menuIsOpen}>
+          {children}
+        </StyledCreatableSingleValue>
+      </components.SingleValue>
     )
   );
 };
@@ -126,7 +142,7 @@ const customStyles = (isSearchable = false, isCreatable = false) => ({
   singleValue: (base, state) => ({
     ...base,
     color: theme.colors.solitude.main,
-    marginLeft: isCreatable ? 46 : 0,
+    marginLeft: isCreatable && state.isFocused ? 46 : 0,
   }),
 });
 
@@ -149,6 +165,7 @@ const Select = ({
         components={{
           DropdownIndicator,
           ValueContainer: CreatableValueContainer,
+          SingleValue: CreatableSingleValue,
         }}
         formatCreateLabel={inputValue => (
           <AddLabel
@@ -166,6 +183,7 @@ const Select = ({
         options={options}
         maxLength={maxLength}
         hiddenIndicator
+        blurInputOnSelect
       />
     );
   }
@@ -183,6 +201,7 @@ const Select = ({
       placeholder={placeholder}
       styles={customStyles(isSearchable)}
       hiddenIndicator={hiddenIndicator}
+      blurInputOnSelect
     />
   );
 };
