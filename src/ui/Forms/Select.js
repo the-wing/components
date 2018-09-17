@@ -94,6 +94,7 @@ const customStyles = (isSearchable = false, isCreatable = false) => ({
     backgroundColor: 'white',
     boxShadow: isCreatable && state.isFocused ? '0 0 20px -1px rgba(164, 166, 168, 0.3)' : 'none',
     minHeight: '34px',
+    maxHeight: '34px',
     color: theme.colors.solitude.main,
     '&:hover': {
       borderColor: 'transparent',
@@ -124,6 +125,7 @@ const customStyles = (isSearchable = false, isCreatable = false) => ({
   }),
   option: (base, state) => ({
     ...base,
+    fontSize: 'calc((14 / 16) * 1rem)',
     padding: '10px 16px',
     color: theme.colors.solitude.main,
     backgroundColor: state.isFocused ? '#faf3f1' : null,
