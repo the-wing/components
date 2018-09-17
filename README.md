@@ -14,6 +14,9 @@ Shared component library
 - [x] Add Collapsible component
 - [x] Add form handling
 - [x] Split form sections into seperate components in container
+- [ ] Offers
+- [ ] Asks
+- [ ] Interests
 - [ ] Add addons for icons on social inputs
 - [ ] Fix occupations adding and removing
 - [ ] Add form validation

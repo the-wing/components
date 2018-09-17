@@ -18,17 +18,23 @@ const SectionTitle = styled(Text)`
 `;
 
 const Section = ({ title, children, ...boxProps }) => (
-  <Box column margin={{ top: 2 }} {...boxProps}>
-    <SectionTitle as="h3" size={18 / 16} letterSpacing={-0.34} lineHeight={24} weight={700}>
-      {title}
-    </SectionTitle>
+  <Box column margin={{ bottom: 2 }} {...boxProps}>
+    {title && (
+      <SectionTitle as="h3" size={18 / 16} letterSpacing={-0.34} lineHeight={24} weight={700}>
+        {title}
+      </SectionTitle>
+    )}
     <Box column>{children}</Box>
   </Box>
 );
 
 Section.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   children: PropTypes.node.isRequired,
+};
+
+Section.defaultProps = {
+  title: null,
 };
 
 export default Section;

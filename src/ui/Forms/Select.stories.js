@@ -30,22 +30,22 @@ storiesOf('Select', module)
       <Select id="select5" onChange={action('custom onChange')} options={options} />
     </FormField>
   ))
-  .add('with defaultValue', () => (
+  .add('with value', () => (
     <FormField>
       <Label htmlFor="select6" text="With Default Value" />
-      <Select id="select6" options={options} defaultValue="Chocolate" />
+      <Select id="select6" options={options} value={options[0]} />
     </FormField>
   ))
   .add('isSearchable', () => (
     <FormField>
       <Label htmlFor="select7" text="Is Searchable" />
-      <Select id="select7" options={options} defaultValue="Chocolate" isSearchable />
+      <Select id="select7" options={options} isSearchable />
     </FormField>
   ))
   .add('hiddenIndicator', () => (
     <FormField>
       <Label htmlFor="select8" text="Hidden Indicator" />
-      <Select id="select8" options={options} defaultValue="Chocolate" hiddenIndicator />
+      <Select id="select8" options={options} hiddenIndicator />
     </FormField>
   ))
   .add('canCreateOptions', () => (
@@ -55,7 +55,8 @@ storiesOf('Select', module)
         maxLength={30}
         id="select9"
         options={options}
-        defaultValue="Chocolate"
+        onChange={action('custom onChange')}
+        placeholder="Can create options"
         hiddenIndicator
         isSearchable
         canCreateOptions

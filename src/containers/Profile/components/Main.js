@@ -15,7 +15,7 @@ const Main = ({ asks, bio, industry, interests, occupations, offers, onEdit }) =
   const position = _.get(currentOccupation, 'position.label', null);
 
   return (
-    <Box column grow padding={{ horizontal: 2, bottom: 2 }} color="white">
+    <Box column grow padding={{ horizontal: 2, vertical: 2 }} color="white">
       {/* BIO */}
       <Section title="Bio">
         {bio ? (
@@ -63,14 +63,14 @@ const Main = ({ asks, bio, industry, interests, occupations, offers, onEdit }) =
         {offers && offers.length > 0 ? (
           <Box wrap>
             <Transition
-              keys={offers.map(offer => offer)}
+              keys={offers.map(offer => offer.value)}
               from={{ opacity: 0, transform: 'scale(0)' }}
               enter={{ opacity: 1, transform: 'scale(1)' }}
               leave={{ opacity: 0, transform: 'scale(0)' }}
             >
               {styles => {
                 return offers.map(offer => (
-                  <Chip key={offer} text={offer} styles={styles} readonly />
+                  <Chip key={offer.value} text={offer.label} styles={styles} readonly />
                 ));
               }}
             </Transition>
@@ -85,14 +85,14 @@ const Main = ({ asks, bio, industry, interests, occupations, offers, onEdit }) =
         {asks && asks.length > 0 ? (
           <Box wrap>
             <Transition
-              keys={asks.map(ask => ask)}
+              keys={asks.map(ask => ask.value)}
               from={{ opacity: 0, transform: 'scale(0)' }}
               enter={{ opacity: 1, transform: 'scale(1)' }}
               leave={{ opacity: 0, transform: 'scale(0)' }}
             >
               {styles => {
                 return asks.map(ask => (
-                  <Chip key={ask} text={ask} color="panache" styles={styles} readonly />
+                  <Chip key={ask.value} text={ask.label} color="panache" styles={styles} readonly />
                 ));
               }}
             </Transition>
@@ -108,14 +108,20 @@ const Main = ({ asks, bio, industry, interests, occupations, offers, onEdit }) =
         {interests && interests.length > 0 ? (
           <Box wrap>
             <Transition
-              keys={interests.map(interest => interest)}
+              keys={interests.map(interest => interest.value)}
               from={{ opacity: 0, transform: 'scale(0)' }}
               enter={{ opacity: 1, transform: 'scale(1)' }}
               leave={{ opacity: 0, transform: 'scale(0)' }}
             >
               {styles => {
                 return interests.map(interest => (
-                  <Chip key={interest} text={interest} color="concrete" styles={styles} readonly />
+                  <Chip
+                    key={interest.value}
+                    text={interest.label}
+                    color="concrete"
+                    styles={styles}
+                    readonly
+                  />
                 ));
               }}
             </Transition>
@@ -129,13 +135,23 @@ const Main = ({ asks, bio, industry, interests, occupations, offers, onEdit }) =
 };
 
 Main.propTypes = {
-  asks: PropTypes.arrayOf(PropTypes.string),
+  asks: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string,
+    })
+  ),
   bio: PropTypes.string,
   industry: PropTypes.shape({
     _id: PropTypes.string,
     name: PropTypes.string,
   }),
-  interests: PropTypes.arrayOf(PropTypes.string),
+  interests: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string,
+    })
+  ),
   occupation: PropTypes.shape({
     company: PropTypes.shape({
       value: PropTypes.string,
@@ -146,7 +162,12 @@ Main.propTypes = {
       label: PropTypes.string,
     }),
   }),
-  offers: PropTypes.arrayOf(PropTypes.string),
+  offers: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string,
+    })
+  ),
   onEdit: PropTypes.func,
 };
 

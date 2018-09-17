@@ -4,12 +4,29 @@ import { withConsole } from '@storybook/addon-console';
 import { action } from '@storybook/addon-actions';
 import Profile from 'containers/Profile/Profile';
 
-const industryList = [
-  { value: 'art', label: 'Art' },
-  { value: 'design', label: 'Design' },
-  { value: 'education', label: 'Education' },
-  { value: '123', label: 'Computers/IT' },
-];
+const data = {
+  asks: [
+    { value: 'help-me', label: 'Help me' },
+    { value: 'i-need', label: 'I need' },
+    { value: 'more-cookies', label: 'More cookies' },
+  ],
+  industries: [
+    { value: 'art', label: 'Art' },
+    { value: 'design', label: 'Design' },
+    { value: 'education', label: 'Education' },
+    { value: '123', label: 'Computers/IT' },
+  ],
+  interests: [
+    { value: 'gender-politics', label: 'Gender politics' },
+    { value: 'feminism', label: 'Feminism' },
+    { value: 'vinyl', label: 'Vinyl' },
+  ],
+  offers: [
+    { value: 'code-review', label: 'Code review' },
+    { value: 'js-lessons', label: 'Javascript lessons' },
+    { value: 'networking', label: 'Networking' },
+  ],
+};
 
 const defaultUser = {
   firstName: 'Rae',
@@ -41,9 +58,21 @@ const userWithAllInfo = {
     value: '123',
     label: 'Computers/IT',
   },
-  offers: ['Code review', 'Javascript lessons', 'Networking'],
-  asks: ['Help me', 'I need', 'More cookies'],
-  interests: ['Gender politics', 'Feminism', 'Vinyl'],
+  offers: [
+    { value: 'code-review', label: 'Code review' },
+    { value: 'js-lessons', label: 'Javascript lessons' },
+    { value: 'networking', label: 'Networking' },
+  ],
+  asks: [
+    { value: 'help-me', label: 'Help me' },
+    { value: 'i-need', label: 'I need' },
+    { value: 'more-cookies', label: 'More cookies' },
+  ],
+  interests: [
+    { value: 'gender-politics', label: 'Gender politics' },
+    { value: 'feminism', label: 'Feminism' },
+    { value: 'vinyl', label: 'Vinyl' },
+  ],
   neighborhood: { label: 'Greenpoint', value: 'greenpoint' },
   location: {
     _id: '123',
@@ -63,15 +92,11 @@ const userWithAllInfo = {
 storiesOf('Profile', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => (
-    <Profile
-      industryList={industryList}
-      onSubmit={action('onSubmit')}
-      onClose={action('onClose')}
-    />
+    <Profile data={data} onSubmit={action('onSubmit')} onClose={action('onClose')} />
   ))
   .add('with name, headline', () => (
     <Profile
-      industryList={industryList}
+      data={data}
       onClose={action('onClose')}
       onSubmit={action('onSubmit')}
       initialValues={defaultUser}
@@ -79,7 +104,7 @@ storiesOf('Profile', module)
   ))
   .add('with social', () => (
     <Profile
-      industryList={industryList}
+      data={data}
       onClose={action('onClose')}
       onSubmit={action('onSubmit')}
       initialValues={userWithSocial}
@@ -87,7 +112,7 @@ storiesOf('Profile', module)
   ))
   .add('with all info', () => (
     <Profile
-      industryList={industryList}
+      data={data}
       onClose={action('onClose')}
       onSubmit={action('onSubmit')}
       initialValues={userWithAllInfo}

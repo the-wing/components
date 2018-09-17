@@ -28,10 +28,14 @@ storiesOf('Collapsible', module)
         return <Button onClick={toggle}>Toggle the content</Button>;
       }}
     >
-      {({ isOpen }) => {
+      {({ isOpen, toggle }) => {
         if (!isOpen) return false;
 
-        return <div>You can never un-toggle me. I will forever haunt you.</div>;
+        return (
+          <div>
+            You hid the original toggle button. <button onClick={toggle}>So click me.</button>
+          </div>
+        );
       }}
     </Collapsible>
   ));

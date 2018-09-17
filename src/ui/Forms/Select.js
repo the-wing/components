@@ -26,7 +26,7 @@ const SearchIcon = styled.div`
   margin-left: 16px;
 `;
 
-const StyledCreatableSingleValue = styled.div`
+const StyledCreatableChild = styled.div`
   margin-left: ${props => (props.menuIsOpen ? '46px' : 'inherit')};
 `;
 
@@ -55,13 +55,25 @@ const CreatableValueContainer = ({ children, ...props }) => {
   );
 };
 
+const CreatablePlaceholder = ({ children, ...props }) => {
+  return (
+    components.SingleValue && (
+      <components.SingleValue {...props}>
+        <StyledCreatableChild menuIsOpen={props.selectProps.menuIsOpen}>
+          {children}
+        </StyledCreatableChild>
+      </components.SingleValue>
+    )
+  );
+};
+
 const CreatableSingleValue = ({ children, ...props }) => {
   return (
     components.SingleValue && (
       <components.SingleValue {...props}>
-        <StyledCreatableSingleValue menuIsOpen={props.selectProps.menuIsOpen}>
+        <StyledCreatableChild menuIsOpen={props.selectProps.menuIsOpen}>
           {children}
-        </StyledCreatableSingleValue>
+        </StyledCreatableChild>
       </components.SingleValue>
     )
   );
@@ -141,11 +153,6 @@ const customStyles = (isSearchable = false, isCreatable = false) => ({
     padding: 0,
     color: theme.colors.solitude.main,
   }),
-  singleValue: (base, state) => ({
-    ...base,
-    color: theme.colors.solitude.main,
-    marginLeft: isCreatable && state.isFocused ? 46 : 0,
-  }),
 });
 
 const Select = ({
@@ -166,6 +173,7 @@ const Select = ({
         id={id}
         components={{
           DropdownIndicator,
+          Placeholder: CreatablePlaceholder,
           ValueContainer: CreatableValueContainer,
           SingleValue: CreatableSingleValue,
         }}
@@ -177,7 +185,6 @@ const Select = ({
           />
         )}
         value={inputProps.value}
-        onChange={inputProps.onChange}
         options={options}
         placeholder={placeholder}
         styles={customStyles(true, true)}

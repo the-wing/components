@@ -79,7 +79,7 @@ class Profile extends PureComponent {
   };
 
   render() {
-    const { industryList, initialValues, loading, onClose } = this.props;
+    const { data, initialValues, loading, onClose } = this.props;
 
     return (
       <Form
@@ -140,9 +140,7 @@ class Profile extends PureComponent {
                   </Box>
                 </Box>
 
-                {this.state.isEditing && (
-                  <EditForm industryList={industryList} push={push} pop={pop} />
-                )}
+                {this.state.isEditing && <EditForm data={data} push={push} pop={pop} />}
 
                 {!this.state.isEditing && (
                   <Fragment>
@@ -183,14 +181,39 @@ class Profile extends PureComponent {
 }
 
 Profile.propTypes = {
-  industryList: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string,
-      label: PropTypes.string,
-    })
-  ),
+  data: PropTypes.shape({
+    asks: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    industries: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    interests: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    offers: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+  }),
   initialValues: PropTypes.shape({
-    asks: PropTypes.arrayOf(PropTypes.string),
+    asks: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
     avatarUrl: PropTypes.string,
     bio: PropTypes.string,
     birthday: PropTypes.shape({
@@ -208,7 +231,12 @@ Profile.propTypes = {
       value: PropTypes.string,
       label: PropTypes.string,
     }),
-    interests: PropTypes.arrayOf(PropTypes.string),
+    interests: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
     location: PropTypes.shape({
       _id: PropTypes.string,
       name: PropTypes.string,
@@ -230,7 +258,12 @@ Profile.propTypes = {
         }),
       })
     ),
-    offers: PropTypes.arrayOf(PropTypes.string),
+    offers: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
     social: PropTypes.shape({
       facebook: PropTypes.string,
       instagram: PropTypes.string,
@@ -250,6 +283,12 @@ Profile.propTypes = {
 };
 
 Profile.defaultProps = {
+  data: {
+    asks: [],
+    industries: [],
+    interests: [],
+    offers: [],
+  },
   initialValues: {
     asks: [],
     bio: null,
@@ -260,8 +299,8 @@ Profile.defaultProps = {
     },
     headline: null,
     industry: {
-      _id: null,
-      name: null,
+      value: null,
+      label: null,
     },
     interests: [],
     location: {

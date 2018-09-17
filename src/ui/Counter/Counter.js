@@ -7,7 +7,7 @@ import { StyledLabel } from 'ui/Forms/Label';
 const LabelAsSpan = StyledLabel.withComponent('span');
 const StyledCounter = styled(LabelAsSpan)`
   text-align: right;
-  color: ${props => (props.error ? 'red' : 'inherit')};
+  color: ${props => (props.error ? props.theme.colors.red.main : 'inherit')};
 `;
 
 const Counter = ({ currentLength, error, maxLength }) => (
