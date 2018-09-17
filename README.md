@@ -13,11 +13,11 @@ Shared component library
 - [x] Add isEditing version of profile
 - [x] Add Collapsible component
 - [x] Add form handling
-- [ ] Fix occupations adding and removing
+- [x] Split form sections into seperate components in container
 - [ ] Add addons for icons on social inputs
+- [ ] Fix occupations adding and removing
 - [ ] Add form validation
 - [ ] Add loading (react-placeholder) state for profile
-- [x] Split form sections into seperate components in container
 - [ ] Add dropdown component
 - [ ] Add transition around profile drawer
 

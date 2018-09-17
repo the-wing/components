@@ -9,9 +9,21 @@ import Box from 'ui/Box/Box';
 import Counter from 'ui/Counter/Counter';
 import Icon from 'ui/Icon/Icon';
 import Text from 'ui/Text/Text';
+import searchIcon from 'assets/img/search.svg';
 
 const StyledAddLabel = styled(Box)`
   justify-content: space-between;
+`;
+
+// prettier-ignore
+const SearchIcon = styled.div`
+  display: inline-block;
+  content: "";
+  width: 14px;
+  height: 14px;
+  background: url(${searchIcon}) no-repeat;
+  margin-right: 16px;
+  margin-left: 16px;
 `;
 
 const DropdownIndicator = props => {
@@ -24,6 +36,17 @@ const DropdownIndicator = props => {
           </Text>
         </Box>
       </components.DropdownIndicator>
+    )
+  );
+};
+
+const CreatableValueContainer = ({ children, ...props }) => {
+  return (
+    components.ValueContainer && (
+      <components.ValueContainer {...props}>
+        <SearchIcon />
+        {children}
+      </components.ValueContainer>
     )
   );
 };
@@ -42,22 +65,24 @@ const AddLabel = ({ currentLength, inputValue, maxLength }) => (
   </StyledAddLabel>
 );
 
-const customStyles = isSearchable => ({
+const customStyles = (isSearchable = true, isCreatable = false) => ({
   control: (base, state) => ({
     ...base,
     fontSize: 'calc((14 / 16) * 1rem)',
     borderWidth: 0,
     borderRadius: 0,
     borderColor: 'transparent',
-    borderBottom: `0.5px solid ${theme.colors.grayChateau.main}`,
+    borderBottom:
+      isCreatable && state.isFocused ? 'none' : `0.5px solid ${theme.colors.grayChateau.main}`,
     borderColor: 'transparent',
     backgroundColor: 'white',
-    boxShadow: 'none',
+    boxShadow: isCreatable && state.isFocused ? '0 0 20px -1px rgba(164, 166, 168, 0.3)' : 'none',
     minHeight: '34px',
     color: theme.colors.solitude.main,
     '&:hover': {
       borderColor: 'transparent',
-      borderBottom: `0.5px solid ${theme.colors.grayChateau.main}`,
+      borderBottom:
+        isCreatable && state.isFocused ? 'none' : `0.5px solid ${theme.colors.grayChateau.main}`,
       cursor: 'pointer',
     },
   }),
@@ -69,13 +94,17 @@ const customStyles = isSearchable => ({
   menu: (base, state) => ({
     ...base,
     borderRadius: 0,
-    boxShadow: '0 0 20px -1px rgba(164, 166, 168, 0.3)',
+    boxShadow: `${isCreatable ? '0 15px 20px -15px' : '0 0 20px -1px'} rgba(164, 166, 168, 0.3)`,
     cursor: 'pointer',
     top: isSearchable ? '85%' : '0',
+    marginTop: 0,
+    marginBottom: 0,
   }),
   menuList: (base, state) => ({
     ...base,
     maxHeight: 259,
+    paddingTop: 8,
+    paddingBottom: 0,
   }),
   option: (base, state) => ({
     ...base,
@@ -97,6 +126,7 @@ const customStyles = isSearchable => ({
   singleValue: (base, state) => ({
     ...base,
     color: theme.colors.solitude.main,
+    marginLeft: isCreatable ? 46 : 0,
   }),
 });
 
@@ -118,6 +148,7 @@ const Select = ({
         id={id}
         components={{
           DropdownIndicator,
+          ValueContainer: CreatableValueContainer,
         }}
         formatCreateLabel={inputValue => (
           <AddLabel
@@ -130,7 +161,7 @@ const Select = ({
         onChange={inputProps.onChange}
         options={options}
         placeholder={placeholder}
-        styles={customStyles(true)}
+        styles={customStyles(true, true)}
         onChange={inputProps.onChange}
         options={options}
         maxLength={maxLength}
