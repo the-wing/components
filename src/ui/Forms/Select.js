@@ -58,6 +58,7 @@ const customStyles = isSearchable => ({
     '&:hover': {
       borderColor: 'transparent',
       borderBottom: `0.5px solid ${theme.colors.grayChateau.main}`,
+      cursor: 'pointer',
     },
   }),
   indicatorSeparator: (base, state) => ({
@@ -83,6 +84,9 @@ const customStyles = isSearchable => ({
     backgroundColor: state.isFocused ? '#faf3f1' : null,
     '&:active': {
       backgroundColor: '#eef7f1',
+    },
+    '&:hover': {
+      cursor: 'pointer',
     },
   }),
   valueContainer: (base, state) => ({
