@@ -65,7 +65,7 @@ const AddLabel = ({ currentLength, inputValue, maxLength }) => (
   </StyledAddLabel>
 );
 
-const customStyles = (isSearchable = true, isCreatable = false) => ({
+const customStyles = (isSearchable = false, isCreatable = false) => ({
   control: (base, state) => ({
     ...base,
     fontSize: 'calc((14 / 16) * 1rem)',
@@ -103,7 +103,7 @@ const customStyles = (isSearchable = true, isCreatable = false) => ({
   menuList: (base, state) => ({
     ...base,
     maxHeight: 259,
-    paddingTop: 8,
+    paddingTop: isCreatable ? 8 : 0,
     paddingBottom: 0,
   }),
   option: (base, state) => ({
