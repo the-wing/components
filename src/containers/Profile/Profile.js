@@ -140,7 +140,9 @@ class Profile extends PureComponent {
                   </Box>
                 </Box>
 
-                {this.state.isEditing && <EditForm data={data} push={push} pop={pop} />}
+                {this.state.isEditing && (
+                  <EditForm data={data} push={push} pop={pop} values={values} />
+                )}
 
                 {!this.state.isEditing && (
                   <Fragment>

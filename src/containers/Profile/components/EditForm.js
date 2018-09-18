@@ -92,7 +92,7 @@ const starSigns = [
   'Capricorn',
 ].map(sign => (sign === 0 ? { value: '1', label: '—' } : { value: sign, label: sign }));
 
-const EditForm = ({ data, push, pop }) => (
+const EditForm = ({ data, push, pop, values }) => (
   <Box column padding={{ horizontal: 2, vertical: 2 }} color="white">
     <Section title="The Basics">
       <Field
@@ -242,42 +242,26 @@ const EditForm = ({ data, push, pop }) => (
       />
     </Section>
 
-    {/* <Box wrap>
-              <Transition
-                keys={name.map(offer => name.value)}
-                from={{ opacity: 0, transform: 'scale(0)' }}
-                enter={{ opacity: 1, transform: 'scale(1)' }}
-                leave={{ opacity: 0, transform: 'scale(0)' }}
-              >
-                {styles => {
-                  return interests.map(interest => (
-                    <Chip
-                      key={interest.value}
-                      text={interest.label}
-                      color="concrete"
-                      styles={styles}
-                      readonly
-                    />
-                  ));
-                }}
-              </Transition>
-            </Box> */}
-
     <Section title="Offers">
-      <FieldArray name="offers">
-        {({ fields }) =>
-          fields.map((name, index) => {
-            return (
+      <Box grow>
+        <FieldArray name="offers">
+          {({ fields }) =>
+            fields.map((name, index) => (
               <Field
-                name={`${name}.label`}
+                name={name}
                 render={({ input }) => (
-                  <Chip key={input.value} text={input.value} color="concrete" readonly />
+                  <Chip
+                    key={input.value.value}
+                    onRemove={() => fields.remove(index)}
+                    text={input.value.label}
+                    color="concrete"
+                  />
                 )}
               />
-            );
-          })
-        }
-      </FieldArray>
+            ))
+          }
+        </FieldArray>
+      </Box>
     </Section>
 
     <Section title="Asks">
