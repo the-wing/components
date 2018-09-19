@@ -165,15 +165,11 @@ const EditForm = ({ data, push, pop, values }) => (
                   </FormField>
                 )}
               />
-              {fields.length > 1 &&
-                index !== 0 && (
-                  <FormField>
-                    <EmptyStateButton
-                      onClick={() => fields.remove(index)}
-                      text="Remove Occupation"
-                    />
-                  </FormField>
-                )}
+              {fields.length > 1 && (
+                <FormField>
+                  <EmptyStateButton onClick={() => fields.remove(index)} text="Remove Occupation" />
+                </FormField>
+              )}
             </Fragment>
           ))
         }
