@@ -104,7 +104,10 @@ class Profile extends PureComponent {
                         <Box>
                           <Button
                             height="auto"
-                            onClick={this.onCancel}
+                            onClick={event => {
+                              form.reset();
+                              this.onCancel(event);
+                            }}
                             color="terracota"
                             transparent
                           >
