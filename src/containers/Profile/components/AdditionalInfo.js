@@ -108,12 +108,12 @@ const AdditionalInfo = ({
 AdditionalInfo.propTypes = {
   birthday: PropTypes.shape({
     month: PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
+      value: PropTypes.string,
+      label: PropTypes.string,
     }),
     day: PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
+      value: PropTypes.string,
+      label: PropTypes.string,
     }),
   }),
   location: PropTypes.shape({
@@ -134,24 +134,12 @@ AdditionalInfo.propTypes = {
 };
 
 AdditionalInfo.defaultProps = {
-  birthday: {
-    month: null,
-    day: null,
-  },
-  location: {
-    _id: null,
-    name: null,
-  },
-  neighborhood: {
-    value: null,
-    label: null,
-  },
+  birthday: null,
+  location: null,
+  neighborhood: null,
   onEdit: null,
-  readonly: true,
-  starSign: {
-    value: null,
-    label: null,
-  },
+  readonly: false,
+  starSign: null,
   startDate: null,
 };
 

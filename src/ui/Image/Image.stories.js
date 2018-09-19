@@ -10,4 +10,7 @@ storiesOf('Image', module)
   .add('circle', () => <Image url={theme.defaultAvatar} circle />)
   .add('with different width and height', () => (
     <Image url={theme.defaultAvatar} circle width={125} height={125} />
+  ))
+  .add('circle, with different width and height, hover text', () => (
+    <Image url={theme.defaultAvatar} hoverText="Edit" width={125} height={125} circle />
   ));

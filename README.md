@@ -20,6 +20,7 @@ Shared component library
 - [x] Interests
 - [x] ReadOnly version (cannot edit)
 - [ ] Avatar uploader
+- [ ] positions, companies, neighborhoods should come back in data object
 - [x] Fix occupations adding and removing
 - [ ] Add addons for icons on social inputs
 - [ ] Change text color of sections for readonly

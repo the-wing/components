@@ -5,11 +5,14 @@ import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { Transition } from 'react-spring';
+import theme from 'theme';
 
 import { FormField, Input, InputGroup, Label, Select, TextArea } from 'ui/Forms';
 import Box from 'ui/Box/Box';
 import Chip from 'ui/Chip/Chip';
 import Collapsible from 'ui/Collapsible/Collapsible';
+import DropZone from 'ui/DropZone/DropZone';
+import Image from 'ui/Image/Image';
 import Section from 'ui/Section/Section';
 import Text from 'ui/Text/Text';
 
@@ -48,11 +51,8 @@ const neighborhoods = [
 
 const birthdayMonths = [
   {
-    _id: '13',
-    name: '—',
     value: '13',
     label: '—',
-    noMonth: true,
   },
 ].concat(
   Array.apply(0, Array(12)).map((_, i) => ({
@@ -67,7 +67,6 @@ const birthdayDays = [
   {
     value: '32',
     label: '-',
-    noDay: true,
   },
 ].concat(
   Array.apply(0, Array(31)).map((_, i) => ({
@@ -93,7 +92,23 @@ const starSigns = [
 ].map(sign => (sign === 0 ? { value: '1', label: '—' } : { value: sign, label: sign }));
 
 const EditForm = ({ data, push, pop, values }) => (
-  <Box column padding={{ horizontal: 2, vertical: 2 }} color="white">
+  <Box column padding={{ horizontal: 1, bottom: 1 }} color="white">
+    <Box hAlignContent="center" padding={{ top: 6 / 16, bottom: 36 / 16 }}>
+      <Field
+        name="avatarUrl"
+        render={({ input, meta }) => (
+          <DropZone onDrop={input.onChange}>
+            <Image
+              width={125}
+              height={125}
+              url={input.value || theme.defaultAvatar}
+              hoverText="Edit"
+              circle
+            />
+          </DropZone>
+        )}
+      />
+    </Box>
     <Section title="The Basics">
       <Field
         name="firstName"
