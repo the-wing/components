@@ -7,4 +7,5 @@ storiesOf('Text', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => <Text>Gender is an illusion.</Text>)
   .add('secondary', () => <Text variant="secondary">Gender is an illusion.</Text>)
-  .add('title', () => <Text variant="title">Gender is an illusion.</Text>);
+  .add('title', () => <Text variant="title">Gender is an illusion.</Text>)
+  .add('size', () => <Text size="5.5">Gender is an illusion.</Text>);

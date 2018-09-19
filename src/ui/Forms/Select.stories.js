@@ -57,8 +57,6 @@ storiesOf('Select', module)
         options={options}
         onChange={action('custom onChange')}
         placeholder="Can create options"
-        hiddenIndicator
-        isSearchable
         canCreateOptions
       />
     </FormField>

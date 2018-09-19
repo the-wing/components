@@ -12,16 +12,16 @@ Shared component library
 - [x] Add !isEditing version of profile
 - [x] Add isEditing version of profile
 - [x] Add Collapsible component
+- [x] Add Select component
 - [x] Add form handling
 - [x] Split form sections into seperate components in container
-- [ ] Offers
-- [ ] Asks
-- [ ] Interests
-- [ ] Add addons for icons on social inputs
+- [x] Offers
+- [x] Asks
+- [x] Interests
 - [ ] Fix occupations adding and removing
+- [ ] Add addons for icons on social inputs
 - [ ] Add form validation
 - [ ] Add loading (react-placeholder) state for profile
-- [ ] Add dropdown component
 - [ ] Add transition around profile drawer
 
 ### To be able to launch:
@@ -32,6 +32,7 @@ Shared component library
 
 ### For the future
 
+- [ ] Refactor responsive util so that we're not passing unnecessary props to dom elements
 - [ ] Add [a11y addon](https://github.com/storybooks/storybook/tree/master/addons/a11y)
 - [ ] Configure Jest
 - [ ] Linting

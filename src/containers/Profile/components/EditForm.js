@@ -152,8 +152,6 @@ const EditForm = ({ data, push, pop, values }) => (
                       options={positions}
                       placeholder="Position (required)"
                       {...input}
-                      hiddenIndicator
-                      isSearchable
                       canCreateOptions
                     />
                   </FormField>
@@ -163,15 +161,7 @@ const EditForm = ({ data, push, pop, values }) => (
                 name={`${name}.company`}
                 render={({ input, meta }) => (
                   <FormField>
-                    <Select
-                      options={companies}
-                      placeholder="Company"
-                      {...input}
-                      hiddenIndicator
-                      hiddenIndicator
-                      isSearchable
-                      canCreateOptions
-                    />
+                    <Select options={companies} placeholder="Company" {...input} canCreateOptions />
                   </FormField>
                 )}
               />
@@ -248,28 +238,193 @@ const EditForm = ({ data, push, pop, values }) => (
           {({ fields }) =>
             fields.map((name, index) => (
               <Field
+                key={name}
                 name={name}
-                render={({ input }) => (
-                  <Chip
-                    key={input.value.value}
-                    onRemove={() => fields.remove(index)}
-                    text={input.value.label}
-                    color="concrete"
-                  />
-                )}
+                render={({ input }) => {
+                  if (!input.value.label) {
+                    return false;
+                  }
+
+                  return (
+                    <Chip
+                      key={input.value.value}
+                      onRemove={() => fields.remove(index)}
+                      text={input.value.label}
+                      color="pink"
+                    />
+                  );
+                }}
               />
             ))
           }
         </FieldArray>
       </Box>
+      <Collapsible
+        trigger={({ isOpen, toggle }) => {
+          if (isOpen) return false;
+
+          return <EmptyStateButton onClick={toggle} text="Add offers" />;
+        }}
+      >
+        {({ isOpen, toggle }) => {
+          if (!isOpen) return false;
+
+          return (
+            <Field
+              name={`offers[${values.offers.length + 1}]`}
+              render={({ input, meta }) => {
+                const { onChange, ...rest } = input;
+                const customOnChange = event => {
+                  toggle();
+                  onChange(event);
+                };
+                const inputProps = { onChange: customOnChange, ...rest };
+
+                return (
+                  <FormField>
+                    <Select
+                      options={data.offers}
+                      placeholder="Add Offer"
+                      {...inputProps}
+                      canCreateOptions
+                    />
+                  </FormField>
+                );
+              }}
+            />
+          );
+        }}
+      </Collapsible>
     </Section>
 
     <Section title="Asks">
-      <EmptyStateButton text="Add asks" />
+      <Box grow>
+        <FieldArray name="asks">
+          {({ fields }) =>
+            fields.map((name, index) => (
+              <Field
+                key={name}
+                name={name}
+                render={({ input }) => {
+                  if (!input.value.label) {
+                    return false;
+                  }
+
+                  return (
+                    <Chip
+                      key={input.value.value}
+                      onRemove={() => fields.remove(index)}
+                      text={input.value.label}
+                      color="panache"
+                    />
+                  );
+                }}
+              />
+            ))
+          }
+        </FieldArray>
+      </Box>
+      <Collapsible
+        trigger={({ isOpen, toggle }) => {
+          if (isOpen) return false;
+
+          return <EmptyStateButton onClick={toggle} text="Add asks" />;
+        }}
+      >
+        {({ isOpen, toggle }) => {
+          if (!isOpen) return false;
+
+          return (
+            <Field
+              name={`asks[${values.asks.length + 1}]`}
+              render={({ input, meta }) => {
+                const { onChange, ...rest } = input;
+                const customOnChange = event => {
+                  toggle();
+                  onChange(event);
+                };
+                const inputProps = { onChange: customOnChange, ...rest };
+
+                return (
+                  <FormField>
+                    <Select
+                      options={data.asks}
+                      placeholder="Add Ask"
+                      {...inputProps}
+                      canCreateOptions
+                    />
+                  </FormField>
+                );
+              }}
+            />
+          );
+        }}
+      </Collapsible>
     </Section>
 
     <Section title="Interests">
-      <EmptyStateButton text="Add interests" />
+      <Box grow>
+        <FieldArray name="interests">
+          {({ fields }) =>
+            fields.map((name, index) => (
+              <Field
+                key={name}
+                name={name}
+                render={({ input }) => {
+                  if (!input.value.label) {
+                    return false;
+                  }
+
+                  return (
+                    <Chip
+                      key={input.value.value}
+                      onRemove={() => fields.remove(index)}
+                      text={input.value.label}
+                      color="concrete"
+                    />
+                  );
+                }}
+              />
+            ))
+          }
+        </FieldArray>
+      </Box>
+      <Collapsible
+        trigger={({ isOpen, toggle }) => {
+          if (isOpen) return false;
+
+          return <EmptyStateButton onClick={toggle} text="Add interests" />;
+        }}
+      >
+        {({ isOpen, toggle }) => {
+          if (!isOpen) return false;
+
+          return (
+            <Field
+              name={`interests[${values.interests.length + 1}]`}
+              render={({ input, meta }) => {
+                const { onChange, ...rest } = input;
+                const customOnChange = event => {
+                  toggle();
+                  onChange(event);
+                };
+                const inputProps = { onChange: customOnChange, ...rest };
+
+                return (
+                  <FormField>
+                    <Select
+                      options={data.interests}
+                      placeholder="Add Interest"
+                      {...inputProps}
+                      canCreateOptions
+                    />
+                  </FormField>
+                );
+              }}
+            />
+          );
+        }}
+      </Collapsible>
     </Section>
 
     <Field

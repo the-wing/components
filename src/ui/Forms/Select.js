@@ -167,7 +167,6 @@ const Select = ({
   ...inputProps
 }) => {
   if (canCreateOptions) {
-    // implied that this is 'isSearchable' and has a 'hiddenIndicator'
     return (
       <CreatableSelect
         id={id}
@@ -187,6 +186,7 @@ const Select = ({
         value={inputProps.value}
         options={options}
         placeholder={placeholder}
+        // isSearchable = true, isCreatable = true
         styles={customStyles(true, true)}
         onChange={inputProps.onChange}
         options={options}
@@ -216,7 +216,7 @@ const Select = ({
 };
 
 Select.propTypes = {
-  isSearchable: false,
+  isSearchable: PropTypes.bool,
   maxLength: PropTypes.number,
   options: PropTypes.arrayOf(
     PropTypes.shape({

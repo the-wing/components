@@ -13,17 +13,4 @@ storiesOf('Chip', module)
   .add('default', () => <Chip text="Doritos" onRemove={action('onRemove')} />)
   .add('readonly', () => <Chip text="Dirty River" readonly />)
   .add('color', () => <Chip text="Lays" color="panache" readonly />)
-  .add('list of chips', () => (
-    <Box wrap>
-      <Transition
-        keys={listOfChips.map(chip => chip)}
-        from={{ opacity: 0, transform: 'scale(0)' }}
-        enter={{ opacity: 1, transform: 'scale(1)' }}
-        leave={{ opacity: 0, transform: 'scale(0)' }}
-      >
-        {styles => {
-          return listOfChips.map(chip => <Chip key={chip} text={chip} styles={styles} readonly />);
-        }}
-      </Transition>
-    </Box>
-  ));
+  .add('list of chips', () => listOfChips.map(chip => <Chip key={chip} text={chip} readonly />));

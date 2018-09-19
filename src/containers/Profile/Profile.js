@@ -79,7 +79,7 @@ class Profile extends PureComponent {
   };
 
   render() {
-    const { data, initialValues, loading, onClose } = this.props;
+    const { canEdit, data, initialValues, loading, onClose } = this.props;
 
     return (
       <Form
@@ -99,7 +99,7 @@ class Profile extends PureComponent {
               <Box grow column color={this.state.isEditing ? 'white' : 'linen'}>
                 <Box column padding={{ horizontal: 2, top: 2 }}>
                   <Box grow margin={{ bottom: 22 / 16 }}>
-                    {this.state.isEditing ? (
+                    {canEdit && this.state.isEditing ? (
                       <Fragment>
                         <Box>
                           <Button
@@ -131,9 +131,16 @@ class Profile extends PureComponent {
                           </Button>
                         </Box>
                         <Box marginLeft="auto">
-                          <Button height="auto" onClick={this.onEdit} color="terracota" transparent>
-                            Edit
-                          </Button>
+                          {canEdit && (
+                            <Button
+                              height="auto"
+                              onClick={this.onEdit}
+                              color="terracota"
+                              transparent
+                            >
+                              Edit
+                            </Button>
+                          )}
                         </Box>
                       </Fragment>
                     )}
@@ -183,6 +190,7 @@ class Profile extends PureComponent {
 }
 
 Profile.propTypes = {
+  canEdit: PropTypes.bool,
   data: PropTypes.shape({
     asks: PropTypes.arrayOf(
       PropTypes.shape({
@@ -285,6 +293,7 @@ Profile.propTypes = {
 };
 
 Profile.defaultProps = {
+  canEdit: true,
   data: {
     asks: [],
     industries: [],
