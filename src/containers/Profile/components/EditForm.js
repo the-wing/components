@@ -6,8 +6,9 @@ import { Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { Transition } from 'react-spring';
 import theme from 'theme';
+import { required } from './validation';
 
-import { FormField, Input, InputGroup, Label, Select, TextArea } from 'ui/Forms';
+import { ErrorMessage, FormField, Input, InputGroup, Label, Select, TextArea } from 'ui/Forms';
 import Box from 'ui/Box/Box';
 import Chip from 'ui/Chip/Chip';
 import Collapsible from 'ui/Collapsible/Collapsible';
@@ -81,28 +82,46 @@ const EditForm = ({ data, push, pop, values }) => (
     <Section title="The Basics">
       <Field
         name="firstName"
+        validate={required}
         render={({ input, meta }) => (
           <FormField>
-            <Label htmlFor={input.name} text="First Name (required)" error={meta.error} />
-            <Input id={input.name} {...input} error={meta.error} />
+            <Label
+              htmlFor={input.name}
+              text="First Name (required)"
+              error={meta.error && meta.touched}
+            />
+            <Input id={input.name} {...input} error={meta.error && meta.touched} />
+            {meta.error && meta.touched && <ErrorMessage text={meta.error} />}
           </FormField>
         )}
       />
       <Field
         name="lastName"
+        validate={required}
         render={({ input, meta }) => (
           <FormField>
-            <Label htmlFor={input.name} text="Last Name (required)" error={meta.error} />
-            <Input id={input.name} {...input} error={meta.error} />
+            <Label
+              htmlFor={input.name}
+              text="Last Name (required)"
+              error={meta.error && meta.touched}
+            />
+            <Input id={input.name} {...input} error={meta.error && meta.touched} />
+            {meta.error && meta.touched && <ErrorMessage text={meta.error} />}
           </FormField>
         )}
       />
       <Field
         name="headline"
+        validate={required}
         render={({ input, meta }) => (
           <FormField>
-            <Label htmlFor={input.name} text="Headline (required)" error={meta.error} />
-            <Input id={input.name} {...input} error={meta.error} />
+            <Label
+              htmlFor={input.name}
+              text="Headline (required)"
+              error={meta.error && meta.touched}
+            />
+            <Input id={input.name} {...input} error={meta.error && meta.touched} />
+            {meta.error && meta.touched && <ErrorMessage text={meta.error} />}
           </FormField>
         )}
       />
@@ -110,13 +129,12 @@ const EditForm = ({ data, push, pop, values }) => (
         name="bio"
         render={({ input, meta }) => (
           <FormField>
-            <Label htmlFor={input.name} text="Bio" error={meta.error} />
+            <Label htmlFor={input.name} text="Bio" />
             <TextArea
               id={input.name}
               {...input}
               currentLength={input.value.length}
               maxLength={200}
-              error={meta.error}
             />
           </FormField>
         )}
@@ -130,6 +148,7 @@ const EditForm = ({ data, push, pop, values }) => (
             <Fragment key={name}>
               <Field
                 name={`${name}.position`}
+                validate={required}
                 render={({ input, meta }) => (
                   <FormField>
                     <Select
@@ -138,6 +157,7 @@ const EditForm = ({ data, push, pop, values }) => (
                       {...input}
                       canCreateOptions
                     />
+                    {meta.error && meta.touched && <ErrorMessage text={meta.error} />}
                   </FormField>
                 )}
               />
@@ -149,6 +169,7 @@ const EditForm = ({ data, push, pop, values }) => (
                       options={data.companies}
                       placeholder="Company"
                       {...input}
+                      maxLength={30}
                       canCreateOptions
                     />
                   </FormField>
@@ -168,10 +189,16 @@ const EditForm = ({ data, push, pop, values }) => (
       </FormField>
       <Field
         name="industry"
+        validate={required}
         render={({ input, meta }) => (
           <FormField>
-            <Label htmlFor={input.name} text="Industry (required)" error={meta.error} />
-            <Select id={input.name} options={data.industries} {...input} />
+            <Label
+              htmlFor={input.name}
+              text="Industry (required)"
+              error={meta.error && meta.touched}
+            />
+            <Select options={data.industries} {...input} />
+            {meta.error && meta.touched && <ErrorMessage text={meta.error} />}
           </FormField>
         )}
       />
@@ -418,7 +445,6 @@ const EditForm = ({ data, push, pop, values }) => (
         <FormField>
           <Label htmlFor={input.name} text="Neighborhood" error={meta.error} />
           <Select
-            id={input.name}
             options={data.neighborhoods}
             placeholder="Neighborhood"
             {...input}
@@ -434,7 +460,7 @@ const EditForm = ({ data, push, pop, values }) => (
         render={({ input, meta }) => (
           <FormField>
             <Label htmlFor={input.name} text="Birthday (month)" error={meta.error} />
-            <Select id={input.name} options={birthdayMonths} {...input} />
+            <Select options={birthdayMonths} {...input} />
           </FormField>
         )}
       />
@@ -443,7 +469,7 @@ const EditForm = ({ data, push, pop, values }) => (
         render={({ input, meta }) => (
           <FormField>
             <Label htmlFor={input.name} text="Birthday (day)" error={meta.error} />
-            <Select id={input.name} options={birthdayDays} {...input} />
+            <Select options={birthdayDays} {...input} />
           </FormField>
         )}
       />

@@ -60,4 +60,18 @@ storiesOf('Select', module)
         canCreateOptions
       />
     </FormField>
+  ))
+  .add('canCreateOptions w/ value already', () => (
+    <FormField>
+      <Label htmlFor="select9" text="Can Create Options" />
+      <Select
+        maxLength={30}
+        id="select9"
+        options={options}
+        onChange={action('custom onChange')}
+        placeholder="Can create options"
+        value={options[0]}
+        canCreateOptions
+      />
+    </FormField>
   ));

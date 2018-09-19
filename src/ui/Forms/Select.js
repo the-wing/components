@@ -87,9 +87,7 @@ const AddLabel = ({ currentLength, inputValue, maxLength }) => (
         Add {inputValue}
       </Text>
     </Box>
-    <Box>
-      <Counter currentLength={currentLength} maxLength={maxLength} />
-    </Box>
+    <Box>{maxLength && <Counter currentLength={currentLength} maxLength={maxLength} />}</Box>
   </StyledAddLabel>
 );
 
@@ -159,7 +157,6 @@ const Select = ({
   canCreateOptions,
   defaultValue,
   hiddenIndicator,
-  id,
   isSearchable,
   maxLength,
   options,
@@ -169,7 +166,6 @@ const Select = ({
   if (canCreateOptions) {
     return (
       <CreatableSelect
-        id={id}
         components={{
           DropdownIndicator,
           Placeholder: CreatablePlaceholder,
@@ -193,13 +189,13 @@ const Select = ({
         maxLength={maxLength}
         hiddenIndicator
         blurInputOnSelect
+        {...inputProps}
       />
     );
   }
 
   return (
     <ReactSelect
-      id={id}
       components={{
         DropdownIndicator,
       }}
@@ -207,10 +203,12 @@ const Select = ({
       value={inputProps.value}
       onChange={inputProps.onChange}
       options={options}
+      maxLength={maxLength}
       placeholder={placeholder}
       styles={customStyles(isSearchable)}
       hiddenIndicator={hiddenIndicator}
       blurInputOnSelect
+      {...inputProps}
     />
   );
 };
