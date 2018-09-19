@@ -10,6 +10,14 @@ const data = {
     { value: 'i-need', label: 'I need' },
     { value: 'more-cookies', label: 'More cookies' },
   ],
+  companies: [
+    { value: 'the-hangar-interactive', label: 'The Hangar Interactive' },
+    { value: 'prolific-interactive', label: 'Prolific Interactive' },
+    { value: 'the-wing', label: 'The Wing' },
+    { value: 'facebook', label: 'Facebook Inc.' },
+    { value: 'amazon', label: 'Amazon' },
+    { value: 'uber', label: 'Uber' },
+  ],
   industries: [
     { value: 'art', label: 'Art' },
     { value: 'design', label: 'Design' },
@@ -25,6 +33,26 @@ const data = {
     { value: 'code-review', label: 'Code review' },
     { value: 'js-lessons', label: 'Javascript lessons' },
     { value: 'networking', label: 'Networking' },
+  ],
+  neighborhoods: [
+    { value: 'williamsburg', label: 'Williamsburg' },
+    { value: 'park-slope', label: 'Park Slope' },
+    { value: 'dumbo', label: 'DUMBO' },
+    { value: 'cobble-hill', label: 'Cobble Hill' },
+    { value: 'flatbush', label: 'Flatbush' },
+    { value: 'crown-heights', label: 'Crown Heights' },
+    { value: 'bay-ridge', label: 'Bay Ridge' },
+    { value: 'downtown-brooklyn', label: 'Downtown Brooklyn' },
+  ],
+  positions: [
+    { value: 'front-end-developer', label: 'Front End Developer' },
+    { value: 'back-end-developer', label: 'Back End Developer' },
+    { value: 'designer', label: 'Designer' },
+    { value: 'photographer', label: 'Photographer' },
+    { value: 'musician', label: 'Musician' },
+    { value: 'deejay', label: 'DeeJay' },
+    { value: 'producer', label: 'Producer' },
+    { value: 'uber-driver', label: 'Uber Driver' },
   ],
 };
 

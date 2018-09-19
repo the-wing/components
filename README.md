@@ -19,14 +19,14 @@ Shared component library
 - [x] Asks
 - [x] Interests
 - [x] ReadOnly version (cannot edit)
-- [ ] Avatar uploader
-- [ ] positions, companies, neighborhoods should come back in data object
+- [x] Avatar uploader
 - [x] Fix occupations adding and removing
-- [ ] Add addons for icons on social inputs
-- [ ] Change text color of sections for readonly
+- [x] positions, companies, neighborhoods should come back in data object
 - [ ] Add form validation
 - [ ] Add loading (react-placeholder) state for profile
 - [ ] Add transition around profile drawer
+- [ ] Add addons for icons on social inputs
+- [ ] Change text color of sections for readonly
 
 ### To be able to use:
 

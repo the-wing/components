@@ -18,37 +18,6 @@ import Text from 'ui/Text/Text';
 
 import EmptyStateButton from './EmptyStateButton';
 
-const positions = [
-  { value: 'front-end-developer', label: 'Front End Developer' },
-  { value: 'back-end-developer', label: 'Back End Developer' },
-  { value: 'designer', label: 'Designer' },
-  { value: 'photographer', label: 'Photographer' },
-  { value: 'musician', label: 'Musician' },
-  { value: 'deejay', label: 'DeeJay' },
-  { value: 'producer', label: 'Producer' },
-  { value: 'uber-driver', label: 'Uber Driver' },
-];
-
-const companies = [
-  { value: 'the-hangar-interactive', label: 'The Hangar Interactive' },
-  { value: 'prolific-interactive', label: 'Prolific Interactive' },
-  { value: 'the-wing', label: 'The Wing' },
-  { value: 'facebook', label: 'Facebook Inc.' },
-  { value: 'amazon', label: 'Amazon' },
-  { value: 'uber', label: 'Uber' },
-];
-
-const neighborhoods = [
-  { value: 'williamsburg', label: 'Williamsburg' },
-  { value: 'park-slope', label: 'Park Slope' },
-  { value: 'dumbo', label: 'DUMBO' },
-  { value: 'cobble-hill', label: 'Cobble Hill' },
-  { value: 'flatbush', label: 'Flatbush' },
-  { value: 'crown-heights', label: 'Crown Heights' },
-  { value: 'bay-ridge', label: 'Bay Ridge' },
-  { value: 'downtown-brooklyn', label: 'Downtown Brooklyn' },
-];
-
 const birthdayMonths = [
   {
     value: '13',
@@ -164,7 +133,7 @@ const EditForm = ({ data, push, pop, values }) => (
                 render={({ input, meta }) => (
                   <FormField>
                     <Select
-                      options={positions}
+                      options={data.positions}
                       placeholder="Position (required)"
                       {...input}
                       canCreateOptions
@@ -176,7 +145,12 @@ const EditForm = ({ data, push, pop, values }) => (
                 name={`${name}.company`}
                 render={({ input, meta }) => (
                   <FormField>
-                    <Select options={companies} placeholder="Company" {...input} canCreateOptions />
+                    <Select
+                      options={data.companies}
+                      placeholder="Company"
+                      {...input}
+                      canCreateOptions
+                    />
                   </FormField>
                 )}
               />
@@ -445,7 +419,7 @@ const EditForm = ({ data, push, pop, values }) => (
           <Label htmlFor={input.name} text="Neighborhood" error={meta.error} />
           <Select
             id={input.name}
-            options={neighborhoods}
+            options={data.neighborhoods}
             placeholder="Neighborhood"
             {...input}
             hiddenIndicator

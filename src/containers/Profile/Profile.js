@@ -204,6 +204,12 @@ Profile.propTypes = {
         label: PropTypes.string,
       })
     ),
+    companies: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
     industries: PropTypes.arrayOf(
       PropTypes.shape({
         value: PropTypes.string,
@@ -216,7 +222,19 @@ Profile.propTypes = {
         label: PropTypes.string,
       })
     ),
+    neighborhoods: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
     offers: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    positions: PropTypes.arrayOf(
       PropTypes.shape({
         value: PropTypes.string,
         label: PropTypes.string,
@@ -302,9 +320,12 @@ Profile.propTypes = {
 Profile.defaultProps = {
   data: {
     asks: [],
+    companies: [],
     industries: [],
     interests: [],
+    neighborhoods: [],
     offers: [],
+    positions: [],
   },
   initialValues: {
     asks: [],
