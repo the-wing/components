@@ -4,7 +4,7 @@ Shared component library
 
 ## DEV TODO
 
-### For 9/20
+### For v1
 
 - [x] Add Storybook
 - [x] File structure decisions
@@ -18,13 +18,16 @@ Shared component library
 - [x] Offers
 - [x] Asks
 - [x] Interests
+- [x] ReadOnly version (cannot edit)
+- [ ] Avatar uploader
 - [ ] Fix occupations adding and removing
 - [ ] Add addons for icons on social inputs
+- [ ] Change text color of sections for readonly
 - [ ] Add form validation
 - [ ] Add loading (react-placeholder) state for profile
 - [ ] Add transition around profile drawer
 
-### To be able to launch:
+### To be able to use:
 
 - [ ] On Meteor and React sides, normalize data
 - [ ] Export `fonts.scss` to public/fonts.css and `theme.js` to `public/theme.js` for use in all apps (update directions below)

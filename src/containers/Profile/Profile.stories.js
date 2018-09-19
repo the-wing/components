@@ -117,4 +117,16 @@ storiesOf('Profile', module)
       onSubmit={action('onSubmit')}
       initialValues={userWithAllInfo}
     />
+  ))
+  .add('readonly default', () => (
+    <Profile data={data} onClose={action('onClose')} onSubmit={action('onSubmit')} readonly />
+  ))
+  .add('readonly with all info', () => (
+    <Profile
+      data={data}
+      onClose={action('onClose')}
+      onSubmit={action('onSubmit')}
+      initialValues={userWithAllInfo}
+      readonly
+    />
   ));

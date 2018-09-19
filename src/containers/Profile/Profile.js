@@ -79,7 +79,7 @@ class Profile extends PureComponent {
   };
 
   render() {
-    const { canEdit, data, initialValues, loading, onClose } = this.props;
+    const { data, initialValues, loading, onClose, readonly } = this.props;
 
     return (
       <Form
@@ -99,7 +99,7 @@ class Profile extends PureComponent {
               <Box grow column color={this.state.isEditing ? 'white' : 'linen'}>
                 <Box column padding={{ horizontal: 2, top: 2 }}>
                   <Box grow margin={{ bottom: 22 / 16 }}>
-                    {canEdit && this.state.isEditing ? (
+                    {!readonly && this.state.isEditing ? (
                       <Fragment>
                         <Box>
                           <Button
@@ -131,7 +131,7 @@ class Profile extends PureComponent {
                           </Button>
                         </Box>
                         <Box marginLeft="auto">
-                          {canEdit && (
+                          {!readonly && (
                             <Button
                               height="auto"
                               onClick={this.onEdit}
@@ -158,23 +158,27 @@ class Profile extends PureComponent {
                       headline={values.headline}
                       firstName={values.firstName}
                       lastName={values.lastName}
+                      readonly={readonly}
                       social={values.social}
                     />
                     <Main
                       asks={values.asks}
                       bio={values.bio}
+                      firstName={values.firstName}
                       industry={values.industry}
                       interests={values.interests}
                       occupations={values.occupations}
                       offers={values.offers}
                       onEdit={this.onEdit}
                       position={values.position}
+                      readonly={readonly}
                     />
                     <AdditionalInfo
                       birthday={values.birthday}
                       location={values.location}
                       neighborhood={values.neighborhood}
                       onEdit={this.onEdit}
+                      readonly={readonly}
                       starSign={values.starSign}
                       startDate={values.startDate}
                     />
@@ -190,7 +194,6 @@ class Profile extends PureComponent {
 }
 
 Profile.propTypes = {
-  canEdit: PropTypes.bool,
   data: PropTypes.shape({
     asks: PropTypes.arrayOf(
       PropTypes.shape({
@@ -290,10 +293,10 @@ Profile.propTypes = {
   onClose: PropTypes.func,
   onEdit: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
+  readonly: PropTypes.bool,
 };
 
 Profile.defaultProps = {
-  canEdit: true,
   data: {
     asks: [],
     industries: [],
@@ -320,18 +323,7 @@ Profile.defaultProps = {
     },
     name: null,
     neighborhood: null,
-    occupations: [
-      {
-        company: {
-          value: null,
-          label: null,
-        },
-        position: {
-          value: null,
-          label: null,
-        },
-      },
-    ],
+    occupations: [],
     offers: [],
     social: {
       facebook: null,
@@ -345,6 +337,7 @@ Profile.defaultProps = {
   onCancel: null,
   onClose: null,
   onEdit: null,
+  readonly: false,
 };
 
 export default Profile;

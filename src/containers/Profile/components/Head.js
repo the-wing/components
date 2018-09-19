@@ -39,7 +39,7 @@ const getSocialLink = (type, value) => {
   return null;
 };
 
-const Head = ({ avatarUrl, firstName, headline, lastName, social }) => (
+const Head = ({ avatarUrl, firstName, headline, lastName, readonly, social }) => (
   <Box column padding={{ bottom: 29 / 16 }}>
     {/* Avatar */}
     <Box hAlignContent="center">
@@ -49,16 +49,18 @@ const Head = ({ avatarUrl, firstName, headline, lastName, social }) => (
     {/* Name */}
     <Box hAlignContent="center" margin={{ top: 13 / 16 }}>
       <Text align="center" size={26 / 16} weight={800} letterSpacing={-0.54} lineHeight={30}>
-        {firstName} {lastName}
+        {firstName || lastName ? `${firstName} ${lastName}` : 'No name'}
       </Text>
     </Box>
 
     {/* Headline */}
-    <Box hAlignContent="center" margin={{ top: 13 / 16 }}>
-      <Text color="solitude" align="center" lineHeight={22}>
-        {headline}
-      </Text>
-    </Box>
+    {headline && (
+      <Box hAlignContent="center" margin={{ top: 13 / 16 }}>
+        <Text color="solitude" align="center" lineHeight={22}>
+          {headline}
+        </Text>
+      </Box>
+    )}
 
     {/* Social */}
     <Box hAlignContent="center" margin={{ top: 45 / 16 }}>
@@ -84,6 +86,7 @@ Head.propTypes = {
   firstName: PropTypes.string,
   headline: PropTypes.string,
   lastName: PropTypes.string,
+  readonly: PropTypes.bool,
   social: PropTypes.shape({
     facebook: PropTypes.string,
     instagram: PropTypes.string,
@@ -97,6 +100,7 @@ Head.defaultProps = {
   firstName: null,
   headline: null,
   lastName: null,
+  readonly: false,
   social: {
     facebook: null,
     instagram: null,

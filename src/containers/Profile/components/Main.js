@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { Transition } from 'react-spring';
 
 import Box from 'ui/Box/Box';
@@ -9,7 +10,17 @@ import Text from 'ui/Text/Text';
 
 import EmptyStateButton from './EmptyStateButton';
 
-const Main = ({ asks, bio, industry, interests, occupations, offers, onEdit }) => {
+const Main = ({
+  asks,
+  bio,
+  firstName,
+  industry,
+  interests,
+  occupations,
+  offers,
+  onEdit,
+  readonly,
+}) => {
   const currentOccupation = occupations && occupations.length > 0 && occupations[0];
   const company = _.get(currentOccupation, 'company.label', null);
   const position = _.get(currentOccupation, 'position.label', null);
@@ -18,49 +29,71 @@ const Main = ({ asks, bio, industry, interests, occupations, offers, onEdit }) =
     <Box column grow padding={{ horizontal: 2, vertical: 2 }} color="white">
       {/* BIO */}
       <Section title="Bio">
-        {bio ? (
+        {bio && (
           <Box width={296}>
             <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
               {bio}
             </Text>
           </Box>
-        ) : (
-          <EmptyStateButton
-            onClick={onEdit}
-            text="What makes you uniquely you? Or just tell us a fun fact or two."
-          />
         )}
+        {!bio &&
+          !readonly && (
+            <EmptyStateButton
+              onClick={onEdit}
+              text="What makes you uniquely you? Or just tell us a fun fact or two."
+            />
+          )}
+        {!bio &&
+          readonly && (
+            <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+              {firstName} hasn&#x27;t added a Bio.
+            </Text>
+          )}
       </Section>
 
       {/* OCCUPATION */}
       <Section title="Current Occupation">
-        {currentOccupation && (company || position) ? (
+        {(company || position) && (
           <Box width={296}>
             <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
               {company ? `${position} at ${company}` : `${position}`}
             </Text>
           </Box>
-        ) : (
-          <EmptyStateButton onClick={onEdit} text="Add Occupation" />
         )}
+        {!company &&
+          !position &&
+          !readonly && <EmptyStateButton onClick={onEdit} text="Add Occupation" />}
+        {!company &&
+          !position &&
+          readonly && (
+            <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+              {firstName} hasn&#x27;t added an Occupation
+            </Text>
+          )}
       </Section>
 
       {/* INDUSTRY */}
       <Section title="Industry">
-        {industry && industry.label ? (
+        {_.get(industry, 'label', null) && (
           <Box width={296}>
             <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
               {industry.label}
             </Text>
           </Box>
-        ) : (
-          <EmptyStateButton onClick={onEdit} text="What industry do you work in?" />
         )}
+        {!_.get(industry, 'label', null) &&
+          !readonly && <EmptyStateButton onClick={onEdit} text="What industry do you work in?" />}
+        {!_.get(industry, 'label', null) &&
+          readonly && (
+            <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+              {firstName} hasn&#x27;t added an Industry
+            </Text>
+          )}
       </Section>
 
       {/* OFFERS */}
       <Section title="Offers">
-        {offers && offers.length > 0 ? (
+        {offers.length > 0 && (
           <Box wrap>
             <Transition
               keys={offers.map(offer => offer.value)}
@@ -75,14 +108,22 @@ const Main = ({ asks, bio, industry, interests, occupations, offers, onEdit }) =
               }}
             </Transition>
           </Box>
-        ) : (
-          <EmptyStateButton onClick={onEdit} text="I could teach a master class on..." />
         )}
+        {offers.length < 1 &&
+          !readonly && (
+            <EmptyStateButton onClick={onEdit} text="I could teach a master class on..." />
+          )}
+        {offers.length < 1 &&
+          readonly && (
+            <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+              {firstName} hasn&#x27;t added any Offers
+            </Text>
+          )}
       </Section>
 
       {/* ASKS */}
       <Section title="Asks">
-        {asks && asks.length > 0 ? (
+        {asks.length > 0 && (
           <Box wrap>
             <Transition
               keys={asks.map(ask => ask.value)}
@@ -97,15 +138,21 @@ const Main = ({ asks, bio, industry, interests, occupations, offers, onEdit }) =
               }}
             </Transition>
           </Box>
-        ) : (
-          <EmptyStateButton onClick={onEdit} text="I could use a hand with..." />
         )}
+        {asks.length < 1 &&
+          !readonly && <EmptyStateButton onClick={onEdit} text="I could use a hand with..." />}
+        {asks.length < 1 &&
+          readonly && (
+            <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+              {firstName} hasn&#x27;t added any Asks
+            </Text>
+          )}
       </Section>
 
       {/* INTERESTS */}
 
       <Section title="Interested In">
-        {interests && interests.length > 0 ? (
+        {interests.length > 0 && (
           <Box wrap>
             <Transition
               keys={interests.map(interest => interest.value)}
@@ -126,9 +173,17 @@ const Main = ({ asks, bio, industry, interests, occupations, offers, onEdit }) =
               }}
             </Transition>
           </Box>
-        ) : (
-          <EmptyStateButton onClick={onEdit} text="I&apos;m currently obsessed with..." />
         )}
+        {interests.length < 1 &&
+          !readonly && (
+            <EmptyStateButton onClick={onEdit} text="I&apos;m currently obsessed with..." />
+          )}
+        {interests.length < 1 &&
+          readonly && (
+            <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+              {firstName} hasn&#x27;t added any Interests
+            </Text>
+          )}
       </Section>
     </Box>
   );
@@ -142,6 +197,7 @@ Main.propTypes = {
     })
   ),
   bio: PropTypes.string,
+  firstName: PropTypes.string,
   industry: PropTypes.shape({
     _id: PropTypes.string,
     name: PropTypes.string,
@@ -152,16 +208,18 @@ Main.propTypes = {
       label: PropTypes.string,
     })
   ),
-  occupation: PropTypes.shape({
-    company: PropTypes.shape({
-      value: PropTypes.string,
-      label: PropTypes.string,
-    }),
-    position: PropTypes.shape({
-      value: PropTypes.string,
-      label: PropTypes.string,
-    }),
-  }),
+  occupations: PropTypes.arrayOf(
+    PropTypes.shape({
+      company: PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      }),
+      position: PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      }),
+    })
+  ),
   offers: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string,
@@ -169,28 +227,22 @@ Main.propTypes = {
     })
   ),
   onEdit: PropTypes.func,
+  readonly: PropTypes.bool,
 };
 
 Main.defaultProps = {
   asks: [],
   bio: null,
+  firstName: 'Member',
   industry: {
     _id: null,
     name: null,
   },
   interests: [],
-  occupation: {
-    company: {
-      label: null,
-      value: null,
-    },
-    position: {
-      label: null,
-      value: null,
-    },
-  },
+  occupations: [],
   offers: [],
   onEdit: null,
+  readonly: false,
 };
 
 export default Main;
