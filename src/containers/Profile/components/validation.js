@@ -8,3 +8,7 @@ export const required = value => {
 
   return isEmpty ? 'Field is required.' : undefined;
 };
+
+export const maxLength = (value, maxLength) => {
+  return value.length > maxLength ? `Field must be less than ${maxLength} characters.` : undefined;
+};

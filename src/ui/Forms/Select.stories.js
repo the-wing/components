@@ -18,6 +18,12 @@ storiesOf('Select', module)
       <Select id="select1" options={options} />
     </FormField>
   ))
+  .add('error', () => (
+    <FormField>
+      <Label htmlFor="select1" text="Default" error />
+      <Select id="select1" options={options} placeholder="Select a flavor" error />
+    </FormField>
+  ))
   .add('with placeholder', () => (
     <FormField>
       <Label htmlFor="select4" text="With Placeholder" />
@@ -57,6 +63,20 @@ storiesOf('Select', module)
         options={options}
         onChange={action('custom onChange')}
         placeholder="Can create options"
+        canCreateOptions
+      />
+    </FormField>
+  ))
+  .add('canCreateOptions with error', () => (
+    <FormField>
+      <Label htmlFor="select9" text="Can Create Options" error />
+      <Select
+        maxLength={30}
+        id="select9"
+        options={options}
+        onChange={action('custom onChange')}
+        placeholder="Can create options"
+        error
         canCreateOptions
       />
     </FormField>

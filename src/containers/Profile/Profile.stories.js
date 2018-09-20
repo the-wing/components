@@ -65,9 +65,9 @@ const defaultUser = {
 const userWithSocial = {
   ...defaultUser,
   social: {
-    facebook: 'hello-mark',
-    instagram: 'i-have-a-million-insta-stories-today',
-    twitter: 'chirpchirp',
+    facebook: 'http://facebook.com/hello-mark',
+    instagram: '@i-have-a-million-insta-stories-today',
+    twitter: '@chirpchirp',
     web: 'http://the-wing.com',
   },
 };
@@ -117,6 +117,61 @@ const userWithAllInfo = {
   },
 };
 
+const userWithErrors = {
+  firstName: null,
+  lastName: null,
+  headline: null,
+  social: {
+    facebook: 'hey-this-isnt-really-a-url-hello',
+    instagram: 'not-valid',
+    twitter: 'so-not-valid',
+    web: '123whatisthis',
+  },
+  bio:
+    "Vexillologist pok pok wolf kickstarter, swag single-origin coffee direct trade pabst la croix butcher sustainable asymmetrical iceland fam blue bottle. Before they sold out leggings cray iceland chillwave gochujang fanny pack blue bottle, skateboard helvetica tattooed godard. Biodiesel pabst before they sold out, four loko echo park gluten-free pug crucifix kitsch raw denim quinoa aesthetic sustainable tofu kickstarter. Unicorn flexitarian leggings irony, tbh dreamcatcher sustainable. Pinterest prism migas coloring book, keytar squid godard vegan succulents fam selvage gluten-free. Butcher distillery direct trade, next level selfies mustache four dollar toast 90's farm-to-table. Pok pok sriracha chillwave, semiotics twee church-key tacos blue bottle cardigan kitsch post-ironic offal.",
+  occupations: [
+    {
+      position: null,
+      company: null,
+    },
+  ],
+  industry: null,
+  offers: [
+    {
+      value: 'wayyyyyyyyyy-too-loooooong',
+      label:
+        'I am way too long to be an offer. Like what are you doing? This is way too much text.',
+    },
+  ],
+  asks: [
+    {
+      value: 'wayyyyyyyyyy-too-loooooong',
+      label: 'I am way too long to be an ask. Like what are you doing? This is way too much text.',
+    },
+  ],
+  interests: [
+    {
+      value: 'wayyyyyyyyyy-too-loooooong',
+      label:
+        'I am way too long to be an interest. Like what are you doing? This is way too much text.',
+    },
+  ],
+  neighborhood: null,
+  location: {
+    _id: '456',
+    name: 'Soho',
+  },
+  startDate: '2018-09-04T22:44:30.652Z',
+  birthday: {
+    month: { value: '09', label: 'September' },
+    day: { value: '22', label: '22' },
+  },
+  starSign: {
+    value: '9',
+    label: 'Libra',
+  },
+};
+
 storiesOf('Profile', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => (
@@ -144,6 +199,14 @@ storiesOf('Profile', module)
       onClose={action('onClose')}
       onSubmit={action('onSubmit')}
       initialValues={userWithAllInfo}
+    />
+  ))
+  .add('with errors', () => (
+    <Profile
+      data={data}
+      onClose={action('onClose')}
+      onSubmit={action('onSubmit')}
+      initialValues={userWithErrors}
     />
   ))
   .add('readonly default', () => (

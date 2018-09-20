@@ -28,6 +28,7 @@ const SearchIcon = styled.div`
 
 const StyledCreatableChild = styled.div`
   margin-left: ${props => (props.menuIsOpen ? '46px' : 'inherit')};
+  color: ${props => theme.colors[props.error ? 'red' : 'solitude'].main};
 `;
 
 const DropdownIndicator = props => {
@@ -59,7 +60,10 @@ const CreatablePlaceholder = ({ children, ...props }) => {
   return (
     components.SingleValue && (
       <components.SingleValue {...props}>
-        <StyledCreatableChild menuIsOpen={props.selectProps.menuIsOpen}>
+        <StyledCreatableChild
+          error={props.selectProps.error}
+          menuIsOpen={props.selectProps.menuIsOpen}
+        >
           {children}
         </StyledCreatableChild>
       </components.SingleValue>
@@ -71,7 +75,10 @@ const CreatableSingleValue = ({ children, ...props }) => {
   return (
     components.SingleValue && (
       <components.SingleValue {...props}>
-        <StyledCreatableChild menuIsOpen={props.selectProps.menuIsOpen}>
+        <StyledCreatableChild
+          error={props.selectProps.error}
+          menuIsOpen={props.selectProps.menuIsOpen}
+        >
           {children}
         </StyledCreatableChild>
       </components.SingleValue>
@@ -91,7 +98,7 @@ const AddLabel = ({ currentLength, inputValue, maxLength }) => (
   </StyledAddLabel>
 );
 
-const customStyles = (isSearchable = false, isCreatable = false) => ({
+const customStyles = (isSearchable = false, isCreatable = false, error = false) => ({
   control: (base, state) => ({
     ...base,
     fontSize: 'calc((14 / 16) * 1rem)',
@@ -99,7 +106,9 @@ const customStyles = (isSearchable = false, isCreatable = false) => ({
     borderRadius: 0,
     borderColor: 'transparent',
     borderBottom:
-      isCreatable && state.isFocused ? 'none' : `0.5px solid ${theme.colors.grayChateau.main}`,
+      isCreatable && state.isFocused
+        ? 'none'
+        : `0.5px solid ${theme.colors[error ? 'red' : 'grayChateau'].main}`,
     borderColor: 'transparent',
     backgroundColor: 'white',
     boxShadow: isCreatable && state.isFocused ? '0 0 20px -1px rgba(164, 166, 168, 0.3)' : 'none',
@@ -109,7 +118,9 @@ const customStyles = (isSearchable = false, isCreatable = false) => ({
     '&:hover': {
       borderColor: 'transparent',
       borderBottom:
-        isCreatable && state.isFocused ? 'none' : `0.5px solid ${theme.colors.grayChateau.main}`,
+        isCreatable && state.isFocused
+          ? 'none'
+          : `0.5px solid ${theme.colors[error ? 'red' : 'grayChateau'].main}`,
       cursor: 'pointer',
     },
   }),
@@ -146,6 +157,14 @@ const customStyles = (isSearchable = false, isCreatable = false) => ({
       cursor: 'pointer',
     },
   }),
+  placeholder: (base, state) => ({
+    ...base,
+    color: theme.colors[error ? 'red' : 'grayChateau'].main,
+  }),
+  singleValue: (base, state) => ({
+    ...base,
+    color: theme.colors[error ? 'red' : 'solitude'].main,
+  }),
   valueContainer: (base, state) => ({
     ...base,
     padding: 0,
@@ -156,6 +175,7 @@ const customStyles = (isSearchable = false, isCreatable = false) => ({
 const Select = ({
   canCreateOptions,
   defaultValue,
+  error,
   hiddenIndicator,
   isSearchable,
   maxLength,
@@ -183,10 +203,11 @@ const Select = ({
         options={options}
         placeholder={placeholder}
         // isSearchable = true, isCreatable = true
-        styles={customStyles(true, true)}
+        styles={customStyles(true, true, error)}
         onChange={inputProps.onChange}
         options={options}
         maxLength={maxLength}
+        error={error}
         hiddenIndicator
         blurInputOnSelect
         {...inputProps}
@@ -205,8 +226,9 @@ const Select = ({
       options={options}
       maxLength={maxLength}
       placeholder={placeholder}
-      styles={customStyles(isSearchable)}
+      styles={customStyles(isSearchable, false, error)}
       hiddenIndicator={hiddenIndicator}
+      error={error}
       blurInputOnSelect
       {...inputProps}
     />

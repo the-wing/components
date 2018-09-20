@@ -127,6 +127,7 @@ const EditForm = ({ data, push, pop, values }) => (
       />
       <Field
         name="bio"
+        validate={value => maxLength(value, 200)}
         render={({ input, meta }) => (
           <FormField>
             <Label htmlFor={input.name} text="Bio" />
@@ -154,6 +155,7 @@ const EditForm = ({ data, push, pop, values }) => (
                     <Select
                       options={data.positions}
                       placeholder="Position (required)"
+                      error={meta.error && meta.touched}
                       {...input}
                       canCreateOptions
                     />
@@ -177,7 +179,11 @@ const EditForm = ({ data, push, pop, values }) => (
               />
               {fields.length > 1 && (
                 <FormField>
-                  <EmptyStateButton onClick={() => fields.remove(index)} text="Remove Occupation" />
+                  <EmptyStateButton
+                    onClick={() => fields.remove(index)}
+                    text="Remove Occupation"
+                    noIcon
+                  />
                 </FormField>
               )}
             </Fragment>
@@ -197,7 +203,7 @@ const EditForm = ({ data, push, pop, values }) => (
               text="Industry (required)"
               error={meta.error && meta.touched}
             />
-            <Select options={data.industries} {...input} />
+            <Select error={meta.error && meta.touched} options={data.industries} {...input} />
             {meta.error && meta.touched && <ErrorMessage text={meta.error} />}
           </FormField>
         )}
