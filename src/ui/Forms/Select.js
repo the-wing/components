@@ -255,7 +255,7 @@ Select.propTypes = {
 
 Select.defaultProps = {
   canCreateOptions: false,
-  error: '',
+  error: null,
   hiddenIndicator: false,
   maxLength: null,
   placeholder: '',

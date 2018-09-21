@@ -39,7 +39,7 @@ TextArea.propTypes = {
 
 TextArea.defaultProps = {
   currentLength: null,
-  error: '',
+  error: null,
   maxLength: null,
 };
 

@@ -40,7 +40,7 @@ const Container = styled(({ circle, ...props }) => <Box {...props} />)`
   ${responsive('width', 'width', value => `${value}px`)};
 
   &:hover {
-    cursor: pointer;
+    cursor: ${props => (props.hoverText ? 'pointer' : 'inherit')};
 
     > ${HoverText} {
       opacity: 1;

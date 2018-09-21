@@ -11,19 +11,19 @@ export const StyledLabel = styled.label`
 `;
 
 const Label = ({ error, htmlFor, text }) => (
-  <StyledLabel error={error && error.length > 0} htmlFor={htmlFor}>
+  <StyledLabel error={error} htmlFor={htmlFor}>
     {text}
   </StyledLabel>
 );
 
 Label.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.bool,
   htmlFor: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
 };
 
 Label.defaultProps = {
-  error: '',
+  error: false,
 };
 
 export default Label;

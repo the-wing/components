@@ -7,6 +7,7 @@ import { FieldArray } from 'react-final-form-arrays';
 import { Transition } from 'react-spring';
 import theme from 'theme';
 import {
+  isEmail,
   isFacebookUrl,
   isInstagramHandle,
   isTwitterHandle,
@@ -109,9 +110,13 @@ const EditForm = ({ change, data, push, pop, values }) => (
             <Label
               htmlFor={input.name}
               text="First Name (required)"
-              error={meta.touched && meta.error}
+              error={meta.touched && meta.error && meta.error.length > 0}
             />
-            <Input id={input.name} {...input} error={meta.touched && meta.error} />
+            <Input
+              id={input.name}
+              {...input}
+              error={meta.touched && meta.error ? meta.error : ''}
+            />
           </FormField>
         )}
       />
@@ -123,9 +128,13 @@ const EditForm = ({ change, data, push, pop, values }) => (
             <Label
               htmlFor={input.name}
               text="Last Name (required)"
-              error={meta.touched && meta.error}
+              error={meta.touched && meta.error && meta.error.length > 0}
             />
-            <Input id={input.name} {...input} error={meta.touched && meta.error} />
+            <Input
+              id={input.name}
+              {...input}
+              error={meta.touched && meta.error ? meta.error : ''}
+            />
           </FormField>
         )}
       />
@@ -137,9 +146,13 @@ const EditForm = ({ change, data, push, pop, values }) => (
             <Label
               htmlFor={input.name}
               text="Headline (required)"
-              error={meta.touched && meta.error}
+              error={meta.touched && meta.error && meta.error.length > 0}
             />
-            <Input id={input.name} {...input} error={meta.touched && meta.error} />
+            <Input
+              id={input.name}
+              {...input}
+              error={meta.touched && meta.error ? meta.error : ''}
+            />
           </FormField>
         )}
       />
@@ -148,13 +161,17 @@ const EditForm = ({ change, data, push, pop, values }) => (
         validate={maxLength(200)}
         render={({ input, meta }) => (
           <FormField>
-            <Label htmlFor={input.name} text="Bio" error={meta.touched && meta.error} />
+            <Label
+              htmlFor={input.name}
+              text="Bio"
+              error={meta.touched && meta.error && meta.error.length > 0}
+            />
             <TextArea
               id={input.name}
               {...input}
               currentLength={input.value.length}
               maxLength={200}
-              error={meta.touched && meta.error}
+              error={meta.touched && meta.error ? meta.error : ''}
             />
           </FormField>
         )}
@@ -172,9 +189,10 @@ const EditForm = ({ change, data, push, pop, values }) => (
                 render={({ input, meta }) => (
                   <FormField>
                     <Select
+                      id={input.name}
                       options={data.positions}
                       placeholder="Position (required)"
-                      error={meta.touched && meta.error}
+                      error={meta.touched && meta.error ? meta.error : ''}
                       {...input}
                       canCreateOptions
                     />
@@ -186,6 +204,7 @@ const EditForm = ({ change, data, push, pop, values }) => (
                 render={({ input, meta }) => (
                   <FormField>
                     <Select
+                      id={input.name}
                       options={data.companies}
                       placeholder="Company"
                       {...input}
@@ -219,9 +238,14 @@ const EditForm = ({ change, data, push, pop, values }) => (
             <Label
               htmlFor={input.name}
               text="Industry (required)"
-              error={meta.touched && meta.error}
+              error={meta.touched && meta.error && meta.error.length > 0}
             />
-            <Select error={meta.touched && meta.error} options={data.industries} {...input} />
+            <Select
+              id={input.name}
+              error={meta.touched && meta.error ? meta.error : ''}
+              options={data.industries}
+              {...input}
+            />
           </FormField>
         )}
       />
@@ -247,12 +271,16 @@ const EditForm = ({ change, data, push, pop, values }) => (
 
           return (
             <FormField>
-              <Label htmlFor={input.name} text="Website" error={meta.touched && meta.error} />
+              <Label
+                htmlFor={input.name}
+                text="Website"
+                error={meta.touched && meta.error && meta.error.length > 0}
+              />
               <Input
                 id={input.name}
                 {...inputProps}
                 placeholder="http://your-website.com"
-                error={meta.touched && meta.error}
+                error={meta.touched && meta.error ? meta.error : ''}
               />
             </FormField>
           );
@@ -277,12 +305,16 @@ const EditForm = ({ change, data, push, pop, values }) => (
 
           return (
             <FormField>
-              <Label htmlFor={input.name} text="Instagram" error={meta.touched && meta.error} />
+              <Label
+                htmlFor={input.name}
+                text="Instagram"
+                error={meta.touched && meta.error && meta.error.length > 0}
+              />
               <Input
                 id={input.name}
                 {...inputProps}
                 placeholder="@username"
-                error={meta.touched && meta.error}
+                error={meta.touched && meta.error ? meta.error : ''}
               />
             </FormField>
           );
@@ -307,12 +339,16 @@ const EditForm = ({ change, data, push, pop, values }) => (
 
           return (
             <FormField>
-              <Label htmlFor={input.name} text="Facebook" error={meta.touched && meta.error} />
+              <Label
+                htmlFor={input.name}
+                text="Facebook"
+                error={meta.touched && meta.error && meta.error.length > 0}
+              />
               <Input
                 id={input.name}
                 {...inputProps}
                 placeholder="https://facebook.com/you"
-                error={meta.touched && meta.error}
+                error={meta.touched && meta.error ? meta.error : ''}
               />
             </FormField>
           );
@@ -338,12 +374,16 @@ const EditForm = ({ change, data, push, pop, values }) => (
 
           return (
             <FormField>
-              <Label htmlFor={input.name} text="Twitter" error={meta.touched && meta.error} />
+              <Label
+                htmlFor={input.name}
+                text="Twitter"
+                error={meta.touched && meta.error && meta.error.length > 0}
+              />
               <Input
                 id={input.name}
                 {...inputProps}
                 placeholder="@username"
-                error={meta.touched && meta.error}
+                error={meta.touched && meta.error ? meta.error : ''}
               />
             </FormField>
           );
@@ -467,6 +507,7 @@ const EditForm = ({ change, data, push, pop, values }) => (
                 return (
                   <FormField>
                     <Select
+                      id={input.name}
                       options={data.asks}
                       placeholder="Add Ask"
                       {...inputProps}
@@ -532,6 +573,7 @@ const EditForm = ({ change, data, push, pop, values }) => (
                 return (
                   <FormField>
                     <Select
+                      id={input.name}
                       options={data.interests}
                       placeholder="Add Interest"
                       {...inputProps}
@@ -550,8 +592,13 @@ const EditForm = ({ change, data, push, pop, values }) => (
       name="neighborhood"
       render={({ input, meta }) => (
         <FormField>
-          <Label htmlFor={input.name} text="Neighborhood" error={meta.error} />
+          <Label
+            htmlFor={input.name}
+            text="Neighborhood"
+            error={meta.touched && meta.error && meta.error.length > 0}
+          />
           <Select
+            id={input.name}
             options={data.neighborhoods}
             placeholder="Neighborhood"
             {...input}
@@ -566,8 +613,12 @@ const EditForm = ({ change, data, push, pop, values }) => (
         name="birthday.month"
         render={({ input, meta }) => (
           <FormField>
-            <Label htmlFor={input.name} text="Birthday (month)" error={meta.error} />
-            <Select options={birthdayMonths} {...input} />
+            <Label
+              htmlFor={input.name}
+              text="Birthday (month)"
+              error={meta.touched && meta.error && meta.error.length > 0}
+            />
+            <Select id={input.name} options={birthdayMonths} {...input} />
           </FormField>
         )}
       />
@@ -575,8 +626,12 @@ const EditForm = ({ change, data, push, pop, values }) => (
         name="birthday.day"
         render={({ input, meta }) => (
           <FormField>
-            <Label htmlFor={input.name} text="Birthday (day)" error={meta.error} />
-            <Select options={birthdayDays} {...input} />
+            <Label
+              htmlFor={input.name}
+              text="Birthday (day)"
+              error={meta.touched && meta.error && meta.error.length > 0}
+            />
+            <Select id={input.name} options={birthdayDays} {...input} />
           </FormField>
         )}
       />
@@ -586,8 +641,32 @@ const EditForm = ({ change, data, push, pop, values }) => (
       name="starSign"
       render={({ input, meta }) => (
         <FormField>
-          <Label htmlFor={input.name} text="Star Sign" error={meta.error} />
+          <Label
+            htmlFor={input.name}
+            text="Star Sign"
+            error={meta.touched && meta.error && meta.error.length > 0}
+          />
           <Select id={input.name} options={starSigns} placeholder="Star Sign" {...input} />
+        </FormField>
+      )}
+    />
+
+    <Field
+      name="contactEmail"
+      validate={isEmail}
+      render={({ input, meta }) => (
+        <FormField>
+          <Label
+            htmlFor={input.name}
+            text="Email"
+            error={meta.touched && meta.error && meta.error.length > 0}
+          />
+          <Input
+            id={input.name}
+            {...input}
+            placeholder="you@email.com"
+            error={meta.touched && meta.error ? meta.error : ''}
+          />
         </FormField>
       )}
     />

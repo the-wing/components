@@ -39,7 +39,7 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
-  error: '',
+  error: null,
   placeholder: null,
 };
 

@@ -55,5 +55,13 @@ export const isFacebookUrl = value => {
 
   return validator.matches(value, /^(?:https:\/\/)(?:www\.)?facebook\.com\/[A-Za-z.0-9]{5,50}/)
     ? undefined
-    : 'Please enter a valid Facebook handle.';
+    : 'Please enter a valid Facebook user name.';
+};
+
+export const isEmail = value => {
+  if (!value) {
+    return undefined;
+  }
+
+  return validator.isEmail(value) ? undefined : 'Please enter a valid email address.';
 };

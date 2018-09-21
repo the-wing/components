@@ -11,6 +11,7 @@ import EmptyStateButton from './EmptyStateButton';
 
 const AdditionalInfo = ({
   birthday,
+  contactEmail,
   location,
   neighborhood,
   onEdit,
@@ -70,6 +71,19 @@ const AdditionalInfo = ({
             Joined: {moment(startDate).format('MMMM YYYY')}
           </ListItem>
         )}
+
+        {/* Email */}
+        {contactEmail && (
+          <ListItem icon="mail" underline>
+            {contactEmail}
+          </ListItem>
+        )}
+        {!contactEmail &&
+          !readonly && (
+            <ListItem icon="mail" underline>
+              <EmptyStateButton onClick={onEdit} text="Add your email address" />
+            </ListItem>
+          )}
 
         {/* Birthday */}
         {birthdayDay &&

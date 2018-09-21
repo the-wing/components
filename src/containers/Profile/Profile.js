@@ -184,6 +184,7 @@ class Profile extends PureComponent {
                     />
                     <AdditionalInfo
                       birthday={values.birthday}
+                      contactEmail={values.contactEmail}
                       location={values.location}
                       neighborhood={values.neighborhood}
                       onEdit={this.onEdit}
@@ -266,6 +267,7 @@ Profile.propTypes = {
         label: PropTypes.string,
       }),
     }),
+    contactEmail: PropTypes.string,
     headline: PropTypes.string,
     industry: PropTypes.shape({
       value: PropTypes.string,
@@ -335,22 +337,17 @@ Profile.defaultProps = {
   },
   initialValues: {
     asks: [],
-    bio: null,
     avatarUrl: null,
+    bio: null,
     birthday: {
       month: null,
       day: null,
     },
+    contactEmail: null,
     headline: null,
-    industry: {
-      value: null,
-      label: null,
-    },
+    industry: null,
     interests: [],
-    location: {
-      _id: null,
-      name: null,
-    },
+    location: null,
     name: null,
     neighborhood: null,
     occupations: [],

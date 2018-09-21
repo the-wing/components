@@ -60,6 +60,24 @@ const defaultUser = {
   firstName: 'Rae',
   headline: 'Software Engineer',
   lastName: 'Farine',
+  social: {
+    facebook: null,
+    instagram: null,
+    twitter: null,
+    web: null,
+  },
+  bio: null,
+  contactEmail: null,
+  occupations: [],
+  industry: null,
+  offers: [],
+  asks: [],
+  interests: [],
+  neighborhood: null,
+  location: null,
+  startDate: '2018-09-04T22:44:30.652Z',
+  birthday: null,
+  starSign: null,
 };
 
 const userWithSocial = {
@@ -76,6 +94,7 @@ const userWithAllInfo = {
   ...userWithSocial,
   bio:
     'Jean shorts affogato pickled pork belly hexagon unicorn ramps roof party pug. Godard squid mumblecore letterpress brunch twee photo booth.',
+  contactEmail: 'emailMeSomething@email.com',
   occupations: [
     {
       position: { label: 'Software Engineer', value: 'software-engineer' },
@@ -129,6 +148,7 @@ const userWithErrors = {
   },
   bio:
     "Vexillologist pok pok wolf kickstarter, swag single-origin coffee direct trade pabst la croix butcher sustainable asymmetrical iceland fam blue bottle. Before they sold out leggings cray iceland chillwave gochujang fanny pack blue bottle, skateboard helvetica tattooed godard. Biodiesel pabst before they sold out, four loko echo park gluten-free pug crucifix kitsch raw denim quinoa aesthetic sustainable tofu kickstarter. Unicorn flexitarian leggings irony, tbh dreamcatcher sustainable. Pinterest prism migas coloring book, keytar squid godard vegan succulents fam selvage gluten-free. Butcher distillery direct trade, next level selfies mustache four dollar toast 90's farm-to-table. Pok pok sriracha chillwave, semiotics twee church-key tacos blue bottle cardigan kitsch post-ironic offal.",
+  contactEmail: 'thisisnotanemail',
   occupations: [
     {
       position: null,
@@ -211,6 +231,24 @@ storiesOf('Profile', module)
   ))
   .add('readonly default', () => (
     <Profile data={data} onClose={action('onClose')} onSubmit={action('onSubmit')} readonly />
+  ))
+  .add('readonly with name, headline', () => (
+    <Profile
+      data={data}
+      onClose={action('onClose')}
+      onSubmit={action('onSubmit')}
+      initialValues={defaultUser}
+      readonly
+    />
+  ))
+  .add('readonly with social', () => (
+    <Profile
+      data={data}
+      onClose={action('onClose')}
+      onSubmit={action('onSubmit')}
+      initialValues={userWithSocial}
+      readonly
+    />
   ))
   .add('readonly with all info', () => (
     <Profile
