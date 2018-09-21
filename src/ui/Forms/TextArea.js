@@ -4,16 +4,28 @@ import styled from 'styled-components';
 
 import Box from 'ui/Box/Box';
 import Counter from 'ui/Counter/Counter';
+import ErrorMessage from './ErrorMessage';
 import { StyledInput } from './Input';
 
 const StyledTextArea = StyledInput.withComponent('textarea');
 
 const TextArea = ({ currentLength, error, maxLength, ...textAreaProps }) => (
   <Fragment>
-    <StyledTextArea maxLength={maxLength} rows="5" {...textAreaProps} />
+    <StyledTextArea
+      maxLength={maxLength}
+      rows="5"
+      error={error && error.length > 0}
+      {...textAreaProps}
+    />
+    {!maxLength && error && <ErrorMessage text={error} />}
     {maxLength && (
       <Box margin={{ vertical: 6.5 / 16 }}>
-        <Counter currentLength={currentLength} error={error} maxLength={maxLength} />
+        {error && <ErrorMessage marginTop="0px" text={error} />}
+        <Counter
+          currentLength={currentLength}
+          error={error && error.length > 0}
+          maxLength={maxLength}
+        />
       </Box>
     )}
   </Fragment>
@@ -21,13 +33,13 @@ const TextArea = ({ currentLength, error, maxLength, ...textAreaProps }) => (
 
 TextArea.propTypes = {
   currentLength: PropTypes.number,
-  error: PropTypes.bool,
+  error: PropTypes.string,
   maxLength: PropTypes.number,
 };
 
 TextArea.defaultProps = {
   currentLength: null,
-  error: false,
+  error: '',
   maxLength: null,
 };
 

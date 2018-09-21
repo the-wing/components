@@ -23,6 +23,8 @@ Shared component library
 - [x] Fix occupations adding and removing
 - [x] positions, companies, neighborhoods should come back in data object
 - [ ] Add form validation
+- [ ] Add contact email field
+- [ ] onSubmit, format social properly (add http:// if needed on website, remove @ on instagram, remove @ on twitter handle, etc)
 - [ ] Add loading (react-placeholder) state for profile
 - [ ] Add transition around profile drawer
 - [ ] Add addons for icons on social inputs

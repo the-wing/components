@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { default as ReactSelect, components } from 'react-select';
 import CreatableSelect from 'react-select/lib/Creatable';
@@ -10,6 +10,7 @@ import Counter from 'ui/Counter/Counter';
 import Icon from 'ui/Icon/Icon';
 import Text from 'ui/Text/Text';
 import searchIcon from 'assets/img/search.svg';
+import ErrorMessage from './ErrorMessage';
 
 const StyledAddLabel = styled(Box)`
   justify-content: space-between;
@@ -28,7 +29,11 @@ const SearchIcon = styled.div`
 
 const StyledCreatableChild = styled.div`
   margin-left: ${props => (props.menuIsOpen ? '46px' : 'inherit')};
-  color: ${props => theme.colors[props.error ? 'red' : 'solitude'].main};
+  color: ${props => theme.colors.solitude.main};
+`;
+
+const StyledCreatablePlaceholder = styled(StyledCreatableChild)`
+  color: ${props => theme.colors.grayChateau.main};
 `;
 
 const DropdownIndicator = props => {
@@ -58,15 +63,12 @@ const CreatableValueContainer = ({ children, ...props }) => {
 
 const CreatablePlaceholder = ({ children, ...props }) => {
   return (
-    components.SingleValue && (
-      <components.SingleValue {...props}>
-        <StyledCreatableChild
-          error={props.selectProps.error}
-          menuIsOpen={props.selectProps.menuIsOpen}
-        >
+    components.Placeholder && (
+      <components.Placeholder {...props}>
+        <StyledCreatablePlaceholder menuIsOpen={props.selectProps.menuIsOpen}>
           {children}
-        </StyledCreatableChild>
-      </components.SingleValue>
+        </StyledCreatablePlaceholder>
+      </components.Placeholder>
     )
   );
 };
@@ -75,10 +77,7 @@ const CreatableSingleValue = ({ children, ...props }) => {
   return (
     components.SingleValue && (
       <components.SingleValue {...props}>
-        <StyledCreatableChild
-          error={props.selectProps.error}
-          menuIsOpen={props.selectProps.menuIsOpen}
-        >
+        <StyledCreatableChild menuIsOpen={props.selectProps.menuIsOpen}>
           {children}
         </StyledCreatableChild>
       </components.SingleValue>
@@ -159,11 +158,11 @@ const customStyles = (isSearchable = false, isCreatable = false, error = false) 
   }),
   placeholder: (base, state) => ({
     ...base,
-    color: theme.colors[error ? 'red' : 'grayChateau'].main,
+    color: theme.colors.grayChateau.main,
   }),
   singleValue: (base, state) => ({
     ...base,
-    color: theme.colors[error ? 'red' : 'solitude'].main,
+    color: theme.colors.solitude.main,
   }),
   valueContainer: (base, state) => ({
     ...base,
@@ -174,7 +173,6 @@ const customStyles = (isSearchable = false, isCreatable = false, error = false) 
 
 const Select = ({
   canCreateOptions,
-  defaultValue,
   error,
   hiddenIndicator,
   isSearchable,
@@ -185,57 +183,65 @@ const Select = ({
 }) => {
   if (canCreateOptions) {
     return (
-      <CreatableSelect
-        components={{
-          DropdownIndicator,
-          Placeholder: CreatablePlaceholder,
-          ValueContainer: CreatableValueContainer,
-          SingleValue: CreatableSingleValue,
-        }}
-        formatCreateLabel={inputValue => (
-          <AddLabel
-            inputValue={inputValue}
-            currentLength={inputValue.length || 0}
-            maxLength={maxLength}
-          />
-        )}
-        value={inputProps.value}
-        options={options}
-        placeholder={placeholder}
-        // isSearchable = true, isCreatable = true
-        styles={customStyles(true, true, error)}
-        onChange={inputProps.onChange}
-        options={options}
-        maxLength={maxLength}
-        error={error}
-        hiddenIndicator
-        blurInputOnSelect
-        {...inputProps}
-      />
+      <Fragment>
+        <CreatableSelect
+          components={{
+            DropdownIndicator,
+            Placeholder: CreatablePlaceholder,
+            ValueContainer: CreatableValueContainer,
+            SingleValue: CreatableSingleValue,
+          }}
+          formatCreateLabel={inputValue => (
+            <AddLabel
+              inputValue={inputValue}
+              currentLength={inputValue.length || 0}
+              maxLength={maxLength}
+            />
+          )}
+          value={inputProps.value}
+          options={options}
+          placeholder={placeholder}
+          // isSearchable = true, isCreatable = true
+          styles={customStyles(true, true, error && error.length > 0)}
+          onChange={inputProps.onChange}
+          options={options}
+          maxLength={maxLength}
+          error={error && error.length > 0}
+          hiddenIndicator
+          blurInputOnSelect
+          {...inputProps}
+        />
+        {error && error.length > 0 && <ErrorMessage text={error} />}
+      </Fragment>
     );
   }
 
   return (
-    <ReactSelect
-      components={{
-        DropdownIndicator,
-      }}
-      isSearchable={isSearchable}
-      value={inputProps.value}
-      onChange={inputProps.onChange}
-      options={options}
-      maxLength={maxLength}
-      placeholder={placeholder}
-      styles={customStyles(isSearchable, false, error)}
-      hiddenIndicator={hiddenIndicator}
-      error={error}
-      blurInputOnSelect
-      {...inputProps}
-    />
+    <Fragment>
+      <ReactSelect
+        components={{
+          DropdownIndicator,
+        }}
+        isSearchable={isSearchable}
+        value={inputProps.value}
+        onChange={inputProps.onChange}
+        options={options}
+        maxLength={maxLength}
+        placeholder={placeholder}
+        styles={customStyles(isSearchable, false, error && error.length > 0)}
+        hiddenIndicator={hiddenIndicator}
+        error={error && error.length > 0}
+        blurInputOnSelect
+        {...inputProps}
+      />
+      {error && error.length > 0 && <ErrorMessage text={error} />}
+    </Fragment>
   );
 };
 
 Select.propTypes = {
+  canCreateOptions: PropTypes.bool,
+  error: PropTypes.string,
   isSearchable: PropTypes.bool,
   maxLength: PropTypes.number,
   options: PropTypes.arrayOf(
@@ -248,6 +254,8 @@ Select.propTypes = {
 };
 
 Select.defaultProps = {
+  canCreateOptions: false,
+  error: '',
   hiddenIndicator: false,
   maxLength: null,
   placeholder: '',
