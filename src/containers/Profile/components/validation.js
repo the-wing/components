@@ -74,7 +74,7 @@ const validateImageWidth = value => {
     image.onload = () => {
       const width = image.width;
 
-      if (width < 125) {
+      if (width < 98) {
         return resolve('Please insert a photo that is at least 125 pixels wide.');
       }
 

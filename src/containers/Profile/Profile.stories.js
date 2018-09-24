@@ -85,8 +85,8 @@ const defaultUser = {
 const userWithSocial = {
   ...defaultUser,
   social: {
-    facebook: 'http://facebook.com/hello-mark',
-    instagram: '@i-have-a-million-insta-stories-today',
+    facebook: 'https://facebook.com/hello-mark',
+    instagram: '@iHaveAMillionInstaStories',
     twitter: '@chirpchirp',
     web: 'http://the-wing.com',
   },
@@ -139,6 +139,7 @@ const userWithAllInfo = {
 };
 
 const userWithErrors = {
+  avatarUrl: theme.defaultAvatar,
   firstName: null,
   lastName: null,
   headline: null,
@@ -197,7 +198,21 @@ const userWithErrors = {
 storiesOf('Profile', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => (
-    <Profile data={data} onSubmit={action('onSubmit')} onClose={action('onClose')} />
+    <Profile
+      data={data}
+      onSubmit={action('onSubmit')}
+      initialValues={defaultUser}
+      onClose={action('onClose')}
+    />
+  ))
+  .add('loading', () => (
+    <Profile
+      data={data}
+      onSubmit={action('onSubmit')}
+      initialValues={defaultUser}
+      onClose={action('onClose')}
+      loading
+    />
   ))
   .add('with name, headline', () => (
     <Profile

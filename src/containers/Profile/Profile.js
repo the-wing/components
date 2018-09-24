@@ -5,15 +5,17 @@ import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import createDecorator from 'final-form-calculate';
 import { getSign } from 'horoscope';
+import theme from 'theme';
 
 import Box from 'ui/Box/Box';
 import Button from 'ui/Button/Button';
 import Icon from 'ui/Icon/Icon';
 
-import AdditionalInfo from './components/AdditionalInfo';
+import AdditionalInfo from './components/AdditionalInfo/AdditionalInfo';
+import ControlBar from './components/ControlBar';
 import EditForm from './components/EditForm';
-import Head from './components/Head';
-import Main from './components/Main';
+import Head from './components/Head/Head';
+import Main from './components/Main/Main';
 
 const calculator = createDecorator({
   field: /birthday\.(day|month)/,
@@ -97,58 +99,17 @@ class Profile extends PureComponent {
           return (
             <form onSubmit={handleSubmit}>
               <Box grow column color={this.state.isEditing ? 'white' : 'linen'}>
-                <Box column padding={{ horizontal: 2, top: 2 }}>
-                  <Box grow margin={{ bottom: 22 / 16 }}>
-                    {!readonly && this.state.isEditing ? (
-                      <Fragment>
-                        <Box>
-                          <Button
-                            height="auto"
-                            onClick={event => {
-                              form.reset();
-                              this.onCancel(event);
-                            }}
-                            color="terracota"
-                            transparent
-                          >
-                            Cancel
-                          </Button>
-                        </Box>
-                        <Box marginLeft="auto">
-                          <Button
-                            disabled={pristine || invalid || loading}
-                            height="auto"
-                            color="terracota"
-                            transparent
-                            type="submit"
-                          >
-                            Save
-                          </Button>
-                        </Box>
-                      </Fragment>
-                    ) : (
-                      <Fragment>
-                        <Box>
-                          <Button onClick={onClose} lineHeight="22px" height="auto" transparent>
-                            <Icon name="close" size={19} color="terracota" />
-                          </Button>
-                        </Box>
-                        <Box marginLeft="auto">
-                          {!readonly && (
-                            <Button
-                              height="auto"
-                              onClick={this.onEdit}
-                              color="terracota"
-                              transparent
-                            >
-                              Edit
-                            </Button>
-                          )}
-                        </Box>
-                      </Fragment>
-                    )}
-                  </Box>
-                </Box>
+                <ControlBar
+                  invalid={invalid}
+                  isEditing={this.state.isEditing}
+                  loading={loading}
+                  onCancel={this.onCancel}
+                  onClose={onClose}
+                  onEdit={this.onEdit}
+                  pristine={pristine}
+                  readonly={readonly}
+                  reset={form.reset}
+                />
 
                 {this.state.isEditing && (
                   <EditForm
@@ -167,6 +128,7 @@ class Profile extends PureComponent {
                       headline={values.headline}
                       firstName={values.firstName}
                       lastName={values.lastName}
+                      loading={loading}
                       readonly={readonly}
                       social={values.social}
                     />
@@ -176,6 +138,7 @@ class Profile extends PureComponent {
                       firstName={values.firstName}
                       industry={values.industry}
                       interests={values.interests}
+                      loading={loading}
                       occupations={values.occupations}
                       offers={values.offers}
                       onEdit={this.onEdit}
@@ -185,6 +148,7 @@ class Profile extends PureComponent {
                     <AdditionalInfo
                       birthday={values.birthday}
                       contactEmail={values.contactEmail}
+                      loading={loading}
                       location={values.location}
                       neighborhood={values.neighborhood}
                       onEdit={this.onEdit}
@@ -337,7 +301,7 @@ Profile.defaultProps = {
   },
   initialValues: {
     asks: [],
-    avatarUrl: null,
+    avatarUrl: theme.defaultAvatar,
     bio: null,
     birthday: {
       month: null,
@@ -361,6 +325,7 @@ Profile.defaultProps = {
     starSign: null,
     startDate: null,
   },
+  loading: false,
   onCancel: null,
   onClose: null,
   onEdit: null,

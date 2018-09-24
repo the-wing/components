@@ -98,8 +98,6 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
             onBlur();
           };
 
-          console.log('meta...', meta);
-
           return (
             <DropZone onDrop={onDrop}>
               <Image width={125} height={125} url={input.value} hoverText="Edit" circle />
