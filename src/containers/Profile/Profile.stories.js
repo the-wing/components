@@ -3,6 +3,7 @@ import { addDecorator, storiesOf } from '@storybook/react';
 import { withConsole } from '@storybook/addon-console';
 import { action } from '@storybook/addon-actions';
 import Profile from 'containers/Profile/Profile';
+import theme from 'theme';
 
 const data = {
   asks: [
@@ -57,6 +58,7 @@ const data = {
 };
 
 const defaultUser = {
+  avatarUrl: theme.defaultAvatar,
   firstName: 'Rae',
   headline: 'Software Engineer',
   lastName: 'Farine',

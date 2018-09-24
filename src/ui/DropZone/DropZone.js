@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import { default as ReactDropZone } from 'react-dropzone';
 
 const StyledReactDropZone = styled(ReactDropZone)`
+  display: flex;
+  flex-flow: column;
+  align-items: center;
   border: 0;
 
   &:hover {
@@ -13,10 +16,11 @@ const StyledReactDropZone = styled(ReactDropZone)`
 
 class DropZone extends PureComponent {
   onDrop = (acceptedFiles, rejectedFiles) => {
-    const { onDrop } = this.props;
+    const { maxWidth, minWidth, onDrop } = this.props;
 
     acceptedFiles.forEach(file => {
       const reader = new FileReader();
+
       reader.onload = () => {
         const fileAsDataURL = reader.result;
 
@@ -26,10 +30,6 @@ class DropZone extends PureComponent {
 
         return fileAsDataURL;
       };
-
-      reader.onabort = () => console.log('File reading was aborted');
-
-      reader.onerror = () => console.log('File reading has failed');
 
       reader.readAsDataURL(file);
     });

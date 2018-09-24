@@ -65,3 +65,26 @@ export const isEmail = value => {
 
   return validator.isEmail(value) ? undefined : 'Please enter a valid email address.';
 };
+
+const validateImageWidth = value => {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.src = value;
+
+    image.onload = () => {
+      const width = image.width;
+
+      if (width < 125) {
+        return resolve('Please insert a photo that is at least 125 pixels wide.');
+      }
+
+      return resolve(undefined);
+    };
+  });
+};
+
+export const validateAvatar = async value => {
+  const errorMessage = await validateImageWidth(value);
+
+  return errorMessage;
+};

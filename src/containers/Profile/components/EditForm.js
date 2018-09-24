@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { Transition } from 'react-spring';
-import theme from 'theme';
 import {
   isEmail,
   isFacebookUrl,
@@ -14,9 +13,10 @@ import {
   isWebsite,
   maxLength,
   required,
+  validateAvatar,
 } from './validation';
 
-import { FormField, Input, InputGroup, Label, Select, TextArea } from 'ui/Forms';
+import { ErrorMessage, FormField, Input, InputGroup, Label, Select, TextArea } from 'ui/Forms';
 import Box from 'ui/Box/Box';
 import Chip from 'ui/Chip/Chip';
 import Collapsible from 'ui/Collapsible/Collapsible';
@@ -83,22 +83,30 @@ const prepopulateSocialField = (name, change) => {
   }
 };
 
-const EditForm = ({ change, data, push, pop, values }) => (
+const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
   <Box column padding={{ horizontal: 1, bottom: 1 }} color="white">
     <Box hAlignContent="center" padding={{ top: 6 / 16, bottom: 36 / 16 }}>
       <Field
         name="avatarUrl"
-        render={({ input, meta }) => (
-          <DropZone onDrop={input.onChange}>
-            <Image
-              width={125}
-              height={125}
-              url={input.value || theme.defaultAvatar}
-              hoverText="Edit"
-              circle
-            />
-          </DropZone>
-        )}
+        validate={validateAvatar}
+        render={({ input, meta }) => {
+          const { onBlur, onChange, onFocus, ...rest } = input;
+
+          const onDrop = value => {
+            onFocus();
+            onChange(value);
+            onBlur();
+          };
+
+          console.log('meta...', meta);
+
+          return (
+            <DropZone onDrop={onDrop}>
+              <Image width={125} height={125} url={input.value} hoverText="Edit" circle />
+              {meta.touched && meta.error && <ErrorMessage text={meta.error} />}
+            </DropZone>
+          );
+        }}
       />
     </Box>
     <Section title="The Basics">

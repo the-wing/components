@@ -85,7 +85,7 @@ const CreatableSingleValue = ({ children, ...props }) => {
   );
 };
 
-const AddLabel = ({ currentLength, inputValue, maxLength }) => (
+const AddLabel = ({ currentLength, error, inputValue, maxLength }) => (
   <StyledAddLabel display="flex">
     <Box>
       <Icon name="add" size={10} color="terracota" />
@@ -93,7 +93,9 @@ const AddLabel = ({ currentLength, inputValue, maxLength }) => (
         Add {inputValue}
       </Text>
     </Box>
-    <Box>{maxLength && <Counter currentLength={currentLength} maxLength={maxLength} />}</Box>
+    <Box>
+      {maxLength && <Counter currentLength={currentLength} error={error} maxLength={maxLength} />}
+    </Box>
   </StyledAddLabel>
 );
 
@@ -193,6 +195,7 @@ const Select = ({
           }}
           formatCreateLabel={inputValue => (
             <AddLabel
+              error={error && error.length > 0}
               inputValue={inputValue}
               currentLength={inputValue.length || 0}
               maxLength={maxLength}

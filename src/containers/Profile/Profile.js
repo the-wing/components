@@ -79,7 +79,7 @@ class Profile extends PureComponent {
   };
 
   render() {
-    const { data, initialValues, loading, onClose, readonly } = this.props;
+    const { data, initialValues, loading, mutators, onClose, readonly } = this.props;
 
     return (
       <Form
