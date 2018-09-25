@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import map from 'lodash/map';
 import styled from 'styled-components';
 
 import Box from 'ui/Box/Box';
@@ -43,7 +43,7 @@ class Menu extends PureComponent {
 
     return (
       <Container className={className}>
-        {_.map(options, (option, i) => (
+        {map(options, (option, i) => (
           <MenuItem selected={option.selected} key={option.name} onClick={option.onClick}>
             <Text color="solitude" letterSpacing={0.3} fontSize={15 / 16}>
               {option.name}

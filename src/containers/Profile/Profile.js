@@ -1,6 +1,6 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import get from 'lodash/get';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import createDecorator from 'final-form-calculate';
@@ -21,8 +21,8 @@ const calculator = createDecorator({
   field: /birthday\.(day|month)/,
   updates: {
     starSign: (ignoredValue, allValues) => {
-      const month = _.get(allValues.birthday, 'month.value', '13');
-      const day = _.get(allValues.birthday, 'day.value', '32');
+      const month = get(allValues.birthday, 'month.value', '13');
+      const day = get(allValues.birthday, 'day.value', '32');
 
       const sign =
         month === '13' || day === '32'

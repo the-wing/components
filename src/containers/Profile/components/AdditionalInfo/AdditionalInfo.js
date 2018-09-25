@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import _ from 'lodash';
+import get from 'lodash/get';
 import ReactPlaceholder from 'react-placeholder';
 import { Transition } from 'react-spring';
 
@@ -29,11 +29,11 @@ const AdditionalInfo = ({
   starSign,
   startDate,
 }) => {
-  const neighborhoodLabel = _.get(neighborhood, 'label', null);
-  const locationName = _.get(location, 'name', null);
-  const birthdayDay = _.get(birthday, 'day.value', null);
-  const starSignLabel = _.get(starSign, 'label', null);
-  const starSignValue = _.get(starSign, 'value', 1);
+  const neighborhoodLabel = get(neighborhood, 'label', null);
+  const locationName = get(location, 'name', null);
+  const birthdayDay = get(birthday, 'day.value', null);
+  const starSignLabel = get(starSign, 'label', null);
+  const starSignValue = get(starSign, 'value', 1);
 
   if (
     readonly &&
@@ -147,11 +147,11 @@ const AdditionalInfo = ({
               {/* Birthday */}
               {birthdayDay &&
                 parseInt(birthdayDay, 10) < 32 && (
-                  <ListItem icon="birthday" underline>{`${_.get(
+                  <ListItem icon="birthday" underline>{`${get(birthday, 'month.label', '')} ${get(
                     birthday,
-                    'month.label',
+                    'day.label',
                     ''
-                  )} ${_.get(birthday, 'day.label', '')}`}</ListItem>
+                  )}`}</ListItem>
                 )}
               {(!birthdayDay || parseInt(birthdayDay, 10) >= 32) &&
                 !readonly && (

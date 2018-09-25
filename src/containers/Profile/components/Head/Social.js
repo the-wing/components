@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import map from 'lodash/map';
 import styled from 'styled-components';
 import { Circle } from 'ui/Loading';
 
@@ -38,7 +39,7 @@ const getSocialLink = (type, value) => {
 const Social = ({ links, loading }) => (
   <Box hAlignContent="center" margin={{ top: 45 / 16 }}>
     {!loading &&
-      _.map(links, (link, type) => {
+      map(links, (link, type) => {
         if (!link) {
           return false;
         }

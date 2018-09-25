@@ -1,13 +1,13 @@
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import validator from 'validator';
 
 export const composeValidators = (...validators) => value =>
   validators.reduce((error, validator) => error || validator(value), undefined);
 
 export const required = value => {
-  const isEmpty = !value || value.length < 1 || _.isEmpty(value);
+  const empty = !value || value.length < 1 || isEmpty(value);
 
-  return isEmpty ? 'Field is required.' : undefined;
+  return empty ? 'Field is required.' : undefined;
 };
 
 export const maxLength = max => value => {
