@@ -25,7 +25,7 @@ Shared component library
 - [x] Add form validation
 - [x] Add contact email field
 - [x] Add loading (react-placeholder) state for profile
-- [ ] Add transition around drawer
+- [x] Add transition around drawer
 - [ ] Add addons for icons on social inputs and spans for auto-filled values (alter validation)
 - [ ] Fix validation on image uploads! ugh
 - [ ] onSubmit, format social properly (add http:// if needed on website, remove @ on instagram, remove @ on twitter handle, etc)
@@ -41,6 +41,7 @@ Shared component library
 
 ### For the future
 
+- [ ] Add styled-system for consistency in styling
 - [ ] Add PropTypes to all the subfolders in Profile/components
 - [ ] Refactor responsive util so that we're not passing unnecessary props to dom elements
 - [ ] Add [a11y addon](https://github.com/storybooks/storybook/tree/master/addons/a11y)
