@@ -5,24 +5,34 @@ import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import createDecorator from 'final-form-calculate';
 import { getSign } from 'horoscope';
+import theme from 'theme';
 
 import Box from 'ui/Box/Box';
 import Button from 'ui/Button/Button';
 import Icon from 'ui/Icon/Icon';
 
-import AdditionalInfo from './components/AdditionalInfo';
+import AdditionalInfo from './components/AdditionalInfo/AdditionalInfo';
+import ControlBar from './components/ControlBar';
 import EditForm from './components/EditForm';
-import Head from './components/Head';
-import Main from './components/Main';
+import Head from './components/Head/Head';
+import Main from './components/Main/Main';
 
 const calculator = createDecorator({
   field: /birthday\.(day|month)/,
   updates: {
     starSign: (ignoredValue, allValues) => {
-      const month = _.get(allValues.birthday, 'month.value', 1);
-      const day = _.get(allValues.birthday, 'day.value', 1);
+      const month = _.get(allValues.birthday, 'month.value', '13');
+      const day = _.get(allValues.birthday, 'day.value', '32');
 
-      getSign({ month: parseInt(month, 10), day: parseInt(day, 10) });
+      const sign =
+        month === '13' || day === '32'
+          ? '—'
+          : getSign({
+              month: parseInt(month, 10),
+              day: parseInt(day, 10),
+            });
+
+      return { value: sign === '—' ? 1 : sign, label: sign };
     },
   },
 });
@@ -71,7 +81,7 @@ class Profile extends PureComponent {
   };
 
   render() {
-    const { industryList, initialValues, loading, onClose } = this.props;
+    const { data, initialValues, loading, mutators, onClose, readonly } = this.props;
 
     return (
       <Form
@@ -89,51 +99,26 @@ class Profile extends PureComponent {
           return (
             <form onSubmit={handleSubmit}>
               <Box grow column color={this.state.isEditing ? 'white' : 'linen'}>
-                <Box column padding={{ horizontal: 2, top: 2 }}>
-                  <Box grow margin={{ bottom: 22 / 16 }}>
-                    {this.state.isEditing ? (
-                      <Fragment>
-                        <Box>
-                          <Button
-                            height="auto"
-                            onClick={this.onCancel}
-                            color="terracota"
-                            transparent
-                          >
-                            Cancel
-                          </Button>
-                        </Box>
-                        <Box marginLeft="auto">
-                          <Button
-                            disabled={pristine || invalid || loading}
-                            height="auto"
-                            color="terracota"
-                            transparent
-                            type="submit"
-                          >
-                            Save
-                          </Button>
-                        </Box>
-                      </Fragment>
-                    ) : (
-                      <Fragment>
-                        <Box>
-                          <Button onClick={onClose} lineHeight="22px" height="auto" transparent>
-                            <Icon name="close" size={19} color="terracota" />
-                          </Button>
-                        </Box>
-                        <Box marginLeft="auto">
-                          <Button height="auto" onClick={this.onEdit} color="terracota" transparent>
-                            Edit
-                          </Button>
-                        </Box>
-                      </Fragment>
-                    )}
-                  </Box>
-                </Box>
+                <ControlBar
+                  invalid={invalid}
+                  isEditing={this.state.isEditing}
+                  loading={loading}
+                  onCancel={this.onCancel}
+                  onClose={onClose}
+                  onEdit={this.onEdit}
+                  pristine={pristine}
+                  readonly={readonly}
+                  reset={form.reset}
+                />
 
                 {this.state.isEditing && (
-                  <EditForm industryList={industryList} push={push} pop={pop} />
+                  <EditForm
+                    change={form.change}
+                    data={data}
+                    push={push}
+                    pop={pop}
+                    values={values}
+                  />
                 )}
 
                 {!this.state.isEditing && (
@@ -143,23 +128,31 @@ class Profile extends PureComponent {
                       headline={values.headline}
                       firstName={values.firstName}
                       lastName={values.lastName}
+                      loading={loading}
+                      readonly={readonly}
                       social={values.social}
                     />
                     <Main
                       asks={values.asks}
                       bio={values.bio}
+                      firstName={values.firstName}
                       industry={values.industry}
                       interests={values.interests}
+                      loading={loading}
                       occupations={values.occupations}
                       offers={values.offers}
                       onEdit={this.onEdit}
                       position={values.position}
+                      readonly={readonly}
                     />
                     <AdditionalInfo
                       birthday={values.birthday}
+                      contactEmail={values.contactEmail}
+                      loading={loading}
                       location={values.location}
                       neighborhood={values.neighborhood}
                       onEdit={this.onEdit}
+                      readonly={readonly}
                       starSign={values.starSign}
                       startDate={values.startDate}
                     />
@@ -175,14 +168,57 @@ class Profile extends PureComponent {
 }
 
 Profile.propTypes = {
-  industryList: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string,
-      label: PropTypes.string,
-    })
-  ),
+  data: PropTypes.shape({
+    asks: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    companies: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    industries: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    interests: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    neighborhoods: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    offers: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    positions: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+  }),
   initialValues: PropTypes.shape({
-    asks: PropTypes.arrayOf(PropTypes.string),
+    asks: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
     avatarUrl: PropTypes.string,
     bio: PropTypes.string,
     birthday: PropTypes.shape({
@@ -195,67 +231,90 @@ Profile.propTypes = {
         label: PropTypes.string,
       }),
     }),
+    contactEmail: PropTypes.string,
     headline: PropTypes.string,
     industry: PropTypes.shape({
       value: PropTypes.string,
       label: PropTypes.string,
     }),
-    interests: PropTypes.arrayOf(PropTypes.string),
+    interests: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
     location: PropTypes.shape({
       _id: PropTypes.string,
       name: PropTypes.string,
     }),
     name: PropTypes.string,
-    neighborhood: PropTypes.string,
+    neighborhood: PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string,
+    }),
     occupations: PropTypes.arrayOf(
       PropTypes.shape({
-        company: PropTypes.string,
-        position: PropTypes.string,
+        company: PropTypes.shape({
+          value: PropTypes.string,
+          label: PropTypes.string,
+        }),
+        position: PropTypes.shape({
+          value: PropTypes.string,
+          label: PropTypes.string,
+        }),
       })
     ),
-    offers: PropTypes.arrayOf(PropTypes.string),
+    offers: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
     social: PropTypes.shape({
       facebook: PropTypes.string,
       instagram: PropTypes.string,
       twitter: PropTypes.string,
       web: PropTypes.string,
     }),
-    starSign: PropTypes.string,
+    starSign: PropTypes.shape({
+      value: PropTypes.string,
+      label: PropTypes.string,
+    }),
     startDate: PropTypes.string,
   }),
   onCancel: PropTypes.func,
   onClose: PropTypes.func,
   onEdit: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
+  readonly: PropTypes.bool,
 };
 
 Profile.defaultProps = {
+  data: {
+    asks: [],
+    companies: [],
+    industries: [],
+    interests: [],
+    neighborhoods: [],
+    offers: [],
+    positions: [],
+  },
   initialValues: {
     asks: [],
+    avatarUrl: theme.defaultAvatar,
     bio: null,
-    avatarUrl: null,
     birthday: {
       month: null,
       day: null,
     },
+    contactEmail: null,
     headline: null,
-    industry: {
-      _id: null,
-      name: null,
-    },
+    industry: null,
     interests: [],
-    location: {
-      _id: null,
-      name: null,
-    },
+    location: null,
     name: null,
     neighborhood: null,
-    occupations: [
-      {
-        company: null,
-        position: null,
-      },
-    ],
+    occupations: [],
     offers: [],
     social: {
       facebook: null,
@@ -266,9 +325,11 @@ Profile.defaultProps = {
     starSign: null,
     startDate: null,
   },
+  loading: false,
   onCancel: null,
   onClose: null,
   onEdit: null,
+  readonly: false,
 };
 
 export default Profile;

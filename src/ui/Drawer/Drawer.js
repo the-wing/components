@@ -2,6 +2,7 @@ import React, { Fragment, PureComponent } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { animated, Transition } from 'react-spring';
+import { Easing } from 'react-spring/dist/addons';
 
 import { responsive } from 'utils';
 
@@ -81,9 +82,23 @@ class Drawer extends PureComponent {
     return (
       <Fragment>
         {this.state.isOpen && <Backdrop backdropBgColor={backdropBgColor} />}
-        <StyledDrawer isOpen={this.state.isOpen} left={left} width={width}>
-          {children({ onClose: this.onClose })}
-        </StyledDrawer>
+        <Transition
+          native
+          config={{
+            ...{ tension: 280, friction: 60 },
+            duration: 300,
+            easing: Easing.inOut,
+          }}
+          from={{ transform: left ? 'translateX(-100%)' : 'translateX(100%)' }}
+          enter={{ transform: 'translateX(0)' }}
+          leave={{ transform: left ? 'translateX(-100%)' : 'translateX(100%)' }}
+        >
+          {style => (
+            <StyledDrawer isOpen={this.state.isOpen} left={left} width={width} style={style}>
+              {children({ onClose: this.onClose })}
+            </StyledDrawer>
+          )}
+        </Transition>
       </Fragment>
     );
   }

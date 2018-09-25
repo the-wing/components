@@ -1,9 +1,9 @@
 import React from 'react';
 import { addDecorator, storiesOf } from '@storybook/react';
 import { withConsole } from '@storybook/addon-console';
-import { Label } from 'ui/Forms';
+import DropZone from 'ui/DropZone/DropZone';
 
-storiesOf('Label', module)
+storiesOf('DropZone', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
-  .add('default', () => <Label htmlFor="something" text="Something" />)
-  .add('error', () => <Label htmlFor="error" text="Error State" error />);
+  .add('default', () => <DropZone />)
+  .add('children', () => <DropZone>Hello there. Please upload something!</DropZone>);

@@ -26,7 +26,7 @@ class Collapsible extends PureComponent {
     return (
       <Fragment>
         {trigger({ isOpen: this.state.isOpen, toggle: this.toggle })}
-        {children({ isOpen: this.state.isOpen })}
+        {children({ isOpen: this.state.isOpen, toggle: this.toggle })}
       </Fragment>
     );
   }

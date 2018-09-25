@@ -25,7 +25,7 @@ storiesOf('Input', module)
   ))
   .add('error', () => (
     <FormField>
-      <Label htmlFor="id3" text="Label 3" />
-      <Input id="id3" error />
+      <Label htmlFor="id3" text="Label 3" error="I have an error" />
+      <Input id="id3" error="I have an error" />
     </FormField>
   ));
