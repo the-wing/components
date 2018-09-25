@@ -2,8 +2,13 @@ import React from 'react';
 import { addDecorator, storiesOf } from '@storybook/react';
 import { withConsole } from '@storybook/addon-console';
 import { action } from '@storybook/addon-actions';
+import { State, Store } from '@sambego/storybook-state';
 import Profile from 'containers/Profile/Profile';
 import theme from 'theme';
+
+const store = new Store({
+  loading: true,
+});
 
 const data = {
   asks: [
@@ -213,6 +218,23 @@ storiesOf('Profile', module)
       onClose={action('onClose')}
       loading
     />
+  ))
+  .add('from loading to loaded', () => (
+    <State store={store}>
+      {state => {
+        setTimeout(() => store.set({ loading: false }), 5000);
+
+        return (
+          <Profile
+            data={data}
+            onSubmit={action('onSubmit')}
+            initialValues={defaultUser}
+            onClose={action('onClose')}
+            loading={state.loading}
+          />
+        );
+      }}
+    </State>
   ))
   .add('with name, headline', () => (
     <Profile

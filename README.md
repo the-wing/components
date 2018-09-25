@@ -24,9 +24,9 @@ Shared component library
 - [x] positions, companies, neighborhoods should come back in data object
 - [x] Add form validation
 - [x] Add contact email field
-- [ ] Add loading (react-placeholder) state for profile
-- [ ] Add transition around profile drawer
-- [ ] Add addons for icons on social inputs
+- [x] Add loading (react-placeholder) state for profile
+- [ ] Add transition around drawer
+- [ ] Add addons for icons on social inputs and spans for auto-filled values (alter validation)
 - [ ] Fix validation on image uploads! ugh
 - [ ] onSubmit, format social properly (add http:// if needed on website, remove @ on instagram, remove @ on twitter handle, etc)
 - [ ] onSubmit, check if avatarUrl value is default avatar and if so, don't send over avatarUrl (also, do this: https://github.com/final-form/react-final-form/issues/92)
