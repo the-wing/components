@@ -41,12 +41,14 @@ Shared component library
 
 ### For the future
 
+- [ ] PR checklist
+- [ ] GreenKeeper
+- [ ] Configure Jest
+- [ ] Linting!!!
 - [ ] Add styled-system for consistency in styling
 - [ ] Add PropTypes to all the subfolders in Profile/components
 - [ ] Refactor responsive util so that we're not passing unnecessary props to dom elements
 - [ ] Add [a11y addon](https://github.com/storybooks/storybook/tree/master/addons/a11y)
-- [ ] Configure Jest
-- [ ] Linting!!!
 - [x] Prettier (oops, couldn't resist)
 
 ---
