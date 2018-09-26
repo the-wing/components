@@ -80,7 +80,7 @@
     "build:production": "yarn build:clean && yarn build:js",
     "build:clean": "rimraf dist && mkdir dist",
     "build:js": "./node_modules/.bin/webpack -p --progress --config=webpack/production.config.js --mode=production",
-    "prepublish": "yarn build",
+    "prepare": "yarn build",
     "start": "start-storybook -p 9001 -c .storybook"
   },
   "husky": {
