@@ -12,7 +12,7 @@ To use our theme, just import it and use it in a `ThemeProvider`:
 
 ```
 import { ThemeProvider } from 'styled-components';
-import '@the-wing/components/theme';
+import '@thewing/components/theme';
 
   <ThemeProvider theme={theme}>
     [...]
@@ -23,13 +23,9 @@ import '@the-wing/components/theme';
 
 _In progress...not available yet_
 
-To enable our fonts in your project, just include the sass file either in your JS or in the `<head>` of your index file:
+To enable our fonts in your project, just include the sass file either in your index JS or in the `<head>` of your index HTML.
 
-`import '@the-wing/components/css/fonts.css'`
-
-or
-
-`<link rel="stylesheet" type="text/css" href="node_modules/@the-wing/components/css/fonts.css">`
+`import '@thewing/components/css/fonts.css'`
 
 ---
 
