@@ -102,7 +102,13 @@ module.exports = {
   },
 
   externals: {
-    // Don't bundle react or react-dom
+    // Don't bundle lodash, react, or react-dom
+    lodash: {
+      commonjs: 'lodash',
+      commonjs2: 'lodash',
+      amd: 'lodash',
+      root: '_',
+    },
     react: {
       commonjs: 'react',
       commonjs2: 'react',
