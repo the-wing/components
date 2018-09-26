@@ -102,7 +102,7 @@ module.exports = {
   },
 
   externals: {
-    // Don't bundle lodash, react, or react-dom
+    // Don't bundle lodash, react, react-dom, or styled-components
     lodash: {
       commonjs: 'lodash',
       commonjs2: 'lodash',
@@ -120,6 +120,12 @@ module.exports = {
       commonjs2: 'react-dom',
       amd: 'ReactDOM',
       root: 'ReactDOM',
+    },
+    'styled-components': {
+      commonjs: 'styled-components',
+      commonjs2: 'styled-components',
+      amd: 'styled-components',
+      root: 'styled-components',
     },
   },
 };
