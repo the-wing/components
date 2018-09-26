@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import get from 'lodash/get';
 import ReactPlaceholder from 'react-placeholder';
 import { Transition } from 'react-spring';
 
@@ -32,8 +32,8 @@ const Main = ({
   readonly,
 }) => {
   const currentOccupation = occupations && occupations.length > 0 && occupations[0];
-  const company = _.get(currentOccupation, 'company.label', null);
-  const position = _.get(currentOccupation, 'position.label', null);
+  const company = get(currentOccupation, 'company.label', null);
+  const position = get(currentOccupation, 'position.label', null);
 
   return (
     <ReactPlaceholder

@@ -2,6 +2,33 @@
 
 Shared component library
 
+---
+
+## Usage
+
+### Theme
+
+To use our theme, just import it and use it in a `ThemeProvider`:
+
+```
+import { ThemeProvider } from 'styled-components';
+import '@thewing/components/theme';
+
+  <ThemeProvider theme={theme}>
+    [...]
+  </ThemeProvider>
+```
+
+### Fonts
+
+_In progress...not available yet_
+
+To enable our fonts in your project, just include the sass file either in your index JS or in the `<head>` of your index HTML.
+
+`import '@thewing/components/css/fonts.css'`
+
+---
+
 ## DEV TODO
 
 ### For v1
@@ -37,10 +64,11 @@ Shared component library
 
 - [ ] On Meteor and React sides, normalize data
 - [ ] Export `fonts.scss` to public/fonts.css and `theme.js` to `public/theme.js` for use in all apps (update directions below)
-- [ ] Lerna for publishing to npm??
 
 ### For the future
 
+- [ ] Possibly checkout [Bit](https://bitsrc.io/features) for publishing [several components](https://blog.bitsrc.io/building-a-shared-ui-component-library-350b297a53a8)
+- [ ] Once all addons support Babel 7, switch to babel 7, add Webpack 4.
 - [ ] PR checklist
 - [ ] GreenKeeper
 - [ ] Configure Jest
@@ -50,32 +78,3 @@ Shared component library
 - [ ] Refactor responsive util so that we're not passing unnecessary props to dom elements
 - [ ] Add [a11y addon](https://github.com/storybooks/storybook/tree/master/addons/a11y)
 - [x] Prettier (oops, couldn't resist)
-
----
-
-## Usage
-
-### Theme
-
-To use our theme, just import it and use it in a `ThemeProvider`:
-
-```
-import { ThemeProvider } from 'styled-components';
-import '@the-wing/components/theme';
-
-  <ThemeProvider theme={theme}>
-    [...]
-  </ThemeProvider>
-```
-
-### Fonts
-
-_In progress...not available yet_
-
-To enable our fonts in your project, just include the sass file either in your JS or in the `<head>` of your index file:
-
-`import '@the-wing/components/fonts.css'`
-
-or
-
-`<link rel="stylesheet" type="text/css" href="node_modules/@the-wing/components/fonts.css">`
