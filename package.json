@@ -77,10 +77,10 @@
     "validator": "^10.7.1"
   },
   "scripts": {
-    "build:production": "yarn build:clean && yarn build:js",
+    "build:package": "yarn build:clean && yarn build:js",
     "build:clean": "rimraf dist && mkdir dist",
     "build:js": "./node_modules/.bin/webpack -p --progress --config=webpack/production.config.js --mode=production",
-    "prepare": "yarn build",
+    "prepare": "yarn build:package",
     "start": "start-storybook -p 9001 -c .storybook"
   },
   "husky": {
