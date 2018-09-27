@@ -28,18 +28,17 @@ export const StyledInput = styled.input`
 
 const Input = ({ error, placeholder, ...inputProps }) => (
   <Fragment>
-    <StyledInput error={error && error.length > 0} placeholder={placeholder} {...inputProps} />
-    {error && error.length > 0 && <ErrorMessage text={error} />}
+    <StyledInput error={error} placeholder={placeholder} {...inputProps} />
   </Fragment>
 );
 
 Input.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.bool,
   placeholder: PropTypes.string,
 };
 
 Input.defaultProps = {
-  error: null,
+  error: false,
   placeholder: null,
 };
 

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import _ from 'lodash';
+import get from 'lodash/get';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
@@ -16,13 +16,24 @@ import {
   validateAvatar,
 } from './validation';
 
-import { ErrorMessage, FormField, Input, InputGroup, Label, Select, TextArea } from 'ui/Forms';
+import {
+  Addon,
+  ErrorMessage,
+  FormField,
+  Input,
+  InputGroup,
+  Label,
+  Select,
+  TextArea,
+} from 'ui/Forms';
+
 import Box from 'ui/Box/Box';
 import Chip from 'ui/Chip/Chip';
 import Collapsible from 'ui/Collapsible/Collapsible';
 import DropZone from 'ui/DropZone/DropZone';
 import Image from 'ui/Image/Image';
 import Section from 'ui/Section/Section';
+import SocialIcon from 'ui/SocialIcon/SocialIcon';
 import Text from 'ui/Text/Text';
 
 import EmptyStateButton from './EmptyStateButton';
@@ -69,20 +80,6 @@ const starSigns = [
   'Capricorn',
 ].map(sign => (sign === 0 ? { value: '1', label: '—' } : { value: sign, label: sign }));
 
-const prepopulateSocialField = (name, change) => {
-  if (name === 'social.web') {
-    change(name, 'http://');
-  }
-
-  if (name === 'social.instagram' || 'social.twitter') {
-    change(name, '@');
-  }
-
-  if (name === 'social.facebook') {
-    change(name, 'https://facebook.com/');
-  }
-};
-
 const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
   <Box column padding={{ horizontal: 1, bottom: 1 }} color="white">
     <Box hAlignContent="center" padding={{ top: 6 / 16, bottom: 36 / 16 }}>
@@ -112,17 +109,18 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
         name="firstName"
         validate={required}
         render={({ input, meta }) => (
-          <FormField>
+          <FormField fullWidth>
             <Label
               htmlFor={input.name}
               text="First Name (required)"
-              error={meta.touched && meta.error && meta.error.length > 0}
+              error={meta.touched && get(meta, 'error.length', null)}
             />
             <Input
               id={input.name}
               {...input}
-              error={meta.touched && meta.error ? meta.error : ''}
+              error={meta.touched && get(meta, 'error.length', null)}
             />
+            {meta.touched && meta.error && <ErrorMessage text={meta.error} />}
           </FormField>
         )}
       />
@@ -130,17 +128,18 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
         name="lastName"
         validate={required}
         render={({ input, meta }) => (
-          <FormField>
+          <FormField fullWidth>
             <Label
               htmlFor={input.name}
               text="Last Name (required)"
-              error={meta.touched && meta.error && meta.error.length > 0}
+              error={meta.touched && get(meta, 'error.length', null)}
             />
             <Input
               id={input.name}
               {...input}
-              error={meta.touched && meta.error ? meta.error : ''}
+              error={meta.touched && get(meta, 'error.length', null)}
             />
+            {meta.touched && meta.error && <ErrorMessage text={meta.error} />}
           </FormField>
         )}
       />
@@ -148,17 +147,18 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
         name="headline"
         validate={required}
         render={({ input, meta }) => (
-          <FormField>
+          <FormField fullWidth>
             <Label
               htmlFor={input.name}
               text="Headline (required)"
-              error={meta.touched && meta.error && meta.error.length > 0}
+              error={meta.touched && get(meta, 'error.length', null)}
             />
             <Input
               id={input.name}
               {...input}
-              error={meta.touched && meta.error ? meta.error : ''}
+              error={meta.touched && get(meta, 'error.length', null)}
             />
+            {meta.touched && meta.error && <ErrorMessage text={meta.error} />}
           </FormField>
         )}
       />
@@ -166,11 +166,11 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
         name="bio"
         validate={maxLength(200)}
         render={({ input, meta }) => (
-          <FormField>
+          <FormField fullWidth>
             <Label
               htmlFor={input.name}
               text="Bio"
-              error={meta.touched && meta.error && meta.error.length > 0}
+              error={meta.touched && get(meta, 'error.length', null)}
             />
             <TextArea
               id={input.name}
@@ -193,7 +193,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
                 name={`${name}.position`}
                 validate={required}
                 render={({ input, meta }) => (
-                  <FormField>
+                  <FormField fullWidth>
                     <Select
                       id={input.name}
                       options={data.positions}
@@ -208,7 +208,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
               <Field
                 name={`${name}.company`}
                 render={({ input, meta }) => (
-                  <FormField>
+                  <FormField fullWidth>
                     <Select
                       id={input.name}
                       options={data.companies}
@@ -221,7 +221,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
                 )}
               />
               {fields.length > 1 && (
-                <FormField>
+                <FormField fullWidth>
                   <EmptyStateButton
                     onClick={() => fields.remove(index)}
                     text="Remove Occupation"
@@ -233,18 +233,18 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
           ))
         }
       </FieldArray>
-      <FormField>
+      <FormField fullWidth>
         <EmptyStateButton onClick={() => push('occupations', undefined)} text="Add Occupation" />
       </FormField>
       <Field
         name="industry"
         validate={required}
         render={({ input, meta }) => (
-          <FormField>
+          <FormField fullWidth>
             <Label
               htmlFor={input.name}
               text="Industry (required)"
-              error={meta.touched && meta.error && meta.error.length > 0}
+              error={meta.touched && get(meta, 'error.length', null)}
             />
             <Select
               id={input.name}
@@ -261,139 +261,119 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
       <Field
         name="social.web"
         validate={isWebsite}
-        render={({ input, meta }) => {
-          const { onFocus, ...rest } = input;
-          const customOnFocus = event => {
-            const value = event.target.value;
-
-            if (!value) {
-              prepopulateSocialField(input.name, change);
-            }
-
-            return onFocus(event);
-          };
-
-          const inputProps = { onFocus: customOnFocus, ...rest };
-
-          return (
-            <FormField>
-              <Label
-                htmlFor={input.name}
-                text="Website"
-                error={meta.touched && meta.error && meta.error.length > 0}
-              />
-              <Input
-                id={input.name}
-                {...inputProps}
-                placeholder="http://your-website.com"
-                error={meta.touched && meta.error ? meta.error : ''}
-              />
-            </FormField>
-          );
-        }}
+        render={({ input, meta }) => (
+          <Fragment>
+            <InputGroup gutter="0px">
+              <FormField noMargin={meta.touched && get(meta, 'error.length', null)}>
+                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', null)}>
+                  <SocialIcon name="web" size={13} />
+                </Addon>
+              </FormField>
+              <FormField noMargin={meta.touched && get(meta, 'error.length', null)} fullWidth>
+                <Label
+                  htmlFor={input.name}
+                  text="Website"
+                  error={meta.touched && get(meta, 'error.length', null)}
+                />
+                <Input
+                  id={input.name}
+                  {...input}
+                  placeholder="your-website.com"
+                  error={meta.touched && get(meta, 'error.length', null)}
+                />
+              </FormField>
+            </InputGroup>
+            {meta.touched && meta.error && <ErrorMessage text={meta.error} />}
+          </Fragment>
+        )}
       />
       <Field
         name="social.instagram"
         validate={isInstagramHandle}
-        render={({ input, meta }) => {
-          const { onFocus, ...rest } = input;
-          const customOnFocus = event => {
-            const value = event.target.value;
-
-            if (!value) {
-              prepopulateSocialField(input.name, change);
-            }
-
-            return onFocus(event);
-          };
-
-          const inputProps = { onFocus: customOnFocus, ...rest };
-
-          return (
-            <FormField>
-              <Label
-                htmlFor={input.name}
-                text="Instagram"
-                error={meta.touched && meta.error && meta.error.length > 0}
-              />
-              <Input
-                id={input.name}
-                {...inputProps}
-                placeholder="@username"
-                error={meta.touched && meta.error ? meta.error : ''}
-              />
-            </FormField>
-          );
-        }}
+        render={({ input, meta }) => (
+          <Fragment>
+            <InputGroup gutter="0px">
+              <FormField noMargin={meta.touched && get(meta, 'error.length', null)}>
+                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', null)}>
+                  <SocialIcon name="instagram" size={13} />
+                </Addon>
+              </FormField>
+              <FormField noMargin={meta.touched && get(meta, 'error.length', null)} fullWidth>
+                <Label
+                  htmlFor={input.name}
+                  text="Instagram"
+                  error={meta.touched && get(meta, 'error.length', null)}
+                />
+                <Input
+                  id={input.name}
+                  {...input}
+                  placeholder="username"
+                  error={meta.touched && get(meta, 'error.length', null)}
+                />
+              </FormField>
+            </InputGroup>
+            {meta.touched && meta.error && <ErrorMessage text={meta.error} />}
+          </Fragment>
+        )}
       />
       <Field
         name="social.facebook"
         validate={isFacebookUrl}
-        render={({ input, meta }) => {
-          const { onFocus, ...rest } = input;
-          const customOnFocus = event => {
-            const value = event.target.value;
-
-            if (!value) {
-              prepopulateSocialField(input.name, change);
-            }
-
-            return onFocus(event);
-          };
-
-          const inputProps = { onFocus: customOnFocus, ...rest };
-
-          return (
-            <FormField>
-              <Label
-                htmlFor={input.name}
-                text="Facebook"
-                error={meta.touched && meta.error && meta.error.length > 0}
-              />
-              <Input
-                id={input.name}
-                {...inputProps}
-                placeholder="https://facebook.com/you"
-                error={meta.touched && meta.error ? meta.error : ''}
-              />
-            </FormField>
-          );
-        }}
+        render={({ input, meta }) => (
+          <Fragment>
+            <InputGroup gutter="0px">
+              <FormField noMargin={meta.touched && get(meta, 'error.length', null)}>
+                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', null)}>
+                  <SocialIcon name="facebook" size={13} />
+                </Addon>
+              </FormField>
+              <FormField noMargin={meta.touched && get(meta, 'error.length', null)} fullWidth>
+                <Label
+                  htmlFor={input.name}
+                  text="Facebook"
+                  error={meta.touched && get(meta, 'error.length', null)}
+                />
+                <Input
+                  id={input.name}
+                  {...input}
+                  placeholder="facebook.com/you"
+                  error={meta.touched && get(meta, 'error.length', null)}
+                />
+              </FormField>
+            </InputGroup>
+            {meta.touched && meta.error && <ErrorMessage text={meta.error} />}
+          </Fragment>
+        )}
       />
 
       <Field
         name="social.twitter"
         validate={isTwitterHandle}
-        render={({ input, meta }) => {
-          const { onFocus, ...rest } = input;
-          const customOnFocus = event => {
-            const value = event.target.value;
-
-            if (!value) {
-              prepopulateSocialField(input.name, change);
-            }
-
-            return onFocus(event);
-          };
-
-          const inputProps = { onFocus: customOnFocus, ...rest };
-
-          return (
-            <FormField>
-              <Label
-                htmlFor={input.name}
-                text="Twitter"
-                error={meta.touched && meta.error && meta.error.length > 0}
-              />
-              <Input
-                id={input.name}
-                {...inputProps}
-                placeholder="@username"
-                error={meta.touched && meta.error ? meta.error : ''}
-              />
-            </FormField>
-          );
-        }}
+        render={({ input, meta }) => (
+          <Fragment>
+            <InputGroup gutter="0px">
+              <FormField noMargin={meta.touched && get(meta, 'error.length', null)}>
+                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', null)}>
+                  <SocialIcon name="twitter" size={13} />
+                </Addon>
+              </FormField>
+              <FormField noMargin={meta.touched && get(meta, 'error.length', null)} fullWidth>
+                <Label
+                  htmlFor={input.name}
+                  text="Twitter"
+                  error={meta.touched && get(meta, 'error.length', null)}
+                />
+                <Input
+                  id={input.name}
+                  {...input}
+                  placeholder="username"
+                  error={meta.touched && get(meta, 'error.length', null)}
+                />
+              </FormField>
+            </InputGroup>
+            {meta.touched && meta.error && <ErrorMessage text={meta.error} />}
+          </Fragment>
+        )}
       />
     </Section>
 
@@ -446,7 +426,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
                 const inputProps = { onChange: customOnChange, ...rest };
 
                 return (
-                  <FormField>
+                  <FormField fullWidth>
                     <Select
                       options={data.offers}
                       placeholder="Add Offer"
@@ -511,7 +491,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
                 const inputProps = { onChange: customOnChange, ...rest };
 
                 return (
-                  <FormField>
+                  <FormField fullWidth>
                     <Select
                       id={input.name}
                       options={data.asks}
@@ -577,7 +557,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
                 const inputProps = { onChange: customOnChange, ...rest };
 
                 return (
-                  <FormField>
+                  <FormField fullWidth>
                     <Select
                       id={input.name}
                       options={data.interests}
@@ -597,11 +577,11 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
     <Field
       name="neighborhood"
       render={({ input, meta }) => (
-        <FormField>
+        <FormField fullWidth>
           <Label
             htmlFor={input.name}
             text="Neighborhood"
-            error={meta.touched && meta.error && meta.error.length > 0}
+            error={meta.touched && get(meta, 'error.length', null)}
           />
           <Select
             id={input.name}
@@ -618,11 +598,11 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
       <Field
         name="birthday.month"
         render={({ input, meta }) => (
-          <FormField>
+          <FormField fullWidth>
             <Label
               htmlFor={input.name}
               text="Birthday (month)"
-              error={meta.touched && meta.error && meta.error.length > 0}
+              error={meta.touched && get(meta, 'error.length', null)}
             />
             <Select id={input.name} options={birthdayMonths} {...input} />
           </FormField>
@@ -631,11 +611,11 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
       <Field
         name="birthday.day"
         render={({ input, meta }) => (
-          <FormField>
+          <FormField fullWidth>
             <Label
               htmlFor={input.name}
               text="Birthday (day)"
-              error={meta.touched && meta.error && meta.error.length > 0}
+              error={meta.touched && get(meta, 'error.length', null)}
             />
             <Select id={input.name} options={birthdayDays} {...input} />
           </FormField>
@@ -646,11 +626,11 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
     <Field
       name="starSign"
       render={({ input, meta }) => (
-        <FormField>
+        <FormField fullWidth>
           <Label
             htmlFor={input.name}
             text="Star Sign"
-            error={meta.touched && meta.error && meta.error.length > 0}
+            error={meta.touched && get(meta, 'error.length', null)}
           />
           <Select id={input.name} options={starSigns} placeholder="Star Sign" {...input} />
         </FormField>
@@ -661,11 +641,11 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
       name="contactEmail"
       validate={isEmail}
       render={({ input, meta }) => (
-        <FormField>
+        <FormField fullWidth>
           <Label
             htmlFor={input.name}
             text="Email"
-            error={meta.touched && meta.error && meta.error.length > 0}
+            error={meta.touched && get(meta, 'error.length', null)}
           />
           <Input
             id={input.name}

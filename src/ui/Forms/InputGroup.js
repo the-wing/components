@@ -10,14 +10,21 @@ const StyledInputGroup = styled.div`
   justify-content: space-between;
 
   > ${StyledFormField}:not(:last-of-type) {
-    margin-right: 20px;
+    margin-right: ${props => props.gutter};
   }
 `;
 
-const InputGroup = ({ children }) => <StyledInputGroup>{children}</StyledInputGroup>;
+const InputGroup = ({ children, gutter }) => (
+  <StyledInputGroup gutter={gutter}>{children}</StyledInputGroup>
+);
 
 InputGroup.propTypes = {
   children: PropTypes.node.isRequired,
+  gutter: PropTypes.string,
+};
+
+InputGroup.defaultProps = {
+  gutter: '20px',
 };
 
 export default InputGroup;

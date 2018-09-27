@@ -1,28 +1,17 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { addDecorator, storiesOf } from '@storybook/react';
 import { withConsole } from '@storybook/addon-console';
-import { Addon, ErrorMessage, FormField, Input, InputGroup, Label } from 'ui/Forms';
+import { Addon, FormField, Input, InputGroup, Label } from 'ui/Forms';
 import SocialIcon from 'ui/SocialIcon/SocialIcon';
 
-storiesOf('InputGroup', module)
+storiesOf('Addon', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => (
-    <InputGroup>
-      <FormField fullWidth>
-        <Label htmlFor="id1" text="Label 1" />
-        <Input id="id1" />
-      </FormField>
-      <FormField fullWidth>
-        <Label htmlFor="id1" text="Label 1" />
-        <Input id="id1" />
-      </FormField>
-    </InputGroup>
-  ))
-  .add('gutter: 0', () => (
     <InputGroup gutter="0px">
-      <FormField fullWidth>
-        <Label htmlFor="id1" text="Label 1" />
-        <Input id="id1" />
+      <FormField>
+        <Addon>
+          <SocialIcon name="facebook" size={13} />
+        </Addon>
       </FormField>
       <FormField fullWidth>
         <Label htmlFor="id1" text="Label 1" />
@@ -30,7 +19,20 @@ storiesOf('InputGroup', module)
       </FormField>
     </InputGroup>
   ))
-  .add('with addon', () => (
+  .add('no border', () => (
+    <InputGroup gutter="0px">
+      <FormField>
+        <Addon noBorder>
+          <SocialIcon name="facebook" size={13} />
+        </Addon>
+      </FormField>
+      <FormField fullWidth>
+        <Label htmlFor="id1" text="Label 1" />
+        <Input id="id1" />
+      </FormField>
+    </InputGroup>
+  ))
+  .add('gutter: 16px', () => (
     <InputGroup gutter="0px">
       <FormField>
         <Addon gutter="16px">
@@ -42,20 +44,4 @@ storiesOf('InputGroup', module)
         <Input id="id1" />
       </FormField>
     </InputGroup>
-  ))
-  .add('with addon and error', () => (
-    <Fragment>
-      <InputGroup gutter="0px">
-        <FormField noMargin>
-          <Addon gutter="16px" error>
-            <SocialIcon name="facebook" size={13} />
-          </Addon>
-        </FormField>
-        <FormField fullWidth noMargin>
-          <Label htmlFor="id1" text="Label 1" error />
-          <Input id="id1" error />
-        </FormField>
-      </InputGroup>
-      <ErrorMessage text="I have an error" />
-    </Fragment>
   ));
