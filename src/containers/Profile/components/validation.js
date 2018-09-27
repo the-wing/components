@@ -36,6 +36,7 @@ export const isInstagramHandle = value => {
     return undefined;
   }
 
+  // Handle is 1-30 characters and does not contain @ symbol
   return validator.matches(value, /^(\.|\w){1,30}$/)
     ? undefined
     : 'Please enter a valid Instagram handle (1-30 characters, without @ symbol)';
@@ -46,6 +47,7 @@ export const isTwitterHandle = value => {
     return undefined;
   }
 
+  // Handle is 1-15 characters and does not contain @ symbol
   return validator.matches(value, /^(\w){1,15}$/)
     ? undefined
     : 'Please enter a valid Twitter handle (1-15 characters, without @ symbol)';
@@ -56,10 +58,12 @@ export const isFacebookUrl = value => {
     return undefined;
   }
 
-  return !validator.matches(value, /^(?:https:\/\/)?(?:www\.)?facebook\.com/) &&
+  // Is not a URL
+  // Handle is 5-50 characters
+  return !validator.isURL(value, { require_host: false, require_valid_protocol: false }) &&
     validator.matches(value, /^[A-Za-z.0-9]{5,50}/)
     ? undefined
-    : 'Please enter a valid Facebook user name (5-50 characters)';
+    : 'Please enter a valid Facebook user name (5-50 characters), and without Facebook URL';
 };
 
 export const isEmail = value => {
