@@ -4,6 +4,34 @@ Shared component library
 
 ---
 
+## Development
+
+TODO
+
+### Jest/Enzyme
+
+TODO
+
+### ESLint
+
+TODO
+
+### Prettier
+
+TODO
+
+### PR Requirements
+
+TODO
+
+---
+
+## Publishing
+
+TODO
+
+---
+
 ## Usage
 
 ### Theme
@@ -20,8 +48,6 @@ import '@thewing/components/theme';
 ```
 
 ### Fonts
-
-_In progress...not available yet_
 
 To enable our fonts in your project, just include the sass file either in your index JS or in the `<head>` of your index HTML.
 
@@ -63,7 +89,7 @@ To enable our fonts in your project, just include the sass file either in your i
 ### To be able to use:
 
 - [ ] On Meteor and React sides, normalize data
-- [ ] Export `fonts.scss` to public/fonts.css and `theme.js` to `public/theme.js` for use in all apps (update directions below)
+- [x] Export `fonts.scss` to public/fonts.css and `theme.js` to `public/theme.js` for use in all apps (update directions below)
 
 ### For the future
 
