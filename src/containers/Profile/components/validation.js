@@ -23,9 +23,12 @@ export const isWebsite = value => {
     return undefined;
   }
 
-  return validator.isURL(value, { require_host: false, require_valid_protocol: false })
+  // URL does not start with http:// or https://
+  // And has a valid TLD
+  return !validator.matches(value, /^https?:\/\//) &&
+    validator.isURL(value, { require_host: false, require_valid_protocol: false })
     ? undefined
-    : 'Please enter a valid web address.';
+    : 'Please enter a valid web address (without http:// or https://)';
 };
 
 export const isInstagramHandle = value => {
@@ -33,9 +36,9 @@ export const isInstagramHandle = value => {
     return undefined;
   }
 
-  return validator.matches(value, /^@?(\.|\w){1,30}$/)
+  return validator.matches(value, /^(\.|\w){1,30}$/)
     ? undefined
-    : 'Please enter a valid Instagram handle.';
+    : 'Please enter a valid Instagram handle (1-30 characters, without @ symbol)';
 };
 
 export const isTwitterHandle = value => {
@@ -43,9 +46,9 @@ export const isTwitterHandle = value => {
     return undefined;
   }
 
-  return validator.matches(value, /^@?(\w){1,15}$/)
+  return validator.matches(value, /^(\w){1,15}$/)
     ? undefined
-    : 'Please enter a valid Twitter handle.';
+    : 'Please enter a valid Twitter handle (1-15 characters, without @ symbol)';
 };
 
 export const isFacebookUrl = value => {
@@ -53,9 +56,10 @@ export const isFacebookUrl = value => {
     return undefined;
   }
 
-  return validator.matches(value, /^(?:https:\/\/)(?:www\.)?facebook\.com\/[A-Za-z.0-9]{5,50}/)
+  return !validator.matches(value, /^(?:https:\/\/)?(?:www\.)?facebook\.com/) &&
+    validator.matches(value, /^[A-Za-z.0-9]{5,50}/)
     ? undefined
-    : 'Please enter a valid Facebook user name.';
+    : 'Please enter a valid Facebook user name (5-50 characters)';
 };
 
 export const isEmail = value => {

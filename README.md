@@ -81,6 +81,7 @@ To enable our fonts in your project, just include the sass file either in your i
 - [x] Add transition around drawer
 - [ ] Add addons for icons on social inputs and spans for auto-filled values (alter validation)
 - [ ] Fix validation on image uploads! ugh
+- [ ] On component mount, format social links (in case old data has https://, @ symbol, etc)
 - [ ] onSubmit, format social properly (add http:// if needed on website, remove @ on instagram, remove @ on twitter handle, etc)
 - [ ] onSubmit, check if avatarUrl value is default avatar and if so, don't send over avatarUrl (also, do this: https://github.com/final-form/react-final-form/issues/92)
 - [ ] Change text color of sections for readonly
