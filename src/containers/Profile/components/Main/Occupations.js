@@ -44,7 +44,7 @@ const Occupations = ({ company, firstName, loading, onEdit, position, readonly }
   }
 
   return (
-    <Section title="Current Occupation">
+    <Section title="Current Occupation" noContent={!company && !position && readonly}>
       {(company || position) && (
         <Box width={296}>
           <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
@@ -58,7 +58,7 @@ const Occupations = ({ company, firstName, loading, onEdit, position, readonly }
       {!company &&
         !position &&
         readonly && (
-          <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+          <Text color="grayChateau" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
             {firstName} hasn&#x27;t added an Occupation
           </Text>
         )}

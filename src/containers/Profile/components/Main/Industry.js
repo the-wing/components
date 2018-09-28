@@ -13,7 +13,7 @@ const Industry = ({ firstName, industry, loading, onEdit, readonly }) => {
   }
 
   return (
-    <Section title="Industry">
+    <Section title="Industry" noContent={!get(industry, 'label', null) && readonly}>
       {get(industry, 'label', null) && (
         <Box width={296}>
           <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
@@ -25,7 +25,7 @@ const Industry = ({ firstName, industry, loading, onEdit, readonly }) => {
         !readonly && <EmptyStateButton onClick={onEdit} text="What industry do you work in?" />}
       {!get(industry, 'label', null) &&
         readonly && (
-          <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+          <Text color="grayChateau" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
             {firstName} hasn&#x27;t added an Industry
           </Text>
         )}

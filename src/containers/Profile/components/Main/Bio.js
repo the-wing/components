@@ -61,7 +61,7 @@ const Bio = ({ firstName, loading, onEdit, readonly, text }) => {
   }
 
   return (
-    <Section title="Bio">
+    <Section title="Bio" noContent={!text && readonly}>
       {text && (
         <Box width={296}>
           <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
@@ -78,7 +78,7 @@ const Bio = ({ firstName, loading, onEdit, readonly, text }) => {
         )}
       {!text &&
         readonly && (
-          <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+          <Text color="grayChateau" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
             {firstName} hasn&#x27;t added a Bio.
           </Text>
         )}

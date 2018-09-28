@@ -90,9 +90,9 @@ const defaultUser = {
 const userWithSocial = {
   ...defaultUser,
   social: {
-    facebook: 'https://facebook.com/hello-mark',
-    instagram: '@iHaveAMillionInstaStories',
-    twitter: '@chirpchirp',
+    facebook: 'hello-mark',
+    instagram: 'iHaveAMillionInstaStories',
+    twitter: 'chirpchirp',
     web: 'http://the-wing.com',
   },
 };
@@ -149,9 +149,9 @@ const userWithErrors = {
   lastName: null,
   headline: null,
   social: {
-    facebook: 'hey-this-isnt-really-a-url-hello',
-    instagram: 'not-valid',
-    twitter: 'so-not-valid',
+    facebook: 'https://facebook.com/ishouldntbeaurl',
+    instagram: '@not-valid',
+    twitter: '@so-not-valid',
     web: '123whatisthis',
   },
   bio:

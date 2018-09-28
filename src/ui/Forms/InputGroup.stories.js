@@ -3,6 +3,7 @@ import { addDecorator, storiesOf } from '@storybook/react';
 import { withConsole } from '@storybook/addon-console';
 import { Addon, ErrorMessage, FormField, Input, InputGroup, Label } from 'ui/Forms';
 import SocialIcon from 'ui/SocialIcon/SocialIcon';
+import Text from 'ui/Text/Text';
 
 storiesOf('InputGroup', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
@@ -42,6 +43,21 @@ storiesOf('InputGroup', module)
         <Input id="id1" />
       </FormField>
     </InputGroup>
+  ))
+  .add('with addon and prependedValue on Input', () => (
+    <Fragment>
+      <InputGroup gutter="0px">
+        <FormField>
+          <Addon gutter="16px">
+            <SocialIcon name="facebook" size={13} />
+          </Addon>
+        </FormField>
+        <FormField fullWidth>
+          <Label htmlFor="id1" text="Label 1" />
+          <Input id="id1" prependedValue="https://facebook.com/" placeholder="you" />
+        </FormField>
+      </InputGroup>
+    </Fragment>
   ))
   .add('with addon and error', () => (
     <Fragment>

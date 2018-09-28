@@ -13,7 +13,6 @@ import {
   isWebsite,
   maxLength,
   required,
-  validateAvatar,
 } from './validation';
 
 import {
@@ -85,7 +84,6 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
     <Box hAlignContent="center" padding={{ top: 6 / 16, bottom: 36 / 16 }}>
       <Field
         name="avatarUrl"
-        validate={validateAvatar}
         render={({ input, meta }) => {
           const { onBlur, onChange, onFocus, ...rest } = input;
 
@@ -95,10 +93,11 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
             onBlur();
           };
 
+          console.log('input', input);
+
           return (
-            <DropZone onDrop={onDrop}>
+            <DropZone minWidth={98} onDrop={onDrop}>
               <Image width={125} height={125} url={input.value} hoverText="Edit" circle />
-              {meta.touched && meta.error && <ErrorMessage text={meta.error} />}
             </DropZone>
           );
         }}
@@ -279,6 +278,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
                   id={input.name}
                   {...input}
                   placeholder="your-website.com"
+                  prependedValue="http://"
                   error={meta.touched && get(meta, 'error.length', null)}
                 />
               </FormField>
@@ -308,6 +308,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
                   id={input.name}
                   {...input}
                   placeholder="username"
+                  prependedValue="@"
                   error={meta.touched && get(meta, 'error.length', null)}
                 />
               </FormField>
@@ -336,7 +337,8 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
                 <Input
                   id={input.name}
                   {...input}
-                  placeholder="facebook.com/you"
+                  placeholder="you"
+                  prependedValue="https://facebook.com/"
                   error={meta.touched && get(meta, 'error.length', null)}
                 />
               </FormField>
@@ -367,6 +369,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
                   id={input.name}
                   {...input}
                   placeholder="username"
+                  prependedValue="@"
                   error={meta.touched && get(meta, 'error.length', null)}
                 />
               </FormField>
@@ -651,7 +654,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
             id={input.name}
             {...input}
             placeholder="you@email.com"
-            error={meta.touched && meta.error ? meta.error : ''}
+            error={meta.touched && get(meta, 'error.length', null)}
           />
         </FormField>
       )}

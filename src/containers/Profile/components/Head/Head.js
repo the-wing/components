@@ -18,7 +18,7 @@ const Container = ({ children, style }) => (
   </Box>
 );
 
-const Head = ({ avatarUrl, firstName, headline, lastName, loading, readonly, social }) => (
+const Head = ({ avatarUrl, firstName, headline, lastName, loading, social }) => (
   <ReactPlaceholder
     ready={!loading}
     customPlaceholder={
@@ -49,7 +49,6 @@ Head.propTypes = {
   headline: PropTypes.string,
   lastName: PropTypes.string,
   loading: PropTypes.bool,
-  readonly: PropTypes.bool,
   social: PropTypes.shape({
     facebook: PropTypes.string,
     instagram: PropTypes.string,
@@ -64,7 +63,6 @@ Head.defaultProps = {
   headline: null,
   lastName: null,
   loading: false,
-  readonly: false,
   social: {
     facebook: null,
     instagram: null,

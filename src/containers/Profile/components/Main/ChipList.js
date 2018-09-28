@@ -45,7 +45,7 @@ const ChipList = ({
   }
 
   return (
-    <Section title={title}>
+    <Section title={title} noContent={list && list.length < 1 && readonly}>
       {list &&
         list.length > 0 && (
           <Box wrap>
@@ -69,7 +69,7 @@ const ChipList = ({
       {list &&
         list.length < 1 &&
         readonly && (
-          <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+          <Text color="grayChateau" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
             {firstName} hasn&#x27;t added any {title}
           </Text>
         )}

@@ -5,9 +5,29 @@ import styled from 'styled-components';
 import Box from 'ui/Box/Box';
 import Counter from 'ui/Counter/Counter';
 import ErrorMessage from './ErrorMessage';
-import { StyledInput } from './Input';
 
-const StyledTextArea = StyledInput.withComponent('textarea');
+const StyledTextArea = styled.textarea`
+  display: flex;
+  background-color: transparent;
+  color: ${props => props.theme.colors.solitude.main};
+  flex: 1;
+  font-family: ${props => props.theme.text.primary};
+  font-size: calc((14 / 16) * 1rem);
+  letter-spacing: 0.2px;
+  border: 0;
+  border-bottom: ${props =>
+    props.noBorder
+      ? '0px solid transparent'
+      : `1px solid ${props.theme.colors[props.error ? 'red' : 'grayChateau'].main}`};
+  outline: none;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  resize: none;
+
+  ::placeholder {
+    color: ${props => props.theme.colors.grayChateau.main};
+  }
+`;
 
 const TextArea = ({ currentLength, error, maxLength, ...textAreaProps }) => (
   <Fragment>

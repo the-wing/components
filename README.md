@@ -79,17 +79,17 @@ To enable our fonts in your project, just include the sass file either in your i
 - [x] Add contact email field
 - [x] Add loading (react-placeholder) state for profile
 - [x] Add transition around drawer
-- [ ] Add addons for icons on social inputs and spans for auto-filled values (alter validation)
-- [ ] Fix validation on image uploads! ugh
-- [ ] On component mount, format social links (in case old data has https://, @ symbol, etc)
-- [ ] onSubmit, format social properly (add http:// if needed on website, remove @ on instagram, remove @ on twitter handle, etc)
-- [ ] onSubmit, check if avatarUrl value is default avatar and if so, don't send over avatarUrl (also, do this: https://github.com/final-form/react-final-form/issues/92)
-- [ ] Change text color of sections for readonly
+- [x] Add addons for icons on social inputs (alter validation)
+- [x] Social spans for auto-filled values
+- [x] Fix validation on image uploads! ugh
+- [ ] Add callbacks to search Selects that make async calls
+- [x] Change text color of sections for readonly
 - [ ] New avatar image (allow for inline SVGs)
 
 ### To be able to use:
 
-- [ ] On Meteor and React sides, normalize data
+- [ ] onSubmit
+- [ ] On Meteor and React sides, normalize data (make sure to sanitize social -- remove `https://facebook.com`, remove @ symbols)
 - [x] Export `fonts.scss` to public/fonts.css and `theme.js` to `public/theme.js` for use in all apps (update directions below)
 
 ### For the future
