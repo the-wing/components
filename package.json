@@ -1,6 +1,6 @@
 {
   "name": "@thewing/components",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Shared components for The Wing",
   "main": "dist/index.js",
   "publishConfig": {
@@ -16,10 +16,10 @@
     "node": ">=8.11.4"
   },
   "peerDependencies": {
-    "lodash": "^4.17.11",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "styled-components": "^3.4.9"
+    "lodash": ">= 4.17.11",
+    "react": ">= 16.3.2",
+    "react-dom": ">= 16.3.2",
+    "styled-components": ">= 3.2.6"
   },
   "devDependencies": {
     "@sambego/storybook-state": "^1.3.1",
