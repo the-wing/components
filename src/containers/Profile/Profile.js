@@ -81,7 +81,20 @@ class Profile extends PureComponent {
   };
 
   render() {
-    const { data, initialValues, loading, mutators, onClose, readonly } = this.props;
+    const {
+      data,
+      initialValues,
+      loading,
+      mutators,
+      onClose,
+      onSearchAsks,
+      onSearchCompanies,
+      onSearchInterests,
+      onSearchOffers,
+      onSearchNeighborhoods,
+      onSearchPositions,
+      readonly,
+    } = this.props;
 
     return (
       <Form
@@ -115,6 +128,12 @@ class Profile extends PureComponent {
                   <EditForm
                     change={form.change}
                     data={data}
+                    onSearchAsks={onSearchAsks}
+                    onSearchCompanies={onSearchCompanies}
+                    onSearchInterests={onSearchInterests}
+                    onSearchOffers={onSearchOffers}
+                    onSearchNeighborhoods={onSearchNeighborhoods}
+                    onSearchPositions={onSearchPositions}
                     push={push}
                     pop={pop}
                     values={values}
@@ -285,6 +304,12 @@ Profile.propTypes = {
   onCancel: PropTypes.func,
   onClose: PropTypes.func,
   onEdit: PropTypes.func,
+  onSearchAsks: PropTypes.func,
+  onSearchCompanies: PropTypes.func,
+  onSearchInterests: PropTypes.func,
+  onSearchOffers: PropTypes.func,
+  onSearchNeighborhoods: PropTypes.func,
+  onSearchPositions: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
   readonly: PropTypes.bool,
 };
@@ -301,7 +326,7 @@ Profile.defaultProps = {
   },
   initialValues: {
     asks: [],
-    avatarUrl: theme.defaultAvatar,
+    avatarUrl: 'assets/img/defaultAvatar.png',
     bio: null,
     birthday: {
       month: null,
@@ -328,6 +353,12 @@ Profile.defaultProps = {
   loading: false,
   onCancel: null,
   onClose: null,
+  onSearchAsks: null,
+  onSearchCompanies: null,
+  onSearchInterests: null,
+  onSearchOffers: null,
+  onSearchNeighborhoods: null,
+  onSearchPositions: null,
   onEdit: null,
   readonly: false,
 };

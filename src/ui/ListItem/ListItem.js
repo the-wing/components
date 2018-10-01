@@ -8,6 +8,12 @@ import Text from 'ui/Text/Text';
 
 const Content = styled(({ underline, ...rest }) => <Box {...rest} />)`
   border-bottom: ${props => (props.underline ? '1px solid rgba(164, 166, 168, 0.3)' : '')};
+
+  > a,
+  a:link {
+    color: ${props => props.theme.colors.solitude.main};
+    text-decoration: none;
+  }
 `;
 
 const ListItem = ({ children, icon, underline }) => (

@@ -134,7 +134,7 @@ const AdditionalInfo = ({
               {/* Email */}
               {contactEmail && (
                 <ListItem icon="mail" underline>
-                  {contactEmail}
+                  <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
                 </ListItem>
               )}
               {!contactEmail &&

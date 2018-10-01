@@ -7,20 +7,30 @@ import Text from 'ui/Text/Text';
 
 const SectionTitle = styled(Text)`
   margin-bottom: 10px;
+  color: ${props =>
+    props.noContent ? props.theme.colors.grayChateau.main : props.theme.colors.black.main};
 
   :after {
-    background-color: ${props => props.theme.colors.gold.main};
+    background-color: ${props =>
+      props.noContent ? props.theme.colors.grayChateau.main : props.theme.colors.gold.main};
     content: '';
     display: block;
-    height: 1px;
-    width: 50px;
+    height: 2px;
+    width: 51px;
   }
 `;
 
-const Section = ({ title, children, ...boxProps }) => (
+const Section = ({ title, children, noContent, ...boxProps }) => (
   <Box column margin={{ bottom: 2 }} {...boxProps}>
     {title && (
-      <SectionTitle as="h3" size={18 / 16} letterSpacing={-0.34} lineHeight={24} weight={700}>
+      <SectionTitle
+        as="h3"
+        size={18 / 16}
+        letterSpacing={-0.34}
+        lineHeight={24}
+        weight={700}
+        noContent={noContent}
+      >
         {title}
       </SectionTitle>
     )}

@@ -10,6 +10,15 @@ const options = [
   { value: 'vanilla', label: 'Vanilla' },
 ];
 
+const filterFlavors = (inputValue: string) =>
+  options.filter(i => i.label.toLowerCase().includes(inputValue.toLowerCase()));
+
+const loadOptions = (inputValue, callback) => {
+  setTimeout(() => {
+    callback(filterFlavors(inputValue));
+  }, 1000);
+};
+
 storiesOf('Select', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => (
@@ -97,6 +106,35 @@ storiesOf('Select', module)
         placeholder="Can create options"
         value={options[0]}
         canCreateOptions
+      />
+    </FormField>
+  ))
+  .add('canCreateOptions w/ loadOptions (async function to search)', () => (
+    <FormField>
+      <Label htmlFor="select9" text="Can Create Options" />
+      <Select
+        maxLength={30}
+        id="select9"
+        loadOptions={loadOptions}
+        options={options}
+        onChange={action('custom onChange')}
+        placeholder="Can create options"
+        value={options[0]}
+        canCreateOptions
+      />
+    </FormField>
+  ))
+  .add('Cannot create options & has loadOptions (async function to search)', () => (
+    <FormField>
+      <Label htmlFor="select9" text="Can Create Options" />
+      <Select
+        maxLength={30}
+        id="select9"
+        loadOptions={loadOptions}
+        options={options}
+        onChange={action('custom onChange')}
+        placeholder="Cannot create options"
+        isSearchable
       />
     </FormField>
   ));

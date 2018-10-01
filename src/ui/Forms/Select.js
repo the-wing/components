@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { default as ReactSelect, components } from 'react-select';
-import CreatableSelect from 'react-select/lib/Creatable';
+import Async from 'react-select/lib/Async';
+import AsyncCreatableSelect from 'react-select/lib/AsyncCreatable';
 import styled from 'styled-components';
+import Loader from 'react-loader-spinner';
 import theme from 'theme';
 
 import Box from 'ui/Box/Box';
@@ -32,9 +34,15 @@ const StyledCreatableChild = styled.div`
   color: ${props => theme.colors.solitude.main};
 `;
 
-const StyledCreatablePlaceholder = styled(StyledCreatableChild)`
+const StyledSearchablePlaceholder = styled(StyledCreatableChild)`
   color: ${props => theme.colors.grayChateau.main};
 `;
+
+const LoadingIndicator = () => {
+  return (
+    components.LoadingIndicator && <Loader type="TailSpin" color="#00BFFF" height="13" width="13" />
+  );
+};
 
 const DropdownIndicator = props => {
   return (
@@ -50,7 +58,7 @@ const DropdownIndicator = props => {
   );
 };
 
-const CreatableValueContainer = ({ children, ...props }) => {
+const SearchableValueContainer = ({ children, ...props }) => {
   return (
     components.ValueContainer && (
       <components.ValueContainer {...props}>
@@ -61,19 +69,19 @@ const CreatableValueContainer = ({ children, ...props }) => {
   );
 };
 
-const CreatablePlaceholder = ({ children, ...props }) => {
+const SearchablePlaceholder = ({ children, ...props }) => {
   return (
     components.Placeholder && (
       <components.Placeholder {...props}>
-        <StyledCreatablePlaceholder menuIsOpen={props.selectProps.menuIsOpen}>
+        <StyledSearchablePlaceholder menuIsOpen={props.selectProps.menuIsOpen}>
           {children}
-        </StyledCreatablePlaceholder>
+        </StyledSearchablePlaceholder>
       </components.Placeholder>
     )
   );
 };
 
-const CreatableSingleValue = ({ children, ...props }) => {
+const SearchableSingleValue = ({ children, ...props }) => {
   return (
     components.SingleValue && (
       <components.SingleValue {...props}>
@@ -99,7 +107,7 @@ const AddLabel = ({ currentLength, error, inputValue, maxLength }) => (
   </StyledAddLabel>
 );
 
-const customStyles = (isSearchable = false, isCreatable = false, error = false) => ({
+const customStyles = (isSearchable = false, error = false) => ({
   control: (base, state) => ({
     ...base,
     fontSize: 'calc((14 / 16) * 1rem)',
@@ -107,19 +115,19 @@ const customStyles = (isSearchable = false, isCreatable = false, error = false) 
     borderRadius: 0,
     borderColor: 'transparent',
     borderBottom:
-      isCreatable && state.isFocused
+      isSearchable && state.isFocused
         ? 'none'
         : `0.5px solid ${theme.colors[error ? 'red' : 'grayChateau'].main}`,
     borderColor: 'transparent',
     backgroundColor: 'white',
-    boxShadow: isCreatable && state.isFocused ? '0 0 20px -1px rgba(164, 166, 168, 0.3)' : 'none',
+    boxShadow: isSearchable && state.isFocused ? '0 0 20px -1px rgba(164, 166, 168, 0.3)' : 'none',
     minHeight: '34px',
     maxHeight: '34px',
     color: theme.colors.solitude.main,
     '&:hover': {
       borderColor: 'transparent',
       borderBottom:
-        isCreatable && state.isFocused
+        isSearchable && state.isFocused
           ? 'none'
           : `0.5px solid ${theme.colors[error ? 'red' : 'grayChateau'].main}`,
       cursor: 'pointer',
@@ -133,7 +141,7 @@ const customStyles = (isSearchable = false, isCreatable = false, error = false) 
   menu: (base, state) => ({
     ...base,
     borderRadius: 0,
-    boxShadow: `${isCreatable ? '0 15px 20px -15px' : '0 0 20px -1px'} rgba(164, 166, 168, 0.3)`,
+    boxShadow: `${isSearchable ? '0 15px 20px -15px' : '0 0 20px -1px'} rgba(164, 166, 168, 0.3)`,
     cursor: 'pointer',
     top: isSearchable ? '85%' : '0',
     marginTop: 0,
@@ -142,7 +150,7 @@ const customStyles = (isSearchable = false, isCreatable = false, error = false) 
   menuList: (base, state) => ({
     ...base,
     maxHeight: 259,
-    paddingTop: isCreatable ? 8 : 0,
+    paddingTop: isSearchable ? 8 : 0,
     paddingBottom: 0,
   }),
   option: (base, state) => ({
@@ -178,20 +186,28 @@ const Select = ({
   error,
   hiddenIndicator,
   isSearchable,
+  loadOptions,
   maxLength,
   options,
   placeholder,
   ...inputProps
 }) => {
-  if (canCreateOptions) {
+  const searchableComponents = (isSearchable || canCreateOptions || loadOptions) && {
+    Placeholder: SearchablePlaceholder,
+    ValueContainer: SearchableValueContainer,
+    SingleValue: SearchableSingleValue,
+  };
+
+  if (canCreateOptions || loadOptions) {
+    const AsyncSelect = canCreateOptions ? AsyncCreatableSelect : Async;
+
     return (
       <Fragment>
-        <CreatableSelect
+        <AsyncSelect
           components={{
             DropdownIndicator,
-            Placeholder: CreatablePlaceholder,
-            ValueContainer: CreatableValueContainer,
-            SingleValue: CreatableSingleValue,
+            LoadingIndicator,
+            ...searchableComponents,
           }}
           formatCreateLabel={inputValue => (
             <AddLabel
@@ -204,10 +220,11 @@ const Select = ({
           value={inputProps.value}
           options={options}
           placeholder={placeholder}
-          // isSearchable = true, isCreatable = true
-          styles={customStyles(true, true, error && error.length > 0)}
+          // isSearchable = true
+          styles={customStyles(true, error && error.length > 0)}
           onChange={inputProps.onChange}
-          options={options}
+          defaultOptions={options}
+          loadOptions={loadOptions}
           maxLength={maxLength}
           error={error && error.length > 0}
           hiddenIndicator
@@ -224,6 +241,7 @@ const Select = ({
       <ReactSelect
         components={{
           DropdownIndicator,
+          ...searchableComponents,
         }}
         isSearchable={isSearchable}
         value={inputProps.value}
@@ -231,7 +249,7 @@ const Select = ({
         options={options}
         maxLength={maxLength}
         placeholder={placeholder}
-        styles={customStyles(isSearchable, false, error && error.length > 0)}
+        styles={customStyles(isSearchable, error && error.length > 0)}
         hiddenIndicator={hiddenIndicator}
         error={error && error.length > 0}
         blurInputOnSelect
@@ -246,6 +264,7 @@ Select.propTypes = {
   canCreateOptions: PropTypes.bool,
   error: PropTypes.string,
   isSearchable: PropTypes.bool,
+  loadOptions: PropTypes.func,
   maxLength: PropTypes.number,
   options: PropTypes.arrayOf(
     PropTypes.shape({
@@ -260,6 +279,7 @@ Select.defaultProps = {
   canCreateOptions: false,
   error: null,
   hiddenIndicator: false,
+  loadOptions: null,
   maxLength: null,
   placeholder: '',
 };

@@ -1,5 +1,6 @@
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
@@ -49,6 +50,7 @@ module.exports = {
       },
       {
         test: /\.(eot|otf|webp|ttf|woff|woff2|svg)(\?.*)?$/,
+        include: path.resolve(__dirname, '../src/assets/fonts'),
         use: [
           {
             loader: 'file-loader',
@@ -60,6 +62,7 @@ module.exports = {
       },
       {
         test: /\.(ico|jpg|jpeg|png|gif|svg)(\?.*)?$/,
+        include: path.resolve(__dirname, '../src/assets/img'),
         use: [
           {
             loader: 'file-loader',
@@ -76,6 +79,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
     }),
+    new CopyWebpackPlugin([{ from: 'src/assets/img', to: 'assets/img' }]),
   ],
 
   optimization: {

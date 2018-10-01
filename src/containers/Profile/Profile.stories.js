@@ -62,8 +62,27 @@ const data = {
   ],
 };
 
+const filterOptions = (inputValue: string, options) =>
+  options.filter(i => i.label.toLowerCase().includes(inputValue.toLowerCase()));
+
+const loadOptions = (inputValue, callback, options) => {
+  setTimeout(() => {
+    callback(filterOptions(inputValue, options));
+  }, 1000);
+};
+
+const defaultProps = {
+  onSearchAsks: (inputValue, callback) => loadOptions(inputValue, callback, data.asks),
+  onSearchCompanies: (inputValue, callback) => loadOptions(inputValue, callback, data.companies),
+  onSearchInterests: (inputValue, callback) => loadOptions(inputValue, callback, data.interests),
+  onSearchOffers: (inputValue, callback) => loadOptions(inputValue, callback, data.offers),
+  onSearchNeighborhoods: (inputValue, callback) =>
+    loadOptions(inputValue, callback, data.neighborhoods),
+  onSearchPositions: (inputValue, callback) => loadOptions(inputValue, callback, data.positions),
+};
+
 const defaultUser = {
-  avatarUrl: theme.defaultAvatar,
+  avatarUrl: 'assets/img/defaultAvatar.png',
   firstName: 'Rae',
   headline: 'Software Engineer',
   lastName: 'Farine',
@@ -90,10 +109,10 @@ const defaultUser = {
 const userWithSocial = {
   ...defaultUser,
   social: {
-    facebook: 'https://facebook.com/hello-mark',
-    instagram: '@iHaveAMillionInstaStories',
-    twitter: '@chirpchirp',
-    web: 'http://the-wing.com',
+    facebook: 'hello-mark',
+    instagram: 'iHaveAMillionInstaStories',
+    twitter: 'chirpchirp',
+    web: 'the-wing.com',
   },
 };
 
@@ -144,14 +163,14 @@ const userWithAllInfo = {
 };
 
 const userWithErrors = {
-  avatarUrl: theme.defaultAvatar,
+  avatarUrl: 'assets/img/defaultAvatar.png',
   firstName: null,
   lastName: null,
   headline: null,
   social: {
-    facebook: 'hey-this-isnt-really-a-url-hello',
-    instagram: 'not-valid',
-    twitter: 'so-not-valid',
+    facebook: 'https://facebook.com/ishouldntbeaurl',
+    instagram: '@not-valid',
+    twitter: '@so-not-valid',
     web: '123whatisthis',
   },
   bio:
@@ -204,6 +223,7 @@ storiesOf('Profile', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => (
     <Profile
+      {...defaultProps}
       data={data}
       onSubmit={action('onSubmit')}
       initialValues={defaultUser}
@@ -212,6 +232,7 @@ storiesOf('Profile', module)
   ))
   .add('loading', () => (
     <Profile
+      {...defaultProps}
       data={data}
       onSubmit={action('onSubmit')}
       initialValues={defaultUser}
@@ -226,6 +247,7 @@ storiesOf('Profile', module)
 
         return (
           <Profile
+            {...defaultProps}
             data={data}
             onSubmit={action('onSubmit')}
             initialValues={defaultUser}
@@ -238,6 +260,7 @@ storiesOf('Profile', module)
   ))
   .add('with name, headline', () => (
     <Profile
+      {...defaultProps}
       data={data}
       onClose={action('onClose')}
       onSubmit={action('onSubmit')}
@@ -246,6 +269,7 @@ storiesOf('Profile', module)
   ))
   .add('with social', () => (
     <Profile
+      {...defaultProps}
       data={data}
       onClose={action('onClose')}
       onSubmit={action('onSubmit')}
@@ -254,6 +278,7 @@ storiesOf('Profile', module)
   ))
   .add('with all info', () => (
     <Profile
+      {...defaultProps}
       data={data}
       onClose={action('onClose')}
       onSubmit={action('onSubmit')}
@@ -262,6 +287,7 @@ storiesOf('Profile', module)
   ))
   .add('with errors', () => (
     <Profile
+      {...defaultProps}
       data={data}
       onClose={action('onClose')}
       onSubmit={action('onSubmit')}
@@ -269,10 +295,17 @@ storiesOf('Profile', module)
     />
   ))
   .add('readonly default', () => (
-    <Profile data={data} onClose={action('onClose')} onSubmit={action('onSubmit')} readonly />
+    <Profile
+      {...defaultProps}
+      data={data}
+      onClose={action('onClose')}
+      onSubmit={action('onSubmit')}
+      readonly
+    />
   ))
   .add('readonly with name, headline', () => (
     <Profile
+      {...defaultProps}
       data={data}
       onClose={action('onClose')}
       onSubmit={action('onSubmit')}
@@ -282,6 +315,7 @@ storiesOf('Profile', module)
   ))
   .add('readonly with social', () => (
     <Profile
+      {...defaultProps}
       data={data}
       onClose={action('onClose')}
       onSubmit={action('onSubmit')}
@@ -291,6 +325,7 @@ storiesOf('Profile', module)
   ))
   .add('readonly with all info', () => (
     <Profile
+      {...defaultProps}
       data={data}
       onClose={action('onClose')}
       onSubmit={action('onSubmit')}

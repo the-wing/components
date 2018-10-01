@@ -1,3 +1,4 @@
+export { default as Addon } from './Addon';
 export { default as ErrorMessage } from './ErrorMessage';
 export { default as FormField } from './FormField';
 export { default as Input } from './Input';

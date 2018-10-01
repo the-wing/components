@@ -23,9 +23,12 @@ export const isWebsite = value => {
     return undefined;
   }
 
-  return validator.isURL(value, { require_host: false, require_valid_protocol: false })
+  // URL does not start with http:// or https://
+  // And has a valid TLD
+  return !validator.matches(value, /^https?:\/\//) &&
+    validator.isURL(value, { require_host: false, require_valid_protocol: false })
     ? undefined
-    : 'Please enter a valid web address.';
+    : 'Please enter a valid web address (without http:// or https://)';
 };
 
 export const isInstagramHandle = value => {
@@ -33,9 +36,10 @@ export const isInstagramHandle = value => {
     return undefined;
   }
 
-  return validator.matches(value, /^@?(\.|\w){1,30}$/)
+  // Handle is 1-30 characters and does not contain @ symbol
+  return validator.matches(value, /^(\.|\w){1,30}$/)
     ? undefined
-    : 'Please enter a valid Instagram handle.';
+    : 'Please enter a valid Instagram handle (1-30 characters, without @ symbol)';
 };
 
 export const isTwitterHandle = value => {
@@ -43,9 +47,10 @@ export const isTwitterHandle = value => {
     return undefined;
   }
 
-  return validator.matches(value, /^@?(\w){1,15}$/)
+  // Handle is 1-15 characters and does not contain @ symbol
+  return validator.matches(value, /^(\w){1,15}$/)
     ? undefined
-    : 'Please enter a valid Twitter handle.';
+    : 'Please enter a valid Twitter handle (1-15 characters, without @ symbol)';
 };
 
 export const isFacebookUrl = value => {
@@ -53,9 +58,12 @@ export const isFacebookUrl = value => {
     return undefined;
   }
 
-  return validator.matches(value, /^(?:https:\/\/)(?:www\.)?facebook\.com\/[A-Za-z.0-9]{5,50}/)
+  // Is not a URL
+  // Handle is 5-50 characters
+  return !validator.isURL(value, { require_host: false, require_valid_protocol: false }) &&
+    validator.matches(value, /^[A-Za-z.0-9]{5,50}/)
     ? undefined
-    : 'Please enter a valid Facebook user name.';
+    : 'Please enter a valid Facebook user name (5-50 characters), and without Facebook URL';
 };
 
 export const isEmail = value => {
@@ -64,27 +72,4 @@ export const isEmail = value => {
   }
 
   return validator.isEmail(value) ? undefined : 'Please enter a valid email address.';
-};
-
-const validateImageWidth = value => {
-  return new Promise((resolve, reject) => {
-    const image = new Image();
-    image.src = value;
-
-    image.onload = () => {
-      const width = image.width;
-
-      if (width < 98) {
-        return resolve('Please insert a photo that is at least 125 pixels wide.');
-      }
-
-      return resolve(undefined);
-    };
-  });
-};
-
-export const validateAvatar = async value => {
-  const errorMessage = await validateImageWidth(value);
-
-  return errorMessage;
 };
