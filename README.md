@@ -82,9 +82,9 @@ To enable our fonts in your project, just include the sass file either in your i
 - [x] Add addons for icons on social inputs (alter validation)
 - [x] Social spans for auto-filled values
 - [x] Fix validation on image uploads! ugh
-- [ ] Add callbacks to search Selects that make async calls
+- [x] Add callbacks to search Selects that make async calls
 - [x] Change text color of sections for readonly
-- [ ] New avatar image (allow for inline SVGs)
+- [x] New avatar image
 
 ### To be able to use:
 

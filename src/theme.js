@@ -32,7 +32,6 @@ const theme = {
     title: 'Bureau Grotesque',
   },
   breakpoints: [374, 768, 992, 1200],
-  defaultAvatar: 'https://the-wing.imgix.net/app/wing-default-photo-4ba-8920b5666487.png',
 };
 
 export default theme;

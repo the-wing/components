@@ -82,7 +82,7 @@ const defaultProps = {
 };
 
 const defaultUser = {
-  avatarUrl: theme.defaultAvatar,
+  avatarUrl: 'assets/img/defaultAvatar.png',
   firstName: 'Rae',
   headline: 'Software Engineer',
   lastName: 'Farine',
@@ -163,7 +163,7 @@ const userWithAllInfo = {
 };
 
 const userWithErrors = {
-  avatarUrl: theme.defaultAvatar,
+  avatarUrl: 'assets/img/defaultAvatar.png',
   firstName: null,
   lastName: null,
   headline: null,

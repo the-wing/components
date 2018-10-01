@@ -9,7 +9,7 @@ const Avatar = ({ loading, url }) => (
     <Image
       width={125}
       height={125}
-      url={loading ? theme.defaultAvatar : url || theme.defaultAvatar}
+      url={loading ? 'assets/img/defaultAvatar.png' : url || 'assets/img/defaultAvatar.png'}
       circle
     />
   </Box>

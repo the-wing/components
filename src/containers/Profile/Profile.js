@@ -326,7 +326,7 @@ Profile.defaultProps = {
   },
   initialValues: {
     asks: [],
-    avatarUrl: theme.defaultAvatar,
+    avatarUrl: 'assets/img/defaultAvatar.png',
     bio: null,
     birthday: {
       month: null,
