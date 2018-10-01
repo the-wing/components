@@ -4,7 +4,7 @@ export { default as Button } from './ui/Button/Button';
 // export { Chip } from './ui/Chip/Chip';
 // export { Collapsible } from './ui/Collapsible/Collapsible';
 // export { Counter } from './ui/Counter/Counter';
-export { Drawer } from './ui/Drawer/Drawer';
+export { default as Drawer } from './ui/Drawer/Drawer';
 // export { DropZone } from './ui/DropZone/DropZone';
 // export { ErrorMessage, FormField, Input, InputGroup, Label, Select, TextArea } from './ui/Forms';
 // export { Icon } from './ui/Icon/Icon';

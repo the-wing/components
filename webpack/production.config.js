@@ -15,7 +15,6 @@ module.exports = {
     path: path.join(__dirname, '../dist'),
     filename: '[name].js',
     library: 'Components',
-    libraryExport: 'default',
     libraryTarget: 'umd',
     publicPath: '/dist/',
     umdNamedDefine: true,
