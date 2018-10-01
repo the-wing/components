@@ -88,7 +88,7 @@ To enable our fonts in your project, just include the sass file either in your i
 
 ### To be able to use:
 
-- [ ] onSubmit (format for sending back to react/meteor)
+- [x] onSubmit (format for sending back to react/meteor)
 - [ ] On Meteor and React sides, normalize data (make sure to sanitize social -- remove `https://facebook.com`, remove @ symbols)
 - [x] Export `fonts.scss` to public/fonts.css and `theme.js` to `public/theme.js` for use in all apps (update directions below)
 
