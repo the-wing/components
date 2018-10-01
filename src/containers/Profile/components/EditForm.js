@@ -79,7 +79,19 @@ const starSigns = [
   'Capricorn',
 ].map(sign => (sign === 0 ? { value: '1', label: '—' } : { value: sign, label: sign }));
 
-const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
+const EditForm = ({
+  change,
+  data,
+  onSearchAsks,
+  onSearchCompanies,
+  onSearchInterests,
+  onSearchOffers,
+  onSearchNeighborhoods,
+  onSearchPositions,
+  push,
+  pop,
+  values,
+}) => (
   <Box column padding={{ horizontal: 1, bottom: 1 }} color="white">
     <Box hAlignContent="center" padding={{ top: 6 / 16, bottom: 36 / 16 }}>
       <Field
@@ -92,8 +104,6 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
             onChange(value);
             onBlur();
           };
-
-          console.log('input', input);
 
           return (
             <DropZone minWidth={98} onDrop={onDrop}>
@@ -112,12 +122,12 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
             <Label
               htmlFor={input.name}
               text="First Name (required)"
-              error={meta.touched && get(meta, 'error.length', null)}
+              error={meta.touched && get(meta, 'error.length', 0) > 0}
             />
             <Input
               id={input.name}
               {...input}
-              error={meta.touched && get(meta, 'error.length', null)}
+              error={meta.touched && get(meta, 'error.length', 0) > 0}
             />
             {meta.touched && meta.error && <ErrorMessage text={meta.error} />}
           </FormField>
@@ -131,12 +141,12 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
             <Label
               htmlFor={input.name}
               text="Last Name (required)"
-              error={meta.touched && get(meta, 'error.length', null)}
+              error={meta.touched && get(meta, 'error.length', 0) > 0}
             />
             <Input
               id={input.name}
               {...input}
-              error={meta.touched && get(meta, 'error.length', null)}
+              error={meta.touched && get(meta, 'error.length', 0) > 0}
             />
             {meta.touched && meta.error && <ErrorMessage text={meta.error} />}
           </FormField>
@@ -150,12 +160,12 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
             <Label
               htmlFor={input.name}
               text="Headline (required)"
-              error={meta.touched && get(meta, 'error.length', null)}
+              error={meta.touched && get(meta, 'error.length', 0) > 0}
             />
             <Input
               id={input.name}
               {...input}
-              error={meta.touched && get(meta, 'error.length', null)}
+              error={meta.touched && get(meta, 'error.length', 0) > 0}
             />
             {meta.touched && meta.error && <ErrorMessage text={meta.error} />}
           </FormField>
@@ -169,7 +179,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
             <Label
               htmlFor={input.name}
               text="Bio"
-              error={meta.touched && get(meta, 'error.length', null)}
+              error={meta.touched && get(meta, 'error.length', 0) > 0}
             />
             <TextArea
               id={input.name}
@@ -195,6 +205,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
                   <FormField fullWidth>
                     <Select
                       id={input.name}
+                      loadOptions={onSearchPositions}
                       options={data.positions}
                       placeholder="Position (required)"
                       error={meta.touched && meta.error ? meta.error : ''}
@@ -210,6 +221,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
                   <FormField fullWidth>
                     <Select
                       id={input.name}
+                      loadOptions={onSearchCompanies}
                       options={data.companies}
                       placeholder="Company"
                       {...input}
@@ -243,7 +255,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
             <Label
               htmlFor={input.name}
               text="Industry (required)"
-              error={meta.touched && get(meta, 'error.length', null)}
+              error={meta.touched && get(meta, 'error.length', 0) > 0}
             />
             <Select
               id={input.name}
@@ -263,23 +275,23 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
         render={({ input, meta }) => (
           <Fragment>
             <InputGroup gutter="0px">
-              <FormField noMargin={meta.touched && get(meta, 'error.length', null)}>
-                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', null)}>
+              <FormField noMargin={meta.touched && get(meta, 'error.length', 0) > 0}>
+                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', 0) > 0}>
                   <SocialIcon name="web" size={13} />
                 </Addon>
               </FormField>
-              <FormField noMargin={meta.touched && get(meta, 'error.length', null)} fullWidth>
+              <FormField noMargin={meta.touched && get(meta, 'error.length', 0) > 0} fullWidth>
                 <Label
                   htmlFor={input.name}
                   text="Website"
-                  error={meta.touched && get(meta, 'error.length', null)}
+                  error={meta.touched && get(meta, 'error.length', 0) > 0}
                 />
                 <Input
                   id={input.name}
                   {...input}
                   placeholder="your-website.com"
                   prependedValue="http://"
-                  error={meta.touched && get(meta, 'error.length', null)}
+                  error={meta.touched && get(meta, 'error.length', 0) > 0}
                 />
               </FormField>
             </InputGroup>
@@ -293,23 +305,23 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
         render={({ input, meta }) => (
           <Fragment>
             <InputGroup gutter="0px">
-              <FormField noMargin={meta.touched && get(meta, 'error.length', null)}>
-                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', null)}>
+              <FormField noMargin={meta.touched && get(meta, 'error.length', 0) > 0}>
+                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', 0) > 0}>
                   <SocialIcon name="instagram" size={13} />
                 </Addon>
               </FormField>
-              <FormField noMargin={meta.touched && get(meta, 'error.length', null)} fullWidth>
+              <FormField noMargin={meta.touched && get(meta, 'error.length', 0) > 0} fullWidth>
                 <Label
                   htmlFor={input.name}
                   text="Instagram"
-                  error={meta.touched && get(meta, 'error.length', null)}
+                  error={meta.touched && get(meta, 'error.length', 0) > 0}
                 />
                 <Input
                   id={input.name}
                   {...input}
                   placeholder="username"
                   prependedValue="@"
-                  error={meta.touched && get(meta, 'error.length', null)}
+                  error={meta.touched && get(meta, 'error.length', 0) > 0}
                 />
               </FormField>
             </InputGroup>
@@ -323,23 +335,23 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
         render={({ input, meta }) => (
           <Fragment>
             <InputGroup gutter="0px">
-              <FormField noMargin={meta.touched && get(meta, 'error.length', null)}>
-                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', null)}>
+              <FormField noMargin={meta.touched && get(meta, 'error.length', 0) > 0}>
+                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', 0) > 0}>
                   <SocialIcon name="facebook" size={13} />
                 </Addon>
               </FormField>
-              <FormField noMargin={meta.touched && get(meta, 'error.length', null)} fullWidth>
+              <FormField noMargin={meta.touched && get(meta, 'error.length', 0) > 0} fullWidth>
                 <Label
                   htmlFor={input.name}
                   text="Facebook"
-                  error={meta.touched && get(meta, 'error.length', null)}
+                  error={meta.touched && get(meta, 'error.length', 0) > 0}
                 />
                 <Input
                   id={input.name}
                   {...input}
                   placeholder="you"
                   prependedValue="https://facebook.com/"
-                  error={meta.touched && get(meta, 'error.length', null)}
+                  error={meta.touched && get(meta, 'error.length', 0) > 0}
                 />
               </FormField>
             </InputGroup>
@@ -354,23 +366,23 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
         render={({ input, meta }) => (
           <Fragment>
             <InputGroup gutter="0px">
-              <FormField noMargin={meta.touched && get(meta, 'error.length', null)}>
-                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', null)}>
+              <FormField noMargin={meta.touched && get(meta, 'error.length', 0) > 0}>
+                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', 0) > 0}>
                   <SocialIcon name="twitter" size={13} />
                 </Addon>
               </FormField>
-              <FormField noMargin={meta.touched && get(meta, 'error.length', null)} fullWidth>
+              <FormField noMargin={meta.touched && get(meta, 'error.length', 0) > 0} fullWidth>
                 <Label
                   htmlFor={input.name}
                   text="Twitter"
-                  error={meta.touched && get(meta, 'error.length', null)}
+                  error={meta.touched && get(meta, 'error.length', 0) > 0}
                 />
                 <Input
                   id={input.name}
                   {...input}
                   placeholder="username"
                   prependedValue="@"
-                  error={meta.touched && get(meta, 'error.length', null)}
+                  error={meta.touched && get(meta, 'error.length', 0) > 0}
                 />
               </FormField>
             </InputGroup>
@@ -431,6 +443,8 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
                 return (
                   <FormField fullWidth>
                     <Select
+                      loadOptions={onSearchOffers}
+                      maxLength={30}
                       options={data.offers}
                       placeholder="Add Offer"
                       {...inputProps}
@@ -497,7 +511,9 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
                   <FormField fullWidth>
                     <Select
                       id={input.name}
+                      maxLength={30}
                       options={data.asks}
+                      loadOptions={onSearchAsks}
                       placeholder="Add Ask"
                       {...inputProps}
                       canCreateOptions
@@ -563,6 +579,8 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
                   <FormField fullWidth>
                     <Select
                       id={input.name}
+                      loadOptions={onSearchInterests}
+                      maxLength={30}
                       options={data.interests}
                       placeholder="Add Interest"
                       {...inputProps}
@@ -584,14 +602,15 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
           <Label
             htmlFor={input.name}
             text="Neighborhood"
-            error={meta.touched && get(meta, 'error.length', null)}
+            error={meta.touched && get(meta, 'error.length', 0) > 0}
           />
           <Select
             id={input.name}
+            loadOptions={onSearchNeighborhoods}
             options={data.neighborhoods}
             placeholder="Neighborhood"
             {...input}
-            hiddenIndicator
+            canCreateOptions
           />
         </FormField>
       )}
@@ -605,7 +624,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
             <Label
               htmlFor={input.name}
               text="Birthday (month)"
-              error={meta.touched && get(meta, 'error.length', null)}
+              error={meta.touched && get(meta, 'error.length', 0) > 0}
             />
             <Select id={input.name} options={birthdayMonths} {...input} />
           </FormField>
@@ -618,7 +637,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
             <Label
               htmlFor={input.name}
               text="Birthday (day)"
-              error={meta.touched && get(meta, 'error.length', null)}
+              error={meta.touched && get(meta, 'error.length', 0) > 0}
             />
             <Select id={input.name} options={birthdayDays} {...input} />
           </FormField>
@@ -633,7 +652,7 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
           <Label
             htmlFor={input.name}
             text="Star Sign"
-            error={meta.touched && get(meta, 'error.length', null)}
+            error={meta.touched && get(meta, 'error.length', 0) > 0}
           />
           <Select id={input.name} options={starSigns} placeholder="Star Sign" {...input} />
         </FormField>
@@ -648,18 +667,75 @@ const EditForm = ({ change, data, push, pop, setFieldData, values }) => (
           <Label
             htmlFor={input.name}
             text="Email"
-            error={meta.touched && get(meta, 'error.length', null)}
+            error={meta.touched && get(meta, 'error.length', 0) > 0}
           />
           <Input
             id={input.name}
             {...input}
             placeholder="you@email.com"
-            error={meta.touched && get(meta, 'error.length', null)}
+            error={meta.touched && get(meta, 'error.length', 0) > 0}
           />
         </FormField>
       )}
     />
   </Box>
 );
+
+EditForm.propTypes = {
+  change: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    asks: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    companies: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    industries: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    interests: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    neighborhoods: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    offers: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+    positions: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      })
+    ),
+  }),
+  onSearchAsks: PropTypes.func,
+  onSearchCompanies: PropTypes.func,
+  onSearchInterests: PropTypes.func,
+  onSearchOffers: PropTypes.func,
+  onSearchNeighborhoods: PropTypes.func,
+  onSearchPositions: PropTypes.func,
+  push: PropTypes.func.isRequired,
+  pop: PropTypes.func.isRequired,
+  values: PropTypes.shape({}).isRequired,
+};
 
 export default EditForm;

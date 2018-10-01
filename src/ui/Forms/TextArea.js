@@ -31,21 +31,12 @@ const StyledTextArea = styled.textarea`
 
 const TextArea = ({ currentLength, error, maxLength, ...textAreaProps }) => (
   <Fragment>
-    <StyledTextArea
-      maxLength={maxLength}
-      rows="5"
-      error={error && error.length > 0}
-      {...textAreaProps}
-    />
-    {!maxLength && error && <ErrorMessage text={error} />}
+    <StyledTextArea maxLength={maxLength} rows="5" error={error.length > 0} {...textAreaProps} />
+    {!maxLength && error.length > 0 && <ErrorMessage text={error} />}
     {maxLength && (
       <Box margin={{ vertical: 6.5 / 16 }}>
-        {error && <ErrorMessage marginTop="0px" text={error} />}
-        <Counter
-          currentLength={currentLength}
-          error={error && error.length > 0}
-          maxLength={maxLength}
-        />
+        {error.length > 0 && <ErrorMessage marginTop="0px" text={error} />}
+        <Counter currentLength={currentLength} error={error.length > 0} maxLength={maxLength} />
       </Box>
     )}
   </Fragment>
@@ -59,7 +50,7 @@ TextArea.propTypes = {
 
 TextArea.defaultProps = {
   currentLength: null,
-  error: null,
+  error: '',
   maxLength: null,
 };
 
