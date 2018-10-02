@@ -49,7 +49,7 @@ import '@thewing/components/theme';
 
 ### Fonts
 
-To enable our fonts in your project, just include the sass file either in your index JS or in the `<head>` of your index HTML.
+To enable our fonts in your project, just include the sass file either in your index JS or in the `<head>` of your index HTML. You'll also need to import the fonts (either by hosting them yourself or adding the folder `node_modules/@thewing/components/dist/assets/fonts` as a part of your build step.)
 
 `import '@thewing/components/css/fonts.css'`
 

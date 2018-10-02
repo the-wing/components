@@ -14,10 +14,11 @@ const assets = {
   web,
 };
 
-const SocialIcon = styled.img.attrs({
-  alt: props => props.name,
-  src: props => assets[props.name],
+const SocialIcon = styled.div.attrs({
+  title: props => props.name,
 })`
+  background: url(${props => assets[props.name]}) no-repeat;
+  background-size: contain;
   ${responsive('height', 'size', size => `${size}px`)};
   ${responsive('width', 'size', size => `${size}px`)};
 `;

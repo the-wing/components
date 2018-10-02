@@ -48,12 +48,13 @@ const Container = styled(({ circle, ...props }) => <Box {...props} />)`
   }
 `;
 
-const StyledImage = styled.img`
+const StyledImage = styled.div`
+  background-image: url(${props => props.url});
+  background-size: cover;
   border-radius: ${props => (props.circle ? '50%' : '0')};
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  object-fit: cover;
 `;
 
 const Image = ({ alt, circle, height, hoverText, title, url, width }) => (
@@ -65,7 +66,7 @@ const Image = ({ alt, circle, height, hoverText, title, url, width }) => (
     hAlignContent="center"
   >
     {hoverText && <HoverText>{hoverText}</HoverText>}
-    <StyledImage alt={alt} title={title} src={url} />
+    <StyledImage title={title} url={url} />
   </Container>
 );
 
