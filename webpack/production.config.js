@@ -56,6 +56,7 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: 'assets/fonts/[name].[ext]',
+              publicPath: '../',
             },
           },
         ],
@@ -68,6 +69,7 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: 'assets/img/[name].[ext]',
+              publicPath: '../',
             },
           },
         ],
