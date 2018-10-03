@@ -17,19 +17,6 @@ const Container = styled.span`
 
 const ContainerAsInput = Container.withComponent('input');
 
-const PrependedValue = styled.div`
-  font-family: ${props => props.theme.text.primary};
-  font-size: calc((14 / 16) * 1rem);
-  letter-spacing: 0.2px;
-  color: ${props => props.theme.colors.grayChateau.main};
-  padding-bottom: 8px;
-  padding-top: 8px;
-  border-bottom: ${props =>
-    props.noBorder
-      ? '0px solid transparent'
-      : `1px solid ${props.theme.colors[props.error ? 'red' : 'grayChateau'].main}`};
-`;
-
 const StyledInput = styled(ContainerAsInput)`
   flex: 1;
   outline: none;
@@ -47,6 +34,7 @@ const StyledInput = styled(ContainerAsInput)`
       props.noBorder
         ? '0px solid transparent'
         : `1px solid ${props.theme.colors[props.error ? 'red' : 'solitude'].main}`};
+    }
   }
 
   ::placeholder {
@@ -54,12 +42,28 @@ const StyledInput = styled(ContainerAsInput)`
   }
 `;
 
-const Input = ({ error, noBorder, placeholder, prependedValue, ...inputProps }) => {
+const PrependedValue = styled.div`
+  font-family: ${props => props.theme.text.primary};
+  font-size: calc((14 / 16) * 1rem);
+  letter-spacing: 0.2px;
+  color: ${props => props.theme.colors.grayChateau.main};
+  padding-bottom: 8px;
+  padding-top: 8px;
+  border-bottom: ${props =>
+    props.noBorder
+      ? '0px solid transparent'
+      : `1px solid ${
+          props.theme.colors[props.error ? 'red' : props.active ? 'solitude' : 'grayChateau'].main
+        }`};
+  }
+`;
+
+const Input = ({ active, error, noBorder, placeholder, prependedValue, ...inputProps }) => {
   return (
     <Container>
       {prependedValue &&
         prependedValue.length > 0 && (
-          <PrependedValue error={error} noBorder={noBorder}>
+          <PrependedValue active={active} error={error} noBorder={noBorder}>
             {prependedValue}
           </PrependedValue>
         )}
@@ -69,6 +73,7 @@ const Input = ({ error, noBorder, placeholder, prependedValue, ...inputProps }) 
 };
 
 Input.propTypes = {
+  active: PropTypes.bool,
   error: PropTypes.bool,
   noBorder: PropTypes.bool,
   placeholder: PropTypes.string,
@@ -76,6 +81,7 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
+  active: false,
   error: false,
   noBorder: false,
   placeholder: null,

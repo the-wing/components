@@ -17,6 +17,12 @@ storiesOf('Input', module)
       <Input id="id1" prependedValue="https://facebook.com/" />
     </FormField>
   ))
+  .add('prependedValue active', () => (
+    <FormField fullWidth>
+      <Label htmlFor="id1" text="Label 1" />
+      <Input id="id1" prependedValue="https://facebook.com/" active />
+    </FormField>
+  ))
   .add('with placeholder', () => (
     <FormField fullWidth>
       <Label htmlFor="id2" text="Label 2" />

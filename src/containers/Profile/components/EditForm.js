@@ -276,7 +276,11 @@ const EditForm = ({
           <Fragment>
             <InputGroup gutter="0px">
               <FormField noMargin={meta.touched && get(meta, 'error.length', 0) > 0}>
-                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', 0) > 0}>
+                <Addon
+                  active={meta.active}
+                  gutter="16px"
+                  error={meta.touched && get(meta, 'error.length', 0) > 0}
+                >
                   <SocialIcon name="web" size={13} />
                 </Addon>
               </FormField>
@@ -287,6 +291,7 @@ const EditForm = ({
                   error={meta.touched && get(meta, 'error.length', 0) > 0}
                 />
                 <Input
+                  active={meta.active}
                   id={input.name}
                   {...input}
                   placeholder="your-website.com"
@@ -306,7 +311,11 @@ const EditForm = ({
           <Fragment>
             <InputGroup gutter="0px">
               <FormField noMargin={meta.touched && get(meta, 'error.length', 0) > 0}>
-                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', 0) > 0}>
+                <Addon
+                  active={meta.active}
+                  gutter="16px"
+                  error={meta.touched && get(meta, 'error.length', 0) > 0}
+                >
                   <SocialIcon name="instagram" size={13} />
                 </Addon>
               </FormField>
@@ -317,6 +326,7 @@ const EditForm = ({
                   error={meta.touched && get(meta, 'error.length', 0) > 0}
                 />
                 <Input
+                  active={meta.active}
                   id={input.name}
                   {...input}
                   placeholder="username"
@@ -336,7 +346,11 @@ const EditForm = ({
           <Fragment>
             <InputGroup gutter="0px">
               <FormField noMargin={meta.touched && get(meta, 'error.length', 0) > 0}>
-                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', 0) > 0}>
+                <Addon
+                  active={meta.active}
+                  gutter="16px"
+                  error={meta.touched && get(meta, 'error.length', 0) > 0}
+                >
                   <SocialIcon name="facebook" size={13} />
                 </Addon>
               </FormField>
@@ -347,6 +361,7 @@ const EditForm = ({
                   error={meta.touched && get(meta, 'error.length', 0) > 0}
                 />
                 <Input
+                  active={meta.active}
                   id={input.name}
                   {...input}
                   placeholder="you"
@@ -367,7 +382,11 @@ const EditForm = ({
           <Fragment>
             <InputGroup gutter="0px">
               <FormField noMargin={meta.touched && get(meta, 'error.length', 0) > 0}>
-                <Addon gutter="16px" error={meta.touched && get(meta, 'error.length', 0) > 0}>
+                <Addon
+                  active={meta.active}
+                  gutter="16px"
+                  error={meta.touched && get(meta, 'error.length', 0) > 0}
+                >
                   <SocialIcon name="twitter" size={13} />
                 </Addon>
               </FormField>
@@ -378,6 +397,7 @@ const EditForm = ({
                   error={meta.touched && get(meta, 'error.length', 0) > 0}
                 />
                 <Input
+                  active={meta.active}
                   id={input.name}
                   {...input}
                   placeholder="username"

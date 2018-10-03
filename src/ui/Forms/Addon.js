@@ -13,16 +13,19 @@ const StyledAddon = styled.div`
   border-bottom: ${props =>
     props.noBorder
       ? '0px solid transparent'
-      : `1px solid ${props.theme.colors[props.error ? 'red' : 'grayChateau'].main}`};
+      : `1px solid ${
+          props.theme.colors[props.error ? 'red' : props.active ? 'solitude' : 'grayChateau'].main
+        }`};
 `;
 
-const Addon = ({ children, error, gutter, noBorder }) => (
-  <StyledAddon error={error} noBorder={noBorder} gutter={gutter}>
+const Addon = ({ active, children, error, gutter, noBorder }) => (
+  <StyledAddon active={active} error={error} noBorder={noBorder} gutter={gutter}>
     {children}
   </StyledAddon>
 );
 
 Addon.propTypes = {
+  active: PropTypes.bool,
   children: PropTypes.node.isRequired,
   error: PropTypes.bool,
   gutter: PropTypes.string,
@@ -30,6 +33,7 @@ Addon.propTypes = {
 };
 
 Addon.defaultProps = {
+  active: false,
   error: false,
   gutter: '0px',
   noBorder: false,

@@ -70,11 +70,11 @@ class Profile extends PureComponent {
     this.toggleEditing();
   };
 
-  onSubmit = values => {
+  onSubmit = (values, form) => {
     const { onSubmit } = this.props;
 
     if (onSubmit) {
-      onSubmit(values);
+      onSubmit(values, form);
     }
 
     this.toggleEditing();
@@ -251,6 +251,7 @@ Profile.propTypes = {
       }),
     }),
     contactEmail: PropTypes.string,
+    firstName: PropTypes.string,
     headline: PropTypes.string,
     industry: PropTypes.shape({
       value: PropTypes.string,
@@ -262,11 +263,11 @@ Profile.propTypes = {
         label: PropTypes.string,
       })
     ),
+    lastName: PropTypes.string,
     location: PropTypes.shape({
       _id: PropTypes.string,
       name: PropTypes.string,
     }),
-    name: PropTypes.string,
     neighborhood: PropTypes.shape({
       value: PropTypes.string,
       label: PropTypes.string,
@@ -333,11 +334,12 @@ Profile.defaultProps = {
       day: null,
     },
     contactEmail: null,
+    firstName: null,
     headline: null,
     industry: null,
     interests: [],
+    lastName: null,
     location: null,
-    name: null,
     neighborhood: null,
     occupations: [],
     offers: [],
