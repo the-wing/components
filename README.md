@@ -2,11 +2,13 @@
 
 Shared component library
 
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 ---
 
 ## Development
 
-TODO
+To get up and running, just run `yarn start` and visit http://localhost:9001.
 
 ### Jest/Enzyme
 
@@ -18,7 +20,7 @@ TODO
 
 ### Prettier
 
-TODO
+To enforce a standard code style, a 🐶 [Husky](https://github.com/typicode/husky) pre-commit hook runs [Lint-Staged](https://github.com/okonet/lint-staged) to automatically format our code using ✨ [Prettier](https://prettier.io/docs/en/index.html). 
 
 ### PR Requirements
 
