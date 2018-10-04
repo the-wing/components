@@ -13,27 +13,11 @@ const SocialLink = styled.a`
 `;
 
 const getSocialLink = (type, value) => {
-  if (type === 'facebook') {
-    return `https://www.facebook.com/${value}`;
-  }
-
-  if (type === 'instagram') {
-    return `https://www.instagram.com/${value}`;
-  }
-
-  if (type === 'twitter') {
-    return `https://www.twitter.com/${value}`;
-  }
-
   if (type === 'web' && value.indexOf('http') === -1) {
     return `http://${value}`;
   }
 
-  if (type === 'web') {
-    return value;
-  }
-
-  return null;
+  return value;
 };
 
 const Social = ({ links, loading }) => (

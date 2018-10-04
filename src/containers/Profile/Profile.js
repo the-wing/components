@@ -126,6 +126,7 @@ class Profile extends PureComponent {
 
                 {this.state.isEditing && (
                   <EditForm
+                    batch={form.batch}
                     change={form.change}
                     data={data}
                     onSearchAsks={onSearchAsks}

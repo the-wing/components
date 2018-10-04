@@ -109,9 +109,9 @@ const defaultUser = {
 const userWithSocial = {
   ...defaultUser,
   social: {
-    facebook: 'hello-mark',
-    instagram: 'iHaveAMillionInstaStories',
-    twitter: 'chirpchirp',
+    facebook: 'https://facebook.com/hello-mark',
+    instagram: 'https://instagram.com/iHaveAMillionInstaStories',
+    twitter: 'https://twitter.com/chirpchirp',
     web: 'the-wing.com',
   },
 };
