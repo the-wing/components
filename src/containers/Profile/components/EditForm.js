@@ -89,6 +89,9 @@ class EditForm extends PureComponent {
   componentDidMount() {
     const { batch, change, values } = this.props;
     const formatted = mapValues(values.social, socialValue => {
+      if (!socialValue) {
+        return '';
+      }
       // remove url portion of value if exists:
       const partsWithoutUrl = socialValue.split(/^.*\/\/[^\/]+\//g);
       return last(partsWithoutUrl);
