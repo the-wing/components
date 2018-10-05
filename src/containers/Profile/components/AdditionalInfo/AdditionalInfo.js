@@ -111,20 +111,14 @@ const AdditionalInfo = ({
                   </ListItem>
                 )}
 
-              {/* Location */}
+              {/* Location - Cannot edit */}
               {locationName && (
                 <ListItem icon="homebase" underline>
-                  {location.name}
+                  {locationName}
                 </ListItem>
               )}
-              {!locationName &&
-                !readonly && (
-                  <ListItem icon="homebase" underline>
-                    <EmptyStateButton onClick={onEdit} text="Add your location" />
-                  </ListItem>
-                )}
 
-              {/* Start Date */}
+              {/* Start Date - Cannot edit */}
               {startDate && (
                 <ListItem icon="anniversary" underline>
                   Joined: {moment(startDate).format('MMMM YYYY')}
