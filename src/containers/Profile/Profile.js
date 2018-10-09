@@ -104,6 +104,7 @@ class Profile extends PureComponent {
         decorators={[calculator]}
         onSubmit={this.onSubmit}
         initialValues={initialValues}
+        subscription={{ invalid: true, pristine: true, values: true }}
       >
         {({ form, handleSubmit, invalid, pristine }) => {
           const values = form.getState().values;
@@ -126,8 +127,6 @@ class Profile extends PureComponent {
 
                 {this.state.isEditing && (
                   <EditForm
-                    batch={form.batch}
-                    change={form.change}
                     data={data}
                     onSearchAsks={onSearchAsks}
                     onSearchCompanies={onSearchCompanies}
@@ -137,7 +136,6 @@ class Profile extends PureComponent {
                     onSearchPositions={onSearchPositions}
                     push={push}
                     pop={pop}
-                    values={values}
                   />
                 )}
 
