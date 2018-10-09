@@ -223,7 +223,10 @@ class EditForm extends PureComponent {
         </Section>
 
         <Section title="Occupation">
-          <FieldArray name="occupations">
+          <FieldArray
+            name="occupations"
+            subscription={{ pristine: true, touched: true, error: true }}
+          >
             {({ fields }) =>
               fields.map((name, index) => (
                 <Fragment key={name}>
@@ -446,7 +449,7 @@ class EditForm extends PureComponent {
 
         <Section title="Offers">
           <Box grow>
-            <FieldArray name="offers">
+            <FieldArray name="offers" subscription={{ pristine: true, touched: true, error: true }}>
               {({ fields }) =>
                 fields.map((name, index) => (
                   <Field
@@ -513,7 +516,7 @@ class EditForm extends PureComponent {
 
         <Section title="Asks">
           <Box grow>
-            <FieldArray name="asks">
+            <FieldArray name="asks" subscription={{ pristine: true, touched: true, error: true }}>
               {({ fields }) =>
                 fields.map((name, index) => (
                   <Field
@@ -581,7 +584,10 @@ class EditForm extends PureComponent {
 
         <Section title="Interests">
           <Box grow>
-            <FieldArray name="interests">
+            <FieldArray
+              name="interests"
+              subscription={{ pristine: true, touched: true, error: true }}
+            >
               {({ fields }) =>
                 fields.map((name, index) => (
                   <Field
