@@ -62,23 +62,23 @@ const data = {
   ],
 };
 
-const filterOptions = (inputValue: string, options) =>
-  options.filter(i => i.label.toLowerCase().includes(inputValue.toLowerCase()));
+const mockFilterOptions = options => options;
 
-const loadOptions = (inputValue, callback, options) => {
-  setTimeout(() => {
-    callback(filterOptions(inputValue, options));
-  }, 1000);
+const loadOptions = (inputValue, options) => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(mockFilterOptions(options));
+    }, 1000);
+  });
 };
 
 const defaultProps = {
-  onSearchAsks: (inputValue, callback) => loadOptions(inputValue, callback, data.asks),
-  onSearchCompanies: (inputValue, callback) => loadOptions(inputValue, callback, data.companies),
-  onSearchInterests: (inputValue, callback) => loadOptions(inputValue, callback, data.interests),
-  onSearchOffers: (inputValue, callback) => loadOptions(inputValue, callback, data.offers),
-  onSearchNeighborhoods: (inputValue, callback) =>
-    loadOptions(inputValue, callback, data.neighborhoods),
-  onSearchPositions: (inputValue, callback) => loadOptions(inputValue, callback, data.positions),
+  onSearchAsks: inputValue => loadOptions(inputValue, data.asks),
+  onSearchCompanies: inputValue => loadOptions(inputValue, data.companies),
+  onSearchInterests: inputValue => loadOptions(inputValue, data.interests),
+  onSearchOffers: inputValue => loadOptions(inputValue, data.offers),
+  onSearchNeighborhoods: inputValue => loadOptions(inputValue, data.neighborhoods),
+  onSearchPositions: inputValue => loadOptions(inputValue, data.positions),
 };
 
 const defaultUser = {
