@@ -14,7 +14,7 @@ import Text from 'ui/Text/Text';
 import searchIcon from 'assets/img/search.svg';
 import ErrorMessage from './ErrorMessage';
 
-const StyledAddLabel = styled.div`
+const StyledAddLabel = styled(Box)`
   justify-content: space-between;
 `;
 

@@ -9,7 +9,7 @@ import Button from 'ui/Button/Button';
 import Icon from 'ui/Icon/Icon';
 import Text from 'ui/Text/Text';
 
-const Container = styled.div`
+const Container = styled(Box)`
   border: 1px solid rgba(7, 36, 79, 0.2);
   border-radius: 22px;
   height: 32px;
