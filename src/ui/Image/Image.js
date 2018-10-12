@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { responsive } from 'utils';
 
-// import Box from 'ui/Box/Box';
+import Box from 'ui/Box/Box';
 
 // For now, this only accounts for a hover state when image is larger than default size...
 // When we need a hover state for something other than an avatar, change this.
@@ -28,7 +28,7 @@ const HoverText = styled.div`
   color: ${props => props.theme.colors.white.main};
 `;
 
-const Container = styled(({ circle, ...props }) => <div />)`
+const Container = styled(({ circle, ...props }) => <Box {...props} />)`
   position: relative;
   height: ${props => props.height}px;
   padding: 0;
