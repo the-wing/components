@@ -1,6 +1,6 @@
 {
   "name": "@thewing/components",
-  "version": "0.1.9-rae4",
+  "version": "0.1.9-rae66666",
   "description": "Shared components for The Wing",
   "main": "dist/index.js",
   "publishConfig": {
@@ -21,7 +21,7 @@
     "react-dom": ">= 16.3.2",
     "styled-components": ">= 3.2.6"
   },
-  "devDependencies": {
+  "dependencies": {
     "@sambego/storybook-state": "^1.3.1",
     "@storybook/addon-actions": "^3.4.11",
     "@storybook/addon-console": "^1.0.4",
@@ -78,7 +78,6 @@
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.1"
   },
-  "dependencies": {},
   "scripts": {
     "build:package": "yarn build:clean && yarn build:js",
     "build:clean": "rimraf dist && mkdir dist",
