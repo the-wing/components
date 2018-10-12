@@ -15,7 +15,7 @@ const Industry = ({ firstName, industry, loading, onEdit, readonly }) => {
   return (
     <Section title="Industry" noContent={!get(industry, 'label', null) && readonly}>
       {get(industry, 'label', null) && (
-        <Box>
+        <Box width={296}>
           <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
             {industry.label}
           </Text>
