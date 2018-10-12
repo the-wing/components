@@ -1,6 +1,6 @@
 {
   "name": "@thewing/components",
-  "version": "0.1.9-rae666",
+  "version": "0.1.9-rae4",
   "description": "Shared components for The Wing",
   "main": "dist/index.js",
   "publishConfig": {
@@ -71,7 +71,7 @@
     "rimraf": "^2.6.2",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
-    "styled-components": "^3.2.6",
+    "styled-components": "^3.4.9",
     "uglifyjs-webpack-plugin": "^2.0.1",
     "url-loader": "^1.1.1",
     "validator": "^10.8.0",
