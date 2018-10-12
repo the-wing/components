@@ -5,6 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
+  devtool: 'source-map',
+
   entry: {
     index: path.resolve(__dirname, '../src/index.js'),
     theme: path.resolve(__dirname, '../src/theme.js'),
