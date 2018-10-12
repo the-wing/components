@@ -46,7 +46,7 @@ const Occupations = ({ company, firstName, loading, onEdit, position, readonly }
   return (
     <Section title="Current Occupation" noContent={!company && !position && readonly}>
       {(company || position) && (
-        <Box width={296}>
+        <Box>
           <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
             {company ? `${position} at ${company}` : `${position}`}
           </Text>

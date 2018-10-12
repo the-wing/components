@@ -19,7 +19,7 @@ const Content = styled(({ underline, ...rest }) => <Box {...rest} />)`
 const ListItem = ({ children, icon, underline }) => (
   <Box as="li" vAlignContent="center">
     {icon && (
-      <Box width={40}>
+      <Box>
         <Icon style={{ lineHeight: '30px' }} name={icon} size={15} color="grayChateau" />
       </Box>
     )}

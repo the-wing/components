@@ -63,7 +63,7 @@ const Bio = ({ firstName, loading, onEdit, readonly, text }) => {
   return (
     <Section title="Bio" noContent={!text && readonly}>
       {text && (
-        <Box width={296}>
+        <Box>
           <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
             {text}
           </Text>
