@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import map from 'lodash/map';
 import styled from 'styled-components';
 
-import Box from 'ui/Box/Box';
 import Counter from 'ui/Counter/Counter';
 import Text from 'ui/Text/Text';
 
-const BoxAsList = Box.withComponent('ul');
-const Container = styled(BoxAsList)`
+const Container = styled.ul`
   display: flex;
   flex-direction: column;
   list-style-type: none;
