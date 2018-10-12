@@ -1,6 +1,6 @@
 {
   "name": "@thewing/components",
-  "version": "0.1.9-rae66666",
+  "version": "0.1.9-rae6666777",
   "description": "Shared components for The Wing",
   "main": "dist/index.js",
   "publishConfig": {
@@ -76,7 +76,8 @@
     "url-loader": "^1.1.1",
     "validator": "^10.8.0",
     "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.1"
+    "webpack-cli": "^3.1.1",
+    "webpack-node-externals": "^1.7.2"
   },
   "scripts": {
     "build:package": "yarn build:clean && yarn build:js",
