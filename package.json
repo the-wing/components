@@ -62,6 +62,7 @@
     "react-dropzone": "^5.1.1",
     "react-final-form": "^3.6.5",
     "react-final-form-arrays": "^1.0.6",
+    "react-flexview": "^4.0.1",
     "react-loader-spinner": "^2.0.6",
     "react-placeholder": "^3.0.1",
     "react-select": "^2.0.0",

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-// import FlexView from 'react-flexview';
+import FlexView from 'react-flexview';
 
 import { responsive } from 'utils';
 import theme from 'theme';
@@ -22,7 +22,7 @@ const getSpacing = cssProp => props => css`
     .join('\n')};
 `;
 
-const Box = styled.div`
+const Box = styled(FlexView)`
   background-color: ${props =>
     props.theme.colors[props.color] ? props.theme.colors[props.color].main : 'transparent'};
   ${props => props.margin && getSpacing('margin')};
