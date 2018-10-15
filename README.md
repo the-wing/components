@@ -32,7 +32,11 @@ TODO
 
 ### Prettier
 
-To enforce a standard code style, a 🐶 [Husky](https://github.com/typicode/husky) pre-commit hook runs [Lint-Staged](https://github.com/okonet/lint-staged) to automatically format our code using ✨ [Prettier](https://prettier.io/docs/en/index.html).
+To enforce a standard code style, a 🐶 [Husky](https://github.com/typicode/husky) pre-commit hook runs [Lint-Staged](https://github.com/okonet/lint-staged) to automatically format our code using 💅 [Prettier](https://prettier.io/docs/en/index.html).
+
+### Polished
+
+For some useful CSS helpers, we use ✨ [Polished](https://polished.js.org/docs).
 
 ---
 

@@ -29,6 +29,7 @@
     "lint-staged": "^7.2.2",
     "moment": "^2.22.2",
     "path": "^0.12.7",
+    "polished": "^2.2.0",
     "prettier": "^1.14.3",
     "prop-types": "^15.6.2",
     "react-dropzone": "^5.1.1",
@@ -38,7 +39,9 @@
     "react-loader-spinner": "^2.0.6",
     "react-placeholder": "^3.0.1",
     "react-select": "^2.0.0",
+    "react-slick": "^0.23.1",
     "react-spring": "^5.8.0",
+    "slick-carousel": "^1.8.1",
     "validator": "^10.8.0"
   },
   "scripts": {
