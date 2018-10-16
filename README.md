@@ -20,7 +20,7 @@ TODO
 
 ### Prettier
 
-To enforce a standard code style, a 🐶 [Husky](https://github.com/typicode/husky) pre-commit hook runs [Lint-Staged](https://github.com/okonet/lint-staged) to automatically format our code using ✨ [Prettier](https://prettier.io/docs/en/index.html). 
+To enforce a standard code style, a 🐶 [Husky](https://github.com/typicode/husky) pre-commit hook runs [Lint-Staged](https://github.com/okonet/lint-staged) to automatically format our code using ✨ [Prettier](https://prettier.io/docs/en/index.html).
 
 ### PR Requirements
 
@@ -35,6 +35,14 @@ TODO
 ---
 
 ## Usage
+
+### Normalize
+
+If you want everything to appear correctly in all browsers, make sure to include our Normalize.css file at the root of your project:
+
+```
+import '@thewing/components/css/normalize.css';
+```
 
 ### Theme
 
