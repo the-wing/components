@@ -69,13 +69,7 @@ const Bio = ({ firstName, loading, onEdit, readonly, text }) => {
           </Text>
         </Box>
       )}
-      {!text &&
-        !readonly && (
-          <EmptyStateButton
-            onClick={onEdit}
-            text="What makes you uniquely you? Or just tell us a fun fact or two."
-          />
-        )}
+      {!text && !readonly && <EmptyStateButton onClick={onEdit} text="What's your story?" />}
       {!text &&
         readonly && (
           <Text color="grayChateau" size={15 / 16} letterSpacing={0.2} lineHeight={20}>

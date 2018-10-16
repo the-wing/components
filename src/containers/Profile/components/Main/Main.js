@@ -67,6 +67,7 @@ const Main = ({
               readonly={readonly}
             />
             <ChipList
+              editText="What skills or knowledge can you offer?"
               firstName={firstName}
               list={offers}
               loading={loading}
@@ -76,6 +77,7 @@ const Main = ({
             />
             <ChipList
               color="panache"
+              editText="What are you looking for help with?"
               firstName={firstName}
               list={asks}
               loading={loading}
@@ -85,6 +87,7 @@ const Main = ({
             />
             <ChipList
               color="concrete"
+              editText="What are you passionate or curious about?"
               firstName={firstName}
               list={interests}
               loading={loading}
