@@ -12,6 +12,7 @@ module.exports = {
     index: path.resolve(__dirname, '../src/index.js'),
     theme: path.resolve(__dirname, '../src/theme.js'),
     fonts: path.resolve(__dirname, '../src/style/fonts.scss'),
+    normalize: path.resolve(__dirname, '../src/style/normalize.scss'),
   },
 
   output: {
