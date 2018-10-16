@@ -2,7 +2,7 @@ import React from 'react';
 import { addDecorator, configure } from '@storybook/react';
 import { ThemeProvider } from 'styled-components';
 import theme from '../src/theme';
-import '../src/style/normalize.css';
+import '../src/style/normalize.scss';
 import '../src/style/fonts.scss';
 
 const req = require.context('../src/', true, /stories\.js$/);
