@@ -54,7 +54,7 @@ const Occupations = ({ company, firstName, loading, onEdit, position, readonly }
       )}
       {!company &&
         !position &&
-        !readonly && <EmptyStateButton onClick={onEdit} text="Add Occupation" />}
+        !readonly && <EmptyStateButton onClick={onEdit} text="What's your day job?" />}
       {!company &&
         !position &&
         readonly && (
