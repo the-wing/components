@@ -12,6 +12,7 @@ import EmptyStateButton from '../EmptyStateButton';
 
 const ChipList = ({
   color,
+  editText,
   extraLoadingRow,
   firstName,
   list,
@@ -65,7 +66,7 @@ const ChipList = ({
         )}
       {list &&
         list.length < 1 &&
-        !readonly && <EmptyStateButton onClick={onEdit} text="I could use a hand with..." />}
+        !readonly && <EmptyStateButton onClick={onEdit} text={editText} />}
       {list &&
         list.length < 1 &&
         readonly && (
