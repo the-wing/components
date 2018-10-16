@@ -41,7 +41,7 @@ TODO
 If you want everything to appear correctly in all browsers, make sure to include our Normalize.css file at the root of your project:
 
 ```
-import '@thewing/components/css/normalize.css';
+import '@thewing/components/dist/css/normalize.css';
 ```
 
 ### Theme
@@ -50,7 +50,7 @@ To use our theme, just import it and use it in a `ThemeProvider`:
 
 ```
 import { ThemeProvider } from 'styled-components';
-import '@thewing/components/theme';
+import '@thewing/components/dist/theme';
 
   <ThemeProvider theme={theme}>
     [...]
@@ -61,7 +61,7 @@ import '@thewing/components/theme';
 
 To enable our fonts in your project, just include the sass file either in your index JS or in the `<head>` of your index HTML. You'll also need to import the fonts (either by hosting them yourself or adding the folder `node_modules/@thewing/components/dist/assets/fonts` as a part of your build step.)
 
-`import '@thewing/components/css/fonts.css'`
+`import '@thewing/components/dist/css/fonts.css'`
 
 ---
 
