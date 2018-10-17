@@ -29,6 +29,7 @@
     "lint-staged": "^7.2.2",
     "moment": "^2.22.2",
     "path": "^0.12.7",
+    "prettier": "^1.14.3",
     "prop-types": "^15.6.2",
     "react-dropzone": "^5.1.1",
     "react-final-form": "^3.6.5",
@@ -42,8 +43,9 @@
   },
   "scripts": {
     "build:package": "yarn build:clean && yarn build:js",
-    "build:clean": "rimraf dist && mkdir dist",
+    "build:clean": "rimraf dist && mkdir dist && rimraf built && mkdir built",
     "build:js": "./node_modules/.bin/webpack -p --progress --config=webpack/production.config.js --mode=production",
+    "build:static": "yarn build:clean && build-storybook -c .storybook -o ./built",
     "prepublishOnly": "yarn build:package",
     "start": "start-storybook -s ./dist -p 9001 -c .storybook"
   },
