@@ -36,4 +36,5 @@ storiesOf('Box', module)
     <Box color="vermilion" padding={{ horizontal: 2 }}>
       Box with different padding values
     </Box>
-  ));
+  ))
+  .add('with wrap', () => <Box wrap>Box with wrap</Box>);

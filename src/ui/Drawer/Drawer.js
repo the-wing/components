@@ -34,6 +34,7 @@ const StyledDrawer = styled(({ isOpen, left, width, ...rest }) => <animated.div 
   left: auto;
   height: 100vh;
   overflow-y: scroll;
+  overflow-x: hidden;
   position: fixed;
   top: 0;
   ${props => (props.left ? 'left' : 'right')}: 0;

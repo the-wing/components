@@ -4,6 +4,8 @@ import { withConsole } from '@storybook/addon-console';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import Drawer from 'ui/Drawer/Drawer';
+import Profile from 'containers/Profile/Profile';
+import { data, defaultProps, defaultUser } from 'containers/Profile/Profile.storyData';
 
 const store = new Store({
   isOpen: false,
@@ -38,5 +40,16 @@ storiesOf('Drawer', module)
   .add('left', () => (
     <Drawer backdropBgColor="#FBF1ED" left isOpen>
       <div>I am a drawer.</div>
+    </Drawer>
+  ))
+  .add('with Profile container', () => (
+    <Drawer isOpen>
+      <Profile
+        {...defaultProps}
+        data={data}
+        onSubmit={action('onSubmit')}
+        initialValues={defaultUser}
+        onClose={action('onClose')}
+      />
     </Drawer>
   ));

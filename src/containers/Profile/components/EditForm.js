@@ -415,7 +415,7 @@ const EditForm = ({
     </Section>
 
     <Section title="Offers">
-      <Box grow>
+      <Box grow wrap>
         <FieldArray name="offers">
           {({ fields }) =>
             fields.map((name, index) => (
@@ -488,7 +488,7 @@ const EditForm = ({
     </Section>
 
     <Section title="Asks">
-      <Box grow>
+      <Box grow wrap>
         <FieldArray name="asks">
           {({ fields }) =>
             fields.map((name, index) => (
@@ -561,7 +561,7 @@ const EditForm = ({
     </Section>
 
     <Section title="Interests">
-      <Box grow>
+      <Box grow wrap>
         <FieldArray name="interests">
           {({ fields }) =>
             fields.map((name, index) => (
