@@ -1,18 +1,41 @@
-import React, { Children } from 'react';
+import React, { Children, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ReactSlick from 'react-slick';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { rem, rgba } from 'polished';
+import { Media } from 'react-breakpoints';
 import arrow from 'assets/img/arrow.svg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
+const SlickOverrides = createGlobalStyle`
+  .slick-slider {
+    background: ${props => props.theme.colors.linen.main};
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      top: 0; bottom: 0;
+      box-shadow: ${props =>
+        `inset 40px 0px 60px -30px ${props.theme.colors.linen.main}, inset -40px 0px 60px -30px ${
+          props.theme.colors.linen.main
+        }`};
+    }
+  }
+
+  .slick-slide.slick-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+`;
 
 const StyledPrevArrow = styled.div`
   height: ${rem('21px')};
   width: ${rem('11px')};
   background: url(${arrow}) no-repeat;
   position: absolute;
-  bottom: -44px;
+  bottom: -${rem('44px')};
   left: 0;
   margin-left: ${rem('30px')};
   pointer-events: all;
@@ -33,10 +56,9 @@ const StyledNextArrow = styled(StyledPrevArrow)`
 
 const DotContainer = styled.div`
   position: absolute;
-  bottom: -36px;
-  left: ${rem('78px')};
-  right: 0;
-  max-width: ${rem('192px')};
+  bottom: -${rem('36px')};
+  width: 100%;
+  margin: 0 auto;
   z-index: 0;
 `;
 
@@ -87,20 +109,48 @@ const NextArrow = ({ onClick }) => <StyledNextArrow onClick={onClick} />;
 const PrevArrow = ({ onClick }) => <StyledPrevArrow onClick={onClick} />;
 
 const Carousel = ({ arrows, children, dots, infinite, speed, slidesToShow, slidesToScroll }) => (
-  <ReactSlick
-    appendDots={appendDots}
-    arrows={arrows}
-    dots={dots}
-    dotsClass="" // Override slick-dots class
-    infinite={infinite}
-    nextArrow={<NextArrow />}
-    prevArrow={<PrevArrow />}
-    speed={speed}
-    slidesToShow={slidesToShow}
-    slidesToScroll={slidesToScroll}
-  >
-    {Children.map(children, child => child)}
-  </ReactSlick>
+  <Fragment>
+    <SlickOverrides />
+    <Media>
+      {({ breakpoints }) => (
+        <ReactSlick
+          appendDots={appendDots}
+          arrows={arrows}
+          centerMode
+          centerPadding="20px"
+          dots={dots}
+          dotsClass="" // Override slick-dots class
+          infinite={infinite}
+          initialSlide={0}
+          nextArrow={<NextArrow />}
+          prevArrow={<PrevArrow />}
+          responsive={[
+            {
+              breakpoint: breakpoints.tablet,
+              settings: {
+                arrows: false,
+              },
+            },
+            {
+              breakpoint: breakpoints.mobile,
+              settings: {
+                arrows: false,
+                slidesToShow: 1,
+              },
+            },
+          ]}
+          speed={speed}
+          slidesToShow={slidesToShow}
+          slidesToScroll={slidesToScroll}
+          swipeToSlide
+        >
+          {Children.map(children, child => (
+            <div>{child}</div>
+          ))}
+        </ReactSlick>
+      )}
+    </Media>
+  </Fragment>
 );
 
 Carousel.propTypes = {
@@ -114,9 +164,9 @@ Carousel.propTypes = {
 };
 
 Carousel.defaultProps = {
-  arrows: false,
-  dots: false,
-  infinite: false,
+  arrows: true,
+  dots: true,
+  infinite: true,
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,

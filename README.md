@@ -40,6 +40,12 @@ For some useful CSS helpers, we use ✨ [Polished](https://polished.js.org/docs)
 
 ---
 
+## Publishing
+
+Bump the version on master and run `npm publish`. (Process TBD)
+
+---
+
 ## Usage
 
 ### Normalize
@@ -48,6 +54,35 @@ If you want everything to appear correctly in all browsers, make sure to include
 
 ```
 import '@thewing/components/dist/css/normalize.css';
+```
+
+### Breakpoints
+
+We use [React Breakpoints](https://github.com/ehellman/react-breakpoints) to conditionally render components at different breakpoints. It is required to wrap your application with a `ReactBreakpoints` component like so:
+
+```
+import ReactBreakpoints from 'react-breakpoints';
+import breakpoints from '@thewing/components/dist/breakpoints';
+
+  <ReactBreakpoints breakpoints={breakpoints}>
+    [...]
+  </ReactBreakpoints>
+```
+
+When creating components, we do _not_ use the HoC `withBreakpoints`, but rather favor the [render props approach](https://github.com/ehellman/react-breakpoints#render-props):
+
+```
+import { Media } from 'react-breakpoints';
+
+const Navigation = () => (
+  {({ breakpoints, currentBreakpoint }) => (
+    <NavBar
+      isMobile={breakpoints[currentBreakpoint] < breakpoints.desktop}
+    />
+  )}
+);
+
+export default Navigation;
 ```
 
 ### Theme
@@ -73,6 +108,7 @@ To enable our fonts in your project, just include the sass file either in your i
 
 ## Roadmap
 
+- [ ] [Changelog/versioning](https://github.com/conventional-changelog/standard-version)
 - [ ] Possibly checkout [Bit](https://bitsrc.io/features) for publishing [several components](https://blog.bitsrc.io/building-a-shared-ui-component-library-350b297a53a8)
 - [ ] Once all addons support Babel 7, switch to babel 7, add Webpack 4.
 - [ ] PR checklist

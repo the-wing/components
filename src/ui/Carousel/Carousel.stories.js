@@ -3,7 +3,6 @@ import { addDecorator, storiesOf } from '@storybook/react';
 import { withConsole } from '@storybook/addon-console';
 import styled from 'styled-components';
 import Carousel from 'ui/Carousel/Carousel';
-import theme from 'theme';
 
 const Page = styled.div`
   background: ${props => props.theme.colors.linen.main};
@@ -12,11 +11,19 @@ const Page = styled.div`
 `;
 
 const Container = styled.div`
-  width: 350px;
+  width: 400px;
   margin: 0 auto;
 `;
 
-const Slide = () => <img src="https://via.placeholder.com/350x150" />;
+const Slide = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  height: 150px;
+  background: white;
+  border: 1px solid #d28c0e;
+`;
 
 storiesOf('Carousel', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
@@ -24,42 +31,10 @@ storiesOf('Carousel', module)
     <Page>
       <Container>
         <Carousel>
-          <Slide />
-          <Slide />
-          <Slide />
-        </Carousel>
-      </Container>
-    </Page>
-  ))
-  .add('infinite', () => (
-    <Page>
-      <Container>
-        <Carousel infinite>
-          <Slide />
-          <Slide />
-          <Slide />
-        </Carousel>
-      </Container>
-    </Page>
-  ))
-  .add('dots', () => (
-    <Page>
-      <Container>
-        <Carousel infinite dots>
-          <Slide />
-          <Slide />
-          <Slide />
-        </Carousel>
-      </Container>
-    </Page>
-  ))
-  .add('arrows', () => (
-    <Page>
-      <Container>
-        <Carousel infinite dots arrows>
-          <Slide />
-          <Slide />
-          <Slide />
+          <Slide>Slide 1 </Slide>
+          <Slide>Slide 2 </Slide>
+          <Slide>Slide 3</Slide>
+          <Slide>Slide 4</Slide>
         </Carousel>
       </Container>
     </Page>
