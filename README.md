@@ -24,7 +24,7 @@ To enforce a standard code style, a 🐶 [Husky](https://github.com/typicode/hus
 
 ### PR Requirements
 
-TODO
+Please refer to the [PR template](pull_request_template.md)
 
 ---
 
