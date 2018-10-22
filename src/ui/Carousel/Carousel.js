@@ -18,15 +18,25 @@ const SlickOverrides = createGlobalStyle`
       left: 0; right: 0;
       top: 0; bottom: 0;
       box-shadow: ${props =>
-        `inset 40px 0px 60px -30px ${props.theme.colors.linen.main}, inset -40px 0px 60px -30px ${
+        `inset 40px 0px 60px -20px ${props.theme.colors.linen.main}, inset -40px 0px 60px -20px ${
           props.theme.colors.linen.main
         }`};
+      pointer-events: none
+      z-index: 2;
     }
   }
 
-  .slick-slide.slick-center {
-    margin-left: auto;
-    margin-right: auto;
+  .slick-slide.slick-center > div {
+    margin: 0 ${rem('12px')};
+  }
+
+  .slick-list {
+    margin: 0 2em;
+    z-index: 1;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -39,7 +49,7 @@ const StyledPrevArrow = styled.div`
   left: 0;
   margin-left: ${rem('30px')};
   pointer-events: all;
-  z-index: 1;
+  z-index: 0;
 
   &:hover {
     cursor: pointer;
@@ -93,11 +103,16 @@ const appendDots = dots => {
     <DotContainer>
       <DotList>
         {dots.map(({ props }, index) => {
-          const { className } = props;
+          const {
+            children: {
+              props: { onClick },
+            },
+            className,
+          } = props;
           if (className === 'slick-active') {
-            return <Dot key="active-dot" active />;
+            return <Dot key="active-dot" onClick={onClick} active />;
           }
-          return <Dot key={`inactive-dot-${index}`} />;
+          return <Dot key={`inactive-dot-${index}`} onClick={onClick} />;
         })}
       </DotList>
     </DotContainer>
@@ -108,50 +123,56 @@ const NextArrow = ({ onClick }) => <StyledNextArrow onClick={onClick} />;
 
 const PrevArrow = ({ onClick }) => <StyledPrevArrow onClick={onClick} />;
 
-const Carousel = ({ arrows, children, dots, infinite, speed, slidesToShow, slidesToScroll }) => (
-  <Fragment>
-    <SlickOverrides />
-    <Media>
-      {({ breakpoints }) => (
-        <ReactSlick
-          appendDots={appendDots}
-          arrows={arrows}
-          centerMode
-          centerPadding="20px"
-          dots={dots}
-          dotsClass="" // Override slick-dots class
-          infinite={infinite}
-          initialSlide={0}
-          nextArrow={<NextArrow />}
-          prevArrow={<PrevArrow />}
-          responsive={[
-            {
-              breakpoint: breakpoints.tablet,
-              settings: {
-                arrows: false,
+const Carousel = ({ arrows, children, dots, infinite, speed, slidesToShow, slidesToScroll }) => {
+  const settings = {
+    appendDots,
+    arrows,
+    centerMode: true,
+    centerPadding: '20px',
+    className: 'center',
+    dots,
+    dotsClass: '',
+    infinite,
+    initialSlide: 0,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    speed,
+    slidesToShow,
+    slidesToScroll,
+  };
+
+  return (
+    <Fragment>
+      <SlickOverrides />
+      <Media>
+        {({ breakpoints }) => (
+          <ReactSlick
+            {...settings}
+            responsive={[
+              {
+                breakpoint: breakpoints.tablet + 1,
+                settings: {
+                  arrows: false,
+                },
               },
-            },
-            {
-              breakpoint: breakpoints.mobile,
-              settings: {
-                arrows: false,
-                slidesToShow: 1,
+              {
+                breakpoint: breakpoints.mobile + 1,
+                settings: {
+                  arrows: false,
+                  slidesToShow: 1,
+                },
               },
-            },
-          ]}
-          speed={speed}
-          slidesToShow={slidesToShow}
-          slidesToScroll={slidesToScroll}
-          swipeToSlide
-        >
-          {Children.map(children, child => (
-            <div>{child}</div>
-          ))}
-        </ReactSlick>
-      )}
-    </Media>
-  </Fragment>
-);
+            ]}
+          >
+            {Children.map(children, child => (
+              <div>{child}</div>
+            ))}
+          </ReactSlick>
+        )}
+      </Media>
+    </Fragment>
+  );
+};
 
 Carousel.propTypes = {
   arrows: PropTypes.bool,
