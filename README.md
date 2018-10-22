@@ -10,6 +10,18 @@ Shared component library
 
 To get up and running, just run `yarn start` and visit http://localhost:9001.
 
+### PR Requirements
+
+Please refer to the [PR template](pull_request_template.md)
+
+## Workflow
+
+1. Open a PR against `master` and fill out necessary fields in [PR template](pull_request_template.md).
+2. Request a code review from at least one person.
+3. After code has been approved, post link to deploy preview in Jira ticket for UAT.
+4. After UAT approved, merge and ask [@cullenbmacdonald](https://github.com/cullenbmacdonald) or [@rfarine](https://github.com/rfarine) to publish your changes.
+5. Update version of library in whichever branch you're working on in Members Portal or Meteor application.
+
 ### Jest/Enzyme
 
 TODO
@@ -21,16 +33,6 @@ TODO
 ### Prettier
 
 To enforce a standard code style, a 🐶 [Husky](https://github.com/typicode/husky) pre-commit hook runs [Lint-Staged](https://github.com/okonet/lint-staged) to automatically format our code using ✨ [Prettier](https://prettier.io/docs/en/index.html).
-
-### PR Requirements
-
-Please refer to the [PR template](pull_request_template.md)
-
----
-
-## Publishing
-
-TODO
 
 ---
 
