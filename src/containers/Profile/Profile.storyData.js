@@ -114,6 +114,14 @@ export const userWithAllInfo = {
       position: { label: 'Software Engineer', value: 'software-engineer' },
       company: { label: 'The Wing', value: 'the-wing' },
     },
+    {
+      position: { label: 'Software Engineer', value: 'software-engineer' },
+      company: { label: 'Facebook Inc.', value: 'facebook' },
+    },
+    {
+      position: { label: 'Software Engineer', value: 'software-engineer' },
+      company: { label: 'Amazon', value: 'amazon' },
+    },
   ],
   industry: {
     value: '123',

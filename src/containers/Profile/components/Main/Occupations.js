@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { filter, get } from 'lodash';
 import Box from 'ui/Box/Box';
 import Section from 'ui/Section/Section';
 import { TextRow } from 'ui/Loading';
@@ -7,7 +7,7 @@ import Text from 'ui/Text/Text';
 
 import EmptyStateButton from '../EmptyStateButton';
 
-const Occupations = ({ company, firstName, loading, onEdit, position, readonly }) => {
+const Occupations = ({ firstName, list, loading, onEdit, readonly }) => {
   if (loading) {
     return (
       <Section>
@@ -43,20 +43,34 @@ const Occupations = ({ company, firstName, loading, onEdit, position, readonly }
     );
   }
 
+  const listLength = get(list, 'length', 0);
+  const hasCompaniesOrPositions = filter(list, occ => {
+    return get(occ, 'company.label') || get(occ, 'position.label');
+  });
+
   return (
-    <Section title="Current Occupation" noContent={!company && !position && readonly}>
-      {(company || position) && (
-        <Box width={296}>
-          <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
-            {company ? `${position} at ${company}` : `${position}`}
-          </Text>
-        </Box>
-      )}
-      {!company &&
-        !position &&
+    <Section
+      title="Current Occupation"
+      noContent={listLength < 1 && hasCompaniesOrPositions.length < 1 && readonly}
+    >
+      {listLength > 0 &&
+        hasCompaniesOrPositions.length > 0 &&
+        list.map((occupation, index) => (
+          <Box margin={index !== listLength - 1 ? { bottom: 28 / 16 } : {}}>
+            <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+              {get(occupation, 'company.label') && get(occupation, 'position.label')
+                ? `${get(occupation, 'position.label', '')} at ${get(
+                    occupation,
+                    'company.label',
+                    ''
+                  )}`
+                : `${get(occupation, 'position.label', '')}`}
+            </Text>
+          </Box>
+        ))}
+      {(listLength < 1 || hasCompaniesOrPositions.length < 1) &&
         !readonly && <EmptyStateButton onClick={onEdit} text="What's your day job?" />}
-      {!company &&
-        !position &&
+      {(listLength < 1 || hasCompaniesOrPositions.length < 1) &&
         readonly && (
           <Text color="grayChateau" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
             {firstName} hasn&#x27;t added an Occupation

@@ -57,15 +57,6 @@ storiesOf('Profile', module)
       }}
     </State>
   ))
-  .add('with name, headline', () => (
-    <Profile
-      {...defaultProps}
-      data={data}
-      onClose={action('onClose')}
-      onSubmit={action('onSubmit')}
-      initialValues={defaultUser}
-    />
-  ))
   .add('with social', () => (
     <Profile
       {...defaultProps}
@@ -97,18 +88,9 @@ storiesOf('Profile', module)
     <Profile
       {...defaultProps}
       data={data}
-      onClose={action('onClose')}
-      onSubmit={action('onSubmit')}
-      readonly
-    />
-  ))
-  .add('readonly with name, headline', () => (
-    <Profile
-      {...defaultProps}
-      data={data}
-      onClose={action('onClose')}
-      onSubmit={action('onSubmit')}
       initialValues={defaultUser}
+      onClose={action('onClose')}
+      onSubmit={action('onSubmit')}
       readonly
     />
   ))

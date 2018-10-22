@@ -30,77 +30,71 @@ const Main = ({
   offers,
   onEdit,
   readonly,
-}) => {
-  const currentOccupation = occupations && occupations.length > 0 && occupations[0];
-  const company = get(currentOccupation, 'company.label', null);
-  const position = get(currentOccupation, 'position.label', null);
-
-  return (
-    <ReactPlaceholder
-      ready={!loading}
-      customPlaceholder={
-        <Container>
-          <Bio loading />
-          <Occupations loading />
-          <Industry loading />
-          <ChipList loading extraLoadingRow />
-          <ChipList loading />
+}) => (
+  <ReactPlaceholder
+    ready={!loading}
+    customPlaceholder={
+      <Container>
+        <Bio loading />
+        <Occupations loading />
+        <Industry loading />
+        <ChipList loading extraLoadingRow />
+        <ChipList loading />
+      </Container>
+    }
+  >
+    <Transition native from={{ opacity: 0 }} enter={{ opacity: 1 }} leave={{ opacity: 0 }}>
+      {style => (
+        <Container style={style}>
+          <Bio firstName={firstName} onEdit={onEdit} readonly={readonly} text={bio} />
+          <Occupations
+            firstName={firstName}
+            list={occupations}
+            loading={loading}
+            onEdit={onEdit}
+            readonly={readonly}
+          />
+          <Industry
+            firstName={firstName}
+            industry={industry}
+            loading={loading}
+            onEdit={onEdit}
+            readonly={readonly}
+          />
+          <ChipList
+            editText="What skills or knowledge can you offer?"
+            firstName={firstName}
+            list={offers}
+            loading={loading}
+            onEdit={onEdit}
+            readonly={readonly}
+            title="Offers"
+          />
+          <ChipList
+            color="panache"
+            editText="What are you looking for help with?"
+            firstName={firstName}
+            list={asks}
+            loading={loading}
+            onEdit={onEdit}
+            readonly={readonly}
+            title="Asks"
+          />
+          <ChipList
+            color="concrete"
+            editText="What are you passionate or curious about?"
+            firstName={firstName}
+            list={interests}
+            loading={loading}
+            onEdit={onEdit}
+            readonly={readonly}
+            title="Interests"
+          />
         </Container>
-      }
-    >
-      <Transition native from={{ opacity: 0 }} enter={{ opacity: 1 }} leave={{ opacity: 0 }}>
-        {style => (
-          <Container style={style}>
-            <Bio firstName={firstName} onEdit={onEdit} readonly={readonly} text={bio} />
-            <Occupations
-              company={company}
-              firstName={firstName}
-              onEdit={onEdit}
-              position={position}
-              readonly={readonly}
-            />
-            <Industry
-              firstName={firstName}
-              industry={industry}
-              loading={loading}
-              onEdit={onEdit}
-              readonly={readonly}
-            />
-            <ChipList
-              editText="What skills or knowledge can you offer?"
-              firstName={firstName}
-              list={offers}
-              loading={loading}
-              onEdit={onEdit}
-              readonly={readonly}
-              title="Offers"
-            />
-            <ChipList
-              color="panache"
-              editText="What are you looking for help with?"
-              firstName={firstName}
-              list={asks}
-              loading={loading}
-              onEdit={onEdit}
-              readonly={readonly}
-              title="Asks"
-            />
-            <ChipList
-              color="concrete"
-              editText="What are you passionate or curious about?"
-              firstName={firstName}
-              list={interests}
-              loading={loading}
-              onEdit={onEdit}
-              readonly={readonly}
-              title="Interests"
-            />
-          </Container>
-        )}
-      </Transition>
-    </ReactPlaceholder>
-  );
-};
+      )}
+    </Transition>
+  </ReactPlaceholder>
+);
 
 Main.propTypes = {
   asks: PropTypes.arrayOf(
