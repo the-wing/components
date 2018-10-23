@@ -108,7 +108,7 @@ const EditForm = ({
           };
 
           return (
-            <DropZone minWidth={98} onDrop={onDrop}>
+            <DropZone minWidth={125} onDrop={onDrop}>
               <Image width={125} height={125} url={input.value} hoverText="Edit" circle />
             </DropZone>
           );
