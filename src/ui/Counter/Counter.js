@@ -11,7 +11,7 @@ const StyledCounter = styled(LabelAsSpan)`
 `;
 
 const Counter = ({ currentLength, error, maxLength }) => (
-  <StyledCounter error={error}>
+  <StyledCounter error={error || currentLength > maxLength}>
     {currentLength || 0} / {maxLength}
   </StyledCounter>
 );

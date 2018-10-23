@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import { default as ReactSelect, components } from 'react-select';
 import Async from 'react-select/lib/Async';
@@ -16,6 +16,7 @@ import ErrorMessage from './ErrorMessage';
 
 const StyledAddLabel = styled(Box)`
   justify-content: space-between;
+  opacity: ${props => (props.disabled ? '0.5' : '1')};
 `;
 
 // prettier-ignore
@@ -93,19 +94,23 @@ const SearchableSingleValue = ({ children, ...props }) => {
   );
 };
 
-const AddLabel = ({ currentLength, error, inputValue, maxLength }) => (
-  <StyledAddLabel display="flex">
-    <Box>
-      <Icon name="add" size={10} color="terracota" />
-      <Text color="terracota" size={13 / 16} style={{ marginLeft: '0.625rem' }}>
-        Add {inputValue}
-      </Text>
-    </Box>
-    <Box>
-      {maxLength && <Counter currentLength={currentLength} error={error} maxLength={maxLength} />}
-    </Box>
-  </StyledAddLabel>
-);
+const AddLabel = ({ currentLength, error, inputValue, maxLength }) => {
+  const disabled = currentLength > maxLength || error;
+
+  return (
+    <StyledAddLabel display="flex" disabled={disabled}>
+      <Box>
+        <Icon name="add" size={10} color="terracota" />
+        <Text color="terracota" size={13 / 16} style={{ marginLeft: '0.625rem' }}>
+          Add {inputValue}
+        </Text>
+      </Box>
+      <Box>
+        {maxLength && <Counter currentLength={currentLength} error={error} maxLength={maxLength} />}
+      </Box>
+    </StyledAddLabel>
+  );
+};
 
 const customStyles = (isSearchable = false, error = false) => ({
   control: (base, state) => ({
@@ -160,10 +165,10 @@ const customStyles = (isSearchable = false, error = false) => ({
     color: theme.colors.solitude.main,
     backgroundColor: state.isFocused ? '#faf3f1' : null,
     '&:active': {
-      backgroundColor: '#eef7f1',
+      backgroundColor: state.isDisabled ? 'white' : '#eef7f1',
     },
     '&:hover': {
-      cursor: 'pointer',
+      cursor: state.isDisabled ? 'not-allowed' : 'pointer',
     },
   }),
   placeholder: (base, state) => ({
@@ -217,12 +222,20 @@ const Select = ({
               maxLength={maxLength}
             />
           )}
-          value={inputProps.value}
+          isOptionDisabled={option => {
+            if (
+              (option.__isNew__ && option.value.length > maxLength) ||
+              (error && error.length > 0)
+            ) {
+              return true;
+            }
+
+            return false;
+          }}
           options={options}
           placeholder={placeholder}
           // isSearchable = true
           styles={customStyles(true, error && error.length > 0)}
-          onChange={inputProps.onChange}
           defaultOptions={options}
           loadOptions={loadOptions}
           maxLength={maxLength}
@@ -244,8 +257,6 @@ const Select = ({
           ...searchableComponents,
         }}
         isSearchable={isSearchable}
-        value={inputProps.value}
-        onChange={inputProps.onChange}
         options={options}
         maxLength={maxLength}
         placeholder={placeholder}
