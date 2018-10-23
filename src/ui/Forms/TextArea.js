@@ -31,7 +31,7 @@ const StyledTextArea = styled.textarea`
 
 const TextArea = ({ currentLength, error, maxLength, ...textAreaProps }) => (
   <Fragment>
-    <StyledTextArea maxLength={maxLength} rows="5" error={error.length > 0} {...textAreaProps} />
+    <StyledTextArea rows="5" error={error.length > 0} {...textAreaProps} />
     {!maxLength && error.length > 0 && <ErrorMessage text={error} />}
     {maxLength && (
       <Box margin={{ vertical: 6.5 / 16 }}>
