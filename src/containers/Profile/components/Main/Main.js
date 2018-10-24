@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import compact from 'lodash/compact';
 import get from 'lodash/get';
 import ReactPlaceholder from 'react-placeholder';
 import { Transition } from 'react-spring';
@@ -64,7 +65,7 @@ const Main = ({
           <ChipList
             editText="What skills or knowledge can you offer?"
             firstName={firstName}
-            list={offers}
+            list={compact(offers)}
             loading={loading}
             onEdit={onEdit}
             readonly={readonly}
@@ -74,7 +75,7 @@ const Main = ({
             color="panache"
             editText="What are you looking for help with?"
             firstName={firstName}
-            list={asks}
+            list={compact(asks)}
             loading={loading}
             onEdit={onEdit}
             readonly={readonly}
@@ -84,7 +85,7 @@ const Main = ({
             color="concrete"
             editText="What are you passionate or curious about?"
             firstName={firstName}
-            list={interests}
+            list={compact(interests)}
             loading={loading}
             onEdit={onEdit}
             readonly={readonly}
