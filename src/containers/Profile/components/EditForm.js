@@ -212,6 +212,7 @@ const EditForm = ({
                       placeholder="Position (required)"
                       error={meta.touched && meta.error ? meta.error : ''}
                       {...input}
+                      maxLength={30}
                       canCreateOptions
                     />
                   </FormField>

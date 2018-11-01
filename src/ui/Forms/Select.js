@@ -223,10 +223,7 @@ const Select = ({
             />
           )}
           isOptionDisabled={option => {
-            if (
-              (option.__isNew__ && option.value.length > maxLength) ||
-              (error && error.length > 0)
-            ) {
+            if (option.__isNew__ && maxLength && option.value.length > maxLength) {
               return true;
             }
 
