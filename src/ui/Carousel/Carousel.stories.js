@@ -45,4 +45,17 @@ storiesOf('Carousel', module)
         )}
       </Media>
     </Page>
+  ))
+  .add('one slide', () => (
+    <Page>
+      <Media>
+        {({ currentBreakpoint }) => (
+          <Container currentBreakpoint={currentBreakpoint}>
+            <Carousel>
+              <Slide>Slide 1 </Slide>
+            </Carousel>
+          </Container>
+        )}
+      </Media>
+    </Page>
   ));

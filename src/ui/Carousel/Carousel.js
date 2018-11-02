@@ -18,7 +18,7 @@ const SlickOverrides = createGlobalStyle`
       left: 0; right: 0;
       top: 0; bottom: 0;
       box-shadow: ${props =>
-        `inset 40px 0px 60px -20px ${props.theme.colors.linen.main}, inset -40px 0px 60px -20px ${
+        `inset 40px 0px 60px -30px ${props.theme.colors.linen.main}, inset -40px 0px 60px -30px ${
           props.theme.colors.linen.main
         }`};
       pointer-events: none
@@ -35,7 +35,7 @@ const SlickOverrides = createGlobalStyle`
     z-index: 1;
 
     &:hover {
-      cursor: pointer;
+      cursor: ${props => (props.numberOfSlides < 2 ? 'cursor' : 'pointer')};
     }
   }
 `;
@@ -143,7 +143,7 @@ const Carousel = ({ arrows, children, dots, infinite, speed, slidesToShow, slide
 
   return (
     <Fragment>
-      <SlickOverrides />
+      <SlickOverrides numberOfSlides={children && children.length} />
       <Media>
         {({ breakpoints }) => (
           <ReactSlick
