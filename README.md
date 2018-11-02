@@ -24,11 +24,11 @@ Please refer to the [PR template](pull_request_template.md)
 
 ### Jest/Enzyme
 
-TODO
+TODO: Coming soon!
 
 ### ESLint
 
-TODO
+TODO: Coming soon!
 
 ### Prettier
 
