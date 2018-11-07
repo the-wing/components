@@ -1,6 +1,7 @@
 // UI
 //export { Box } from './ui/Box/Box';
 export { default as Button } from './ui/Button/Button';
+export { default as Card } from './ui/Card/Card';
 // export { Chip } from './ui/Chip/Chip';
 // export { Collapsible } from './ui/Collapsible/Collapsible';
 // export { Counter } from './ui/Counter/Counter';
