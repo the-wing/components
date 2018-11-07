@@ -125,19 +125,6 @@ const AdditionalInfo = ({
                 </ListItem>
               )}
 
-              {/* Email */}
-              {contactEmail && (
-                <ListItem icon="mail" underline>
-                  <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
-                </ListItem>
-              )}
-              {!contactEmail &&
-                !readonly && (
-                  <ListItem icon="mail" underline>
-                    <EmptyStateButton onClick={onEdit} text="Add your email address" />
-                  </ListItem>
-                )}
-
               {/* Birthday */}
               {birthdayDay &&
                 parseInt(birthdayDay, 10) < 32 && (
@@ -165,6 +152,19 @@ const AdditionalInfo = ({
                 !readonly && (
                   <ListItem icon="starsign" underline>
                     <EmptyStateButton onClick={onEdit} text="Add your star sign" />
+                  </ListItem>
+                )}
+
+              {/* Email */}
+              {contactEmail && (
+                <ListItem icon="mail" underline>
+                  <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+                </ListItem>
+              )}
+              {!contactEmail &&
+                !readonly && (
+                  <ListItem icon="mail" underline>
+                    <EmptyStateButton onClick={onEdit} text="Add your email address" />
                   </ListItem>
                 )}
             </List>
