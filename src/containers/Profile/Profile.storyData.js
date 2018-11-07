@@ -52,13 +52,11 @@ export const data = {
 
 const mockFilterOptions = options => options;
 
-const loadOptions = (inputValue, options) => {
-  return new Promise(resolve => {
+const loadOptions = (inputValue, options) => new Promise(resolve => {
     setTimeout(() => {
       resolve(mockFilterOptions(options));
     }, 1000);
   });
-};
 
 export const defaultProps = {
   onSearchAsks: inputValue => loadOptions(inputValue, data.asks),

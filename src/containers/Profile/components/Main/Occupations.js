@@ -44,9 +44,7 @@ const Occupations = ({ firstName, list, loading, onEdit, readonly }) => {
   }
 
   const listLength = get(list, 'length', 0);
-  const hasCompaniesOrPositions = filter(list, occ => {
-    return get(occ, 'company.label') || get(occ, 'position.label');
-  });
+  const hasCompaniesOrPositions = filter(list, occ => get(occ, 'company.label') || get(occ, 'position.label'));
 
   return (
     <Section

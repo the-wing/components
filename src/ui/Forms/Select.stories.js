@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { FormField, Label, Select, TextArea } from 'ui/Forms';
 
@@ -20,7 +19,6 @@ const loadOptions = (inputValue, callback) => {
 };
 
 storiesOf('Select', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => (
     <FormField>
       <Label htmlFor="select1" text="Default" />

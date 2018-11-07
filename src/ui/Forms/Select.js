@@ -39,14 +39,11 @@ const StyledSearchablePlaceholder = styled(StyledCreatableChild)`
   color: ${props => theme.colors.grayChateau.main};
 `;
 
-const LoadingIndicator = () => {
-  return (
+const LoadingIndicator = () => (
     components.LoadingIndicator && <Loader type="TailSpin" color="#00BFFF" height="13" width="13" />
   );
-};
 
-const DropdownIndicator = props => {
-  return (
+const DropdownIndicator = props => (
     components.DropdownIndicator && (
       <components.DropdownIndicator {...props}>
         <Box padding={0} margin={0}>
@@ -57,10 +54,8 @@ const DropdownIndicator = props => {
       </components.DropdownIndicator>
     )
   );
-};
 
-const SearchableValueContainer = ({ children, ...props }) => {
-  return (
+const SearchableValueContainer = ({ children, ...props }) => (
     components.ValueContainer && (
       <components.ValueContainer {...props}>
         {props.selectProps.menuIsOpen && <SearchIcon />}
@@ -68,10 +63,8 @@ const SearchableValueContainer = ({ children, ...props }) => {
       </components.ValueContainer>
     )
   );
-};
 
-const SearchablePlaceholder = ({ children, ...props }) => {
-  return (
+const SearchablePlaceholder = ({ children, ...props }) => (
     components.Placeholder && (
       <components.Placeholder {...props}>
         <StyledSearchablePlaceholder menuIsOpen={props.selectProps.menuIsOpen}>
@@ -80,10 +73,8 @@ const SearchablePlaceholder = ({ children, ...props }) => {
       </components.Placeholder>
     )
   );
-};
 
-const SearchableSingleValue = ({ children, ...props }) => {
-  return (
+const SearchableSingleValue = ({ children, ...props }) => (
     components.SingleValue && (
       <components.SingleValue {...props}>
         <StyledCreatableChild menuIsOpen={props.selectProps.menuIsOpen}>
@@ -92,7 +83,6 @@ const SearchableSingleValue = ({ children, ...props }) => {
       </components.SingleValue>
     )
   );
-};
 
 const AddLabel = ({ currentLength, error, inputValue, maxLength }) => {
   const disabled = currentLength > maxLength || error;

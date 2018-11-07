@@ -1,0 +1,27 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src"]
+      }
+    }
+  },
+  "rules": {
+    "react/jsx-filename-extension": 0,
+    "import/no-extraneous-dependencies": [
+      error,
+      {
+        devDependencies: [
+          ".storybook/**",
+          "src/**/**/**.stories.js"
+        ]
+      }
+    ]
+  }
+}

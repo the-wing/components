@@ -53,13 +53,11 @@ const Content = styled.div`
   background-repeat: no-repeat;
 `;
 
-const Card = ({ children, secondary, scalloped }) => {
-  return (
+const Card = ({ children, secondary, scalloped }) => (
     <StyledCard secondary={secondary} scalloped={scalloped}>
       <Content scalloped={scalloped}>{children}</Content>
     </StyledCard>
   );
-};
 
 Card.propTypes = {
   children: PropTypes.node.isRequired,

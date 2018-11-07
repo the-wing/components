@@ -58,8 +58,7 @@ const PrependedValue = styled.div`
   }
 `;
 
-const Input = ({ active, error, noBorder, placeholder, prependedValue, ...inputProps }) => {
-  return (
+const Input = ({ active, error, noBorder, placeholder, prependedValue, ...inputProps }) => (
     <Container>
       {prependedValue &&
         prependedValue.length > 0 && (
@@ -70,7 +69,6 @@ const Input = ({ active, error, noBorder, placeholder, prependedValue, ...inputP
       <StyledInput error={error} placeholder={placeholder} noBorder={noBorder} {...inputProps} />
     </Container>
   );
-};
 
 Input.propTypes = {
   active: PropTypes.bool,

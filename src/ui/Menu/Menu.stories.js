@@ -1,6 +1,5 @@
 import React from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import Menu from 'ui/Menu/Menu';
 
 const options = [
@@ -28,6 +27,4 @@ const options = [
   },
 ];
 
-storiesOf('Menu', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
-  .add('default', () => <Menu options={options} />);
+storiesOf('Menu', module).add('default', () => <Menu options={options} />);

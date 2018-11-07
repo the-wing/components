@@ -51,6 +51,7 @@
     "build:clean": "rimraf dist && mkdir dist && rimraf built && mkdir built",
     "build:js": "./node_modules/.bin/webpack -p --progress --config=webpack/production.config.js --mode=production",
     "build:static": "yarn build:clean && build-storybook -c .storybook -o ./built",
+    "lint": "eslint src --format './node_modules/eslint-formatter-friendly/index.js'",
     "prepublishOnly": "yarn build:package",
     "start": "start-storybook -s ./dist -p 9001 -c .storybook"
   },
@@ -60,7 +61,8 @@
     }
   },
   "lint-staged": {
-    "*.{js,json,scss,md}": [
+    "*.{js}": [
+      "eslint --format './node_modules/eslint-formatter-friendly/index.js'",
       "prettier --write",
       "git add"
     ]
@@ -74,6 +76,7 @@
     "@storybook/addons": "^3.4.11",
     "@storybook/react": "^3.4.11",
     "babel-core": "^6.26.3",
+    "babel-eslint": "8",
     "babel-loader": "7",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -83,6 +86,13 @@
     "copy-webpack-plugin": "^4.5.3",
     "css-loader": "^1.0.0",
     "cssnano": "^4.1.4",
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-formatter-friendly": "^6.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
     "file-loader": "^2.0.0",
     "husky": "^1.1.2",
     "jest": "^23.6.0",

@@ -1,6 +1,5 @@
 import React from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 import Card from 'ui/Card/Card';
 
@@ -11,7 +10,6 @@ const Page = styled.div`
 `;
 
 storiesOf('Card', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('with content', () => <Card>A card with content.</Card>)
   .add('with scalloped edges', () => (
     <Card scalloped>

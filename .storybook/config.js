@@ -1,5 +1,6 @@
 import React from 'react';
 import { addDecorator, configure } from '@storybook/react';
+import { withConsole } from '@storybook/addon-console';
 import { ThemeProvider } from 'styled-components';
 import ReactBreakpoints from 'react-breakpoints';
 import theme from '../src/theme';
@@ -18,5 +19,7 @@ addDecorator(story => (
     <ThemeProvider theme={theme}>{story()}</ThemeProvider>
   </ReactBreakpoints>
 ));
+
+addDecorator((storyFn, context) => withConsole()(storyFn)(context));
 
 configure(loadStories, module);

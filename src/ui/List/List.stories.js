@@ -1,11 +1,9 @@
 import React from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import List from 'ui/List/List';
 import ListItem from 'ui/ListItem/ListItem';
 
 storiesOf('List', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => (
     <List>
       <ListItem>Some text</ListItem>

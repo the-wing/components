@@ -98,8 +98,7 @@ const Dot = styled.li`
   }
 `;
 
-const appendDots = dots => {
-  return (
+const appendDots = dots => (
     <DotContainer>
       <DotList>
         {dots.map(({ props }, index) => {
@@ -117,7 +116,6 @@ const appendDots = dots => {
       </DotList>
     </DotContainer>
   );
-};
 
 const NextArrow = ({ onClick }) => <StyledNextArrow onClick={onClick} />;
 

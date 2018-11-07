@@ -1,12 +1,10 @@
 import React from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import Button from 'ui/Button/Button';
 import Collapsible from 'ui/Collapsible/Collapsible';
 
 storiesOf('Collapsible', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => (
     <Collapsible
       onToggle={action('custom onToggle')}

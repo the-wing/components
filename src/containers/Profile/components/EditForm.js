@@ -9,15 +9,6 @@ import PropTypes from 'prop-types';
 import { Field, FormSpy } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { Transition } from 'react-spring';
-import {
-  isEmail,
-  isFacebookUrl,
-  isInstagramHandle,
-  isTwitterHandle,
-  isWebsite,
-  maxLength,
-  required,
-} from './validation';
 
 import {
   Addon,
@@ -38,6 +29,15 @@ import Image from 'ui/Image/Image';
 import Section from 'ui/Section/Section';
 import SocialIcon from 'ui/SocialIcon/SocialIcon';
 import Text from 'ui/Text/Text';
+import {
+  isEmail,
+  isFacebookUrl,
+  isInstagramHandle,
+  isTwitterHandle,
+  isWebsite,
+  maxLength,
+  required,
+} from './validation';
 
 import EmptyStateButton from './EmptyStateButton';
 
@@ -443,8 +443,7 @@ const EditForm = ({
         </FieldArray>
       </Box>
       <FormSpy subscription={{ values: true }}>
-        {({ values: { offers } }) => {
-          return (
+        {({ values: { offers } }) => (
             <Collapsible
               trigger={({ isOpen, toggle }) => {
                 if (isOpen) return false;
@@ -483,8 +482,7 @@ const EditForm = ({
                 );
               }}
             </Collapsible>
-          );
-        }}
+          )}
       </FormSpy>
     </Section>
 
@@ -516,8 +514,7 @@ const EditForm = ({
         </FieldArray>
       </Box>
       <FormSpy subscription={{ values: true }}>
-        {({ values: { asks } }) => {
-          return (
+        {({ values: { asks } }) => (
             <Collapsible
               trigger={({ isOpen, toggle }) => {
                 if (isOpen) return false;
@@ -556,8 +553,7 @@ const EditForm = ({
                 );
               }}
             </Collapsible>
-          );
-        }}
+          )}
       </FormSpy>
     </Section>
 
@@ -589,8 +585,7 @@ const EditForm = ({
         </FieldArray>
       </Box>
       <FormSpy subscription={{ values: true }}>
-        {({ values: { interests } }) => {
-          return (
+        {({ values: { interests } }) => (
             <Collapsible
               trigger={({ isOpen, toggle }) => {
                 if (isOpen) return false;
@@ -629,8 +624,7 @@ const EditForm = ({
                 );
               }}
             </Collapsible>
-          );
-        }}
+          )}
       </FormSpy>
     </Section>
 

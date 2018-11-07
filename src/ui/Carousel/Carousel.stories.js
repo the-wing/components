@@ -1,6 +1,5 @@
 import React from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 import { Media } from 'react-breakpoints';
 import Carousel from 'ui/Carousel/Carousel';
@@ -29,7 +28,6 @@ const Slide = styled.div`
 `;
 
 storiesOf('Carousel', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => (
     <Page>
       <Media>
