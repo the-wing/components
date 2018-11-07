@@ -1,3 +1,10 @@
+import {
+  MOBILE_BREAKPOINT,
+  TABLET_BREAKPOINT,
+  DESKTOP_BREAKPOINT,
+  DESKTOP_LARGE_BREAKPOINT,
+} from './breakpoints';
+
 const theme = {
   colors: {
     albescentWhite: { main: '#f4dcd2', contrast: '#fff' },
@@ -37,7 +44,7 @@ const theme = {
     secondary: 'Bianco Sans New',
     title: 'Bureau Grotesque',
   },
-  breakpoints: [374, 768, 992, 1200],
+  breakpoints: [MOBILE_BREAKPOINT, TABLET_BREAKPOINT, DESKTOP_BREAKPOINT, DESKTOP_LARGE_BREAKPOINT],
 };
 
 export default theme;

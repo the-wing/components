@@ -11,6 +11,7 @@ module.exports = {
   entry: {
     index: path.resolve(__dirname, '../src/index.js'),
     theme: path.resolve(__dirname, '../src/theme.js'),
+    breakpoints: path.resolve(__dirname, '../src/breakpoints.js'),
     fonts: path.resolve(__dirname, '../src/style/fonts.scss'),
     normalize: path.resolve(__dirname, '../src/style/normalize.scss'),
   },
