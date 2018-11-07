@@ -16,4 +16,7 @@ export const responsive = (cssProp, prop, transform = null) => props => {
   `;
 };
 
-export default responsive;
+export const getDaysPerMonth = month => {
+  const monthsWith30days = ['04', '06', '09', '11'];
+  return (month === '02' && 29) || (monthsWith30days.indexOf(month) > -1 && 30) || 31;
+};
