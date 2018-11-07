@@ -5,6 +5,7 @@ import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import createDecorator from 'final-form-calculate';
 import { getSign } from 'horoscope';
+import { getDaysPerMonth } from 'utils';
 import theme from 'theme';
 
 import Box from 'ui/Box/Box';
@@ -23,16 +24,35 @@ const calculator = createDecorator({
     starSign: (ignoredValue, allValues) => {
       const month = get(allValues.birthday, 'month.value', '13');
       const day = get(allValues.birthday, 'day.value', '32');
+      const daysPerMonth = getDaysPerMonth(month);
 
       const sign =
         month === '13' || day === '32'
           ? '—'
           : getSign({
               month: parseInt(month, 10),
-              day: parseInt(day, 10),
+              day: (parseInt(day, 10) > daysPerMonth && daysPerMonth) || parseInt(day, 10),
             });
 
       return { value: sign === '—' ? 1 : sign, label: sign };
+    },
+  },
+});
+
+const getValidBirthdayDays = createDecorator({
+  field: 'birthday.month',
+  updates: {
+    'birthday.day': (ignoredValue, allValues) => {
+      const month = get(allValues.birthday, 'month.value', '13');
+      const day = get(allValues.birthday, 'day.value', '32');
+      const daysPerMonth = getDaysPerMonth(month);
+
+      const fixedDay =
+        ((month === '13' || day === '32') && '—') ||
+        (parseInt(day, 10) > daysPerMonth && daysPerMonth) ||
+        day;
+
+      return { value: `${fixedDay}`, label: fixedDay !== '—' ? `${parseInt(fixedDay, 10)}` : '' };
     },
   },
 });
@@ -101,7 +121,7 @@ class Profile extends PureComponent {
         mutators={{
           ...arrayMutators,
         }}
-        decorators={[calculator]}
+        decorators={[calculator, getValidBirthdayDays]}
         onSubmit={this.onSubmit}
         initialValues={initialValues}
         subscription={{ invalid: true, pristine: true, values: true }}

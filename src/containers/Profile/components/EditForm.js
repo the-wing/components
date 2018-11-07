@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { Field, FormSpy } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { Transition } from 'react-spring';
+import { getDaysPerMonth } from 'utils';
 import {
   isEmail,
   isFacebookUrl,
@@ -55,17 +56,18 @@ const birthdayMonths = [
   }))
 );
 
-const birthdayDays = [
-  {
-    value: '32',
-    label: '-',
-  },
-].concat(
-  Array.apply(0, Array(31)).map((_, i) => ({
-    value: i + 1 < 10 ? `0${i + 1}` : `${i + 1}`,
-    label: `${i + 1}`,
-  }))
-);
+const getBirthdayDays = days =>
+  [
+    {
+      value: '32',
+      label: '-',
+    },
+  ].concat(
+    Array.apply(0, Array(days)).map((_, i) => ({
+      value: i + 1 < 10 ? `0${i + 1}` : `${i + 1}`,
+      label: `${i + 1}`,
+    }))
+  );
 
 const starSigns = [
   0,
@@ -655,34 +657,43 @@ const EditForm = ({
       )}
     />
 
-    <InputGroup>
-      <Field
-        name="birthday.month"
-        render={({ input, meta }) => (
-          <FormField fullWidth>
-            <Label
-              htmlFor={input.name}
-              text="Birthday (month)"
-              error={meta.touched && get(meta, 'error.length', 0) > 0}
+    <FormSpy subscription={{ values: true }}>
+      {({ values: { birthday } }) => {
+        const month = get(birthday, 'month.value');
+        const daysPerMonth = getDaysPerMonth(month);
+        const birthdayDays = getBirthdayDays(daysPerMonth);
+        return (
+          <InputGroup>
+            <Field
+              name="birthday.month"
+              render={({ input, meta }) => (
+                <FormField fullWidth>
+                  <Label
+                    htmlFor={input.name}
+                    text="Birthday (month)"
+                    error={meta.touched && get(meta, 'error.length', 0) > 0}
+                  />
+                  <Select id={input.name} options={birthdayMonths} {...input} />
+                </FormField>
+              )}
             />
-            <Select id={input.name} options={birthdayMonths} {...input} />
-          </FormField>
-        )}
-      />
-      <Field
-        name="birthday.day"
-        render={({ input, meta }) => (
-          <FormField fullWidth>
-            <Label
-              htmlFor={input.name}
-              text="Birthday (day)"
-              error={meta.touched && get(meta, 'error.length', 0) > 0}
+            <Field
+              name="birthday.day"
+              render={({ input, meta }) => (
+                <FormField fullWidth>
+                  <Label
+                    htmlFor={input.name}
+                    text="Birthday (day)"
+                    error={meta.touched && get(meta, 'error.length', 0) > 0}
+                  />
+                  <Select id={input.name} options={birthdayDays} {...input} />
+                </FormField>
+              )}
             />
-            <Select id={input.name} options={birthdayDays} {...input} />
-          </FormField>
-        )}
-      />
-    </InputGroup>
+          </InputGroup>
+        );
+      }}
+    </FormSpy>
 
     <Field
       name="starSign"
