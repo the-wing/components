@@ -4,6 +4,7 @@ import { withConsole } from '@storybook/addon-console';
 import styled from 'styled-components';
 import { Media } from 'react-breakpoints';
 import Carousel from 'ui/Carousel/Carousel';
+import Card from 'ui/Card/Card';
 
 const Page = styled.div`
   background: ${props => props.theme.colors.linen.main};
@@ -54,6 +55,23 @@ storiesOf('Carousel', module)
             <Carousel>
               <Slide>Slide 1 </Slide>
             </Carousel>
+          </Container>
+        )}
+      </Media>
+    </Page>
+  ))
+  .add('with cards', () => (
+    <Page>
+      <Media>
+        {({ currentBreakpoint }) => (
+          <Container currentBreakpoint={currentBreakpoint}>
+            <Carousel>
+              <Card scalloped>Card 1</Card>
+              <Card scalloped>Card 2</Card>
+              <Card scalloped>Card 3</Card>
+              <Card scalloped>Card 4</Card>
+            </Carousel>
+            <div>Some other thing</div>
           </Container>
         )}
       </Media>

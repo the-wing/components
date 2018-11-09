@@ -11,6 +11,7 @@ import 'slick-carousel/slick/slick-theme.css';
 const SlickOverrides = createGlobalStyle`
   .slick-slider {
     background: ${props => props.theme.colors.linen.main};
+    margin-bottom: ${rem('60px')};
 
     &::after {
       content: '';
@@ -49,7 +50,7 @@ const StyledPrevArrow = styled.div`
   left: 0;
   margin-left: ${rem('30px')};
   pointer-events: all;
-  z-index: 0;
+  z-index: 1;
 
   &:hover {
     cursor: pointer;
