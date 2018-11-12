@@ -161,6 +161,18 @@ const Carousel = ({
             {...settings}
             responsive={[
               {
+                breakpoint: breakpoints.desktopLarge + 1,
+                settings: {
+                  ...responsiveSettings.desktopLarge,
+                },
+              },
+              {
+                breakpoint: breakpoints.desktop + 1,
+                settings: {
+                  ...responsiveSettings.desktop,
+                },
+              },
+              {
                 breakpoint: breakpoints.tablet + 1,
                 settings: {
                   arrows: false,
@@ -194,6 +206,8 @@ Carousel.propTypes = {
   dots: PropTypes.bool,
   infinite: PropTypes.bool,
   responsiveSettings: PropTypes.shape({
+    desktopLarge: PropTypes.shape({}),
+    desktop: PropTypes.shape({}),
     mobile: PropTypes.shape({}),
     tablet: PropTypes.shape({}),
   }),
@@ -208,6 +222,8 @@ Carousel.defaultProps = {
   dots: true,
   infinite: true,
   responsiveSettings: {
+    desktopLarge: {},
+    desktop: {},
     mobile: {},
     tablet: {},
   },

@@ -70,6 +70,8 @@ storiesOf('Carousel', module)
           <Container currentBreakpoint={currentBreakpoint}>
             <Carousel
               responsiveSettings={{
+                desktopLarge: { centerPadding: '20px' },
+                desktop: { centerPadding: '25px' },
                 tablet: { centerPadding: '200px' },
                 mobile: { centerPadding: '20px' },
               }}
