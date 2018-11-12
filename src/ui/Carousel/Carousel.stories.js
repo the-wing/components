@@ -47,6 +47,43 @@ storiesOf('Carousel', module)
       </Media>
     </Page>
   ))
+  .add('with centerPadding', () => (
+    <Page>
+      <Media>
+        {({ currentBreakpoint }) => (
+          <Container currentBreakpoint={currentBreakpoint}>
+            <Carousel centerPadding="100px">
+              <Slide>Slide 1 </Slide>
+              <Slide>Slide 2 </Slide>
+              <Slide>Slide 3</Slide>
+              <Slide>Slide 4</Slide>
+            </Carousel>
+          </Container>
+        )}
+      </Media>
+    </Page>
+  ))
+  .add('with responsiveSettings', () => (
+    <Page>
+      <Media>
+        {({ currentBreakpoint }) => (
+          <Container currentBreakpoint={currentBreakpoint}>
+            <Carousel
+              responsiveSettings={{
+                tablet: { centerPadding: '200px' },
+                mobile: { centerPadding: '20px' },
+              }}
+            >
+              <Slide>Slide 1 </Slide>
+              <Slide>Slide 2 </Slide>
+              <Slide>Slide 3</Slide>
+              <Slide>Slide 4</Slide>
+            </Carousel>
+          </Container>
+        )}
+      </Media>
+    </Page>
+  ))
   .add('one slide', () => (
     <Page>
       <Media>

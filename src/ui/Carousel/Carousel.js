@@ -124,12 +124,22 @@ const NextArrow = ({ onClick }) => <StyledNextArrow onClick={onClick} />;
 
 const PrevArrow = ({ onClick }) => <StyledPrevArrow onClick={onClick} />;
 
-const Carousel = ({ arrows, children, dots, infinite, speed, slidesToShow, slidesToScroll }) => {
+const Carousel = ({
+  arrows,
+  centerPadding,
+  children,
+  dots,
+  infinite,
+  responsiveSettings,
+  speed,
+  slidesToShow,
+  slidesToScroll,
+}) => {
   const settings = {
     appendDots,
     arrows,
     centerMode: true,
-    centerPadding: '20px',
+    centerPadding,
     className: 'center',
     dots,
     dotsClass: '',
@@ -154,6 +164,7 @@ const Carousel = ({ arrows, children, dots, infinite, speed, slidesToShow, slide
                 breakpoint: breakpoints.tablet + 1,
                 settings: {
                   arrows: false,
+                  ...responsiveSettings.tablet,
                 },
               },
               {
@@ -161,6 +172,7 @@ const Carousel = ({ arrows, children, dots, infinite, speed, slidesToShow, slide
                 settings: {
                   arrows: false,
                   slidesToShow: 1,
+                  ...responsiveSettings.mobile,
                 },
               },
             ]}
@@ -177,9 +189,14 @@ const Carousel = ({ arrows, children, dots, infinite, speed, slidesToShow, slide
 
 Carousel.propTypes = {
   arrows: PropTypes.bool,
+  centerPadding: PropTypes.string,
   children: PropTypes.node.isRequired,
   dots: PropTypes.bool,
   infinite: PropTypes.bool,
+  responsiveSettings: PropTypes.shape({
+    mobile: PropTypes.shape({}),
+    tablet: PropTypes.shape({}),
+  }),
   speed: PropTypes.number,
   slidesToShow: PropTypes.number,
   slidesToScroll: PropTypes.number,
@@ -187,8 +204,13 @@ Carousel.propTypes = {
 
 Carousel.defaultProps = {
   arrows: true,
+  centerPadding: '20px',
   dots: true,
   infinite: true,
+  responsiveSettings: {
+    mobile: {},
+    tablet: {},
+  },
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
