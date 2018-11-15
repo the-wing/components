@@ -5,10 +5,12 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { rem, rgba } from 'polished';
 import { Media } from 'react-breakpoints';
 import arrow from 'assets/img/arrow.svg';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import slick from 'slick-carousel/slick/slick.css';
+import slickTheme from 'slick-carousel/slick/slick-theme.css';
 
 const SlickOverrides = createGlobalStyle`
+  ${slick}
+  ${slickTheme}
   .slick-slider {
     background: ${props => props.theme.colors.linen.main};
     margin-bottom: ${rem('60px')};
