@@ -12,23 +12,31 @@ const Page = styled.div`
 
 storiesOf('Card', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
-  .add('with content', () => <Card>A card with content.</Card>)
-  .add('with scalloped edges', () => (
-    <Card scalloped>
-      A card with scalloped edges. And it has a lot of text. There is more text. Here is more. Lots
-      of text.
-    </Card>
+  .add('with content', () => (
+    <Page>
+      <Card>A card with content.</Card>
+    </Page>
+  ))
+  .add('with corners', () => (
+    <Page>
+      <Card corners>
+        A card with corners. And it has a lot of text. There is more text. Here is more. Lots of
+        text.
+      </Card>
+    </Page>
   ))
   .add('secondary', () => (
-    <Card scalloped secondary>
-      A secondary card with scalloped edges. And it has a lot of text. There is more text. Here is
-      more. Lots of text.
-    </Card>
-  ))
-  .add('with scalloped edges on top of background color', () => (
     <Page>
-      <Card scalloped>
-        A card with scalloped edges. And it has a lot of text. There is more text. Here is more.
+      <Card corners secondary>
+        A secondary card with corners. And it has a lot of text. There is more text. Here is more.
+        Lots of text.
+      </Card>
+    </Page>
+  ))
+  .add('with shadow', () => (
+    <Page>
+      <Card corners shadow>
+        A card with corners and shadow. And it has a lot of text. There is more text. Here is more.
         Lots of text.
       </Card>
     </Page>
