@@ -105,10 +105,18 @@ storiesOf('Carousel', module)
         {({ currentBreakpoint }) => (
           <Container currentBreakpoint={currentBreakpoint}>
             <Carousel>
-              <Card scalloped>Card 1</Card>
-              <Card scalloped>Card 2</Card>
-              <Card scalloped>Card 3</Card>
-              <Card scalloped>Card 4</Card>
+              <Card corners shadow>
+                Card 1
+              </Card>
+              <Card corners shadow>
+                Card 2
+              </Card>
+              <Card corners shadow>
+                Card 3
+              </Card>
+              <Card corners shadow>
+                Card 4
+              </Card>
             </Carousel>
             <div>Some other thing</div>
           </Container>
