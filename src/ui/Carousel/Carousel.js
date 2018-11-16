@@ -47,32 +47,46 @@ const StyledReactSlick = styled(ReactSlick)`
 `;
 
 const StyledPrevArrow = styled.div`
-  height: ${rem('21px')};
-  width: ${rem('11px')};
-  background: url(${arrow}) no-repeat;
   position: absolute;
-  bottom: -${rem('44px')};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: ${rem('44px')};
+  height: ${rem('44px')};
+  bottom: -${rem('46px')};
   left: 0;
   margin-left: ${rem('30px')};
   pointer-events: all;
   z-index: 1;
 
+  &::after {
+    content: '';
+    display: block;
+    height: ${rem('21px')};
+    width: ${rem('11px')};
+    background: url(${arrow}) no-repeat;
+  }
+
   &:hover {
     cursor: pointer;
+    opacity: 0.5;
   }
 `;
 
 const StyledNextArrow = styled(StyledPrevArrow)`
-  transform: rotate(180deg);
   left: auto;
   right: 0;
   margin-left: 0;
   margin-right: ${rem('30px')};
+
+  &::after {
+    transform: scaleX(-1);
+  }
 `;
 
 const DotContainer = styled.div`
   position: absolute;
-  bottom: -${rem('36px')};
+  bottom: -${rem('29px')};
   width: 100%;
   margin: 0 auto;
   z-index: 0;
@@ -97,6 +111,7 @@ const Dot = styled.li`
 
   &:hover {
     cursor: pointer;
+    opacity: 0.5;
   }
 
   &:not(:last-of-type) {
