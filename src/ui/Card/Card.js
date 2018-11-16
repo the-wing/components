@@ -16,9 +16,8 @@ const TriangleContainer = styled.div`
 
 const RightTriangleContainer = styled(TriangleContainer)`
   left: auto;
-  top: ${rem('-6px')};
-  right: 0;
-  transform: rotate(90deg);
+  right: ${rem('-3px')};
+  transform: scaleX(-1);
 `;
 
 const Triangle = () => (
