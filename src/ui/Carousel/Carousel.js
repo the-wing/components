@@ -8,26 +8,28 @@ import arrow from 'assets/img/arrow.svg';
 import slick from 'slick-carousel/slick/slick.css';
 import slickTheme from 'slick-carousel/slick/slick-theme.css';
 
-const SlickOverrides = createGlobalStyle`
-  ${slick}
-  ${slickTheme}
-  .slick-slider {
-    background: ${props => props.theme.colors.linen.main};
-    margin-bottom: ${rem('60px')};
+const Container = styled.div`
+  position: relative;
+  margin-bottom: ${rem('60px')};
+`;
 
-    &::after {
-      content: '';
-      position: absolute;
-      left: 0; right: 0;
-      top: 0; bottom: 0;
-      box-shadow: ${props =>
-        `inset 40px 0px 60px -30px ${props.theme.colors.linen.main}, inset -40px 0px 60px -30px ${
-          props.theme.colors.linen.main
-        }`};
-      pointer-events: none
-      z-index: 2;
-    }
-  }
+const Overlay = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 0 2em;
+  box-shadow: ${props =>
+    `inset 40px 0px 60px -30px ${props.theme.colors.linen.main}, inset -40px 0px 60px -30px ${
+      props.theme.colors.linen.main
+    }`};
+  pointer-events: none;
+  z-index: 2;
+`;
+
+const StyledReactSlick = styled(ReactSlick)`
+  ${slick} ${slickTheme}
 
   .slick-slide.slick-center > div {
     margin: 0 ${rem('12px')};
@@ -155,11 +157,12 @@ const Carousel = ({
   };
 
   return (
-    <Fragment>
-      <SlickOverrides numberOfSlides={children && children.length} />
+    <Container>
+      <Overlay />
+      {/* <SlickOverrides numberOfSlides={children && children.length} /> */}
       <Media>
         {({ breakpoints }) => (
-          <ReactSlick
+          <StyledReactSlick
             {...settings}
             responsive={[
               {
@@ -194,10 +197,10 @@ const Carousel = ({
             {Children.map(children, child => (
               <div>{child}</div>
             ))}
-          </ReactSlick>
+          </StyledReactSlick>
         )}
       </Media>
-    </Fragment>
+    </Container>
   );
 };
 
