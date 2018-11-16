@@ -21,7 +21,6 @@ const Overlay = styled.div`
   right: 0;
   top: 0;
   bottom: 0;
-  margin: 0 2em;
   box-shadow: ${props =>
     `inset 40px 0px 60px -30px ${props.theme.colors.linen.main}, inset -40px 0px 60px -30px ${
       props.theme.colors.linen.main
@@ -38,7 +37,7 @@ const StyledReactSlick = styled(ReactSlick)`
   }
 
   .slick-list {
-    margin: 0 2em;
+    margin: 0;
     z-index: 1;
 
     &:hover {

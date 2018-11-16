@@ -103,7 +103,15 @@ storiesOf('Carousel', module)
     <Page>
       <Media>
         {({ currentBreakpoint }) => (
-          <Container currentBreakpoint={currentBreakpoint}>
+          <Container
+            currentBreakpoint={currentBreakpoint}
+            responsiveSettings={{
+              desktopLarge: { centerPadding: '20px' },
+              desktop: { centerPadding: '25px' },
+              tablet: { centerPadding: '200px' },
+              mobile: { centerPadding: '20px' },
+            }}
+          >
             <Carousel>
               <Card corners shadow>
                 Card 1
