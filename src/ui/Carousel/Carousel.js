@@ -11,6 +11,8 @@ import slickTheme from 'slick-carousel/slick/slick-theme.css';
 const Container = styled.div`
   position: relative;
   margin-bottom: ${rem('60px')};
+  width: 100%;
+  flex: 1;
 `;
 
 const Overlay = styled.div`
@@ -159,7 +161,6 @@ const Carousel = ({
   return (
     <Container>
       <Overlay />
-      {/* <SlickOverrides numberOfSlides={children && children.length} /> */}
       <Media>
         {({ breakpoints }) => (
           <StyledReactSlick
