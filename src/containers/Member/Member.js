@@ -8,7 +8,6 @@ import { queries } from 'breakpoints';
 import Icon from 'ui/Icon/Icon';
 import Image from 'ui/Image/Image';
 import Message from 'ui/Message/Message';
-import Text from 'ui/Text/Text';
 import match from 'assets/img/match.svg';
 
 const Container = styled.div`
