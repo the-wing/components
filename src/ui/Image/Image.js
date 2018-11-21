@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { responsive } from 'utils';
+import { rem } from 'polished';
 
 import Box from 'ui/Box/Box';
 
@@ -30,14 +31,13 @@ const HoverText = styled.div`
 
 const Container = styled(({ circle, ...props }) => <Box {...props} />)`
   position: relative;
-  height: ${props => props.height}px;
   padding: 0;
   position: relative;
   border-radius: ${props => (props.circle ? '50%' : '0')};
   box-sizing: border-box;
   overflow: hidden;
-  ${responsive('height', 'height', value => `${value}px`)};
-  ${responsive('width', 'width', value => `${value}px`)};
+  height: ${props => (props.height ? rem(props.height) : '100%')};
+  width: ${props => (props.width ? rem(props.width) : '100%')};
 
   &:hover {
     cursor: ${props => (props.hoverText ? 'pointer' : 'inherit')};
@@ -81,10 +81,10 @@ Image.propTypes = {
 
 Image.defaultProps = {
   circle: false,
-  height: 32,
+  height: null,
   title: '',
   url: '',
-  width: 32,
+  width: null,
 };
 
 export default Image;

@@ -104,6 +104,7 @@ module.exports = {
     modules: ['node_modules'],
     alias: {
       assets: path.resolve(__dirname, '../src/assets'),
+      breakpoints: path.resolve(__dirname, '../src/breakpoints'),
       containers: path.resolve(__dirname, '../src/containers'),
       theme: path.resolve(__dirname, '../src/theme.js'),
       ui: path.resolve(__dirname, '../src/ui'),
