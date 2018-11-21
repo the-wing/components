@@ -13,80 +13,159 @@ import match from 'assets/img/match.svg';
 
 const Container = styled.div`
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
 `;
 
-const Content = styled.div`
+const User = styled.div`
   display: flex;
-  flex-direction: column;
+  flex: 0 1 auto;
+  padding: 0 ${rem('15px')};
 
   @media ${queries.tablet} {
-    flex: 1;
-  }
-`;
-
-const Top = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: ${rem('10px')};
-
-  @media ${queries.tablet} {
-    flex-direction: row;
+    flex: 2 0 auto;
+    max-width: ${rem('485px')};
+    padding: 0;
   }
 `;
 
 const Info = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: ${rem('332px')};
+
+  @media ${queries.tablet} {
+    max-width: ${rem('332px')};
+  }
 `;
 
 const ImageContainer = styled.div`
+  display: flex;
+  flex: 1 0 auto;
   align-self: flex-start;
   width: ${rem('52px')};
   height: ${rem('52px')};
   margin-right: ${rem('18px')};
 
   @media ${queries.tablet} {
+    flex: none;
     width: ${rem('102px')};
     height: ${rem('102px')};
     margin-right: ${rem('22px')};
   }
 `;
 
-const IndustryText = styled(Text)`
-  margin-top: ${rem('13px')};
+const Name = styled.span`
+  color: ${props => props.theme.colors.black.main};
+  font-weight: 600;
+
+  @media ${queries.tablet} {
+    font-size: ${rem('22px')};
+    line-height: ${rem('28px')};
+  }
+`;
+
+const Position = styled.span`
+  color: ${props => props.theme.colors.solitude.main};
+  font-size: ${rem('13px')};
+  line-height: ${rem('18px')};
+
+  @media ${queries.tablet} {
+    font-size: ${rem('18px')};
+    line-height: ${rem('23px')};
+  }
+`;
+
+const Industry = styled.span`
+  font-family: ${props => props.theme.text.secondary};
+  font-weight: 600;
+  font-size: ${rem('11px')};
+  color: ${props => props.theme.colors.brandyPunch.main};
+  text-transform: uppercase;
+  letter-spacing: ${rem('0.3px')};
+
+  @media ${queries.tablet} {
+    font-size: ${rem('14px')};
+    letter-spacing: ${rem('0.19px')};
+    line-height: ${rem('18px')};
+    margin-top: ${rem('13px')};
+  }
 `;
 
 const Location = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  margin-top: ${rem('15px')};
+  margin-top: ${rem('7px')};
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: ${rem('-15px')};
+    width: ${rem('93px')};
+    height: ${rem('1px')};
+    background: ${props => props.theme.colors.brandyPunch.main};
+  }
+
+  @media ${queries.tablet} {
+    margin-top: ${rem('15px')};
+
+    &::after {
+      display: none;
+    }
+  }
 `;
 
-const LocationText = styled(Text)`
+const LocationText = styled.span`
+  color: ${props => props.theme.colors.solitude.main};
   padding-left: ${rem('8px')};
+  font-size: ${rem('13px')};
+  line-height: ${rem('18px')};
+
+  @media ${queries.tablet} {
+    font-size: ${rem('15px')};
+    line-height: ${rem('21px')};
+    letter-spacing: ${rem('0.2px')};
+  }
 `;
 
-const List = styled.ul`
+const AsksAndOfferings = styled.ul`
   display: flex;
+  flex: 1 0 auto;
   flex-direction: column;
   margin: 0;
   list-style-type: none;
-  border-left: 1px solid ${props => props.theme.colors.brandyPunch.main};
-  padding-top: ${rem('5px')};
-  padding-bottom: ${rem('5px')};
-  padding-left: ${rem('23px')};
-  margin-left: ${rem('23px')};
+  margin-top: ${rem('30px')};
+  padding: 0 ${rem('15px')};
 
-  > li:not(:last-of-type) {
-    padding-bottom: ${rem('26px')};
+  @media ${queries.tablet} {
+    flex: 1 0 0;
+    border-left: 1px solid ${props => props.theme.colors.brandyPunch.main};
+    padding-top: ${rem('5px')};
+    padding-bottom: ${rem('5px')};
+    padding-left: ${rem('23px')};
+    padding-right: 0;
+    margin-top: 0;
+  }
+`;
+
+const ListItem = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: ${rem('13px')};
+  line-height: ${rem('21px')};
+
+  @media ${queries.tablet} {
+    display: inline-block;
+    font-size: ${rem('16px')};
+    line-height: ${rem('19px')};
+
+    &:not(:last-of-type) {
+      padding-bottom: ${rem('26px')};
+    }
   }
 `;
 
@@ -96,13 +175,35 @@ const AskAndOfferingsTitle = styled.span`
   color: ${props => rgba(props.theme.colors.black.main, 0.3)};
   font-size: ${rem('11px')};
   font-weight: 600;
-  letter-spacing: 0.8px;
+  letter-spacing: ${rem('0.8px')};
   line-height: ${rem('13px')};
   text-transform: uppercase;
+  width: ${rem('61px')};
+  text-align: right;
+  padding-right: ${rem('18px')};
+
+  @media ${queries.tablet} {
+    width: auto;
+    text-align: left;
+    padding-right: 0;
+  }
 `;
 
-const MoreText = styled(Text)`
+const ListValues = styled.span`
+  color: ${props => props.theme.colors.solitude.main};
+`;
+
+const More = styled.span`
+  color: ${props => props.theme.colors.terracota.main};
   padding-left: ${rem('5px')};
+`;
+
+const StyledMessage = styled(Message)`
+  margin-top: ${rem('10px')};
+
+  @media ${queries.tablet} {
+    margin-left: ${rem('124px')};
+  }
 `;
 
 const MessageContent = styled.div`
@@ -113,98 +214,80 @@ const MessageContent = styled.div`
 
 const MatchIcon = styled.div`
   display: block;
-  height: ${rem('14px')};
-  width: ${rem('19px')};
+  height: ${rem('10px')};
+  width: ${rem('13px')};
   background: url(${match}) no-repeat;
   background-size: cover;
+
+  @media ${queries.tablet} {
+    height: ${rem('14px')};
+    width: ${rem('19px')};
+  }
 `;
 
-const MessageText = styled(Text)`
+const MessageText = styled.span`
+  color: ${props => props.theme.colors.blueDark.main}
+  font-size: ${rem('12px')};
+  line-height: ${rem('17px')};
   flex: 1;
   margin-left: ${rem('14px')};
+
+  @media ${queries.tablet} {
+    font-size: ${rem('16px')};
+    letter-spacing: ${rem('-0.39px')};
+    line-height: ${rem('19px')};
+  }
 `;
 
 const Member = ({ asksAndOfferings, imageUrl, industry, location, message, name, position }) => (
   <Container>
-    <ImageContainer>
-      <Image title={name} url={imageUrl} circle />
-    </ImageContainer>
-    <Content>
-      <Top>
-        <Info>
-          {name && (
-            <Text size={22 / 16} lineHeight="28" weight={600}>
-              {name}
-            </Text>
-          )}
-          {position && (
-            <Text color="solitude" size={18 / 16} lineHeight="23">
-              {position}
-            </Text>
-          )}
-          {industry && (
-            <IndustryText
-              color="brandyPunch"
-              size={14 / 16}
-              letterSpacing={0.19}
-              lineHeight="18"
-              variant="secondary"
-              weight={600}
-              uppercase
-            >
-              {industry}
-            </IndustryText>
-          )}
-          {location && (
-            <Location>
-              <Icon name="homebase" size={16} color="grayChateau" />
-              <LocationText color="solitude" size={15 / 16} letterSpacing={0.2}>
-                {location}
-              </LocationText>
-            </Location>
-          )}
-        </Info>
-
-        {asksAndOfferings.length > 0 && (
-          <List>
-            {asksAndOfferings.map(item => {
-              if (!item.values || item.values.length < 1) {
-                return null;
-              }
-
-              // ie) list = [['Yoga', 'Yoga classes', 'Yoga retreats'], ['Yoga teaching']]
-              const list = chunk(item.values, 3);
-              const listValuesToDisplay = list[0];
-
-              return (
-                <li>
-                  {item.title && <AskAndOfferingsTitle>{item.title}:</AskAndOfferingsTitle>}
-                  <Text color="solitude" lineHeight="19">
-                    {listValuesToDisplay.join(', ')}
-                  </Text>
-                  {list.length > 1 &&
-                    list[1].length > 0 && (
-                      <MoreText color="terracota" lineHeight="19">
-                        +{list[1].length} More
-                      </MoreText>
-                    )}
-                </li>
-              );
-            })}
-          </List>
+    <User>
+      <ImageContainer>
+        <Image title={name} url={imageUrl} circle />
+      </ImageContainer>
+      <Info>
+        {name && <Name>{name}</Name>}
+        {position && <Position>{position}</Position>}
+        {industry && <Industry>{industry}</Industry>}
+        {location && (
+          <Location>
+            <Icon name="homebase" size={16} color="grayChateau" />
+            <LocationText>{location}</LocationText>
+          </Location>
         )}
-      </Top>
-      {message && (
-        <Message>
-          <MessageContent>
-            <MatchIcon />
-            <MessageText color="blueDark" letterSpacing={-0.39} lineHeight="19">
-              {message}
-            </MessageText>
-          </MessageContent>
-        </Message>
-      )}
-    </Content>
+      </Info>
+    </User>
+    {asksAndOfferings.length > 0 && (
+      <AsksAndOfferings>
+        {asksAndOfferings.map(item => {
+          if (!item.values || item.values.length < 1) {
+            return null;
+          }
+
+          // ie) list = [['Yoga', 'Yoga classes', 'Yoga retreats'], ['Yoga teaching']]
+          const list = chunk(item.values, 3);
+          const listValuesToDisplay = list[0];
+
+          return (
+            <ListItem>
+              {item.title && <AskAndOfferingsTitle>{item.title}:</AskAndOfferingsTitle>}
+              <span>
+                <ListValues>{listValuesToDisplay.join(', ')}</ListValues>
+                {list.length > 1 && list[1].length > 0 && <More>+{list[1].length} More</More>}
+              </span>
+            </ListItem>
+          );
+        })}
+      </AsksAndOfferings>
+    )}
+    {message && (
+      <StyledMessage>
+        <MessageContent>
+          <MatchIcon />
+          <MessageText>{message}</MessageText>
+        </MessageContent>
+      </StyledMessage>
+    )}
   </Container>
 );
 
