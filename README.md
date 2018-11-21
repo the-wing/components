@@ -58,7 +58,26 @@ import '@thewing/components/dist/css/normalize.css';
 
 ### Breakpoints
 
-We use [React Breakpoints](https://github.com/ehellman/react-breakpoints) to conditionally render components at different breakpoints. It is required to wrap your application with a `ReactBreakpoints` component like so:
+**Important**: We always design _mobile first_. In the following styled component, we style anything that is smaller than desktop with a red border. We then use the desktop media query to override these mobile and tablet styles.
+
+For _styling within this library_ based on device size, you can do the following:
+
+```
+import styled from 'styled-components';
+import { queries } from 'breakpoints';
+
+const StyledDiv = styled.div`
+  border: 1px solid red;
+
+  @media ${queries.desktop} {
+    border: none;
+  }
+`;
+```
+
+**ALSO IMPORTANT** Please refrain from using the `responsive` util going forward. That util is legacy and will be phased out in time.
+
+For _showing/hiding different components in a component's layout_, we use [React Breakpoints](https://github.com/ehellman/react-breakpoints) to conditionally render components at different breakpoints. It is required to wrap your application with a `ReactBreakpoints` component like so:
 
 ```
 import ReactBreakpoints from 'react-breakpoints';
@@ -75,11 +94,13 @@ When creating components, we do _not_ use the HoC `withBreakpoints`, but rather 
 import { Media } from 'react-breakpoints';
 
 const Navigation = () => (
-  {({ breakpoints, currentBreakpoint }) => (
-    <NavBar
-      isMobile={breakpoints[currentBreakpoint] < breakpoints.desktop}
-    />
-  )}
+  {({ breakpoints, currentBreakpoint }) => {
+    if (breakpoints[currentBreakpoint] < breakpoints.desktop) {
+      return (<MobileNavIcon />);
+    }
+
+    return (<NavBar/>);
+  }}
 );
 
 export default Navigation;
