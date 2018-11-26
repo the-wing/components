@@ -11,8 +11,9 @@ export { default as Drawer } from './ui/Drawer/Drawer';
 // export { ErrorMessage, FormField, Input, InputGroup, Label, Select, TextArea } from './ui/Forms';
 // export { default as Icon } from './ui/Icon/Icon';
 export { default as Image } from './ui/Image/Image';
-// export { default as List } from './ui/List/List';
-// export { default as ListItem } from './ui/ListItem/ListItem';
+export { default as List } from './ui/List/List';
+export { default as ListItem, StyledContent } from './ui/ListItem/ListItem';
+export { default as Message } from './ui/Message/Message';
 // export { Circle, TextRow } from './ui/Loading';
 // export { default as Menu } from './ui/Menu/Menu';
 // export { default as Section } from './ui/Section/Section';
@@ -20,4 +21,5 @@ export { default as Image } from './ui/Image/Image';
 export { default as Text } from './ui/Text/Text';
 
 // Containers
+export { default as Member } from './containers/Member/Member';
 export { default as Profile } from './containers/Profile/Profile';

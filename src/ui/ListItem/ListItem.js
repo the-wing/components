@@ -6,7 +6,7 @@ import Box from 'ui/Box/Box';
 import Icon from 'ui/Icon/Icon';
 import Text from 'ui/Text/Text';
 
-const Content = styled(({ underline, ...rest }) => <Box {...rest} />)`
+export const StyledContent = styled(({ underline, ...rest }) => <Box {...rest} />)`
   border-bottom: ${props => (props.underline ? '1px solid rgba(164, 166, 168, 0.3)' : '')};
 
   > a,
@@ -16,30 +16,32 @@ const Content = styled(({ underline, ...rest }) => <Box {...rest} />)`
   }
 `;
 
-const ListItem = ({ children, icon, underline }) => (
-  <Box as="li">
-    <Box vAlignContent="center">
+const ListItem = ({ className, children, icon, underline }) => (
+  <Box as="li" className={className}>
+    <Box as="span" vAlignContent="center">
       {icon && (
         <Box width={40}>
           <Icon style={{ lineHeight: '30px' }} name={icon} size={15} color="grayChateau" />
         </Box>
       )}
-      <Content grow padding={{ vertical: 14 / 16 }} underline={underline}>
+      <StyledContent grow padding={{ vertical: 14 / 16 }} underline={underline}>
         <Text color="solitude" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
           {children}
         </Text>
-      </Content>
+      </StyledContent>
     </Box>
   </Box>
 );
 
 ListItem.propTypes = {
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
   icon: PropTypes.string,
   underline: PropTypes.bool,
 };
 
 ListItem.defaultProps = {
+  className: null,
   icon: null,
   underline: false,
 };
