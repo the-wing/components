@@ -13,7 +13,7 @@ import match from 'assets/img/match.svg';
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
 `;
 
