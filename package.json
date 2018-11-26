@@ -48,7 +48,7 @@
     "build:package": "yarn build:clean && yarn build:js",
     "build:clean": "rimraf dist && mkdir dist && rimraf built && mkdir built",
     "build:js": "./node_modules/.bin/webpack -p --progress --config=webpack/production.config.js --mode=production",
-    "build:static": "yarn build:clean && build-storybook -c .storybook -o ./built",
+    "build:static": "yarn build:clean && build-storybook -c .storybook -s ./src -o ./built",
     "prepublishOnly": "yarn build:package",
     "start": "start-storybook -s ./dist -p 9001 -c .storybook"
   },
