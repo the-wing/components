@@ -45,8 +45,8 @@ const Main = ({
     }
   >
     <Transition native from={{ opacity: 0 }} enter={{ opacity: 1 }} leave={{ opacity: 0 }}>
-      {style => (
-        <Container style={style}>
+      {() => props => (
+        <Container style={props}>
           <Bio firstName={firstName} onEdit={onEdit} readonly={readonly} text={bio} />
           <Occupations
             firstName={firstName}
