@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { rem } from 'polished';
 
 import { responsive } from 'utils';
 
@@ -18,13 +19,14 @@ const Button = styled.button`
       ? props.theme.colors[props.color][props.outlined || props.transparent ? 'main' : 'contrast']
       : 'inherit'};
   cursor: pointer;
-  font-family: ${props => props.theme.text.secondary};
+  font-family: ${props =>
+    props.variant ? props.theme.text[props.variant] : props.theme.text.secondary};
   ${props =>
     props.size
       ? responsive('font-size', 'size', value => `${value}px`)
       : 'font-size: calc(13 / 16 * 1rem)'};
-  font-weight: 800;
-  letter-spacing: 2px;
+  font-weight: ${props => (props.weight ? props.weight : 800)};
+  letter-spacing: ${props => `${props.spacing ? rem(`${props.spacing}px`) : rem('2px')}`};
   line-height: ${props => (props.lineHeight ? props.lineHeight : 'calc(17 / 16 * 1rem)')};
   outline: none;
   padding: 0;
