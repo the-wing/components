@@ -51,16 +51,15 @@ const ChipList = ({
         list.length > 0 && (
           <Box wrap>
             <Transition
+              items={list}
               keys={list.map(item => item.value)}
               from={{ opacity: 0, transform: 'scale(0)' }}
               enter={{ opacity: 1, transform: 'scale(1)' }}
               leave={{ opacity: 0, transform: 'scale(0)' }}
             >
-              {styles => {
-                return list.map(item => (
-                  <Chip key={item.value} text={item.label} color={color} styles={styles} readonly />
-                ));
-              }}
+              {item => props => (
+                <Chip key={item.value} text={item.label} color={color} style={props} readonly />
+              )}
             </Transition>
           </Box>
         )}

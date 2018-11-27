@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { animated, Transition } from 'react-spring';
-import { Easing } from 'react-spring/dist/addons';
 
 import { responsive } from 'utils';
 
@@ -61,33 +60,36 @@ const StyledDrawer = styled(({ isOpen, left, width, ...rest }) => <animated.div 
   }
 `;
 
-const Drawer = ({ backdropBgColor, children, isOpen, left, width }) => (
+const Drawer = ({ backdropBgColor, children, isOpen, left, onClickBackdrop, width }) => (
   <Fragment>
-    {isOpen && <Backdrop backdropBgColor={backdropBgColor} />}
-    {isOpen && (
-      <Transition
-        native
-        config={{
-          ...{ tension: 280, friction: 60 },
-          duration: 300,
-          easing: Easing.inOut,
-        }}
-        from={{ transform: left ? 'translateX(-100%)' : 'translateX(100%)' }}
-        enter={{ transform: 'translateX(0)' }}
-        leave={{ transform: left ? 'translateX(-100%)' : 'translateX(100%)' }}
-      >
-        {style => (
-          <StyledDrawer left={left} width={width} style={style}>
+    {isOpen && <Backdrop backdropBgColor={backdropBgColor} onClick={onClickBackdrop} />}
+
+    <Transition
+      items={isOpen}
+      native
+      config={{
+        ...{ tension: 280, friction: 60 },
+        duration: 300,
+      }}
+      from={{ transform: left ? 'translateX(-100%)' : 'translateX(100%)' }}
+      enter={{ transform: 'translateX(0)' }}
+      leave={{ transform: left ? 'translateX(-100%)' : 'translateX(100%)' }}
+    >
+      {isOpen =>
+        isOpen &&
+        (props => (
+          <StyledDrawer left={left} width={width} style={props}>
             {children}
           </StyledDrawer>
-        )}
-      </Transition>
-    )}
+        ))
+      }
+    </Transition>
   </Fragment>
 );
 
 Drawer.propTypes = {
   isOpen: PropTypes.bool,
+  onClickBackdrop: PropTypes.func,
   position: PropTypes.oneOf(['left', 'right']),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]),
 };
@@ -95,6 +97,7 @@ Drawer.propTypes = {
 Drawer.defaultProps = {
   isOpen: false,
   left: false,
+  onClickBackdrop: null,
   width: ['100%', '400px'],
 };
 

@@ -37,6 +37,24 @@ storiesOf('Drawer', module)
       <div>I am a drawer.</div>
     </Drawer>
   ))
+  .add('onClickBackdrop', () => (
+    <State store={store}>
+      {state => {
+        return (
+          <Fragment>
+            <button onClick={() => store.set({ isOpen: !store.get('isOpen') })}>Toggle</button>
+            <Drawer
+              backdropBgColor="#FBF1ED"
+              isOpen={state.isOpen}
+              onClickBackdrop={() => store.set({ isOpen: !store.get('isOpen') })}
+            >
+              <div>I am a drawer.</div>
+            </Drawer>
+          </Fragment>
+        );
+      }}
+    </State>
+  ))
   .add('left', () => (
     <Drawer backdropBgColor="#FBF1ED" left isOpen>
       <div>I am a drawer.</div>

@@ -31,8 +31,8 @@ const Head = ({ avatarUrl, firstName, headline, lastName, loading, social }) => 
     }
   >
     <Transition native from={{ opacity: 0 }} enter={{ opacity: 1 }} leave={{ opacity: 0 }}>
-      {style => (
-        <Container style={style}>
+      {() => props => (
+        <Container style={props}>
           <Avatar url={avatarUrl} title={`${firstName} ${lastName}`} />
           <Name first={firstName} last={lastName} />
           {headline && <Headline text={headline} />}
