@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import chunk from 'lodash/chunk';
 import styled from 'styled-components';
 import { rem, rgba } from 'polished';
+import { queries } from 'breakpoints';
 
 import Icon from 'ui/Icon/Icon';
 import Image from 'ui/Image/Image';
@@ -21,7 +22,7 @@ const User = styled.div`
   flex: 0 1 auto;
   padding: 0 ${rem('15px')};
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${queries.tablet} {
     flex: 2 0 auto;
     max-width: ${rem('485px')};
     padding: 0;
@@ -32,7 +33,7 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${queries.tablet} {
     max-width: ${rem('332px')};
   }
 `;
@@ -45,7 +46,7 @@ const ImageContainer = styled.div`
   height: ${rem('52px')};
   margin-right: ${rem('18px')};
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${queries.tablet} {
     flex: none;
     width: ${rem('102px')};
     height: ${rem('102px')};
@@ -57,7 +58,7 @@ const Name = styled.span`
   color: ${props => props.theme.colors.black.main};
   font-weight: 600;
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${queries.tablet} {
     font-size: ${rem('22px')};
     line-height: ${rem('28px')};
   }
@@ -68,7 +69,7 @@ const Position = styled.span`
   font-size: ${rem('13px')};
   line-height: ${rem('18px')};
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${queries.tablet} {
     font-size: ${rem('18px')};
     line-height: ${rem('23px')};
   }
@@ -82,7 +83,7 @@ const Industry = styled.span`
   text-transform: uppercase;
   letter-spacing: ${rem('0.3px')};
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${queries.tablet} {
     font-size: ${rem('14px')};
     letter-spacing: ${rem('0.19px')};
     line-height: ${rem('18px')};
@@ -107,7 +108,7 @@ const Location = styled.div`
     background: ${props => props.theme.colors.brandyPunch.main};
   }
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${queries.tablet} {
     margin-top: ${rem('15px')};
 
     &::after {
@@ -122,7 +123,7 @@ const LocationText = styled.span`
   font-size: ${rem('13px')};
   line-height: ${rem('18px')};
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${queries.tablet} {
     font-size: ${rem('15px')};
     line-height: ${rem('21px')};
     letter-spacing: ${rem('0.2px')};
@@ -138,7 +139,7 @@ const AsksAndOfferings = styled.ul`
   margin-top: ${rem('30px')};
   padding: 0 ${rem('15px')};
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${queries.tablet} {
     flex: 1 0 0;
     border-left: 1px solid ${props => props.theme.colors.brandyPunch.main};
     padding-top: ${rem('5px')};
@@ -156,7 +157,7 @@ const ListItem = styled.li`
   font-size: ${rem('13px')};
   line-height: ${rem('21px')};
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${queries.tablet} {
     display: inline-block;
     font-size: ${rem('16px')};
     line-height: ${rem('19px')};
@@ -180,7 +181,7 @@ const AskAndOfferingsTitle = styled.span`
   text-align: right;
   padding-right: ${rem('18px')};
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${queries.tablet} {
     width: auto;
     text-align: left;
     padding-right: 0;
@@ -199,7 +200,7 @@ const More = styled.span`
 const StyledMessage = styled(Message)`
   margin-top: ${rem('10px')};
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${queries.tablet} {
     margin-left: ${rem('124px')};
   }
 `;
@@ -217,7 +218,7 @@ const MatchIcon = styled.div`
   background: url(${match}) no-repeat;
   background-size: cover;
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${queries.tablet} {
     height: ${rem('14px')};
     width: ${rem('19px')};
   }
@@ -230,7 +231,7 @@ const MessageText = styled.span`
   flex: 1;
   margin-left: ${rem('14px')};
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${queries.tablet} {
     font-size: ${rem('16px')};
     letter-spacing: ${rem('-0.39px')};
     line-height: ${rem('19px')};

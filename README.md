@@ -64,11 +64,12 @@ For _styling within this library_ based on device size, you can do the following
 
 ```
 import styled from 'styled-components';
+import { queries } from 'breakpoints';
 
 const StyledDiv = styled.div`
   border: 1px solid red;
 
-  @media ${props => props.theme.queries.desktop} {
+  @media ${queries.desktop} {
     border: none;
   }
 `;

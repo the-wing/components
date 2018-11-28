@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { rem } from 'polished';
+import { queries } from 'breakpoints';
 
 const StyledMessage = styled.div`
   background: ${props => props.theme.colors.potpourri.main};
   padding: ${rem('14px')} ${rem('20px')};
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${queries.tablet} {
     border-radius: ${rem('40px')};
   }
 `;

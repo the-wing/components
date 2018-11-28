@@ -3,7 +3,6 @@ import {
   TABLET_BREAKPOINT,
   DESKTOP_BREAKPOINT,
   DESKTOP_LARGE_BREAKPOINT,
-  queries,
 } from './breakpoints';
 
 const theme = {
@@ -47,7 +46,6 @@ const theme = {
     title: 'Bureau Grotesque',
   },
   breakpoints: [MOBILE_BREAKPOINT, TABLET_BREAKPOINT, DESKTOP_BREAKPOINT, DESKTOP_LARGE_BREAKPOINT],
-  queries,
 };
 
 export default theme;
