@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import chunk from 'lodash/chunk';
 import styled from 'styled-components';
 import { rem, rgba } from 'polished';
-import { queries } from 'breakpoints';
 
 import Icon from 'ui/Icon/Icon';
 import Image from 'ui/Image/Image';
@@ -13,7 +12,7 @@ import match from 'assets/img/match.svg';
 
 const Container = styled.div`
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
 `;
@@ -21,23 +20,15 @@ const Container = styled.div`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-
-  @media ${queries.tablet} {
-    flex: 1;
-  }
+  flex: 1;
 `;
 
 const Top = styled.div`
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: ${rem('10px')};
-
-  @media ${queries.tablet} {
-    flex-direction: row;
-  }
 `;
 
 const Info = styled.div`
@@ -46,17 +37,9 @@ const Info = styled.div`
   max-width: ${rem('332px')};
 `;
 
-const ImageContainer = styled.div`
+const StyledImage = styled(Image)`
+  margin-right: ${rem('22px')};
   align-self: flex-start;
-  width: ${rem('52px')};
-  height: ${rem('52px')};
-  margin-right: ${rem('18px')};
-
-  @media ${queries.tablet} {
-    width: ${rem('102px')};
-    height: ${rem('102px')};
-    margin-right: ${rem('22px')};
-  }
 `;
 
 const IndustryText = styled(Text)`
@@ -126,9 +109,7 @@ const MessageText = styled(Text)`
 
 const Member = ({ asksAndOfferings, imageUrl, industry, location, message, name, position }) => (
   <Container>
-    <ImageContainer>
-      <Image title={name} url={imageUrl} circle />
-    </ImageContainer>
+    <StyledImage title={name} url={imageUrl} width="102" height="102" circle />
     <Content>
       <Top>
         <Info>

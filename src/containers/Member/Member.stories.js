@@ -3,7 +3,6 @@ import { addDecorator, storiesOf } from '@storybook/react';
 import { withConsole } from '@storybook/addon-console';
 import styled from 'styled-components';
 import Member from 'containers/Member/Member';
-import { queries } from 'breakpoints';
 
 const Page = styled.div`
   background: ${props => props.theme.colors.linen.main};
@@ -13,14 +12,7 @@ const Page = styled.div`
 
 const Content = styled.div`
   margin: 0 auto;
-
-  @media ${queries.tablet} {
-    width: 710px;
-  }
-
-  @media ${queries.desktop} {
-    width: 791px;
-  }
+  width: 791px;
 `;
 
 const defaultProps = {
