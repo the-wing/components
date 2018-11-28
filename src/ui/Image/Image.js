@@ -57,9 +57,8 @@ const StyledImage = styled.div`
   height: 100%;
 `;
 
-const Image = ({ circle, className, height, hoverText, title, url, width }) => (
+const Image = ({ circle, height, hoverText, title, url, width }) => (
   <Container
-    className={className}
     circle={circle}
     height={height}
     width={width}

@@ -7,12 +7,10 @@ import {
 
 const theme = {
   colors: {
-    albescentDark: { main: '#f7ddd1', contrast: '#fff' },
     albescentWhite: { main: '#f4dcd2', contrast: '#fff' },
     almond: { main: '#f3ded2', contrast: '#fff' },
     alto: { main: '#dadada', contrast: '#000' },
     black: { main: '#000', contrast: '#fff' },
-    blueDark: { main: '#16244C', contrast: '#fff' },
     bunting: { main: '#16244c', contrast: '#fff' },
     brandyPunch: { main: '#d08f29', contrast: '#fff' },
     concrete: { main: '#f2f2f2', contrast: '#000' },
@@ -23,13 +21,11 @@ const theme = {
     grannyApple: { main: '#d5f4e1', contrast: '#000' },
     grayChateau: { main: '#a4a6a8', contrast: '#fff' },
     grayChateauLow: { main: 'rgba(163, 165, 167, 0.5)', contrast: '#fff' },
-    grayLight: { main: '#a3a5a7', contrast: '#fff' },
     iron: { main: '#dbdfe3', constrast: '#fff' },
     linen: { main: '#fbf1ed', contrast: '#000' },
     mediumGray: { main: '#f4f4f4', contrast: '#000' },
     panache: { main: '#eef7f1', contrast: '#000' },
     pink: { main: '#fbf1ed', contrast: '#000' },
-    potpourri: { main: '#F3DED3', contrast: '#000' },
     red: { main: '#e80c0c', contrast: '#fff' },
     redLow: { main: 'rgba(232, 12, 12, 0.5)', contrast: '#fff' },
     roseFog: { main: '#e5c6b9', contrast: '#000' },
@@ -39,6 +35,9 @@ const theme = {
     vermilion: { main: '#ff4b00', contrast: '#fff' },
     white: { main: '#fff', contrast: '#000' },
     woodsmoke: { main: '#020303', contrast: '#fff' },
+    albescentDark: { main: '#f7ddd1', contrast: '#fff' },
+    grayLight: { main: '#a3a5a7', contrast: '#fff' },
+    blueDark: { main: '#16244C', contrast: '#fff' },
   },
   text: {
     primary: 'Bianco Serif New',
