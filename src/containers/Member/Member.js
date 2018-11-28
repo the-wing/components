@@ -8,7 +8,6 @@ import Icon from 'ui/Icon/Icon';
 import Image from 'ui/Image/Image';
 import Message from 'ui/Message/Message';
 import Text from 'ui/Text/Text';
-import match from 'assets/img/match.svg';
 
 const Container = styled.div`
   display: flex;
@@ -94,19 +93,6 @@ const MessageContent = styled.div`
   justify-content: flex-start;
 `;
 
-const MatchIcon = styled.div`
-  display: block;
-  height: ${rem('14px')};
-  width: ${rem('19px')};
-  background: url(${match}) no-repeat;
-  background-size: cover;
-`;
-
-const MessageText = styled(Text)`
-  flex: 1;
-  margin-left: ${rem('14px')};
-`;
-
 const Member = ({ asksAndOfferings, imageUrl, industry, location, message, name, position }) => (
   <Container>
     <StyledImage title={name} url={imageUrl} width="102" height="102" circle />
@@ -178,10 +164,8 @@ const Member = ({ asksAndOfferings, imageUrl, industry, location, message, name,
       {message && (
         <Message>
           <MessageContent>
-            <MatchIcon />
-            <MessageText color="blueDark" letterSpacing={-0.39} lineHeight="19">
-              {message}
-            </MessageText>
+            <div>icon</div>
+            <Text color="blueDark">{message}</Text>
           </MessageContent>
         </Message>
       )}

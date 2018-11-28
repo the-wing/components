@@ -5,7 +5,7 @@ import { rem } from 'polished';
 
 const StyledMessage = styled.div`
   background: ${props => props.theme.colors.potpourri.main};
-  padding: ${rem('14px')} ${rem('20px')};
+  padding: ${rem('18px')} ${rem('20px')};
   border-radius: ${rem('40px')};
 `;
 
