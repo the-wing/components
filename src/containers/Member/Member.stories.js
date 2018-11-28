@@ -24,8 +24,17 @@ const Content = styled.div`
 `;
 
 const defaultProps = {
+  asksAndOfferings: [
+    {
+      title: 'Offering',
+      values: ['Waffles', 'Love', 'Friendship', 'Hard Work'],
+    },
+    { title: 'Asking', values: ['Also Waffles', 'Joe Biden', 'Ann', 'Fairness', 'More parks'] },
+  ],
   industry: 'Government',
   location: 'All Access, Soho',
+  message:
+    'You and Ron Swanson attended the same event yesterday. You are also both interested in waffles.',
   name: 'Leslie Knope',
   position: 'Deputy Director of the Pawnee City Department of Parks and Recreation',
 };
@@ -37,55 +46,6 @@ storiesOf('Member', module)
     <Page>
       <Content>
         <Member {...defaultProps} />
-      </Content>
-    </Page>
-  ))
-  .add('with asks and offerings', () => (
-    <Page>
-      <Content>
-        <Member
-          {...defaultProps}
-          asksAndOfferings={[
-            {
-              title: 'Offering',
-              values: ['Waffles', 'Love', 'Friendship', 'Hard Work'],
-            },
-            {
-              title: 'Asking',
-              values: ['Also Waffles', 'Joe Biden', 'Ann', 'Fairness', 'More parks'],
-            },
-          ]}
-        />
-      </Content>
-    </Page>
-  ))
-  .add('with message', () => (
-    <Page>
-      <Content>
-        <Member
-          {...defaultProps}
-          message="You and Ron Swanson attended the same event yesterday. You are also both interested in waffles."
-        />
-      </Content>
-    </Page>
-  ))
-  .add('with asks/offerings and message', () => (
-    <Page>
-      <Content>
-        <Member
-          {...defaultProps}
-          asksAndOfferings={[
-            {
-              title: 'Offering',
-              values: ['Waffles', 'Love', 'Friendship', 'Hard Work'],
-            },
-            {
-              title: 'Asking',
-              values: ['Also Waffles', 'Joe Biden', 'Ann', 'Fairness', 'More parks'],
-            },
-          ]}
-          message="You and Ron Swanson attended the same event yesterday. You are also both interested in waffles."
-        />
       </Content>
     </Page>
   ));
