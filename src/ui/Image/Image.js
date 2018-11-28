@@ -57,7 +57,7 @@ const StyledImage = styled.div`
   height: 100%;
 `;
 
-const Image = ({ circle, height, hoverText, title, url, width }) => (
+const Image = ({ alt, circle, height, hoverText, title, url, width }) => (
   <Container
     circle={circle}
     height={height}
@@ -71,6 +71,7 @@ const Image = ({ circle, height, hoverText, title, url, width }) => (
 );
 
 Image.propTypes = {
+  alt: PropTypes.string,
   circle: PropTypes.bool,
   height: PropTypes.number,
   title: PropTypes.string,
@@ -79,6 +80,7 @@ Image.propTypes = {
 };
 
 Image.defaultProps = {
+  alt: '',
   circle: false,
   height: 32,
   title: '',
