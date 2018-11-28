@@ -131,7 +131,7 @@ const LocationText = styled.span`
 
 const AsksAndOfferings = styled.ul`
   display: flex;
-  flex: 1 1 auto;
+  flex: 1 0 auto;
   flex-direction: column;
   margin: 0;
   list-style-type: none;
@@ -151,7 +151,7 @@ const AsksAndOfferings = styled.ul`
 
 const ListItem = styled.li`
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: flex-start;
   font-size: ${rem('13px')};
   line-height: ${rem('21px')};
