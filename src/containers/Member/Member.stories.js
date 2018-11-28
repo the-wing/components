@@ -3,7 +3,6 @@ import { addDecorator, storiesOf } from '@storybook/react';
 import { withConsole } from '@storybook/addon-console';
 import styled from 'styled-components';
 import Member from 'containers/Member/Member';
-import { data } from './Member.storyData';
 
 const Page = styled.div`
   background: ${props => props.theme.colors.linen.main};
@@ -23,41 +22,69 @@ const Content = styled.div`
   }
 `;
 
+const defaultProps = {
+  industry: 'Government',
+  location: 'All Access, Soho',
+  name: 'Leslie Knope',
+  position: 'Deputy Director of the Pawnee City Department of Parks and Recreation',
+};
+
 storiesOf('Member', module)
   .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
-  .add('default', () => <Member {...data.leslie} />)
+  .add('default', () => <Member {...defaultProps} />)
   .add('in container with set width', () => (
     <Page>
       <Content>
-        <Member {...data.leslie} />
+        <Member {...defaultProps} />
       </Content>
     </Page>
   ))
   .add('with asks and offerings', () => (
     <Page>
       <Content>
-        <Member {...data.leslieWithAsksAndOfferings} />
+        <Member
+          {...defaultProps}
+          asksAndOfferings={[
+            {
+              title: 'Offering',
+              values: ['Waffles', 'Love', 'Friendship', 'Hard Work'],
+            },
+            {
+              title: 'Asking',
+              values: ['Also Waffles', 'Joe Biden', 'Ann', 'Fairness', 'More parks'],
+            },
+          ]}
+        />
       </Content>
     </Page>
   ))
   .add('with message', () => (
     <Page>
       <Content>
-        <Member {...data.leslieWithMessage} />
+        <Member
+          {...defaultProps}
+          message="You and Ron Swanson attended the same event yesterday. You are also both interested in waffles."
+        />
       </Content>
     </Page>
   ))
   .add('with asks/offerings and message', () => (
     <Page>
       <Content>
-        <Member {...data.leslieWithAsksAndOfferingsAndMessage} />
-      </Content>
-    </Page>
-  ))
-  .add('with asks/offerings that do not exceed 3 (no "+ x more" text)', () => (
-    <Page>
-      <Content>
-        <Member {...data.ronWithAsksAndOfferingsAndMessage} />
+        <Member
+          {...defaultProps}
+          asksAndOfferings={[
+            {
+              title: 'Offering',
+              values: ['Waffles', 'Love', 'Friendship', 'Hard Work'],
+            },
+            {
+              title: 'Asking',
+              values: ['Also Waffles', 'Joe Biden', 'Ann', 'Fairness', 'More parks'],
+            },
+          ]}
+          message="You and Ron Swanson attended the same event yesterday. You are also both interested in waffles."
+        />
       </Content>
     </Page>
   ));
