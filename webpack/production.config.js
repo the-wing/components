@@ -40,7 +40,12 @@ module.exports = {
       {
         test: /\.s?css$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../',
+            },
+          },
           { loader: 'css-loader', options: { importLoaders: 1 } },
           {
             loader: 'postcss-loader',
@@ -60,7 +65,8 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: 'assets/fonts/[name].[ext]',
+              name: '[name].[ext]',
+              useRelativePath: true,
             },
           },
         ],
@@ -85,7 +91,10 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
     }),
-    new CopyWebpackPlugin([{ from: 'src/assets/img', to: 'assets/img' }]),
+    new CopyWebpackPlugin([
+      { from: 'src/assets/img', to: 'assets/img' },
+      { from: 'src/assets/fonts', to: 'assets/fonts' },
+    ]),
   ],
 
   optimization: {
