@@ -21,6 +21,8 @@ export { default as Page } from './ui/Page/Page';
 // export { default as SocialIcon } from './ui/SocialIcon/SocialIcon';
 export { default as Text } from './ui/Text/Text';
 
+export { ErrorLoading } from './ui/Errors';
+
 // Containers
 export { default as Member } from './containers/Member/Member';
 export { default as Profile } from './containers/Profile/Profile';
