@@ -3,17 +3,17 @@
 // Font Face
 // =============================================================================
 
-@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg otf) {
   $src: null;
 
   $extmods: (
-    eot: "?",
-    svg: "#" + str-replace($name, " ", "_")
+    eot: '?',
+    svg: '#' + str-replace($name, ' ', '_'),
   );
 
   @each $ext in $exts {
     $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
-    $src: append($src, url(quote($path + "." + $extmod)), comma);
+    $src: append($src, url(quote($path + '.' + $extmod)), comma);
   }
 
   @font-face {

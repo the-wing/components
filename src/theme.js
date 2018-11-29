@@ -45,6 +45,7 @@ const theme = {
     primary: 'Bianco Serif New',
     secondary: 'Bianco Sans New',
     title: 'Bureau Grotesque',
+    cursive: 'Tilda Petite',
   },
   breakpoints: [MOBILE_BREAKPOINT, TABLET_BREAKPOINT, DESKTOP_BREAKPOINT, DESKTOP_LARGE_BREAKPOINT],
   queries,
