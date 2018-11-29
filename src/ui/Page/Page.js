@@ -14,7 +14,7 @@ const Header = styled.div`
   background: ${props => props.theme.colors.white.main};
   text-align: center;
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${props => props.theme.queries.desktop} {
     text-align: left;
   }
 `;
@@ -27,7 +27,7 @@ const HeaderContent = styled.div`
   max-width: ${rem('1200px')};
   margin: 0 auto;
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${props => props.theme.queries.desktop} {
     padding: 0 ${rem('25px')};
     padding-top: ${rem('63px')};
     padding-bottom: ${rem('30px')};
@@ -44,7 +44,7 @@ const Title = styled.h1`
   text-transform: uppercase;
   margin: 0;
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${props => props.theme.queries.desktop} {
     font-size: ${rem('54px')};
     line-height: ${rem('65px')};
     letter-spacing: 0;
@@ -52,9 +52,11 @@ const Title = styled.h1`
 `;
 
 const Subtitle = styled.div`
+  display: none;
   color: ${props => props.theme.colors.blueDark.main};
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${props => props.theme.queries.desktop} {
+    display: block;
     font-size: ${rem('18px')};
     line-height: ${rem('23px')};
   }
@@ -66,7 +68,7 @@ const Description = styled.div`
   line-height: ${rem('18px')};
   margin-top: ${rem('4px')};
 
-  @media ${props => props.theme.queries.tablet} {
+  @media ${props => props.theme.queries.desktop} {
     font-size: ${rem('16px')};
     line-height: ${rem('19px')};
     margin-top: ${rem('6px')};
