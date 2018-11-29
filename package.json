@@ -1,6 +1,6 @@
 {
   "name": "@thewing/components",
-  "version": "1.2.3",
+  "version": "1.2.3-testing-fonts",
   "description": "Shared components for The Wing",
   "main": "dist/index.js",
   "publishConfig": {
