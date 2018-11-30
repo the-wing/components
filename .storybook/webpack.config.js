@@ -1,6 +1,16 @@
 const path = require('path');
+const formatter = require('eslint-friendly-formatter');
 
 module.exports = (baseConfig, env, defaultConfig) => {
+  defaultConfig.module.rules.push({
+    test: /\.js$/,
+    loader: 'eslint-loader',
+    options: {
+      formatter,
+    },
+    include: path.resolve(__dirname, '../'),
+  });
+
   defaultConfig.module.rules.push({
     test: /\.scss$/,
     loaders: ['style-loader', 'css-loader', 'sass-loader'],

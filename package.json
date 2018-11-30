@@ -9,9 +9,7 @@
   "repository": "git@github.com:the-wing/components.git",
   "author": "The Wing",
   "license": "MIT",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "engines": {
     "node": ">=8.11.4"
   },
@@ -27,11 +25,9 @@
     "final-form-arrays": "^1.1.0",
     "final-form-calculate": "^1.2.1",
     "horoscope": "^2.0.1",
-    "lint-staged": "^7.2.2",
     "moment": "^2.22.2",
     "path": "^0.12.7",
     "polished": "^2.2.0",
-    "prettier": "^1.14.3",
     "prop-types": "^15.6.2",
     "react-breakpoints": "^3.0.2",
     "react-dropzone": "^5.1.1",
@@ -52,7 +48,8 @@
     "build:js": "./node_modules/.bin/webpack -p --progress --config=webpack/production.config.js --mode=production",
     "build:static": "yarn build:clean && build-storybook -c .storybook -s ./src -o ./built",
     "prepublishOnly": "yarn build:package",
-    "start": "start-storybook -s ./dist -p 9001 -c .storybook"
+    "start": "start-storybook -s ./dist -p 9001 -c .storybook",
+    "lint": "eslint src --format 'node_modules/eslint-friendly-formatter'"
   },
   "husky": {
     "hooks": {
@@ -60,7 +57,8 @@
     }
   },
   "lint-staged": {
-    "*.{js,json,scss,md}": [
+    "*.{js}": [
+      "eslint --format 'node_modules/eslint-friendly-formatter'",
       "prettier --write",
       "git add"
     ]
@@ -74,6 +72,7 @@
     "@storybook/addons": "^3.4.11",
     "@storybook/react": "^3.4.11",
     "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "7",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -83,9 +82,18 @@
     "copy-webpack-plugin": "^4.5.3",
     "css-loader": "^1.0.0",
     "cssnano": "^4.1.4",
+    "eslint": "^5.9.0",
+    "eslint-config-react-app": "^3.0.5",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-flowtype": "^3.2.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
     "file-loader": "^2.0.0",
     "husky": "^1.1.2",
     "jest": "^23.6.0",
+    "lint-staged": "^8.1.0",
     "lodash": "^4.17.11",
     "mini-css-extract-plugin": "^0.4.4",
     "node-sass": "^4.9.3",
@@ -93,6 +101,7 @@
     "postcss-import": "^12.0.0",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.1.1",
+    "prettier": "^1.15.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-test-renderer": "^16.5.2",
