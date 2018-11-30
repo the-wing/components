@@ -6,6 +6,16 @@ Shared component library
 
 ---
 
+## ⚠️ Important: We will be deprecating: ⚠️
+
+- **Text** - Just use a plain old `styled.div` or `styled.span`
+- **Box** - Just use a `styled.div`
+- **util: `responsive()`** - For responsiveness, see the [Breakpoints section](#breakpoints) of this readme.
+
+Please refrain from using these any further.
+
+---
+
 ## Development
 
 To get up and running, just run `yarn start` and visit http://localhost:9001.
