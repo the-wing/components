@@ -3,7 +3,6 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import Profile from 'containers/Profile/Profile';
-import theme from 'theme';
 import {
   data,
   defaultProps,

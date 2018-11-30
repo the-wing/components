@@ -1,10 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import ReactPlaceholder from 'react-placeholder';
 import { Transition } from 'react-spring';
-import styled from 'styled-components';
-import theme from 'theme';
 
 import Box from 'ui/Box/Box';
 import Avatar from './Avatar';

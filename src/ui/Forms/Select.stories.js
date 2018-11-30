@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { FormField, Label, Select, TextArea } from 'ui/Forms';
+import { FormField, Label, Select } from 'ui/Forms';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },

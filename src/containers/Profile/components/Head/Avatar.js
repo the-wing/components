@@ -1,5 +1,4 @@
 import React from 'react';
-import theme from 'theme';
 
 import Box from 'ui/Box/Box';
 import Image from 'ui/Image/Image';

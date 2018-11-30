@@ -72,7 +72,7 @@ class DropZone extends PureComponent {
   };
 
   onDrop = (acceptedFiles, rejectedFiles) => {
-    const { maxSize, onDrop } = this.props;
+    const { maxSize } = this.props;
 
     // If accepted, validate min/max width (in pixels)
     acceptedFiles.forEach(file => {

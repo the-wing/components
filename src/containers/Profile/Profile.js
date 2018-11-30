@@ -6,11 +6,8 @@ import arrayMutators from 'final-form-arrays';
 import createDecorator from 'final-form-calculate';
 import { getSign } from 'horoscope';
 import { getDaysPerMonth } from 'utils';
-import theme from 'theme';
 
 import Box from 'ui/Box/Box';
-import Button from 'ui/Button/Button';
-import Icon from 'ui/Icon/Icon';
 
 import AdditionalInfo from './components/AdditionalInfo/AdditionalInfo';
 import ControlBar from './components/ControlBar';
@@ -105,7 +102,6 @@ class Profile extends PureComponent {
       data,
       initialValues,
       loading,
-      mutators,
       onClose,
       onSearchAsks,
       onSearchCompanies,
