@@ -22,10 +22,15 @@ const Header = styled.div`
 const HeaderContent = styled.div`
   padding-left: ${rem('16px')};
   padding-right: ${rem('16px')};
-  padding-top: ${rem('38px')};
-  padding-bottom: ${rem('38px')};
+  padding-top: ${rem('13px')};
+  padding-bottom: ${rem('12px')};
   max-width: ${rem('1200px')};
   margin: 0 auto;
+
+  @media ${props => props.theme.queries.tablet} {
+    padding-top: ${rem('26px')};
+    padding-bottom: ${rem('25px')};
+  }
 
   @media ${props => props.theme.queries.desktop} {
     padding: 0 ${rem('25px')};
