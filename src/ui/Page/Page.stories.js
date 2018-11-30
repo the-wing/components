@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import Page from 'ui/Page/Page';
 import { Media } from 'react-breakpoints';
 import styled from 'styled-components';
@@ -39,7 +38,6 @@ const props = {
 };
 
 storiesOf('Page', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => (
     <Page>
       <Content>Gender is an illusion</Content>

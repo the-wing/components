@@ -1,6 +1,5 @@
 import React from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 import Image from 'ui/Image/Image';
 
@@ -10,7 +9,6 @@ const Container = styled.div`
 `;
 
 storiesOf('Image', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('with url', () => (
     <Container>
       <Image url="assets/img/defaultAvatar.png" />

@@ -1,6 +1,5 @@
 import React from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 import { rem, rgba } from 'polished';
 
@@ -42,7 +41,6 @@ const StyledListItem = styled(ListItem)`
 `;
 
 storiesOf('List', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => (
     <List>
       <ListItem>Some text</ListItem>

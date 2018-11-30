@@ -1,6 +1,5 @@
 import React from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import Box from 'ui/Box/Box';
 import Button from 'ui/Button/Button';
@@ -8,7 +7,6 @@ import Icon from 'ui/Icon/Icon';
 import Text from 'ui/Text/Text';
 
 storiesOf('Button', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => <Button onClick={action('clicked')}>Default Button</Button>)
   .add('bordered', () => (
     <Button onClick={action('clicked')} bordered>

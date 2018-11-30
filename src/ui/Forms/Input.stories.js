@@ -1,10 +1,8 @@
 import React from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import { FormField, Input, Label } from 'ui/Forms';
 
 storiesOf('Input', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => (
     <FormField fullWidth>
       <Label htmlFor="id1" text="Label 1" />

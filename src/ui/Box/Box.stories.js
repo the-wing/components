@@ -1,10 +1,8 @@
 import React from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import Box from 'ui/Box/Box';
 
 storiesOf('Box', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => <Box>Box Default</Box>)
   .add('with color', () => <Box color="grannyApple">Box with color</Box>)
   .add('with margin set to number: 10', () => (
