@@ -1,6 +1,5 @@
 import React from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 import { rem } from 'polished';
 import { ErrorLoading } from 'ui/Errors';
@@ -11,7 +10,6 @@ const ButtonContainer = styled.div`
 `;
 
 storiesOf('ErrorLoading', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => <ErrorLoading mainText="Default Error Loading Text" />)
   .add('attendees', () => <ErrorLoading mainText="The attendees list isn’t loading right now." />)
   .add('with button', () => (

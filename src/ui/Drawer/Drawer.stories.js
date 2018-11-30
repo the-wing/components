@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import Drawer from 'ui/Drawer/Drawer';
@@ -12,7 +11,6 @@ const store = new Store({
 });
 
 storiesOf('Drawer', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('isOpen', () => (
     <Drawer isOpen>
       <div>I am a drawer.</div>

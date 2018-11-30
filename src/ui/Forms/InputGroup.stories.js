@@ -1,12 +1,10 @@
 import React, { Fragment } from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import { Addon, ErrorMessage, FormField, Input, InputGroup, Label } from 'ui/Forms';
 import SocialIcon from 'ui/SocialIcon/SocialIcon';
 import Text from 'ui/Text/Text';
 
 storiesOf('InputGroup', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => (
     <InputGroup>
       <FormField fullWidth>

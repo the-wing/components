@@ -1,6 +1,5 @@
 import React from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import styled from 'styled-components';
 import Member from 'containers/Member/Member';
 import { data } from './Member.storyData';
@@ -24,7 +23,6 @@ const Content = styled.div`
 `;
 
 storiesOf('Member', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => <Member {...data.leslie} />)
   .add('in container with set width', () => (
     <Page>
