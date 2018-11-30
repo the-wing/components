@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { responsive } from 'utils';
 import { rem } from 'polished';
 
 import Box from 'ui/Box/Box';

@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { storiesOf } from '@storybook/react';
 import { Addon, ErrorMessage, FormField, Input, InputGroup, Label } from 'ui/Forms';
 import SocialIcon from 'ui/SocialIcon/SocialIcon';
-import Text from 'ui/Text/Text';
 
 storiesOf('InputGroup', module)
   .add('default', () => (

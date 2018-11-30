@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import compact from 'lodash/compact';
-import get from 'lodash/get';
 import ReactPlaceholder from 'react-placeholder';
 import { Transition } from 'react-spring';
 
@@ -11,8 +10,6 @@ import Bio from './Bio';
 import ChipList from './ChipList';
 import Industry from './Industry';
 import Occupations from './Occupations';
-
-import EmptyStateButton from '../EmptyStateButton';
 
 const Container = ({ children }) => (
   <Box column grow padding={{ horizontal: 2, vertical: 2 }} color="white">

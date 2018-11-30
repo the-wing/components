@@ -1,8 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Transition } from 'react-spring';
-import Box from 'ui/Box/Box';
 import Chip from 'ui/Chip/Chip';
 
 const listOfChips = ['Doritos', 'Dirty River', 'Lays', 'Pringles'];

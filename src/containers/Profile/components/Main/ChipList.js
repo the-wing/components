@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactPlaceholder from 'react-placeholder';
 import { Transition } from 'react-spring';
 
 import Box from 'ui/Box/Box';
@@ -47,32 +46,29 @@ const ChipList = ({
 
   return (
     <Section title={title} noContent={list && list.length < 1 && readonly}>
-      {list &&
-        list.length > 0 && (
-          <Box wrap>
-            <Transition
-              items={list}
-              keys={list.map(item => item.value)}
-              from={{ opacity: 0, transform: 'scale(0)' }}
-              enter={{ opacity: 1, transform: 'scale(1)' }}
-              leave={{ opacity: 0, transform: 'scale(0)' }}
-            >
-              {item => props => (
-                <Chip key={item.value} text={item.label} color={color} style={props} readonly />
-              )}
-            </Transition>
-          </Box>
-        )}
-      {list &&
-        list.length < 1 &&
-        !readonly && <EmptyStateButton onClick={onEdit} text={editText} />}
-      {list &&
-        list.length < 1 &&
-        readonly && (
-          <Text color="grayChateau" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
-            {firstName} hasn&#x27;t added any {title}
-          </Text>
-        )}
+      {list && list.length > 0 && (
+        <Box wrap>
+          <Transition
+            items={list}
+            keys={list.map(item => item.value)}
+            from={{ opacity: 0, transform: 'scale(0)' }}
+            enter={{ opacity: 1, transform: 'scale(1)' }}
+            leave={{ opacity: 0, transform: 'scale(0)' }}
+          >
+            {item => props => (
+              <Chip key={item.value} text={item.label} color={color} style={props} readonly />
+            )}
+          </Transition>
+        </Box>
+      )}
+      {list && list.length < 1 && !readonly && (
+        <EmptyStateButton onClick={onEdit} text={editText} />
+      )}
+      {list && list.length < 1 && readonly && (
+        <Text color="grayChateau" size={15 / 16} letterSpacing={0.2} lineHeight={20}>
+          {firstName} hasn&#x27;t added any {title}
+        </Text>
+      )}
     </Section>
   );
 };

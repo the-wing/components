@@ -1,7 +1,7 @@
-import React, { Children, Fragment } from 'react';
+import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import ReactSlick from 'react-slick';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 import { rem, rgba } from 'polished';
 import { Media } from 'react-breakpoints';
 import arrow from 'assets/img/arrow.svg';

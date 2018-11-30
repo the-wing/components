@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { default as ReactSelect, components } from 'react-select';
 import Async from 'react-select/lib/Async';
@@ -123,7 +123,6 @@ const customStyles = (isSearchable = false, error = false) => ({
       isSearchable && state.isFocused
         ? 'none'
         : `0.5px solid ${theme.colors[error ? 'red' : 'grayChateau'].main}`,
-    borderColor: 'transparent',
     backgroundColor: 'white',
     boxShadow: isSearchable && state.isFocused ? '0 0 20px -1px rgba(164, 166, 168, 0.3)' : 'none',
     minHeight: '34px',

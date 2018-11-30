@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { StyledFormField, default as FormField } from './FormField';
-
 const StyledAddon = styled.div`
   display: flex;
   justify-content: center;

@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
-import Box from 'ui/Box/Box';
-import { StyledFormField, default as FormField } from './FormField';
+import { StyledFormField } from './FormField';
 
 const StyledInputGroup = styled.div`
   display: flex;

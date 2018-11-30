@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import ErrorMessage from './ErrorMessage';
-
 const Container = styled.span`
   display: flex;
   align-items: flex-end;
@@ -61,12 +59,11 @@ const PrependedValue = styled.div`
 const Input = ({ active, error, noBorder, placeholder, prependedValue, ...inputProps }) => {
   return (
     <Container>
-      {prependedValue &&
-        prependedValue.length > 0 && (
-          <PrependedValue active={active} error={error} noBorder={noBorder}>
-            {prependedValue}
-          </PrependedValue>
-        )}
+      {prependedValue && prependedValue.length > 0 && (
+        <PrependedValue active={active} error={error} noBorder={noBorder}>
+          {prependedValue}
+        </PrependedValue>
+      )}
       <StyledInput error={error} placeholder={placeholder} noBorder={noBorder} {...inputProps} />
     </Container>
   );

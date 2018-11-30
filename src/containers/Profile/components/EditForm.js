@@ -1,14 +1,9 @@
 import React, { Fragment } from 'react';
 import get from 'lodash/get';
-import last from 'lodash/last';
-import keyBy from 'lodash/keyBy';
-import map from 'lodash/map';
-import mapValues from 'lodash/mapValues';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { Field, FormSpy } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
-import { Transition } from 'react-spring';
 import { getDaysPerMonth } from 'utils';
 import {
   isEmail,
@@ -38,7 +33,6 @@ import DropZone from 'ui/DropZone/DropZone';
 import Image from 'ui/Image/Image';
 import Section from 'ui/Section/Section';
 import SocialIcon from 'ui/SocialIcon/SocialIcon';
-import Text from 'ui/Text/Text';
 
 import EmptyStateButton from './EmptyStateButton';
 
@@ -101,7 +95,7 @@ const EditForm = ({
       <Field
         name="avatarUrl"
         render={({ input, meta }) => {
-          const { onBlur, onChange, onFocus, ...rest } = input;
+          const { onBlur, onChange, onFocus } = input;
 
           const onDrop = value => {
             onFocus();

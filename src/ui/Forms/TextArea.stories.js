@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { ErrorMessage, FormField, Label, TextArea } from 'ui/Forms';
+import { FormField, Label, TextArea } from 'ui/Forms';
 
 storiesOf('TextArea', module)
   .add('default', () => (

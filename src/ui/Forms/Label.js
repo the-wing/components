@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Text from 'ui/Text/Text';
-
 export const StyledLabel = styled.label`
   flex: 1;
   font-size: 0.625rem;
