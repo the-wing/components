@@ -267,7 +267,7 @@ const Member = ({ asksAndOfferings, imageUrl, industry, location, message, name,
           const listValuesToDisplay = list[0];
 
           return (
-            <ListItem>
+            <ListItem key={item.title}>
               {item.title && <AskAndOfferingsTitle>{item.title}:</AskAndOfferingsTitle>}
               <span>
                 <ListValues>{listValuesToDisplay.join(', ')}</ListValues>
