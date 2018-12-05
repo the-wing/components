@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
-import { addDecorator, storiesOf } from '@storybook/react';
-import { withConsole } from '@storybook/addon-console';
+import { storiesOf } from '@storybook/react';
 import Filters from 'ui/Filters/Filters';
 import styled from 'styled-components';
 
@@ -56,7 +55,6 @@ class FilterContainer extends PureComponent {
 
 
 storiesOf('Filters', module)
-  .addDecorator((storyFn, context) => withConsole()(storyFn)(context))
   .add('default', () => (
     <Page>
       <FilterContainer/>

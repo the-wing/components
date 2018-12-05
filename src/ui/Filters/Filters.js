@@ -1,9 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Text from 'ui/Text/Text';
+import styled, { keyframes } from 'styled-components';
 import Button from 'ui/Button/Button';
 import FilterOption from 'ui/Filters/FilterOption';
+import { debounce } from 'lodash';
+
+const animationsMillisecondsDuration = 400;
+
+const animationClosing = props => keyframes`
+  100% {
+    height: 0;
+    ${props.marginTop && `margin-top: ${props.marginTop};`}
+    opacity: 0;
+  }
+`;
+
+const animationOpening = props => keyframes`
+  from {
+    display: block;
+    height: 0px;
+    ${props.marginTopFrom && `margin-top: ${props.marginTopFrom};`}
+    opacity: 0;
+  }
+  to {
+    ${props.heightTo && `height: ${props.heightTo};`}
+    opacity: 1;
+    ${props.marginTopTo && `margin-top: ${props.marginTopTo};`}
+  }
+`;
+
+const filtersAnimationClose = { marginTop: '-37px' };
+
+const filtersAnimationOpen = {
+  marginTopFrom: '-35px',
+  marginTopTo: '6px',
+  heightFrom: 0,
+  heightTo: '222px',
+};
 
 const Header = styled.div`
   display: flex;
@@ -11,7 +44,77 @@ const Header = styled.div`
   padding-bottom: 9px;
 `;
 
+const Title = styled.span`
+  font-size: 1rem;
+  line-height: 19px;
+  opacity: 0.5;
+  color: #040402;
+  margin-top: 11px;
+  width: 10%;
+`;
+
+const FiltersContainer = styled.div`
+  padding-top: 17px;
+  margin: '6px 16px 18px';
+  display: inherit;
+  ${props => (props.animationHeight ? `height: ${props.animationHeight}` : '')};
+
+  @media ${props => props.theme.queries.desktopLarge} {
+    transition: all ${animationsMillisecondsDuration}ms ease;
+    animation-timing-function: ease-in-out;
+    margin: 0;
+    display: 'block !important';
+    &.mobile-closing {
+      ${props => (props.animationHeight ? `height: calc(${props.animationHeight} - 22px)` : '')};
+      animation-duration: ${animationsMillisecondsDuration}ms;
+      animation-name: ${animationClosing(filtersAnimationClose)};
+    }
+    &.mobile-closed {
+      display: none;
+      height: 0px;
+      margin-top: -35px;
+      opacity: 0;
+    }
+    &.mobile-opening {
+      animation-duration: ${animationsMillisecondsDuration}ms;
+      animation-name: ${animationOpening(filtersAnimationOpen)};
+    }
+    &.mobile-open {
+      height: 100%;
+      margin-top: 6px;
+      opacity: 1;
+    }
+  }
+  @media ${props => props.theme.queries.desktopLarge} {
+    &.mobile-open,
+    &.mobile-closed {
+      height: 100%;
+      margin-top: 6px;
+      opacity: 1;
+    }
+  }
+  `;
+  
 class Filters extends React.Component {
+  constructor(props) {
+    super(props);
+    this.filterContainerRef = React.createRef();
+  }
+  
+  state = {
+    openFilter: null,
+    isMobileView: false,
+    isMobileFilterOpen: false,
+    isClosing: false,
+    isOpening: false,
+    filtersContainerHeight: 'auto',
+  };
+  
+  componentDidMount() {
+    window.addEventListener('resize', (this.resize = debounce(this.resize.bind(this), 500)));
+    this.resize();
+  }
+    
   static propTypes = {
     title: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
@@ -26,9 +129,56 @@ class Filters extends React.Component {
     forceCollapse: false,
     activeFilters: {},
   };
+  
 
-  state = {
-    openFilter: null
+  resize() {
+    const w = window;
+    const d = document;
+    const e = d.documentElement;
+    const g = d.getElementsByTagName('body')[0];
+    const windowWidth = w.innerWidth || e.clientWidth || g.clientWidth;
+    const filtersContainer = this.filterContainerRef;
+    const heightFiltersContainer =
+      (filtersContainer &&
+        filtersContainer.current &&
+        `${filtersContainer.current.clientHeight}px`) ||
+      '235px';
+    this.setState({
+      filtersContainerHeight: heightFiltersContainer,
+      isMobileView: windowWidth < 1200,
+    });
+  }
+
+  _animationCloseCompleted = () => {
+    this.setState({ isClosing: false });
+  };
+
+  _animationOpenCompleted = () => {
+    this.setState({ isOpening: false }, () => this.resize());
+  };
+
+  _handleToggleMobileFilters = () => {
+    this.setState(
+      {
+        isMobileFilterOpen: !this.state.isMobileFilterOpen,
+        isClosing: this.state.isMobileFilterOpen === true,
+        isOpening: this.state.isMobileFilterOpen === false,
+      },
+      () => {
+        if (this.state.isOpening) {
+          this.tmrOpeningAnimation = setTimeout(
+            () => this._animationOpenCompleted(),
+            animationsMillisecondsDuration * 0.9
+          );
+        }
+        if (this.state.isClosing) {
+          this.tmrClosingAnimation = setTimeout(
+            () => this._animationCloseCompleted(),
+            animationsMillisecondsDuration * 0.9
+          );
+        }
+      }
+    );
   };
 
   _handleFilterTouch = (filter) => {
@@ -47,12 +197,26 @@ class Filters extends React.Component {
       children,
       forceCollapse
     } = this.props;
+
+    const { isClosing, isOpening, isMobileFilterOpen, filtersContainerHeight } = this.state;
     return (
-      <div>
+      <FiltersContainer
+        ref={this.filterContainerRef}
+        className={
+          isMobileFilterOpen
+            ? isOpening
+              ? 'mobile-opening'
+              : 'mobile-open'
+            : isClosing
+            ? 'mobile-closing'
+            : 'mobile-closed'
+        }
+        animationHeight={filtersContainerHeight}
+      >
         <Header>
-          <Text size={1} lineHeight={19} style={{ flex: 1, color: '#040402', opacity: 0.5 }}>
+          <Title>
             {title}
-          </Text>
+          </Title>
           <Button
             thin
             transparent
@@ -85,7 +249,7 @@ class Filters extends React.Component {
             }
           });
         })}
-      </div>
+      </FiltersContainer>
     );
   }
 }
