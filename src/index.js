@@ -16,7 +16,7 @@ export { default as List } from './ui/List/List';
 export { default as ListItem, StyledContent } from './ui/ListItem/ListItem';
 export { default as Message } from './ui/Message/Message';
 export { default as Page } from './ui/Page/Page';
-export { Circle, TextRow } from './ui/Loading';
+export { Circle as LoadingCircle, TextRow as LoadingTextRow } from './ui/Loading';
 export { default as Menu } from './ui/Menu/Menu';
 export { default as Section } from './ui/Section/Section';
 export { default as SocialIcon } from './ui/SocialIcon/SocialIcon';
