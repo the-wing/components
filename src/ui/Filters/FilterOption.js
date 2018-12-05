@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Spring, animated } from 'react-spring';
-import Text from 'ui/Text/Text';
 import Icon from 'ui/Icon/Icon';
 
 const Container = styled.div`
@@ -38,7 +37,7 @@ const Option = styled.div`
   display: flex;
   margin-bottom: 24px;
 
-  @media (min-width: ${props => props.theme.breakpoints[2]}px) {
+  @media ${props => props.theme.queries.desktop} {
     &:hover ${Checkbox} {
       background-color: ${props => props.theme.colors.bunting.main};
     }
@@ -52,7 +51,7 @@ const Caret = styled.div`
   transition: transform 1s ease;
 `;
 
-const Counter = styled(Text)`
+const Counter = styled.span`
   background-color: ${props => props.theme.colors.terracota.main};
   border-radius: 50%;
   box-sizing: border-box;
@@ -65,10 +64,39 @@ const Counter = styled(Text)`
   text-align: center;
   vertical-align: middle;
   width: 20px;
+  color: ${props => props.theme.colors.white.main};
+  font-weight: 700;
+  font-size: ${12/16}rem;
+  font-family: ${props => props.theme.text.secondary};
+  text-align: center
 `;
 
 const SpringContainer = styled.div`
   overflow-y: auto;
+  max-height: none;
+  
+  @media ${props => props.theme.queries.desktopLarge} {
+    max-height: 322px;
+  }
+`;
+
+const OptionName = styled.span`
+  color: ${props => props.theme.colors.bunting.main};
+  line-height: 18px;
+  margin-top 4px;
+  font-size: ${14/16}rem;
+`;
+
+const FilterName = styled.span`
+  color: ${props => props.theme.colors.terracota.main};
+  line-height: 14px;
+  margin-top 4px;
+  font-size: ${12/16}rem;
+  font-weight: 700;
+  font-family: ${props => props.theme.text.secondary};
+  text-transform: uppercase;
+  letter-spacing: 1.85px;
+  flex: 1
 `;
 
 class FilterOption extends React.Component {
@@ -107,9 +135,9 @@ class FilterOption extends React.Component {
             <Checkbox active={active.includes(option._id)}>
               {active.includes(option._id) && <Icon name="check" color="white" size={13} />}
             </Checkbox>
-            <Text color="bunting" size={14 / 16} lineHeight={18} style={{ marginTop: 4 }}>
+            <OptionName>
               {option.name}
-            </Text>
+            </OptionName>
           </Option>
         ))}
       </OptionsContainer>
@@ -122,20 +150,12 @@ class FilterOption extends React.Component {
     return (
       <Container>
         <Header onClick={onHeaderClick}>
-          <Text
-            uppercase
-            weight={700}
-            variant="secondary"
-            color="terracota"
-            size={12 / 16}
-            letterSpacing={1.85}
-            lineHeight={14}
-            style={{ flex: 1 }}
+          <FilterName
           >
             {name}
-          </Text>{' '}
+          </FilterName>{' '}
           {active.length ? (
-            <Counter variant="secondary" color="white" size={12 / 16} weight={700} align="center">
+            <Counter>
               {active.length}
             </Counter>
           ) : null}
@@ -143,7 +163,7 @@ class FilterOption extends React.Component {
             <Icon name="caret" color="terracota" size={12} />
           </Caret>
         </Header>
-        <SpringContainer maxHeight={['none', 'none', 'none', '322px']}>
+        <SpringContainer>
           <Spring
             native
             from={{ height: 0, opacity: 0 }}
