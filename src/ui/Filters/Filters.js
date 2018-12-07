@@ -48,7 +48,6 @@ const Title = styled.span`
   line-height: 19px;
   opacity: 0.5;
   color: #040402;
-  margin-top: 11px;
   width: 40%;
 
   @media ${props => props.theme.queries.desktop} {
@@ -159,17 +158,18 @@ class Filters extends React.Component {
             {title}
           </Title>
           <ButtonContainer>
-          <ClearButton
-            transparent
-            color="terracota"
-            variant="primary"
-            uppercase={false}
-            onClick={this._clearFilters}
-            spacing="0"
-            height="20px"
-          >
-            Clear All
-          </ClearButton>
+            <ClearButton
+              transparent
+              color="terracota"
+              variant="primary"
+              uppercase={false}
+              onClick={this._clearFilters}
+              spacing="0"
+              height="20px"
+              weight="normal"
+            >
+              Clear All
+            </ClearButton>
           </ButtonContainer>
         </Header>
         {React.Children.map(children, (child) => {
