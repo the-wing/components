@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 import Button from 'ui/Button/Button';
 import FilterOption from 'ui/Filters/FilterOption';
+import { rem } from 'polished';
 
 const animationsMillisecondsDuration = 400;
 
@@ -17,7 +18,7 @@ const animationClosing = props => keyframes`
 const animationOpening = props => keyframes`
   from {
     display: block;
-    height: 0px;
+    height: 0;
     ${props.marginTopFrom && `margin-top: ${props.marginTopFrom};`}
     opacity: 0;
   }
@@ -28,24 +29,24 @@ const animationOpening = props => keyframes`
   }
 `;
 
-const filtersAnimationClose = { marginTop: '-37px' };
+const filtersAnimationClose = { marginTop: -rem('37px') };
 
 const filtersAnimationOpen = {
-  marginTopFrom: '-35px',
-  marginTopTo: '6px',
+  marginTopFrom: -rem('35px'),
+  marginTopTo: rem('6px'),
   heightFrom: 0,
-  heightTo: '222px',
+  heightTo: rem('222px'),
 };
 
 const Header = styled.div`
   display: flex;
-  border-bottom: 0.5px solid ${props => props.theme.colors.terracota.main};
-  padding-bottom: 9px;
+  border-bottom: ${rem('0.5px')} solid ${props => props.theme.colors.terracota.main};
+  padding-bottom: ${rem('9px')};
 `;
 
 const Title = styled.span`
   font-size: 1rem;
-  line-height: 19px;
+  line-height: ${rem('19px')};
   opacity: 0.5;
   color: #040402;
   width: 40%;
@@ -56,8 +57,8 @@ const Title = styled.span`
 `;
 
 const FiltersContainer = styled.div`
-  padding-top: 17px;
-  margin: 6px 16px 18px;
+  padding-top: ${rem('17px')};
+  margin: ${rem('6px')} ${rem('16px')} ${rem('18px')};
   display: inherit;
   ${props => (props.animationHeight ? `height: ${props.animationHeight}` : '')};
 
@@ -73,8 +74,8 @@ const FiltersContainer = styled.div`
     }
     &.mobile-closed {
       display: none;
-      height: 0px;
-      margin-top: -35px;
+      height: 0;
+      margin-top: -${rem('35px')};
       opacity: 0;
     }
     &.mobile-opening {
@@ -83,7 +84,7 @@ const FiltersContainer = styled.div`
     }
     &.mobile-open {
       height: 100%;
-      margin-top: 6px;
+      margin-top: ${rem('6px')};
       opacity: 1;
     }
   }
@@ -91,18 +92,18 @@ const FiltersContainer = styled.div`
     &.mobile-open,
     &.mobile-closed {
       height: 100%;
-      margin-top: 6px;
+      margin-top: ${rem('6px')};
       opacity: 1;
     }
   }
   `;
 
 const ButtonContainer = styled.div`
-  width: 70px;
+  width: ${rem('70px')};
   align-self: flex-end;
   margin-left: auto;
   @media ${props => props.theme.queries.desktop} {
-    width: 200px;
+    width: ${rem('200px')};
   }
 `;
 
@@ -110,38 +111,26 @@ const ClearButton = styled(Button)`
   text-align: right;
 `;
   
-class Filters extends React.Component {
+class Filters extends PureComponent {
   
   state = {
     openFilter: null,
   };
     
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
-    activeFilters: PropTypes.shape({}).isRequired,
-    clearFilters: PropTypes.func.isRequired,
-    setFilter: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
-  };
-
-  static defaultProps = {
-    activeFilters: {},
-  };
-
-  _handleFilterTouch = (filter) => {
+  
+  handleFilterTouch = (filter) => {
     this.setState(({ openFilter }) => ({
       openFilter: filter === openFilter ? null : filter,
       forceCollapse: false
     }));
   };
-
-  _clearFilters = () => {
+  
+  handleClearFilters = () => {
     this.setState({ forceCollapse: true }, () => {
       this.props.clearFilters();
     })
   }
-
+  
   render() {
     const {
       title,
@@ -150,7 +139,7 @@ class Filters extends React.Component {
       setFilter,
       children,
     } = this.props;
-
+    
     return (
       <FiltersContainer>
         <Header>
@@ -163,11 +152,11 @@ class Filters extends React.Component {
               color="terracota"
               variant="primary"
               uppercase={false}
-              onClick={this._clearFilters}
+              onClick={this.handleClearFilters}
               spacing="0"
-              height="20px"
+              height={rem('20px')}
               weight="normal"
-            >
+              >
               Clear All
             </ClearButton>
           </ButtonContainer>
@@ -176,27 +165,42 @@ class Filters extends React.Component {
           const { accessor } = child.props;
           const active = activeFilters[accessor];
           const { filters: data } = options.find(option => option.section === accessor) || {};
+          const onHeaderClick = () => {
+            this.handleFilterTouch(accessor);
+          };
+          const onChange = (filter) => {
+            setFilter({ accessor, filter });
+          }
 
           if (!data) {
             return <div>Filter with section: {accessor} not found.</div>;
           }
-
+          
           return React.cloneElement(child, {
             active,
             data,
             isOpen: this.state.openFilter === accessor && !this.state.forceCollapse,
-            onHeaderClick: () => {
-              this._handleFilterTouch(accessor);
-            },
-            onChange: (filter) => {
-              setFilter({ accessor, filter });
-            }
+            onHeaderClick,
+            onChange
           });
         })}
       </FiltersContainer>
     );
   }
 }
+
+Filters.propTypes = {
+  title: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
+  activeFilters: PropTypes.shape({}).isRequired,
+  clearFilters: PropTypes.func.isRequired,
+  setFilter: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
+Filters.defaultProps = {
+  activeFilters: {},
+};
 
 Filters.FilterOption = FilterOption;
 
