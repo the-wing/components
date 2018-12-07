@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
 import Button from 'ui/Button/Button';
 import FilterOption from 'ui/Filters/FilterOption';
-import { debounce } from 'lodash';
 
 const animationsMillisecondsDuration = 400;
 
@@ -50,12 +49,16 @@ const Title = styled.span`
   opacity: 0.5;
   color: #040402;
   margin-top: 11px;
-  width: 10%;
+  width: 40%;
+
+  @media ${props => props.theme.queries.desktop} {
+    width: 20%;
+  }
 `;
 
 const FiltersContainer = styled.div`
   padding-top: 17px;
-  margin: '6px 16px 18px';
+  margin: 6px 16px 18px;
   display: inherit;
   ${props => (props.animationHeight ? `height: ${props.animationHeight}` : '')};
 
@@ -85,7 +88,7 @@ const FiltersContainer = styled.div`
       opacity: 1;
     }
   }
-  @media ${props => props.theme.queries.desktopLarge} {
+  @media ${props => props.theme.queries.desktop} {
     &.mobile-open,
     &.mobile-closed {
       height: 100%;
@@ -94,26 +97,18 @@ const FiltersContainer = styled.div`
     }
   }
   `;
+
+const ClearButton = styled(Button)`
+  align-self: flex-end;
+  margin-left: auto;
+  text-align: right;
+`;
   
 class Filters extends React.Component {
-  constructor(props) {
-    super(props);
-    this.filterContainerRef = React.createRef();
-  }
   
   state = {
     openFilter: null,
-    isMobileView: false,
-    isMobileFilterOpen: false,
-    isClosing: false,
-    isOpening: false,
-    filtersContainerHeight: 'auto',
   };
-  
-  componentDidMount() {
-    window.addEventListener('resize', (this.resize = debounce(this.resize.bind(this), 500)));
-    this.resize();
-  }
     
   static propTypes = {
     title: PropTypes.string.isRequired,
@@ -122,111 +117,52 @@ class Filters extends React.Component {
     clearFilters: PropTypes.func.isRequired,
     setFilter: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
-    forceCollapse: PropTypes.bool
   };
 
   static defaultProps = {
-    forceCollapse: false,
     activeFilters: {},
-  };
-  
-
-  resize() {
-    const w = window;
-    const d = document;
-    const e = d.documentElement;
-    const g = d.getElementsByTagName('body')[0];
-    const windowWidth = w.innerWidth || e.clientWidth || g.clientWidth;
-    const filtersContainer = this.filterContainerRef;
-    const heightFiltersContainer =
-      (filtersContainer &&
-        filtersContainer.current &&
-        `${filtersContainer.current.clientHeight}px`) ||
-      '235px';
-    this.setState({
-      filtersContainerHeight: heightFiltersContainer,
-      isMobileView: windowWidth < 1200,
-    });
-  }
-
-  _animationCloseCompleted = () => {
-    this.setState({ isClosing: false });
-  };
-
-  _animationOpenCompleted = () => {
-    this.setState({ isOpening: false }, () => this.resize());
-  };
-
-  _handleToggleMobileFilters = () => {
-    this.setState(
-      {
-        isMobileFilterOpen: !this.state.isMobileFilterOpen,
-        isClosing: this.state.isMobileFilterOpen === true,
-        isOpening: this.state.isMobileFilterOpen === false,
-      },
-      () => {
-        if (this.state.isOpening) {
-          this.tmrOpeningAnimation = setTimeout(
-            () => this._animationOpenCompleted(),
-            animationsMillisecondsDuration * 0.9
-          );
-        }
-        if (this.state.isClosing) {
-          this.tmrClosingAnimation = setTimeout(
-            () => this._animationCloseCompleted(),
-            animationsMillisecondsDuration * 0.9
-          );
-        }
-      }
-    );
   };
 
   _handleFilterTouch = (filter) => {
     this.setState(({ openFilter }) => ({
-      openFilter: filter === openFilter ? null : filter
+      openFilter: filter === openFilter ? null : filter,
+      forceCollapse: false
     }));
   };
+
+  _clearFilters = () => {
+    this.setState({ forceCollapse: true }, () => {
+      this.props.clearFilters();
+    })
+  }
 
   render() {
     const {
       title,
       options,
       activeFilters,
-      clearFilters,
       setFilter,
       children,
-      forceCollapse
     } = this.props;
 
-    const { isClosing, isOpening, isMobileFilterOpen, filtersContainerHeight } = this.state;
     return (
-      <FiltersContainer
-        ref={this.filterContainerRef}
-        className={
-          isMobileFilterOpen
-            ? isOpening
-              ? 'mobile-opening'
-              : 'mobile-open'
-            : isClosing
-            ? 'mobile-closing'
-            : 'mobile-closed'
-        }
-        animationHeight={filtersContainerHeight}
-      >
+      <FiltersContainer>
         <Header>
           <Title>
             {title}
           </Title>
-          <Button
-            thin
+          <ClearButton
             transparent
             color="terracota"
-            font="primary"
+            variant="primary"
             uppercase={false}
-            onClick={clearFilters}
+            onClick={this._clearFilters}
+            spacing="0"
+            width={["70px", null,"200px", null]}
+            height="20px"
           >
             Clear All
-          </Button>
+          </ClearButton>
         </Header>
         {React.Children.map(children, (child) => {
           const { accessor } = child.props;
@@ -240,7 +176,7 @@ class Filters extends React.Component {
           return React.cloneElement(child, {
             active,
             data,
-            isOpen: this.state.openFilter === accessor && !forceCollapse,
+            isOpen: this.state.openFilter === accessor && !this.state.forceCollapse,
             onHeaderClick: () => {
               this._handleFilterTouch(accessor);
             },
