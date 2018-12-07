@@ -98,9 +98,16 @@ const FiltersContainer = styled.div`
   }
   `;
 
-const ClearButton = styled(Button)`
+const ButtonContainer = styled.div`
+  width: 70px;
   align-self: flex-end;
   margin-left: auto;
+  @media ${props => props.theme.queries.desktop} {
+    width: 200px;
+  }
+`;
+
+const ClearButton = styled(Button)`
   text-align: right;
 `;
   
@@ -151,6 +158,7 @@ class Filters extends React.Component {
           <Title>
             {title}
           </Title>
+          <ButtonContainer>
           <ClearButton
             transparent
             color="terracota"
@@ -158,11 +166,11 @@ class Filters extends React.Component {
             uppercase={false}
             onClick={this._clearFilters}
             spacing="0"
-            width={["70px", null,"200px", null]}
             height="20px"
           >
             Clear All
           </ClearButton>
+          </ButtonContainer>
         </Header>
         {React.Children.map(children, (child) => {
           const { accessor } = child.props;
