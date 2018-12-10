@@ -2,8 +2,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Spring, animated } from 'react-spring';
-import Icon from 'ui/Icon/Icon';
 import { rem } from 'polished';
+import Icon from 'ui/Icon/Icon';
+import Option from './Option';
 
 const Container = styled.div`
   border-bottom: ${rem('0.5px')} solid ${props => props.theme.colors.terracota.main};
@@ -16,34 +17,11 @@ const Header = styled.div`
   height: ${rem('62px')};
 `;
 
-const Checkbox = styled.div`
-  align-items: center;
-  background-color: ${props => (props.active ? props.theme.colors.bunting.main : 'transparent')};
-  border: 1px solid ${props => props.theme.colors.bunting.main};
-  display: flex;
-  height: ${rem('20px')};
-  justify-content: center;
-  margin-right: ${rem('12px')};
-  width: ${rem('20px')};
-`;
-
 const OptionsContainer = styled(animated.div)`
   overflow: hidden;
   transition-timing-function: linear;
 `;
 
-const Option = styled.div`
-  align-items: center;
-  cursor: pointer;
-  display: flex;
-  margin-bottom: ${rem('24px')}
-
-  @media ${props => props.theme.queries.desktop} {
-    &:hover ${Checkbox} {
-      background-color: ${props => props.theme.colors.bunting.main};
-    }
-  )};
-`;
 
 const Caret = styled.div`
   margin-left: ${rem('16px')}
@@ -81,13 +59,6 @@ const SpringContainer = styled.div`
   }
 `;
 
-const OptionName = styled.span`
-  color: ${props => props.theme.colors.bunting.main};
-  line-height: ${rem('18px')}
-  margin-top: ${rem('4px')};
-  font-size: ${rem('14px')};
-`;
-
 const FilterName = styled.span`
   color: ${props => props.theme.colors.terracota.main};
   line-height: ${rem('14px')}
@@ -101,26 +72,43 @@ const FilterName = styled.span`
 `;
 
 class FilterOption extends PureComponent {
-  
-  handleChange = option => {
-    this.props.onChange(
-      this.props.active.includes(option)
-      ? this.props.active.filter(item => item !== option)
-      : [...this.props.active, option]
+  state = {
+    accessor: this.props.option.section,
+  }
+
+  onChange = (filter) => {
+    const { accessor } = this.state;
+    this.props.setFilter({ accessor, filter })
+  }
+
+  handleChange = _id => {
+    const { activeFilters } = this.props;
+    const { accessor } = this.state;
+    const active = activeFilters[accessor] || [];
+    this.onChange(
+      active.includes(_id)
+      ? active.filter(item => item !== _id)
+      : [...active, _id]
     );
   };
   
+  onHeaderClick = () => {
+    const { accessor } = this.state;
+    this.props.handleFilterTouch(accessor);
+  }
+
   render() {
-    const { isOpen, data, name, active, onHeaderClick } = this.props;
-    
+    const { isOpen, option, activeFilters } = this.props;
+    const { accessor } = this.state;
+    const active = activeFilters[accessor];
     return (
       <Container>
-        <Header onClick={onHeaderClick}>
+        <Header onClick={this.onHeaderClick}>
           <FilterName
           >
-            {name}
-          </FilterName>{' '}
-          {active.length > 0 && <Counter>{active.length}</Counter>}
+            {option.section}
+          </FilterName>
+          {active && active.length > 0 && <Counter>{active.length}</Counter>}
           <Caret active={isOpen}>
             <Icon name="caret" color="terracota" size={12} />
           </Caret>
@@ -133,14 +121,13 @@ class FilterOption extends PureComponent {
             >
             {style => (
               <OptionsContainer style={style}>
-                {data.map(option => (
-                  <Option key={option._id} onClick={() => this.handleChange(option._id)}>
-                    <Checkbox active={active.includes(option._id)}>
-                      {active.includes(option._id) && <Icon name="check" color="white" size={13} />}
-                    </Checkbox>
-                    <OptionName>
-                      {option.name}
-                    </OptionName>
+                {option.filters.map(filter => (
+                  <Option 
+                    key={filter._id} 
+                    filter={filter} 
+                    active={active}
+                    handleChange={this.handleChange}>
+                    
                   </Option>
                 ))}
               </OptionsContainer>
@@ -154,18 +141,19 @@ class FilterOption extends PureComponent {
 
 FilterOption.propTypes = {
   isOpen: PropTypes.bool,
-  name: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(PropTypes.shape({})),
-  active: PropTypes.arrayOf(PropTypes.string),
-  onHeaderClick: PropTypes.func,
-  onChange: PropTypes.func,
+  activeFilters: PropTypes.arrayOf(PropTypes.string),
+  setFilter: PropTypes.func,
+  handleFilterTouch: PropTypes.func.isRequired,
+  option: PropTypes.shape({
+    section: PropTypes.string.isRequired,
+    filters: PropTypes.arrayOf(PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired
+    }))
+  }).isRequired
 };
 
 FilterOption.defaultProps = {
   isOpen: false,
-  data: [],
-  active: [],
-  onHeaderClick: null,
-  onChange: null,
 };
 export default FilterOption;
