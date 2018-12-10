@@ -112,11 +112,9 @@ const ClearButton = styled(Button)`
 `;
   
 class Filters extends PureComponent {
-  
   state = {
     openFilter: null,
   };
-    
   
   handleFilterTouch = (filter) => {
     this.setState(({ openFilter }) => ({
@@ -134,10 +132,9 @@ class Filters extends PureComponent {
   render() {
     const {
       title,
-      options,
+      filterOptions,
       activeFilters,
       setFilter,
-      children,
     } = this.props;
     
     return (
@@ -161,29 +158,16 @@ class Filters extends PureComponent {
             </ClearButton>
           </ButtonContainer>
         </Header>
-        {React.Children.map(children, (child) => {
-          const { accessor } = child.props;
-          const active = activeFilters[accessor];
-          const { filters: data } = options.find(option => option.section === accessor) || {};
-          const onHeaderClick = () => {
-            this.handleFilterTouch(accessor);
-          };
-          const onChange = (filter) => {
-            setFilter({ accessor, filter });
-          }
-
-          if (!data) {
-            return <div>Filter with section: {accessor} not found.</div>;
-          }
-          
-          return React.cloneElement(child, {
-            active,
-            data,
-            isOpen: this.state.openFilter === accessor && !this.state.forceCollapse,
-            onHeaderClick,
-            onChange
-          });
-        })}
+        {filterOptions.map(option => (
+          <FilterOption
+            key={option.section}
+            option={option}
+            setFilter={setFilter}
+            handleFilterTouch={this.handleFilterTouch}
+            activeFilters={activeFilters}
+            isOpen={this.state.openFilter === option.section && !this.state.forceCollapse}
+          />
+        ))}
       </FiltersContainer>
     );
   }
@@ -191,17 +175,20 @@ class Filters extends PureComponent {
 
 Filters.propTypes = {
   title: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.shape({}).isRequired).isRequired,
+  filterOptions: PropTypes.arrayOf(PropTypes.shape({
+    section: PropTypes.string.isRequired,
+    filters: PropTypes.arrayOf(PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired
+    }))
+  }).isRequired).isRequired,
   activeFilters: PropTypes.shape({}).isRequired,
   clearFilters: PropTypes.func.isRequired,
   setFilter: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
 };
 
 Filters.defaultProps = {
   activeFilters: {},
 };
-
-Filters.FilterOption = FilterOption;
 
 export default Filters;

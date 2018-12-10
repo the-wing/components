@@ -35,14 +35,11 @@ storiesOf('Filters', module)
         <Page>
           <Filters
             title="Filter By"
-            options={store.get('filterOptions')}
+            filterOptions={store.get('filterOptions')}
             activeFilters={store.get('activeFilters')}
             clearFilters={store.get('clearFilters')}
             setFilter={store.get('setFilter')}
-          >
-            <Filters.FilterOption name="Topping" accessor="topping" />
-            <Filters.FilterOption name="Color" accessor="color" />
-          </Filters>
+          />
         </Page>
         );
       }}
