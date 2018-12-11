@@ -21,7 +21,7 @@ export { default as Menu } from './ui/Menu/Menu';
 export { default as Section } from './ui/Section/Section';
 export { default as SocialIcon } from './ui/SocialIcon/SocialIcon';
 export { default as Text } from './ui/Text/Text';
-
+export { default as Filters } from './ui/Filters/Filters';
 // Containers
 export { default as Member } from './containers/Member/Member';
 export { default as Profile } from './containers/Profile/Profile';
