@@ -30,6 +30,7 @@ export const StyledContent = styled.span`
 `;
 
 const Text = styled.span`
+  flex: 1;
   color: ${props => props.theme.colors.solitude.main};
   font-size: ${rem('15px')};
   letter-spacing: 0.2px;
