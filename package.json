@@ -1,6 +1,6 @@
 {
   "name": "@thewing/components",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Shared components for The Wing",
   "main": "dist/index.js",
   "publishConfig": {
