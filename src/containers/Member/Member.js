@@ -100,7 +100,7 @@ const Location = styled.div`
 
   &::after {
     content: '';
-    display: block;
+    display: ${props => (props.hasAsksAndOfferings ? 'block' : 'none')};
     position: absolute;
     bottom: ${rem('-15px')};
     width: ${rem('93px')};
@@ -257,7 +257,7 @@ const Member = ({ asksAndOfferings, imageUrl, industry, location, message, name,
         {position && <Position>{position}</Position>}
         {industry && <Industry>{industry}</Industry>}
         {location && (
-          <Location>
+          <Location hasAsksAndOfferings={asksAndOfferings.length > 0}>
             <Icon name="homebase" size={16} color="grayChateau" />
             <LocationText>{location}</LocationText>
           </Location>
