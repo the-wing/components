@@ -34,6 +34,7 @@ const Info = styled.div`
 
   @media ${props => props.theme.queries.tablet} {
     max-width: ${rem('332px')};
+    min-width: ${rem('332px')};
   }
 `;
 

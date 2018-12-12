@@ -72,4 +72,18 @@ storiesOf('Member', module)
         <Member {...data.garryWithMessage} />
       </Content>
     </Page>
+  ))
+  .add('with short info', () => (
+    <Page>
+      <Content>
+        <Member
+          {...data.garryWithMessage}
+          name="G"
+          location="G"
+          position="G"
+          industry="G"
+          message="G"
+        />
+      </Content>
+    </Page>
   ));
