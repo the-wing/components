@@ -12,6 +12,13 @@ const ron = {
   position: 'Director of the Pawnee City Department of Parks and Recreation',
 };
 
+const garry = {
+  industry: 'Government',
+  location: 'All Access, Soho',
+  name: 'Garry Gergich',
+  position: 'Employee',
+};
+
 const leslieWithAsksAndOfferings = {
   ...leslie,
   asksAndOfferings: [
@@ -40,6 +47,20 @@ const ronWithAsksAndOfferings = {
   ],
 };
 
+const garryWithAsksAndOfferings = {
+  ...garry,
+  asksAndOfferings: [
+    {
+      title: 'Offering',
+      values: ['Smiles'],
+    },
+    {
+      title: 'Asking',
+      values: ['You get his name right please?'],
+    },
+  ],
+};
+
 const leslieWithMessage = {
   ...leslie,
   message:
@@ -50,6 +71,11 @@ const ronWithMessage = {
   ...ron,
   message:
     'You and Leslie Knope attended the same event yesterday. You are also both interested in waffles.',
+};
+
+const garryWithMessage = {
+  ...garry,
+  message: "Isn't his name Jerry?",
 };
 
 export const data = {
@@ -66,5 +92,12 @@ export const data = {
   ronWithAsksAndOfferingsAndMessage: {
     ...ronWithAsksAndOfferings,
     ...ronWithMessage,
+  },
+  garry,
+  garryWithAsksAndOfferings,
+  garryWithMessage,
+  garryWithAsksAndOfferingsAndMessage: {
+    ...garryWithAsksAndOfferings,
+    ...garryWithMessage,
   },
 };

@@ -58,4 +58,18 @@ storiesOf('Member', module)
         <Member {...data.ronWithAsksAndOfferingsAndMessage} />
       </Content>
     </Page>
+  ))
+  .add('with short asks/offerings', () => (
+    <Page>
+      <Content>
+        <Member {...data.garryWithAsksAndOfferingsAndMessage} />
+      </Content>
+    </Page>
+  ))
+  .add('with short message', () => (
+    <Page>
+      <Content>
+        <Member {...data.garryWithMessage} />
+      </Content>
+    </Page>
   ));
