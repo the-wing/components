@@ -5,6 +5,7 @@ import { rem } from 'polished';
 import pinkCurve from 'assets/img/pinkCurve.svg';
 
 const StyledMessage = styled.div`
+  display: flex;
   position: relative;
   background: ${props => props.theme.colors.potpourri.main};
   padding: ${rem('14px')} ${rem('20px')};
@@ -23,6 +24,7 @@ const StyledMessage = styled.div`
   }
 
   @media ${props => props.theme.queries.tablet} {
+    display: inline-block;
     border-radius: ${rem('40px')};
     margin-top: 0;
 
@@ -32,8 +34,14 @@ const StyledMessage = styled.div`
   }
 `;
 
+const Content = styled.span`
+  display: flex;
+`;
+
 const Message = ({ children, className }) => (
-  <StyledMessage className={className}>{children}</StyledMessage>
+  <StyledMessage className={className}>
+    <Content>{children}</Content>
+  </StyledMessage>
 );
 
 Message.propTypes = {

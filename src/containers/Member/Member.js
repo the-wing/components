@@ -223,6 +223,14 @@ const MatchIcon = styled.div`
   }
 `;
 
+const MessageContainer = styled.span`
+  flex: 1 1 auto;
+
+  @media ${props => props.theme.queries.tablet} {
+    min-width: ${rem('510px')};
+  }
+`;
+
 const MessageText = styled.span`
   color: ${props => props.theme.colors.blueDark.main}
   font-size: ${rem('12px')};
@@ -279,12 +287,14 @@ const Member = ({ asksAndOfferings, imageUrl, industry, location, message, name,
       </AsksAndOfferings>
     )}
     {message && (
-      <StyledMessage>
-        <MessageContent>
-          <MatchIcon />
-          <MessageText>{message}</MessageText>
-        </MessageContent>
-      </StyledMessage>
+      <MessageContainer>
+        <StyledMessage>
+          <MessageContent>
+            <MatchIcon />
+            <MessageText>{message}</MessageText>
+          </MessageContent>
+        </StyledMessage>
+      </MessageContainer>
     )}
   </Container>
 );

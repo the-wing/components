@@ -85,6 +85,9 @@ storiesOf('List', module)
           <StyledListItem underline>
             <Member {...memberData.ronWithAsksAndOfferingsAndMessage} />
           </StyledListItem>
+          <StyledListItem underline>
+            <Member {...memberData.garryWithMessage} />
+          </StyledListItem>
         </List>
       </Content>
     </Page>
