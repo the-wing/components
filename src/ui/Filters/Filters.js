@@ -49,11 +49,7 @@ const Title = styled.span`
   line-height: ${rem('19px')};
   opacity: 0.5;
   color: #040402;
-  width: 40%;
-
-  @media ${props => props.theme.queries.desktop} {
-    width: 20%;
-  }
+  width: 50%;
 `;
 
 const FiltersContainer = styled.div`
