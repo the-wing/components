@@ -28,6 +28,10 @@ const Slide = styled.div`
   border: 1px solid #d28c0e;
 `;
 
+const NonCenteredSlide = styled(Slide)`
+  margin-right: 10px;
+`;
+
 storiesOf('Carousel', module)
   .add('default', () => (
     <Page>
@@ -39,6 +43,22 @@ storiesOf('Carousel', module)
               <Slide>Slide 2 </Slide>
               <Slide>Slide 3</Slide>
               <Slide>Slide 4</Slide>
+            </Carousel>
+          </Container>
+        )}
+      </Media>
+    </Page>
+  ))
+  .add('with centerMode=false', () => (
+    <Page>
+      <Media>
+        {({ currentBreakpoint }) => (
+          <Container currentBreakpoint={currentBreakpoint}>
+            <Carousel centerMode={false}>
+              <NonCenteredSlide> 1 </NonCenteredSlide>
+              <NonCenteredSlide> 2 </NonCenteredSlide>
+              <NonCenteredSlide> 3</NonCenteredSlide>
+              <NonCenteredSlide> 4</NonCenteredSlide>
             </Carousel>
           </Container>
         )}

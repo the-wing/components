@@ -22,9 +22,11 @@ const Overlay = styled.div`
   top: 0;
   bottom: 0;
   box-shadow: ${props =>
-    `inset 40px 0px 60px -30px ${props.theme.colors.linen.main}, inset -40px 0px 60px -30px ${
-      props.theme.colors.linen.main
-    }`};
+    props.centerMode
+      ? `inset 40px 0px 60px -30px ${props.theme.colors.linen.main}, inset -40px 0px 60px -30px ${
+          props.theme.colors.linen.main
+        }`
+      : 'none'};
   pointer-events: none;
   z-index: 2;
 `;
@@ -175,7 +177,7 @@ const Carousel = ({
 
   return (
     <Container>
-      <Overlay />
+      <Overlay centerMode={centerMode} />
       <Media>
         {({ breakpoints }) => (
           <StyledReactSlick
