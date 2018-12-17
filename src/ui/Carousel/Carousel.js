@@ -146,6 +146,7 @@ const PrevArrow = ({ onClick }) => <StyledPrevArrow onClick={onClick} />;
 
 const Carousel = ({
   arrows,
+  centerMode,
   centerPadding,
   children,
   dots,
@@ -158,7 +159,7 @@ const Carousel = ({
   const settings = {
     appendDots,
     arrows,
-    centerMode: true,
+    centerMode,
     centerPadding,
     className: 'center',
     dots,
@@ -238,6 +239,7 @@ Carousel.propTypes = {
 
 Carousel.defaultProps = {
   arrows: true,
+  centerMode: true,
   centerPadding: '20px',
   dots: true,
   infinite: true,

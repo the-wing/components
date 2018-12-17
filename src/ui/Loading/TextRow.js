@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TextRow as ReactPlaceholderTextRow } from 'react-placeholder/lib/placeholders';
-import theme from 'theme';
 import { rgba } from 'polished';
 import { shimmerAnimation } from './animation';
 
