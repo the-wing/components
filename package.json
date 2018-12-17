@@ -57,7 +57,7 @@
     }
   },
   "lint-staged": {
-    "*.{js}": [
+    "src/**/**/*.js": [
       "eslint --format 'node_modules/eslint-friendly-formatter'",
       "prettier --write",
       "git add"
