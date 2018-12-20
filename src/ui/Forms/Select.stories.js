@@ -2,6 +2,8 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { FormField, Label, Select } from 'ui/Forms';
+import Page from 'ui/Page/Page';
+import theme from 'theme';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
@@ -27,7 +29,7 @@ storiesOf('Select', module)
   ))
   .add('error', () => (
     <FormField>
-      <Label htmlFor="select1" text="Default" error="I have an error." />
+      <Label htmlFor="select1" text="Error" error="I have an error." />
       <Select
         id="select1"
         options={options}
@@ -40,6 +42,12 @@ storiesOf('Select', module)
     <FormField>
       <Label htmlFor="select4" text="With Placeholder" />
       <Select id="select4" options={options} placeholder="Select a flavor" />
+    </FormField>
+  ))
+  .add('withoutBorder', () => (
+    <FormField>
+      <Label htmlFor="select1" text="Without Border" />
+      <Select id="select1" options={options} withoutBorder />
     </FormField>
   ))
   .add('with custom onChange', () => (
@@ -64,6 +72,12 @@ storiesOf('Select', module)
     <FormField>
       <Label htmlFor="select8" text="Hidden Indicator" />
       <Select id="select8" options={options} hiddenIndicator />
+    </FormField>
+  ))
+  .add('isMulti', () => (
+    <FormField>
+      <Label htmlFor="select1" text="Is Multi" />
+      <Select id="select1" options={options} isMulti />
     </FormField>
   ))
   .add('canCreateOptions', () => (
@@ -107,7 +121,7 @@ storiesOf('Select', module)
       />
     </FormField>
   ))
-  .add('canCreateOptions w/ loadOptions (async function to search)', () => (
+  .add('canCreateOptions w/ loadOptions', () => (
     <FormField>
       <Label htmlFor="select9" text="Can Create Options" />
       <Select
@@ -122,7 +136,25 @@ storiesOf('Select', module)
       />
     </FormField>
   ))
-  .add('Cannot create options & has loadOptions (async function to search)', () => (
+  .add('canCreateOptions w/ loadOptions & isMulti & withoutBorder', () => (
+    <Page color={theme.colors.linen.main}>
+      <FormField>
+        <Label htmlFor="select9" text="Can Create Options (multi)" />
+        <Select
+          maxLength={30}
+          id="select9"
+          loadOptions={loadOptions}
+          options={options}
+          onChange={action('custom onChange')}
+          placeholder="Can create options (multi)"
+          canCreateOptions
+          isMulti
+          withoutBorder
+        />
+      </FormField>
+    </Page>
+  ))
+  .add('Cannot create options & has loadOptions', () => (
     <FormField>
       <Label htmlFor="select9" text="Can Create Options" />
       <Select

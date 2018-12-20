@@ -4,6 +4,7 @@ import { default as ReactSelect, components } from 'react-select';
 import Async from 'react-select/lib/Async';
 import AsyncCreatableSelect from 'react-select/lib/AsyncCreatable';
 import styled from 'styled-components';
+import { rem } from 'polished';
 import Loader from 'react-loader-spinner';
 import theme from 'theme';
 
@@ -23,20 +24,21 @@ const StyledAddLabel = styled(Box)`
 const SearchIcon = styled.div`
   display: inline-block;
   content: "";
-  width: 14px;
-  height: 14px;
+  width: ${rem('14px')};
+  height: ${rem('14px')};
   background: url(${searchIcon}) no-repeat;
-  margin-right: 16px;
-  margin-left: 16px;
+  margin-right: ${rem('16px')};
+  margin-left: ${rem('16px')};
 `;
 
 const StyledCreatableChild = styled.div`
-  margin-left: ${props => (props.menuIsOpen ? '46px' : 'inherit')};
+  margin-left: ${rem('46px')};
   color: ${props => theme.colors.solitude.main};
 `;
 
 const StyledSearchablePlaceholder = styled(StyledCreatableChild)`
   color: ${props => theme.colors.grayChateau.main};
+  margin-left: ${rem('46px')};
 `;
 
 const LoadingIndicator = () => {
@@ -63,7 +65,7 @@ const SearchableValueContainer = ({ children, ...props }) => {
   return (
     components.ValueContainer && (
       <components.ValueContainer {...props}>
-        {props.selectProps.menuIsOpen && <SearchIcon />}
+        <SearchIcon />
         {children}
       </components.ValueContainer>
     )
@@ -86,9 +88,7 @@ const SearchableSingleValue = ({ children, ...props }) => {
   return (
     components.SingleValue && (
       <components.SingleValue {...props}>
-        <StyledCreatableChild menuIsOpen={props.selectProps.menuIsOpen}>
-          {children}
-        </StyledCreatableChild>
+        <StyledCreatableChild>{children}</StyledCreatableChild>
       </components.SingleValue>
     )
   );
@@ -112,7 +112,7 @@ const AddLabel = ({ currentLength, error, inputValue, maxLength }) => {
   );
 };
 
-const customStyles = (isSearchable = false, error = false) => ({
+const customStyles = (isSearchable = false, error = false, withoutBorder = false) => ({
   control: (base, state) => ({
     ...base,
     fontSize: 'calc((14 / 16) * 1rem)',
@@ -120,18 +120,18 @@ const customStyles = (isSearchable = false, error = false) => ({
     borderRadius: 0,
     borderColor: 'transparent',
     borderBottom:
-      isSearchable && state.isFocused
+      (isSearchable && state.isFocused) || withoutBorder
         ? 'none'
         : `0.5px solid ${theme.colors[error ? 'red' : 'grayChateau'].main}`,
     backgroundColor: 'white',
     boxShadow: isSearchable && state.isFocused ? '0 0 20px -1px rgba(164, 166, 168, 0.3)' : 'none',
-    minHeight: '34px',
-    maxHeight: '34px',
+    minHeight: '48px',
+    maxHeight: '48px',
     color: theme.colors.solitude.main,
     '&:hover': {
       borderColor: 'transparent',
       borderBottom:
-        isSearchable && state.isFocused
+        (isSearchable && state.isFocused) || withoutBorder
           ? 'none'
           : `0.5px solid ${theme.colors[error ? 'red' : 'grayChateau'].main}`,
       cursor: 'pointer',
@@ -160,7 +160,7 @@ const customStyles = (isSearchable = false, error = false) => ({
   option: (base, state) => ({
     ...base,
     fontSize: 'calc((14 / 16) * 1rem)',
-    padding: '10px 16px',
+    padding: '15px 16px',
     color: theme.colors.solitude.main,
     backgroundColor: state.isFocused ? '#faf3f1' : null,
     '&:active': {
@@ -189,11 +189,14 @@ const Select = ({
   canCreateOptions,
   error,
   hiddenIndicator,
+  isMulti,
+  isClearable,
   isSearchable,
   loadOptions,
   maxLength,
   options,
   placeholder,
+  withoutBorder,
   ...inputProps
 }) => {
   const searchableComponents = (isSearchable || canCreateOptions || loadOptions) && {
@@ -228,10 +231,12 @@ const Select = ({
 
             return false;
           }}
+          isClearable={isClearable}
+          isMulti={isMulti}
           options={options}
           placeholder={placeholder}
           // isSearchable = true
-          styles={customStyles(true, error && error.length > 0)}
+          styles={customStyles(true, error && error.length > 0, withoutBorder)}
           defaultOptions={options}
           loadOptions={loadOptions}
           maxLength={maxLength}
@@ -252,11 +257,13 @@ const Select = ({
           DropdownIndicator,
           ...searchableComponents,
         }}
+        isClearable={isClearable}
+        isMulti={isMulti}
         isSearchable={isSearchable}
         options={options}
         maxLength={maxLength}
         placeholder={placeholder}
-        styles={customStyles(isSearchable, error && error.length > 0)}
+        styles={customStyles(isSearchable, error && error.length > 0, withoutBorder)}
         hiddenIndicator={hiddenIndicator}
         error={error && error.length > 0}
         blurInputOnSelect
@@ -270,6 +277,8 @@ const Select = ({
 Select.propTypes = {
   canCreateOptions: PropTypes.bool,
   error: PropTypes.string,
+  isClearable: PropTypes.bool,
+  isMulti: PropTypes.bool,
   isSearchable: PropTypes.bool,
   loadOptions: PropTypes.func,
   maxLength: PropTypes.number,
@@ -280,15 +289,19 @@ Select.propTypes = {
     }).isRequired
   ),
   placeholder: PropTypes.string,
+  withoutBorder: PropTypes.bool,
 };
 
 Select.defaultProps = {
   canCreateOptions: false,
   error: null,
   hiddenIndicator: false,
+  isClearable: false,
+  isMulti: false,
   loadOptions: null,
   maxLength: null,
   placeholder: '',
+  withoutBorder: false,
 };
 
 export default Select;
