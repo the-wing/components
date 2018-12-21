@@ -37,7 +37,7 @@ const props = {
   description: "I'm about to explain something on this page. Get ready.",
 };
 
-storiesOf('Page', module)
+storiesOf('UI/Page', module)
   .add('default', () => (
     <Page>
       <Content>Gender is an illusion</Content>

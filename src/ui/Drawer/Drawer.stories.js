@@ -10,7 +10,7 @@ const store = new Store({
   isOpen: false,
 });
 
-storiesOf('Drawer', module)
+storiesOf('UI/Drawer', module)
   .add('isOpen', () => (
     <Drawer isOpen>
       <div>I am a drawer.</div>

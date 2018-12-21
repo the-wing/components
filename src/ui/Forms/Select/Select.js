@@ -11,10 +11,14 @@ import theme from 'theme';
 import Box from 'ui/Box/Box';
 import Chip from 'ui/Chip/Chip';
 import Counter from 'ui/Counter/Counter';
+import ErrorMessage from 'ui/Forms/ErrorMessage';
 import Icon from 'ui/Icon/Icon';
 import Text from 'ui/Text/Text';
 import searchIcon from 'assets/img/search.svg';
-import ErrorMessage from './ErrorMessage';
+
+const ClearIndicator = props => {
+  return <div>hi</div>;
+};
 
 const StyledAddLabel = styled(Box)`
   justify-content: space-between;
@@ -65,6 +69,10 @@ const LoadingIndicator = () => {
 };
 
 const DropdownIndicator = props => {
+  if (props.selectProps.hiddenIndicator) {
+    return null;
+  }
+
   return (
     components.DropdownIndicator && (
       <components.DropdownIndicator {...props}>
@@ -82,8 +90,8 @@ const SearchableValueContainer = ({ children, ...props }) => {
   return (
     components.ValueContainer && (
       <components.ValueContainer {...props}>
+        <SearchIcon />
         <ValueContainer>
-          <SearchIcon />
           <StyledValue>{children}</StyledValue>
         </ValueContainer>
       </components.ValueContainer>
@@ -150,6 +158,7 @@ const MultiValue = ({ children, removeProps, ...props }) => {
             onRemove={removeProps.onClick}
             noMarginBottom
             dark
+            small
           />
         </components.MultiValueContainer>
       </StyledMultiValueContainer>
@@ -268,6 +277,7 @@ const Select = ({
       <Fragment>
         <AsyncSelect
           components={{
+            ClearIndicator,
             DropdownIndicator,
             LoadingIndicator,
             MultiValue,
@@ -313,6 +323,7 @@ const Select = ({
     <Fragment>
       <ReactSelect
         components={{
+          ClearIndicator,
           DropdownIndicator,
           MultiValue,
           ValueContainer,

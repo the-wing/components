@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { Addon, ErrorMessage, FormField, Input, InputGroup, Label } from 'ui/Forms';
 import SocialIcon from 'ui/SocialIcon/SocialIcon';
 
-storiesOf('InputGroup', module)
+storiesOf('UI/Forms/InputGroup', module)
   .add('default', () => (
     <InputGroup>
       <FormField fullWidth>

@@ -6,7 +6,7 @@ import Button from 'ui/Button/Button';
 import Icon from 'ui/Icon/Icon';
 import Text from 'ui/Text/Text';
 
-storiesOf('Button', module)
+storiesOf('UI/Button', module)
   .add('default', () => <Button onClick={action('clicked')}>Default Button</Button>)
   .add('bordered', () => (
     <Button onClick={action('clicked')} bordered>

@@ -9,7 +9,7 @@ const ButtonContainer = styled.div`
   margin-top: ${rem('26px')};
 `;
 
-storiesOf('ErrorLoading', module)
+storiesOf('UI/ErrorLoading', module)
   .add('default', () => <ErrorLoading mainText="Default Error Loading Text" />)
   .add('attendees', () => <ErrorLoading mainText="The attendees list isn’t loading right now." />)
   .add('with button', () => (

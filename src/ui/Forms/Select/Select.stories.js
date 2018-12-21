@@ -20,7 +20,7 @@ const loadOptions = (inputValue, callback) => {
   }, 1000);
 };
 
-storiesOf('Select', module)
+storiesOf('UI/Forms/Select', module)
   .add('default', () => (
     <FormField>
       <Label htmlFor="select1" text="Default" />
@@ -80,13 +80,10 @@ storiesOf('Select', module)
       <Select id="select1asd" options={options} isMulti />
     </FormField>
   ))
-  .add('isMulti & withoutBorder & hiddenIndicator & canCreateOptions & hiddenMenu', () => (
+  .add('search', () => (
     <Page color={theme.colors.linen.main}>
       <FormField>
-        <Label
-          htmlFor="select13434"
-          text="Is Multi/Without Border/Hidden Indicator/Can Create Options/Hidden Menu"
-        />
+        <Label htmlFor="select13434" text="Search" />
         <Select
           id="select13434"
           onChange={action('custom onChange')}
@@ -96,6 +93,7 @@ storiesOf('Select', module)
           hiddenIndicator
           isSearchable
           hiddenMenu
+          isClearable
         />
       </FormField>
     </Page>

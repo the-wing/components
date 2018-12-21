@@ -27,4 +27,4 @@ const options = [
   },
 ];
 
-storiesOf('Menu', module).add('default', () => <Menu options={options} />);
+storiesOf('UI/Menu', module).add('default', () => <Menu options={options} />);

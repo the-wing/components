@@ -28,7 +28,7 @@ const Slide = styled.div`
   border: 1px solid #d28c0e;
 `;
 
-storiesOf('Carousel', module)
+storiesOf('UI/Carousel', module)
   .add('default', () => (
     <Page>
       <Media>

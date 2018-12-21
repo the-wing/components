@@ -16,7 +16,7 @@ const Container = styled.div`
   border: ${props =>
     props.dark ? props.theme.colors[props.color].contrast : '1px solid rgba(7, 36, 79, 0.2)'};
   border-radius: ${rem('22px')};
-  height: ${rem('32px')};
+  height: ${props => (props.small ? rem('29px') : rem('32px'))};
   margin-right: ${rem('5px')};
   margin-bottom: ${props => (props.noMarginBottom ? '0' : rem('11px'))};
 `;
@@ -41,8 +41,15 @@ const StyledIcon = styled(Icon)`
     props.dark ? props.theme.colors[props.color].contrast : props.theme.colors.solitude.main};
 `;
 
-const Chip = ({ dark, readonly, color, noMarginBottom, onRemove, style, text }) => (
-  <Container dark={dark} key={text} color={color} noMarginBottom={noMarginBottom} style={style}>
+const Chip = ({ dark, readonly, color, noMarginBottom, onRemove, small, style, text }) => (
+  <Container
+    dark={dark}
+    key={text}
+    color={color}
+    noMarginBottom={noMarginBottom}
+    style={style}
+    small
+  >
     <Text dark={dark} color={color}>
       {text}
     </Text>
@@ -67,6 +74,7 @@ Chip.propTypes = {
   readonly: PropTypes.bool,
   color: PropTypes.oneOf(Object.keys(theme.colors)),
   noMarginBottom: PropTypes.bool,
+  small: PropTypes.bool,
   text: PropTypes.string.isRequired,
   onRemove: PropTypes.func,
 };
@@ -78,6 +86,7 @@ Chip.defaultProps = {
   margin: null,
   noMarginBottom: false,
   onRemove: null,
+  small: false,
 };
 
 export default Chip;

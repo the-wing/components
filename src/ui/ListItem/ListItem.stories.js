@@ -8,7 +8,7 @@ const Content = styled.span`
   justify-content: space-between;
 `;
 
-storiesOf('ListItem', module)
+storiesOf('UI/ListItem', module)
   .add('default', () => <ListItem>List Item</ListItem>)
   .add('with icon', () => <ListItem icon="location">List Item</ListItem>)
   .add('with underline', () => <ListItem underline>List Item</ListItem>)

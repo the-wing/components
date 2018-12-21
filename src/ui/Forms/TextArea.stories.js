@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { FormField, Label, TextArea } from 'ui/Forms';
 
-storiesOf('TextArea', module)
+storiesOf('UI/Forms/TextArea', module)
   .add('default', () => (
     <FormField>
       <Label for="id1" text="Label 1" />

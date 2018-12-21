@@ -9,7 +9,7 @@ const Page = styled.div`
   padding: 2em;
 `;
 
-storiesOf('Card', module)
+storiesOf('UI/Card', module)
   .add('with content', () => (
     <Page>
       <Card>A card with content.</Card>

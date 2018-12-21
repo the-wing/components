@@ -5,7 +5,7 @@ import Chip from 'ui/Chip/Chip';
 
 const listOfChips = ['Doritos', 'Dirty River', 'Lays', 'Pringles'];
 
-storiesOf('Chip', module)
+storiesOf('UI/Chip', module)
   .add('default', () => <Chip text="Doritos" onRemove={action('onRemove')} />)
   .add('readonly', () => <Chip text="Dirty River" readonly />)
   .add('color', () => <Chip text="Lays" color="panache" readonly />)
