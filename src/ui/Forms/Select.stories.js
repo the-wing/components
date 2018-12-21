@@ -70,15 +70,35 @@ storiesOf('Select', module)
   ))
   .add('hiddenIndicator', () => (
     <FormField>
-      <Label htmlFor="select8" text="Hidden Indicator" />
-      <Select id="select8" options={options} hiddenIndicator />
+      <Label htmlFor="select8asd" text="Hidden Indicator" />
+      <Select id="select8asd" options={options} hiddenIndicator />
     </FormField>
   ))
   .add('isMulti', () => (
     <FormField>
-      <Label htmlFor="select1" text="Is Multi" />
-      <Select id="select1" options={options} isMulti />
+      <Label htmlFor="select1asd" text="Is Multi" />
+      <Select id="select1asd" options={options} isMulti />
     </FormField>
+  ))
+  .add('isMulti & withoutBorder & hiddenIndicator & canCreateOptions & hiddenMenu', () => (
+    <Page color={theme.colors.linen.main}>
+      <FormField>
+        <Label
+          htmlFor="select13434"
+          text="Is Multi/Without Border/Hidden Indicator/Can Create Options/Hidden Menu"
+        />
+        <Select
+          id="select13434"
+          onChange={action('custom onChange')}
+          canCreateOptions
+          isMulti
+          withoutBorder
+          hiddenIndicator
+          isSearchable
+          hiddenMenu
+        />
+      </FormField>
+    </Page>
   ))
   .add('canCreateOptions', () => (
     <FormField>
@@ -139,10 +159,10 @@ storiesOf('Select', module)
   .add('canCreateOptions w/ loadOptions & isMulti & withoutBorder', () => (
     <Page color={theme.colors.linen.main}>
       <FormField>
-        <Label htmlFor="select9" text="Can Create Options (multi)" />
+        <Label htmlFor="select900" text="Can Create Options (multi)" />
         <Select
           maxLength={30}
-          id="select9"
+          id="select900"
           loadOptions={loadOptions}
           options={options}
           onChange={action('custom onChange')}

@@ -9,6 +9,7 @@ import Loader from 'react-loader-spinner';
 import theme from 'theme';
 
 import Box from 'ui/Box/Box';
+import Chip from 'ui/Chip/Chip';
 import Counter from 'ui/Counter/Counter';
 import Icon from 'ui/Icon/Icon';
 import Text from 'ui/Text/Text';
@@ -18,6 +19,24 @@ import ErrorMessage from './ErrorMessage';
 const StyledAddLabel = styled(Box)`
   justify-content: space-between;
   opacity: ${props => (props.disabled ? '0.5' : '1')};
+`;
+
+const ValueContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: ${rem('-6px')};
+`;
+
+const StyledMultiValueContainer = styled.div`
+  margin-top: ${rem('6px')};
+`;
+
+const StyledValue = styled.div`
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  padding: ${rem('8px')} 0;
+  flex: 1;
 `;
 
 // prettier-ignore
@@ -32,13 +51,11 @@ const SearchIcon = styled.div`
 `;
 
 const StyledCreatableChild = styled.div`
-  margin-left: ${rem('46px')};
   color: ${props => theme.colors.solitude.main};
 `;
 
 const StyledSearchablePlaceholder = styled(StyledCreatableChild)`
   color: ${props => theme.colors.grayChateau.main};
-  margin-left: ${rem('46px')};
 `;
 
 const LoadingIndicator = () => {
@@ -65,8 +82,10 @@ const SearchableValueContainer = ({ children, ...props }) => {
   return (
     components.ValueContainer && (
       <components.ValueContainer {...props}>
-        <SearchIcon />
-        {children}
+        <ValueContainer>
+          <SearchIcon />
+          <StyledValue>{children}</StyledValue>
+        </ValueContainer>
       </components.ValueContainer>
     )
   );
@@ -94,6 +113,14 @@ const SearchableSingleValue = ({ children, ...props }) => {
   );
 };
 
+const SearchableMenu = ({ children, ...props }) => {
+  if (props.selectProps.hiddenMenu) {
+    return null;
+  }
+
+  return components.Menu && <components.Menu {...props}>{children}</components.Menu>;
+};
+
 const AddLabel = ({ currentLength, error, inputValue, maxLength }) => {
   const disabled = currentLength > maxLength || error;
 
@@ -112,6 +139,24 @@ const AddLabel = ({ currentLength, error, inputValue, maxLength }) => {
   );
 };
 
+const MultiValue = ({ children, removeProps, ...props }) => {
+  return (
+    components.MultiValueContainer && (
+      <StyledMultiValueContainer>
+        <components.MultiValueContainer {...props}>
+          <Chip
+            color="terracota"
+            text={children}
+            onRemove={removeProps.onClick}
+            noMarginBottom
+            dark
+          />
+        </components.MultiValueContainer>
+      </StyledMultiValueContainer>
+    )
+  );
+};
+
 const customStyles = (isSearchable = false, error = false, withoutBorder = false) => ({
   control: (base, state) => ({
     ...base,
@@ -126,7 +171,6 @@ const customStyles = (isSearchable = false, error = false, withoutBorder = false
     backgroundColor: 'white',
     boxShadow: isSearchable && state.isFocused ? '0 0 20px -1px rgba(164, 166, 168, 0.3)' : 'none',
     minHeight: '48px',
-    maxHeight: '48px',
     color: theme.colors.solitude.main,
     '&:hover': {
       borderColor: 'transparent',
@@ -141,6 +185,14 @@ const customStyles = (isSearchable = false, error = false, withoutBorder = false
     ...base,
     width: 0,
     backgroundColor: 'transparent',
+  }),
+  input: (base, state) => ({
+    margin: 0,
+    marginTop: 6,
+    paddingTop: 0,
+    paddingBottom: 0,
+    display: 'flex',
+    alignItems: 'center',
   }),
   menu: (base, state) => ({
     ...base,
@@ -176,6 +228,8 @@ const customStyles = (isSearchable = false, error = false, withoutBorder = false
   }),
   singleValue: (base, state) => ({
     ...base,
+    display: 'flex',
+    alignItems: 'center',
     color: theme.colors.solitude.main,
   }),
   valueContainer: (base, state) => ({
@@ -189,6 +243,7 @@ const Select = ({
   canCreateOptions,
   error,
   hiddenIndicator,
+  hiddenMenu,
   isMulti,
   isClearable,
   isSearchable,
@@ -199,10 +254,11 @@ const Select = ({
   withoutBorder,
   ...inputProps
 }) => {
-  const searchableComponents = (isSearchable || canCreateOptions || loadOptions) && {
+  let searchableComponents = (isSearchable || canCreateOptions || loadOptions) && {
     Placeholder: SearchablePlaceholder,
     ValueContainer: SearchableValueContainer,
     SingleValue: SearchableSingleValue,
+    Menu: SearchableMenu,
   };
 
   if (canCreateOptions || loadOptions) {
@@ -214,6 +270,8 @@ const Select = ({
           components={{
             DropdownIndicator,
             LoadingIndicator,
+            MultiValue,
+            ValueContainer,
             ...searchableComponents,
           }}
           formatCreateLabel={inputValue => (
@@ -231,6 +289,7 @@ const Select = ({
 
             return false;
           }}
+          hiddenMenu={hiddenMenu}
           isClearable={isClearable}
           isMulti={isMulti}
           options={options}
@@ -255,8 +314,11 @@ const Select = ({
       <ReactSelect
         components={{
           DropdownIndicator,
+          MultiValue,
+          ValueContainer,
           ...searchableComponents,
         }}
+        hiddenMenu={hiddenMenu}
         isClearable={isClearable}
         isMulti={isMulti}
         isSearchable={isSearchable}
@@ -277,6 +339,7 @@ const Select = ({
 Select.propTypes = {
   canCreateOptions: PropTypes.bool,
   error: PropTypes.string,
+  hiddenMenu: PropTypes.bool,
   isClearable: PropTypes.bool,
   isMulti: PropTypes.bool,
   isSearchable: PropTypes.bool,
@@ -295,6 +358,7 @@ Select.propTypes = {
 Select.defaultProps = {
   canCreateOptions: false,
   error: null,
+  hiddenMenu: false,
   hiddenIndicator: false,
   isClearable: false,
   isMulti: false,
