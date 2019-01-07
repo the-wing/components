@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Box from 'ui/Box/Box';
 
-storiesOf('Box', module)
+storiesOf('UI/Box', module)
   .add('default', () => <Box>Box Default</Box>)
   .add('with color', () => <Box color="grannyApple">Box with color</Box>)
   .add('with margin set to number: 10', () => (

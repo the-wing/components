@@ -22,7 +22,7 @@ const Content = styled.div`
   }
 `;
 
-storiesOf('Member', module)
+storiesOf('Containers/Member', module)
   .add('default', () => <Member {...data.leslie} />)
   .add('in container with set width', () => (
     <Page>

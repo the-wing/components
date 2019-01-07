@@ -16,7 +16,7 @@ const store = new Store({
   loading: true,
 });
 
-storiesOf('Profile', module)
+storiesOf('Containers/Profile', module)
   .add('default', () => (
     <Profile
       {...defaultProps}

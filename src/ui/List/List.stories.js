@@ -40,7 +40,7 @@ const StyledListItem = styled(ListItem)`
   }
 `;
 
-storiesOf('List', module)
+storiesOf('UI/List', module)
   .add('default', () => (
     <List>
       <ListItem>Some text</ListItem>

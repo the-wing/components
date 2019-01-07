@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import DropZone from 'ui/DropZone/DropZone';
 
-storiesOf('DropZone', module)
+storiesOf('UI/DropZone', module)
   .add('default', () => <DropZone />)
   .add('children', () => <DropZone>Hello there. Please upload something!</DropZone>)
   .add('image exceeds maxSize', () => (

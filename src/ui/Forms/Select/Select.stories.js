@@ -1,7 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import { Media } from 'react-breakpoints';
 import { FormField, Label, Select } from 'ui/Forms';
+import Page from 'ui/Page/Page';
+import theme from 'theme';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
@@ -18,7 +21,7 @@ const loadOptions = (inputValue, callback) => {
   }, 1000);
 };
 
-storiesOf('Select', module)
+storiesOf('UI/Forms/Select', module)
   .add('default', () => (
     <FormField>
       <Label htmlFor="select1" text="Default" />
@@ -27,7 +30,7 @@ storiesOf('Select', module)
   ))
   .add('error', () => (
     <FormField>
-      <Label htmlFor="select1" text="Default" error="I have an error." />
+      <Label htmlFor="select1" text="Error" error="I have an error." />
       <Select
         id="select1"
         options={options}
@@ -40,6 +43,12 @@ storiesOf('Select', module)
     <FormField>
       <Label htmlFor="select4" text="With Placeholder" />
       <Select id="select4" options={options} placeholder="Select a flavor" />
+    </FormField>
+  ))
+  .add('withoutBorder', () => (
+    <FormField>
+      <Label htmlFor="select1" text="Without Border" />
+      <Select id="select1" options={options} withoutBorder />
     </FormField>
   ))
   .add('with custom onChange', () => (
@@ -62,9 +71,69 @@ storiesOf('Select', module)
   ))
   .add('hiddenIndicator', () => (
     <FormField>
-      <Label htmlFor="select8" text="Hidden Indicator" />
-      <Select id="select8" options={options} hiddenIndicator />
+      <Label htmlFor="select8asd" text="Hidden Indicator" />
+      <Select id="select8asd" options={options} hiddenIndicator />
     </FormField>
+  ))
+  .add('isMulti', () => (
+    <FormField>
+      <Label htmlFor="select1asd" text="Is Multi" />
+      <Select id="select1asd" options={options} isMulti />
+    </FormField>
+  ))
+  .add('search', () => (
+    <Page color={theme.colors.linen.main}>
+      <Media>
+        {({ breakpoints, currentBreakpoint }) => (
+          <FormField>
+            <Label htmlFor="select13434" text="Search" />
+            <Select
+              id="select13434"
+              onChange={action('custom onChange')}
+              canCreateOptions
+              isMulti
+              withoutBorder
+              hiddenIndicator
+              isSearchable
+              hiddenMenu
+              isClearable={breakpoints[currentBreakpoint] < breakpoints.tablet}
+            />
+          </FormField>
+        )}
+      </Media>
+    </Page>
+  ))
+  .add('search with many values', () => (
+    <Page color={theme.colors.linen.main}>
+      <Media>
+        {({ breakpoints, currentBreakpoint }) => (
+          <FormField>
+            <Label htmlFor="select13434" text="Search" />
+            <Select
+              id="select13434"
+              onChange={action('custom onChange')}
+              canCreateOptions
+              isMulti
+              withoutBorder
+              hiddenIndicator
+              isSearchable
+              hiddenMenu
+              isClearable={breakpoints[currentBreakpoint] < breakpoints.tablet}
+              value={[
+                { value: 'hello', label: 'Hello' },
+                { value: 'ron', label: 'Ron Swanson' },
+                { value: 'what', label: 'What are you up to' },
+                { value: 'are', label: 'Are you eating waffles' },
+                { value: 'or', label: 'Or eating a nice steak' },
+                { value: 'or2', label: 'Or sitting in front of a fire' },
+                { value: 'or3', label: 'Or talking about how much you hate' },
+                { value: 'parksdept', label: 'The parks dept?' },
+              ]}
+            />
+          </FormField>
+        )}
+      </Media>
+    </Page>
   ))
   .add('canCreateOptions', () => (
     <FormField>
@@ -107,7 +176,7 @@ storiesOf('Select', module)
       />
     </FormField>
   ))
-  .add('canCreateOptions w/ loadOptions (async function to search)', () => (
+  .add('canCreateOptions w/ loadOptions', () => (
     <FormField>
       <Label htmlFor="select9" text="Can Create Options" />
       <Select
@@ -122,7 +191,25 @@ storiesOf('Select', module)
       />
     </FormField>
   ))
-  .add('Cannot create options & has loadOptions (async function to search)', () => (
+  .add('canCreateOptions w/ loadOptions & isMulti & withoutBorder', () => (
+    <Page color={theme.colors.linen.main}>
+      <FormField>
+        <Label htmlFor="select900" text="Can Create Options (multi)" />
+        <Select
+          maxLength={30}
+          id="select900"
+          loadOptions={loadOptions}
+          options={options}
+          onChange={action('custom onChange')}
+          placeholder="Can create options (multi)"
+          canCreateOptions
+          isMulti
+          withoutBorder
+        />
+      </FormField>
+    </Page>
+  ))
+  .add('Cannot create options & has loadOptions', () => (
     <FormField>
       <Label htmlFor="select9" text="Can Create Options" />
       <Select

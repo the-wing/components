@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { FormField, Input, Label } from 'ui/Forms';
 
-storiesOf('Input', module)
+storiesOf('UI/Forms/Input', module)
   .add('default', () => (
     <FormField fullWidth>
       <Label htmlFor="id1" text="Label 1" />

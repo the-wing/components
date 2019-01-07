@@ -1,59 +1,91 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { rem } from 'polished';
 import theme from 'theme';
 
-import Box from 'ui/Box/Box';
 import Button from 'ui/Button/Button';
 import Icon from 'ui/Icon/Icon';
-import Text from 'ui/Text/Text';
 
-const Container = styled(Box)`
-  border: 1px solid rgba(7, 36, 79, 0.2);
-  border-radius: 22px;
-  height: 32px;
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${props =>
+    props.theme.colors[props.color] ? props.theme.colors[props.color].main : 'transparent'};
+  border: ${props =>
+    props.dark ? props.theme.colors[props.color].contrast : '1px solid rgba(7, 36, 79, 0.2)'};
+  border-radius: ${rem('22px')};
+  height: ${props => (props.small ? rem('29px') : rem('32px'))};
+  margin-right: ${rem('5px')};
+  margin-bottom: ${props => (props.noMarginBottom ? '0' : rem('11px'))};
 `;
 
-const Chip = ({ readonly, color, onRemove, style, text }) => (
+const Text = styled.span`
+  display: flex;
+  flex-grow: 1;
+  padding: 0 ${rem('16px')};
+  align-content: center;
+  font-family: ${props => props.theme.text[props.variant || 'primary']};
+  font-size: ${rem('13px')};
+  color: ${props =>
+    props.dark ? props.theme.colors[props.color].contrast : props.theme.colors.solitude.main};
+`;
+
+const IconContainer = styled.div`
+  margin-right: ${rem('16px')};
+`;
+
+const StyledIcon = styled(Icon)`
+  color: ${props =>
+    props.dark ? props.theme.colors[props.color].contrast : props.theme.colors.solitude.main};
+`;
+
+const Chip = ({ dark, readonly, color, noMarginBottom, onRemove, small, style, text }) => (
   <Container
+    dark={dark}
     key={text}
     color={color}
-    margin={{ right: 0.35, bottom: 0.7 }}
-    vAlignContent="center"
+    noMarginBottom={noMarginBottom}
     style={style}
+    small
   >
-    <Box grow height="100%" padding={{ horizontal: 1 }} vAlignContent="center">
-      <Text color="solitude" size={13 / 16}>
-        {text}
-      </Text>
-    </Box>
+    <Text dark={dark} color={color}>
+      {text}
+    </Text>
     {!readonly && (
-      <Box margin={{ right: 1 }}>
+      <IconContainer>
         <Button onClick={onRemove} transparent>
-          <Icon
+          <StyledIcon
+            color={color}
+            dark={dark}
             size={10}
             name="close"
-            color="solitude"
             style={{ marginTop: '2.7px' }}
             weight="800"
           />
         </Button>
-      </Box>
+      </IconContainer>
     )}
   </Container>
 );
-
 Chip.propTypes = {
+  dark: PropTypes.bool,
   readonly: PropTypes.bool,
   color: PropTypes.oneOf(Object.keys(theme.colors)),
+  noMarginBottom: PropTypes.bool,
+  small: PropTypes.bool,
   text: PropTypes.string.isRequired,
   onRemove: PropTypes.func,
 };
 
 Chip.defaultProps = {
+  dark: false,
   readonly: false,
   color: 'pink',
+  noMarginBottom: false,
   onRemove: null,
+  small: false,
 };
 
 export default Chip;

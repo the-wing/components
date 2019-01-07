@@ -8,7 +8,7 @@ const Container = styled.div`
   height: 32px;
 `;
 
-storiesOf('Image', module)
+storiesOf('UI/Image', module)
   .add('with url', () => (
     <Container>
       <Image url="assets/img/defaultAvatar.png" />

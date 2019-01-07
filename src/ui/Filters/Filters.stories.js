@@ -16,22 +16,33 @@ const store = new Store({
     location: [],
     topic: [],
   },
-  filterOptions : [{
-    filters: [{ _id: "0", name: "Raspberry" }, { _id: "1", name: "Vanilla" }, { _id: "2", name: "Sea Salt & Vinegar"}],
-    section: "topping",
-  },{
-    filters: [{ _id: "3", name: "Blue" }, { _id: "4", name: "Golden" }, { _id: "5", name: "My Favorite Color"}],
-    section: "color",
-  }],
-  clearFilters: () => store.set({ activeFilters: store.get('initialFilters')}),
-  setFilter: ({ accessor, filter }) => store.set({ activeFilters: { ...store.get('activeFilters'), [accessor]: filter }})
+  filterOptions: [
+    {
+      filters: [
+        { _id: '0', name: 'Raspberry' },
+        { _id: '1', name: 'Vanilla' },
+        { _id: '2', name: 'Sea Salt & Vinegar' },
+      ],
+      section: 'topping',
+    },
+    {
+      filters: [
+        { _id: '3', name: 'Blue' },
+        { _id: '4', name: 'Golden' },
+        { _id: '5', name: 'My Favorite Color' },
+      ],
+      section: 'color',
+    },
+  ],
+  clearFilters: () => store.set({ activeFilters: store.get('initialFilters') }),
+  setFilter: ({ accessor, filter }) =>
+    store.set({ activeFilters: { ...store.get('activeFilters'), [accessor]: filter } }),
 });
 
-storiesOf('Filters', module)
-  .add('default', () => (
-    <State store={store}>
-      {state => {
-        return (  
+storiesOf('UI/Filters', module).add('default', () => (
+  <State store={store}>
+    {state => {
+      return (
         <Page>
           <Filters
             title="Filter By"
@@ -41,8 +52,7 @@ storiesOf('Filters', module)
             setFilter={store.get('setFilter')}
           />
         </Page>
-        );
-      }}
-    </State>
-  ));
-
+      );
+    }}
+  </State>
+));

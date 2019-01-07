@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { Addon, FormField, Input, InputGroup, Label } from 'ui/Forms';
 import SocialIcon from 'ui/SocialIcon/SocialIcon';
 
-storiesOf('Addon', module)
+storiesOf('UI/Forms/Addon', module)
   .add('default', () => (
     <InputGroup gutter="0px">
       <FormField>
