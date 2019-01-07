@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import { Media } from 'react-breakpoints';
 import { FormField, Label, Select } from 'ui/Forms';
 import Page from 'ui/Page/Page';
 import theme from 'theme';
@@ -82,20 +83,24 @@ storiesOf('UI/Forms/Select', module)
   ))
   .add('search', () => (
     <Page color={theme.colors.linen.main}>
-      <FormField>
-        <Label htmlFor="select13434" text="Search" />
-        <Select
-          id="select13434"
-          onChange={action('custom onChange')}
-          canCreateOptions
-          isMulti
-          withoutBorder
-          hiddenIndicator
-          isSearchable
-          hiddenMenu
-          isClearable
-        />
-      </FormField>
+      <Media>
+        {({ breakpoints, currentBreakpoint }) => (
+          <FormField>
+            <Label htmlFor="select13434" text="Search" />
+            <Select
+              id="select13434"
+              onChange={action('custom onChange')}
+              canCreateOptions
+              isMulti
+              withoutBorder
+              hiddenIndicator
+              isSearchable
+              hiddenMenu
+              isClearable={breakpoints[currentBreakpoint] < breakpoints.tablet}
+            />
+          </FormField>
+        )}
+      </Media>
     </Page>
   ))
   .add('canCreateOptions', () => (
