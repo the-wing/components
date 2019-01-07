@@ -1,4 +1,4 @@
-import React, { Children, PureComponent } from 'react';
+import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import ReactSlick from 'react-slick';
 import styled from 'styled-components';
@@ -22,24 +22,11 @@ const Overlay = styled.div`
   top: 0;
   bottom: 0;
   box-shadow: ${props =>
-    `inset ${props.isLastSlide ? rem('40px') : rem('-40px')} 0 ${rem('60px')} ${rem('-30px')} ${
+    `inset 40px 0px 60px -30px ${props.theme.colors.linen.main}, inset -40px 0px 60px -30px ${
       props.theme.colors.linen.main
     }`};
   pointer-events: none;
   z-index: 2;
-
-  &::before {
-    position: absolute;
-    content: '';
-    display: block;
-    top: 0;
-    left: ${props => (props.isLastSlide ? 'auto' : '0')};
-    right: ${props => (props.isLastSlide ? '0' : 'auto')};
-    height: 100%;
-    width: ${rem('30px')};
-    background: ${props => props.theme.colors.linen.main};
-    z-index: 3;
-  }
 `;
 
 const StyledReactSlick = styled(ReactSlick)`
@@ -157,94 +144,80 @@ const NextArrow = ({ onClick }) => <StyledNextArrow onClick={onClick} />;
 
 const PrevArrow = ({ onClick }) => <StyledPrevArrow onClick={onClick} />;
 
-class Carousel extends PureComponent {
-  state = {
-    slideIndex: 0,
+const Carousel = ({
+  arrows,
+  centerPadding,
+  children,
+  dots,
+  infinite,
+  responsiveSettings,
+  speed,
+  slidesToShow,
+  slidesToScroll,
+}) => {
+  const settings = {
+    appendDots,
+    arrows,
+    centerMode: true,
+    centerPadding,
+    className: 'center',
+    dots,
+    dotsClass: '',
+    infinite,
+    initialSlide: 0,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    speed,
+    slidesToShow,
+    slidesToScroll,
   };
 
-  beforeChange = (prevIndex, nextIndex) => {
-    this.setState(() => ({ slideIndex: nextIndex }));
-  };
-
-  render() {
-    const {
-      arrows,
-      centerMode,
-      centerPadding,
-      children,
-      dots,
-      infinite,
-      responsiveSettings,
-      speed,
-      slidesToShow,
-      slidesToScroll,
-    } = this.props;
-
-    const settings = {
-      appendDots,
-      arrows,
-      beforeChange: this.beforeChange,
-      centerMode,
-      centerPadding: centerMode ? centerPadding : null,
-      className: centerMode ? 'center' : '',
-      dots,
-      dotsClass: '',
-      infinite,
-      initialSlide: 0,
-      nextArrow: <NextArrow />,
-      prevArrow: <PrevArrow />,
-      speed,
-      slidesToShow,
-      slidesToScroll,
-    };
-
-    return (
-      <Container>
-        <Overlay isLastSlide={this.state.slideIndex + 1 === children.length} />
-        <Media>
-          {({ breakpoints }) => (
-            <StyledReactSlick
-              {...settings}
-              responsive={[
-                {
-                  breakpoint: breakpoints.desktopLarge + 1,
-                  settings: {
-                    ...responsiveSettings.desktopLarge,
-                  },
+  return (
+    <Container>
+      <Overlay />
+      <Media>
+        {({ breakpoints }) => (
+          <StyledReactSlick
+            {...settings}
+            responsive={[
+              {
+                breakpoint: breakpoints.desktopLarge + 1,
+                settings: {
+                  ...responsiveSettings.desktopLarge,
                 },
-                {
-                  breakpoint: breakpoints.desktop + 1,
-                  settings: {
-                    ...responsiveSettings.desktop,
-                  },
+              },
+              {
+                breakpoint: breakpoints.desktop + 1,
+                settings: {
+                  ...responsiveSettings.desktop,
                 },
-                {
-                  breakpoint: breakpoints.tablet + 1,
-                  settings: {
-                    arrows: false,
-                    ...responsiveSettings.tablet,
-                  },
+              },
+              {
+                breakpoint: breakpoints.tablet + 1,
+                settings: {
+                  arrows: false,
+                  ...responsiveSettings.tablet,
                 },
-                {
-                  breakpoint: breakpoints.mobile + 1,
-                  settings: {
-                    arrows: false,
-                    slidesToShow: 1,
-                    ...responsiveSettings.mobile,
-                  },
+              },
+              {
+                breakpoint: breakpoints.mobile + 1,
+                settings: {
+                  arrows: false,
+                  slidesToShow: 1,
+                  ...responsiveSettings.mobile,
                 },
-              ]}
-            >
-              {Children.map(children, child => (
-                <div>{child}</div>
-              ))}
-            </StyledReactSlick>
-          )}
-        </Media>
-      </Container>
-    );
-  }
-}
+              },
+            ]}
+          >
+            {Children.map(children, child => (
+              <div>{child}</div>
+            ))}
+          </StyledReactSlick>
+        )}
+      </Media>
+    </Container>
+  );
+};
 
 Carousel.propTypes = {
   arrows: PropTypes.bool,
@@ -265,7 +238,6 @@ Carousel.propTypes = {
 
 Carousel.defaultProps = {
   arrows: true,
-  centerMode: true,
   centerPadding: '20px',
   dots: true,
   infinite: true,
