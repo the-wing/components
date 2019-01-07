@@ -6,7 +6,7 @@ const StyledCreatableChild = styled.div`
 `;
 
 const SearchableSingleValue = props => {
-  const { children, getStyles, innerProps, selectProps } = props;
+  const { children, getStyles, innerProps } = props;
 
   return (
     <div style={getStyles('singleValue', props)} {...innerProps}>
