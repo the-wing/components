@@ -103,6 +103,38 @@ storiesOf('UI/Forms/Select', module)
       </Media>
     </Page>
   ))
+  .add('search with many values', () => (
+    <Page color={theme.colors.linen.main}>
+      <Media>
+        {({ breakpoints, currentBreakpoint }) => (
+          <FormField>
+            <Label htmlFor="select13434" text="Search" />
+            <Select
+              id="select13434"
+              onChange={action('custom onChange')}
+              canCreateOptions
+              isMulti
+              withoutBorder
+              hiddenIndicator
+              isSearchable
+              hiddenMenu
+              isClearable={breakpoints[currentBreakpoint] < breakpoints.tablet}
+              value={[
+                { value: 'hello', label: 'Hello' },
+                { value: 'ron', label: 'Ron Swanson' },
+                { value: 'what', label: 'What are you up to' },
+                { value: 'are', label: 'Are you eating waffles' },
+                { value: 'or', label: 'Or eating a nice steak' },
+                { value: 'or2', label: 'Or sitting in front of a fire' },
+                { value: 'or3', label: 'Or talking about how much you hate' },
+                { value: 'parksdept', label: 'The parks dept?' },
+              ]}
+            />
+          </FormField>
+        )}
+      </Media>
+    </Page>
+  ))
   .add('canCreateOptions', () => (
     <FormField>
       <Label htmlFor="select9" text="Can Create Options" />

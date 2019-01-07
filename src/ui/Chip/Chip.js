@@ -83,7 +83,6 @@ Chip.defaultProps = {
   dark: false,
   readonly: false,
   color: 'pink',
-  margin: null,
   noMarginBottom: false,
   onRemove: null,
   small: false,

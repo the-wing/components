@@ -9,6 +9,7 @@ export const ValueContainer = styled.div`
   display: flex;
   align-items: center;
   margin-top: ${rem('-6px')};
+  flex: 1;
 `;
 
 const SearchableValueContainer = props => {
