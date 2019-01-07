@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { default as ReactSelect, components } from 'react-select';
 import Async from 'react-select/lib/Async';
 import AsyncCreatableSelect from 'react-select/lib/AsyncCreatable';
-import styled from 'styled-components';
-import { rem } from 'polished';
 
 import ErrorMessage from 'ui/Forms/ErrorMessage';
 
