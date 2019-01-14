@@ -1,6 +1,6 @@
 {
   "name": "@thewing/components",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Shared components for The Wing",
   "main": "dist/index.js",
   "publishConfig": {
@@ -9,9 +9,7 @@
   "repository": "git@github.com:the-wing/components.git",
   "author": "The Wing",
   "license": "MIT",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "engines": {
     "node": ">=8.11.4"
   },

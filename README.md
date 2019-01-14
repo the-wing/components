@@ -50,12 +50,6 @@ For some useful CSS helpers, we use ✨ [Polished](https://polished.js.org/docs)
 
 ---
 
-## Publishing
-
-Bump the version on master and run `npm publish`. (Process TBD)
-
----
-
 ## Usage
 
 ### Normalize
