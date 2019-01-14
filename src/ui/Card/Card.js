@@ -36,7 +36,7 @@ const Triangle = () => (
 
 const StyledCard = styled.div`
   position: relative;
-  background: ${props => props.theme.colors.white.main};
+  background: ${props => props.theme.colors[`${props.bgColor}`].main};
   border: 1px solid
     ${props =>
       props.secondary ? props.theme.colors.blueDark.main : props.theme.colors.brandyPunch.main};
@@ -46,9 +46,9 @@ const StyledCard = styled.div`
     props.shadow ? `0 7px 10px 0 ${props.theme.colors.albescentWhite.main}` : 'none'};
 `;
 
-const Card = ({ children, corners, secondary, shadow }) => {
+const Card = ({ children, corners, secondary, shadow, bgColor }) => {
   return (
-    <StyledCard secondary={secondary} corners={corners} shadow={shadow}>
+    <StyledCard secondary={secondary} corners={corners} shadow={shadow} bgColor={bgColor}>
       {corners && (
         <TriangleContainer secondary={secondary}>
           <Triangle />
@@ -68,12 +68,14 @@ Card.propTypes = {
   children: PropTypes.node.isRequired,
   corners: PropTypes.bool,
   shadow: PropTypes.bool,
+  bgColor: PropTypes.string,
 };
 
 Card.defaultProps = {
   secondary: false,
   corners: false,
   shadow: false,
+  bgColor: 'white',
 };
 
 export default Card;
