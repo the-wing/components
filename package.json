@@ -1,6 +1,6 @@
 {
   "name": "@thewing/components",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Shared components for The Wing",
   "main": "dist/index.js",
   "publishConfig": {
@@ -9,7 +9,9 @@
   "repository": "git@github.com:the-wing/components.git",
   "author": "The Wing",
   "license": "MIT",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=8.11.4"
   },
@@ -40,7 +42,8 @@
     "react-slick": "^0.23.2",
     "react-spring": "^6.1.9",
     "slick-carousel": "^1.8.1",
-    "validator": "^10.8.0"
+    "validator": "^10.8.0",
+    "video-react": "^0.13.2"
   },
   "scripts": {
     "build:package": "yarn build:clean && yarn build:js",
