@@ -38,4 +38,12 @@ storiesOf('UI/Card', module)
         Lots of text.
       </Card>
     </Page>
+  ))
+  .add('with custom background color', () => (
+    <Page>
+      <Card corners secondary bgColor="grannyApple">
+        A secondary card with corners. And it has a lot of text. There is more text. Here is more.
+        Lots of text.
+      </Card>
+    </Page>
   ));
